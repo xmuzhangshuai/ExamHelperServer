@@ -28,7 +28,6 @@
 	}
 	function chooseQuestionType(){
 	
-	//alert("change");
 	var questionType=document.getElementById("chooseQT").value;
 	var sectionName=document.getElementById("hiddenValue").value;
 	var singleChoice="单项选择题"
@@ -41,7 +40,6 @@
 	document.getElementById("fom").action="${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=单项选择题&sectionName="+sectionName;
 	else if(questionType==multiChoice){
 	document.getElementById("fom").action="${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=多项选择题&sectionName="+sectionName;
-	alert(document.getElementById("fom").action)
 	}else if(questionType==trueOrFalse)
 	document.getElementById("fom").action="${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=判断题&sectionName="+sectionName;
 	else if(questionType==analysis)
@@ -214,7 +212,7 @@
 												<tr>
 													<td width="538" style="width: 154px; height: 48px">题型选择：
 														<select id="chooseQT"  onchange="chooseQuestionType();">
-															<option selected="selected">${questionType.typeName}</option>
+															<option>${questionType.typeName}</option>
 															<c:forEach items="${questionTypes}" var="type">
 																<option>${type.typeName}</option>
 															</c:forEach>
@@ -257,7 +255,7 @@
 											value="删除所选题目" onclick="delSelected();" /> <input
 											type="hidden" name="paramsHidden" id="paramsHidden" /> <input
 											name="Submit2" type="button" class="right-button08"
-											value="添加单项选择题" onclick="link();" /></td>
+											value="添加多项选择题" onclick="link();" /></td>
 									</tr>
 									<tr>
 										<td height="40" class="font42">
@@ -265,24 +263,24 @@
 												cellspacing="1" bgcolor="#464646" class="newfont03">
 												<tr class="CTitle">
 													<td height="22" colspan="7" align="center"
-														style="font-size:16px">单项选择题列表</td>
+														style="font-size:16px">多项选择题列表</td>
 												</tr>
 												<tr bgcolor="#EEEEEE">
 													<td width="4%" align="center" height="30">选择</td>
 													<td width="10%">题目名</td>
 													<td width="12%">操作</td>
 												</tr>
-												<c:forEach items="${singleChoices}" var="singleChoice">
+												<c:forEach items="${multiChoices}" var="mulChoice">
 													<tr bgcolor="#FFFFFF">
 														<td height="20"><input type="checkbox"
-															name="delid${singleChoice.id}" /></td>
+															name="delid${mulChoice.id}" /></td>
 														<td><a
-															href="${pageContext.request.contextPath}/question.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">
+															href="${pageContext.request.contextPath}/question.do?flag=showMultiChoice&multiChoiceId=${multiChoice.id}">
 																<c:set var="testStr"
-																	value="${singleChoice.questionStem}" /> <c:choose>
+																	value="${multiChoice.questionStem}" /> <c:choose>
 																	<c:when test="${fn:length(testStr) > 50}">
 																		<c:out value="${fn:substring(testStr, 0, 50)}......"
-																			escapeXml="${pageContext.request.contextPath}/question.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}" />
+																			escapeXml="${pageContext.request.contextPath}/question.do?flag=showMultiChoice&multiChoiceId=${mulChoice.id}" />
 																	</c:when>
 																	<c:otherwise>
 																		<c:out value="${testStr}" />
@@ -292,8 +290,8 @@
 
 														</a></td>
 														<td><a
-															href="${pageContext.request.contextPath}/question.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}&edit=true">编辑|</a><a
-															href="${pageContext.request.contextPath}/question.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">查看|</a>
+															href="${pageContext.request.contextPath}/question.do?flag=showMultiChoice&multiChoiceId=${mulitChoice.id}&edit=true">编辑|</a><a
+															href="${pageContext.request.contextPath}/question.do?flag=showMultiChoice&multiChoiceId=${multiChoice.id}">查看|</a>
 															<!--  	<a href="${pageContext.request.contextPath}/listQuestion.do?flag=deleteSection&sectionId=${section.id}">删除</a></td>-->
 															<a href="#">删除</a></td>
 													</tr>

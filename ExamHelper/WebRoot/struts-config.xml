@@ -54,13 +54,18 @@
       type="com.yrw.web.actions.QuestionAction"
       validate="false"
       cancellable="true">
-      <forward name="showMaterialAnalysisList" path="/ShowMaterialAnalysis.jsp" />
-      <forward name="showMultiChoiceList" path="/ShowMultiChoice.jsp" />
-      <forward name="showSingleChoiceList" path="/ShowSingleChoiceList.jsp" />
-      <forward name="showSingleChoiceDetail" path="/ShowSingleChoice.jsp" />
-      <forward name="showTrueOrFalseList" path="/ShowTrueOrFalse.jsp" />
-      <forward name="addSingleChoice" path="/AddSingleChoice.jsp" />
+       <forward name="addSingleChoice" path="/AddSingleChoice.jsp" />
       <forward name="edtiSingleChoice" path="/EditSingleChoice.jsp"/>
+      <forward name="showSingleChoiceList" path="/ShowSingleChoiceList.jsp" />
+      <forward name="showSingleChoice" path="/ShowSingleChoice.jsp" />
+      
+      <forward name="showTrueOrFalseList" path="/ShowTrueOrFalseList.jsp" />
+      
+      <forward name="showMaterialAnalysisList" path="/ShowMaterialAnalysisList.jsp" />
+      
+      <forward name="showMultiChoiceList" path="/ShowMultiChoiceList.jsp" />
+      <forward name="showMultiChoice" path="/ShowMultiChoice.jsp"/>
+     
     </action>
 
 

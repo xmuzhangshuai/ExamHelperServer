@@ -52,8 +52,8 @@
 	
 	}
 	function back(){
-	var sectionId=document.getElementById("sectionId").value;
-	document.getElementById("fom").action="${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=单项选择题&sectionId="+sectionId;
+	var sectionName=document.getElementById("sectionName").value;
+	document.getElementById("fom").action="${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=单项选择题&sectionName="+sectionName;
 	document.getElementById("fom").submit();
 	}
 	
@@ -69,7 +69,7 @@
 			<table width="99%" border="0" cellpadding="0" cellspacing="0"
 				class="CContent" >
 				<tr>
-					<th class="tablestyle_title">单选题</th>
+					<th class="tablestyle_title">单项选择题</th>
 				</tr>
 				<tr>
 					<td style="width: 485px; "><input type="button" value="返回单选题列表"
@@ -186,7 +186,7 @@
 												<option>${item.sectionName}</option>
 											</c:forEach>
 									</select></td>
-									<td><input type="hidden" id="sectionId" value="${section.id}"/></td>
+									<td><input type="hidden" id="sectionId" value="${section.sectionName}"/></td>
 								</tr>
 							</table>
 						</fieldset></td>

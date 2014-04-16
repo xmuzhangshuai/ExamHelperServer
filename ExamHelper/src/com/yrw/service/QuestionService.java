@@ -233,6 +233,7 @@ public class QuestionService {
 			collection.add(pageMap);
 			collection.add(singleCohiceList);
 			collection.add("showSingleChoiceList");
+			
 
 		} else if (typeName.equals(DefaultValue.MULTI_CHOICE)) {
 			int pageCount = iMultiChoiceDao.getPageCountBySection(sectionId);
@@ -300,6 +301,7 @@ public class QuestionService {
 			collection.add(pageMap);
 			collection.add(materialAnalysisList);
 			collection.add("showMaterialAnalysisList");
+			
 		}
 		return collection;
 	}
@@ -348,8 +350,20 @@ public class QuestionService {
 
 	}
 
-	public List<Questiontype> showQuestiontypes() {
+	public List<Questiontype> showQuestiontypes(String typeName) {
 		List<Questiontype> questiontypes = iQuestionTypeDao.getQuestionTypes();
+		Questiontype questiontype=null;
+		int i=0;
+		for(;i<questiontypes.size();i++)
+		{
+			if(questiontypes.get(i).getTypeName().equals(typeName)){
+				questiontype=questiontypes.get(i);
+				break;
+			}
+		}
+		
+		questiontypes.set(i, questiontypes.get(0));
+		questiontypes.set(0, questiontype);
 		return questiontypes;
 	}
 
