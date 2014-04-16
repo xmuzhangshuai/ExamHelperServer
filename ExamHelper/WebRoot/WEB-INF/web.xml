@@ -69,6 +69,11 @@
     <servlet-name>QueryServlet</servlet-name>
     <servlet-class>com.yrw.servlet.QueryServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ImageUploadServlet</servlet-name>
+    <servlet-class>com.yrw.servlet.ImageUploadServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -120,6 +125,10 @@
   <servlet-mapping>
     <servlet-name>QueryServlet</servlet-name>
     <url-pattern>/QueryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ImageUploadServlet</servlet-name>
+    <url-pattern>/ImageUploadServlet</url-pattern>
   </servlet-mapping>
 
 

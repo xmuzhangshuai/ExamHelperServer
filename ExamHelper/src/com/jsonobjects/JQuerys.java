@@ -55,12 +55,21 @@ public class JQuerys {
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 		IUserDao iUserDao = (IUserDao) applicationContext.getBean("userDao");
 		IQuestionTypeDao iQuestionTypeDao = (IQuestionTypeDao) applicationContext.getBean("questionTypeDao");
+		Integer adoptUserID = null;
+		Integer netId = null;
+		if (adopt_user_id != null) {
+			adoptUserID = adopt_user_id.intValue();
+		}
+
+		if (id != null) {
+			netId = id.intValue();
+		}
 
 		com.yrw.domains.Query local = new com.yrw.domains.Query(iUserDao.getUserById(new Long(user_id).intValue()),
 				iQuestionTypeDao.getQuestiontypeById(new Long(questionType_id).intValue()),
 				new Long(question_id).intValue(), query_stem, new Timestamp(query_time.getTime()), integral,
-				adopt_user_id.intValue(), query_image, null);
-		local.setId(id.intValue());
+				adoptUserID, query_image, null);
+		local.setId(netId);
 		return local;
 	}
 

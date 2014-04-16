@@ -59,9 +59,21 @@ public class QueryService {
 	 * @return
 	 */
 	public List<Answerquery> getAnswerListByQueryID(int queryID) {
-		List<Answerquery> temp = new ArrayList<Answerquery>();
+		return iAnswerQueryDao.getAnswerQueryByQueryId(queryID);
+	}
 
-		return temp;
+	/**
+	 * 根据疑问ID返回回答列表数量
+	 * 
+	 * @param queryID
+	 * @return
+	 */
+	public int getAnswerCounetByQueryID(int queryID) {
+		List<Answerquery> temp = iAnswerQueryDao.getAnswerQueryByQueryId(queryID);
+		if (temp == null) {
+			return 0;
+		}
+		return temp.size();
 	}
 
 	/**

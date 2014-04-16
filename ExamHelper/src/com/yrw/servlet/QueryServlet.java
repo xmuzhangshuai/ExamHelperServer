@@ -13,10 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jsonobjects.JQuerys;
-import com.jsonobjects.JUser;
 import com.yrw.domains.Query;
 import com.yrw.domains.User;
-import com.yrw.service.NoteService;
 import com.yrw.service.QueryService;
 import com.yrw.service.UserService;
 import com.yrw.tools.FastJsonTools;
@@ -39,11 +37,6 @@ public class QueryServlet extends BaseServlet {
 
 		// 类型
 		type = request.getParameter("type");
-		// // 每次获取题目数量
-		// int size = Integer.parseInt(request.getParameter("size").trim());
-		// // 从那一条开始获取
-		// int startIndex =
-		// Integer.parseInt(request.getParameter("startIndex").trim());
 
 		// 如果是按页返回疑问列表
 		if (type.equals("getQueryByPage")) {
@@ -62,8 +55,8 @@ public class QueryServlet extends BaseServlet {
 					map.put("queryId", query.getId());
 					map.put("queryContent", query.getQueryStem());
 					map.put("queryImage", query.getQueryImage());
-					map.put("queryTime", (Date)query.getQueryTime());
-					// map.put("queryAnswerNum", queryService.get);
+					map.put("queryTime", (Date) query.getQueryTime());
+					map.put("queryAnswerNum", queryService.getAnswerCounetByQueryID(query.getId()));
 					data.add(map);
 				}
 			}
@@ -71,6 +64,20 @@ public class QueryServlet extends BaseServlet {
 			if (data != null) {
 				msg = FastJsonTools.createJsonString(data);
 			}
+		}
+		// 如果是发布答疑
+		else if (type.equals("addquery")) {
+			String queryString = request.getParameter("query");
+			JQuerys jQuerys = FastJsonTools.createJsonBean(queryString, JQuerys.class);
+			try {
+				queryService.addQuery(jQuerys.NetToLocal());
+				msg = "OK";
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+				msg = "NOT OK";
+			}
+
 		}
 
 		out.write(msg);
