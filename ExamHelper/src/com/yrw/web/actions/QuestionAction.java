@@ -17,6 +17,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DispatchAction;
 
 import com.yrw.config.DefaultValue;
+import com.yrw.domains.Multichoice;
 import com.yrw.domains.Questiontype;
 import com.yrw.domains.Section;
 import com.yrw.domains.Singlechoice;
@@ -113,31 +114,39 @@ public class QuestionAction extends DispatchAction {
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws UnsupportedEncodingException {
 		// TODO Auto-generated method stub
-		// 加载问题类型
-		List<Questiontype> questiontypes = questionService.showQuestiontypes();
-		request.setAttribute("questionTypes", questiontypes);
 
-		//
-		String sectionName = new String(request.getParameter("sectionName").getBytes(
-				"ISO-8859-1"), "utf-8");
+		// 加载章节类型
+		String sectionName = new String(request.getParameter("sectionName")
+				.getBytes("ISO-8859-1"), "utf-8");
 		String typeName = new String(request.getParameter("typeName").getBytes(
 				"ISO-8859-1"), "utf-8");
+
+		System.out.println("showQuestionByTySection " + typeName);
 		request.getSession().setAttribute("typeName", typeName);
 		String pageNowString = request.getParameter("pageNow");
-		
+
 		int subjectId = (Integer) request.getSession()
 				.getAttribute("subjectId");
-		
+
+		// 加载问题类型
+		List<Questiontype> questiontypes = questionService
+				.showQuestiontypes(typeName);
+		request.setAttribute("questionType", questiontypes.get(0));
+		questiontypes.remove(0);
+		request.setAttribute("questionTypes", questiontypes);
+
 		// 加载章节下的题目
-		Section existSection=sectionService.getSectionBySectionName(sectionName);
-		List collection = questionService.listQuestionBySection(existSection.getId(),
-				pageNowString, typeName);
+		Section existSection = sectionService
+				.getSectionBySectionName(sectionName);
+		List collection = questionService.listQuestionBySection(
+				existSection.getId(), pageNowString, typeName);
 
 		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
 		request.setAttribute("pageCount", pageMap.get("pageCount"));
 		request.setAttribute("pageNow", pageMap.get("pageNow"));
-
+		// 为jsp中的hidden设置值
 		request.setAttribute("sectionName", sectionName);
+		//设置问题
 		if (typeName.equals(DefaultValue.SINGLE_CHOICE))
 
 			request.setAttribute("singleChoices", (List) collection.get(1));
@@ -211,15 +220,16 @@ public class QuestionAction extends DispatchAction {
 				subjectId, singlechoice.getSection().getId());
 
 		if (sectionList != null) {
+
 			request.setAttribute("section", sectionList.get(0));
 			sectionList.remove(0);
 			request.setAttribute("sections", sectionList);
 		} else
 			request.setAttribute("section", "暂无所属科目");
-		if (isEdit.equals("true"))
+		if (isEdit != null) {
 			return mapping.findForward("edtiSingleChoice");
-		else
-			return mapping.findForward("showSingleChoiceDetail");
+		} else
+			return mapping.findForward("showSingleChoice");
 	}
 
 	/**
@@ -279,8 +289,9 @@ public class QuestionAction extends DispatchAction {
 		}
 
 		questionService.addSingleChoice(singlechoice);
-		//设置在showQuestioBySection中要使用参数
-		request.setAttribute("sectionName", singlechoice.getSection().getSectionName());
+		// 设置在showQuestioBySection中要使用参数
+		request.setAttribute("sectionName", singlechoice.getSection()
+				.getSectionName());
 		request.setAttribute("typeName", "单项选择题");
 
 		return showQuestionBySection(mapping, null, request, response);
@@ -328,4 +339,52 @@ public class QuestionAction extends DispatchAction {
 		request.setAttribute("singleChoiceId", singleChoiceId);
 		return showSingleChoice(mapping, singleChoiceForm, request, response);
 	}
+	/**
+	 * 显示多项选择详情
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward showMultiChoice(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		int multiChoiceId = Integer.parseInt(request
+				.getParameter("multiChoiceId"));
+		String isEdit = request.getParameter("edit");
+		Multichoice multichoice = (Multichoice) questionService
+				.showQuestion(multiChoiceId, DefaultValue.MULTI_CHOICE);
+		request.setAttribute("multiChoice", multichoice);
+
+		// 获得subject下拉菜单里的所有subject
+		int subjectId = (Integer) request.getSession()
+				.getAttribute("subjectId");
+		List<Subject> subjectList = subjectService.getSubjectList(subjectId);
+		if (subjectList != null) {
+			request.setAttribute("subject", subjectList.get(0));
+			subjectList.remove(0);
+			request.setAttribute("subjects", subjectList);
+		} else
+			request.setAttribute("subject", "暂无所属科目");
+
+		// 获得下拉菜单里的所有section
+
+		List<Section> sectionList = sectionService.listSectionBySubIdAndSecId(
+				subjectId, multichoice.getSection().getId());
+
+		if (sectionList != null) {
+
+			request.setAttribute("section", sectionList.get(0));
+			sectionList.remove(0);
+			request.setAttribute("sections", sectionList);
+		} else
+			request.setAttribute("section", "暂无所属科目");
+		if (isEdit != null) {
+			return mapping.findForward("edtiMultiChoice");
+		} else
+			return mapping.findForward("showMultiChoice");
+	}
+
 }
