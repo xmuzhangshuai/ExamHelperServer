@@ -14,62 +14,82 @@ import com.yrw.domains.Answerquery;
  */
 public interface IAnswerQueryDao extends IBasicDao {
 
-	/**得到所有的回答信息，按时间排序
+	/**
+	 * 得到所有的回答信息，按时间排序
+	 * 
 	 * @param pageNow
 	 * @return List
 	 */
-	public List getAnswerQuery(int  pageNow);
+	public List getAnswerQuery(int pageNow);
+
 	/**
 	 * 得到回答信息呈现时需要的页数
+	 * 
 	 * @return int
 	 */
 	public int getPageCount();
-	/**Method getAnswerQueryByUserId 
+
+	/**
+	 * Method getAnswerQueryByUserId
+	 * 
 	 * @param pageNow
 	 * @param userId
 	 * @return
 	 */
-	public List getAnswerQueryByUserId(int pageNow,int userId);
-	
+	public List getAnswerQueryByUserId(int pageNow, int userId);
+
 	/**
 	 * @param userId
-	 * @return 
+	 * @return
 	 */
 	public int getPageCountByUserId(int userId);
-	
+
 	/**
 	 * @param queryId
 	 * @param pageNow
 	 * @return
 	 */
-	public List getAnswerQueryByQueryId(int queryId,int pageNow);
+	public List getAnswerQueryByQueryId(int queryId, int pageNow);
+
+	/**
+	 * 分局疑问ID返回回答列表
+	 * 
+	 * @param queryId
+	 * @return
+	 */
+	public List<Answerquery> getAnswerQueryByQueryId(int queryId);
+
 	/**
 	 * @param queryId
-	 * @return 
+	 * @return
 	 */
-	public int getPageCountByQueryId(int  queryId);
-	
-	
-	/**显示具体某条信息
+	public int getPageCountByQueryId(int queryId);
+
+	/**
+	 * 显示具体某条信息
+	 * 
 	 * @param answerQueryId
 	 * @return Answerquery
 	 */
 	public Answerquery showAnswerQuery(int answerQueryId);
-	
+
 	/**
 	 * @param answerquery
 	 */
 	public void addAnswerQuery(Answerquery answerquery);
+
 	/**
 	 * @param answerqueryId
 	 */
 	public void delAnswerQuery(int answerqueryId);
-	
-	/**同时删除多条信息
+
+	/**
+	 * 同时删除多条信息
+	 * 
 	 * @param answerqueryIds
 	 */
 	public void delAnswerQuerys(List<Integer> answerqueryIds);
-	
+
 	/**
 	 * @param answerquery
 	 */
