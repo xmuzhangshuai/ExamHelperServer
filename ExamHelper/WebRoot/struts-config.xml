@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN" "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+
+<struts-config>
+	<form-beans>
+		<form-bean name="loginForm" type="com.yrw.web.forms.LoginForm" />
+		<form-bean name="subjectForm" type="com.yrw.web.forms.SubjectForm" />
+		<form-bean name="sectionForm" type="com.yrw.web.forms.SectionForm" />
+    <form-bean name="singleChoiceForm" type="com.yrw.web.forms.SingleChoiceForm" />
+   
+   
+
+
+	</form-beans>
+	<global-exceptions />
+	<global-forwards>
+		<forward name="success" path="/Success.jsp" />
+		<forward name="fail" path="/Fail.jsp" />
+
+	</global-forwards>
+	<action-mappings>
+		<action attribute="loginForm" input="/Login.jsp" name="loginForm"
+			parameter="flag" path="/login" scope="request" validate="false"
+			cancellable="true">
+			<forward name="goLoginUI" path="/Login.jsp" />
+			<forward name="loginSuccess" path="/Lead.jsp" />
+			<forward name="loadLeft" path="/Left.jsp" />
+		</action>
+
+		<action attribute="subjectForm" name="subjectForm" parameter="flag"
+			path="/subject" scope="request" type="com.yrw.web.actions.SubjectAction"
+			validate="false" cancellable="true">
+			<forward name="listSubject" path="/ShowSubject.jsp" />
+			<forward name="addSubject" path="/AddSubject.jsp" />
+			<forward name="updateSubject" path="/UpdateSubject.jsp" />
+			<forward name="updateSectionUI" path="/UpdateSection.jsp" />
+		</action>
+
+		<action attribute="sectionForm" name="sectionForm" parameter="flag"
+			path="/listQuestion" scope="request" type="com.yrw.web.actions.ListQuestionAction"
+			cancellable="true">
+			<forward name="listSection" path="/ShowSection.jsp" />
+			<forward name="updateSectionUI" path="/UpdateSection.jsp" />
+			<forward name="addSectionUI" path="/AddSection.jsp" />
+			<forward name="showExamList" path="/ShowExamList.jsp" />
+		</action>
+
+		<action
+      attribute="singleChoiceForm"
+      name="singleChoiceForm"
+      parameter="flag"
+      path="/question"
+      scope="request"
+      type="com.yrw.web.actions.QuestionAction"
+      validate="false"
+      cancellable="true">
+      <forward name="showMaterialAnalysisList" path="/ShowMaterialAnalysis.jsp" />
+      <forward name="showMultiChoiceList" path="/ShowMultiChoice.jsp" />
+      <forward name="showSingleChoiceList" path="/ShowSingleChoiceList.jsp" />
+      <forward name="showSingleChoiceDetail" path="/ShowSingleChoice.jsp" />
+      <forward name="showTrueOrFalseList" path="/ShowTrueOrFalse.jsp" />
+      <forward name="addSingleChoice" path="/AddSingleChoice.jsp" />
+      <forward name="edtiSingleChoice" path="/EditSingleChoice.jsp"/>
+    </action>
+
+
+
+
+	</action-mappings>
+	<!-- 配置代理请求处理器 -->
+	<controller>
+		<set-property property="processorClass"
+			value="org.springframework.web.struts.DelegatingRequestProcessor" />
+	</controller>
+	<message-resources parameter="com.yrw.web.struts.ApplicationResources" />
+
+</struts-config>
+

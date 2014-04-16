@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="ExamHelper">
+        <wb-resource deploy-path="/" source-path="/WebRoot" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <property name="context-root" value="ExamHelper"/>
+        <property name="java-output-path" value="/ExamHelper/WebRoot/WEB-INF/classes"/>
+        <property name="me-struts-base-pkg" value="com.yrw.web.struts"/>
+    </wb-module>
+</project-modules>

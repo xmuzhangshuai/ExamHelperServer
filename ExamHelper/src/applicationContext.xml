@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                                                        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                                                        http://www.springframework.org/schema/context 
+                                                        http://www.springframework.org/schema/context/spring-context-2.5.xsd
+                                                        http://www.springframework.org/schema/tx 
+                                                        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<!--启用注解扫描 -->
+	<context:annotation-config />
+
+	<!-- hibernate配置，使用读入资源的方式 -->
+	<bean id="placeHolder"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="3" />
+		<property name="maxActive" value="500" />
+		<property name="maxIdle" value="2" />
+		<property name="minIdle" value="1" />
+
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>com/yrw/domains/Answerquery.hbm.xml </value>
+				<value>com/yrw/domains/Collection.hbm.xml</value>
+				<value>com/yrw/domains/Errorquestions.hbm.xml </value>
+				<value>com/yrw/domains/Examination.hbm.xml </value>
+				<value>com/yrw/domains/Examquestion.hbm.xml</value>
+				<value>com/yrw/domains/Examsection.hbm.xml</value>
+				<value>com/yrw/domains/Group.hbm.xml</value>
+				<value>com/yrw/domains/Groupquestion.hbm.xml </value>
+				<value>com/yrw/domains/Materialanalysis.hbm.xml </value>
+				<value>com/yrw/domains/Manager.hbm.xml </value>
+				<value>com/yrw/domains/Multichoice.hbm.xml </value>
+				<value>com/yrw/domains/Note.hbm.xml </value>
+				<value>com/yrw/domains/Query.hbm.xml</value>
+				<value>com/yrw/domains/Questionsofmaterial.hbm.xml </value>
+				<value>com/yrw/domains/Questiontype.hbm.xml </value>
+				<value>com/yrw/domains/Section.hbm.xml</value>
+				<value>com/yrw/domains/Singlechoice.hbm.xml </value>
+				<value>com/yrw/domains/Studyrecord.hbm.xml </value>
+				<value>com/yrw/domains/Subject.hbm.xml </value>
+				<value>com/yrw/domains/Trueorfalse.hbm.xml</value>
+				<value>com/yrw/domains/User.hbm.xml</value>
+			</list>
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="show_sql">true</prop>
+				<prop key="format_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+
+
+
+	<!-- 使用属性注入方式 -->
+	<bean id="managerDao" class="com.yrw.dao.ManagerDao" />
+	<bean id="subjectDao" class="com.yrw.dao.SubjectDao" />
+	<bean id="questionTypeDao" class="com.yrw.dao.QuestionTypeDao" />
+	<bean id="sectionDao" class="com.yrw.dao.SectionDao" />
+	<bean id="answerQueryDao" class="com.yrw.dao.AnswerQueryDao" />
+	<bean id="examinationDao" class="com.yrw.dao.ExaminationDao" />
+	<bean id="examQuestionDao" class="com.yrw.dao.ExamQuestion" />
+	<bean id="examSectionDao" class="com.yrw.dao.ExamSectionDao" />
+	<bean id="materialAnalysisDao" class="com.yrw.dao.MaterialAnalysisDao" />
+	<bean id="multiChoiceDao" class="com.yrw.dao.MultiChoiceDao" />
+	<bean id="queryDao" class="com.yrw.dao.QueryDao" />
+	<bean id="questionOfMaterialDao" class="com.yrw.dao.QuestionOfMaterialDao" />
+	<bean id="singleChoiceDao" class="com.yrw.dao.SingleChoiceDao" />
+	<bean id="trueOrFalseDao" class="com.yrw.dao.TrueOrFalseDao" />
+	<bean id="userDao" class="com.yrw.dao.UserDao" />
+	<bean id="collectionDao" class="com.yrw.dao.CollectionDao" />
+	<bean id="noteDao" class="com.yrw.dao.NoteDao" />
+	<bean id="errorQuestionDao" class="com.yrw.dao.ErrorQuestionDao" />
+	<!-- 托管services -->
+	<bean id="questionService" class="com.yrw.service.QuestionService">
+		<property name="iQuestionTypeDao" ref="questionTypeDao" />
+		<property name="iSingleChoiceDao" ref="singleChoiceDao" />
+		<property name="iMultiChoiceDao" ref="multiChoiceDao" />
+		<property name="iTrueOrFalseDao" ref="trueOrFalseDao" />
+		<property name="iMaterialAnalysisDao" ref="materialAnalysisDao" />
+		<property name="iQuestionsOfMaterial" ref="questionOfMaterialDao" />
+		<property name="iSectionDao" ref="sectionDao" />
+		<property name="iSubjectDao" ref="subjectDao" />
+	</bean>
+	<bean id="subjectService" class="com.yrw.service.SubjectService">
+		<property name="iSubjectDao" ref="subjectDao" />
+	</bean>
+	<bean id="sectionService" class="com.yrw.service.SectionService">
+		<property name="iSectionDao" ref="sectionDao" />
+		<property name="iSubjectDao" ref="subjectDao" />
+	</bean>
+	<bean id="loginService" class="com.yrw.service.LoginService">
+		<property name="iManagerDao" ref="managerDao" />
+		<property name="iSubjectDao" ref="subjectDao" />
+	</bean>
+	<bean id="userService" class="com.yrw.service.UserService">
+		<property name="iUserDao" ref="userDao" />
+	</bean>
+	<bean id="queryService" class="com.yrw.service.QueryService">
+		<property name="iQueryDao" ref="queryDao" />
+		<property name="iAnswerQueryDao" ref="answerQueryDao" />
+	</bean>
+	<bean id="collectionService" class="com.yrw.service.CollectionService">
+		<property name="icollectionDao" ref="collectionDao" />
+	</bean>
+	<bean id="noteService" class="com.yrw.service.NoteService">
+		<property name="iNoteDao" ref="noteDao" />
+	</bean>
+	<bean id="errorQuestionService" class="com.yrw.service.ErrorQuestionService">
+		<property name="iErrorQuestionDao" ref="errorQuestionDao" />
+	</bean>
+	<bean id="examService" class="com.yrw.service.ExamService">
+	<property name="iExaminationDao" ref="examinationDao"/>
+	<property name="iExamQuestionDao" ref="examQuestionDao"/>
+	<property name="iExamSectionDao" ref="examSectionDao"/>
+	</bean>
+	<!-- 托管action -->
+	<bean name="/login" class="com.yrw.web.actions.LoginAction">
+		<property name="loginService" ref="loginService" />
+	</bean>
+	<bean name="/subject" class="com.yrw.web.actions.SubjectAction">
+		<property name="subjectService" ref="subjectService" />
+		<property name="sectionService" ref="sectionService"/>
+	</bean>
+	<bean name="/listQuestion" class="com.yrw.web.actions.ListQuestionAction">
+		<property name="questionService" ref="questionService" />
+		<property name="sectionService" ref="sectionService" />
+		<property name="subjectService" ref="subjectService" />
+		<property name="examService" ref="examService"/>
+	</bean>
+	<bean name="/question" class="com.yrw.web.actions.QuestionAction">
+		<property name="questionService" ref="questionService" />
+		<property name="subjectService" ref="subjectService"/>
+		<property name="sectionService" ref="sectionService"/>
+	</bean>
+	<!-- 事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager" />
+</beans>

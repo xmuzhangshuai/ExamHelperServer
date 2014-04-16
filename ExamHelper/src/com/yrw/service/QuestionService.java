@@ -1,0 +1,485 @@
+package com.yrw.service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.hibernate.engine.spi.Mapping;
+
+import com.yrw.config.DefaultValue;
+import com.yrw.dao.QuestionOfMaterialDao;
+import com.yrw.domains.Materialanalysis;
+import com.yrw.domains.Multichoice;
+import com.yrw.domains.Questionsofmaterial;
+import com.yrw.domains.Questiontype;
+import com.yrw.domains.Section;
+import com.yrw.domains.Singlechoice;
+import com.yrw.domains.Subject;
+import com.yrw.domains.Trueorfalse;
+import com.yrw.idao.IMaterialAnalysisDao;
+import com.yrw.idao.IMultiChoiceDao;
+import com.yrw.idao.IQuestionTypeDao;
+import com.yrw.idao.IQuestionsOfMaterial;
+import com.yrw.idao.ISectionDao;
+import com.yrw.idao.ISingleChoiceDao;
+import com.yrw.idao.ISubjectDao;
+import com.yrw.idao.ITrueOrFalseDao;
+
+public class QuestionService {
+	private IQuestionTypeDao iQuestionTypeDao;
+	private ISingleChoiceDao iSingleChoiceDao;
+	private IMultiChoiceDao iMultiChoiceDao;
+	private ITrueOrFalseDao iTrueOrFalseDao;
+	private IMaterialAnalysisDao iMaterialAnalysisDao;
+	private IQuestionsOfMaterial iQuestionsOfMaterial;
+	private ISectionDao iSectionDao;
+	private ISubjectDao iSubjectDao;
+
+	public void setiSubjectDao(ISubjectDao iSubjectDao) {
+		this.iSubjectDao = iSubjectDao;
+	}
+
+	public void setiSectionDao(ISectionDao iSectionDao) {
+		this.iSectionDao = iSectionDao;
+	}
+
+	public void setiQuestionTypeDao(IQuestionTypeDao iQuestionTypeDao) {
+		this.iQuestionTypeDao = iQuestionTypeDao;
+	}
+
+	public void setiSingleChoiceDao(ISingleChoiceDao iSingleChoiceDao) {
+		this.iSingleChoiceDao = iSingleChoiceDao;
+	}
+
+	public void setiMultiChoiceDao(IMultiChoiceDao iMultiChoiceDao) {
+		this.iMultiChoiceDao = iMultiChoiceDao;
+	}
+
+	public void setiTrueOrFalseDao(ITrueOrFalseDao iTrueOrFalseDao) {
+		this.iTrueOrFalseDao = iTrueOrFalseDao;
+	}
+
+	public void setiMaterialAnalysisDao(
+			IMaterialAnalysisDao iMaterialAnalysisDao) {
+		this.iMaterialAnalysisDao = iMaterialAnalysisDao;
+	}
+
+	public void setiQuestionsOfMaterial(
+			IQuestionsOfMaterial iQuestionsOfMaterial) {
+		this.iQuestionsOfMaterial = iQuestionsOfMaterial;
+	}
+
+	// /**
+	// * 根据每个科目的题型显示
+	// *
+	// * @param request
+	// * @param typeName
+	// * @param pageNow
+	// * @param subjectId
+	// * @return
+	// */
+	// public List listQuestionByType(String typeName, String pageNowString,
+	// int subjectId) {
+	//
+	// String path = null;
+	// Map<String, Integer> pageMap = new HashMap<String, Integer>();
+	// List collection = new ArrayList();
+	// if (typeName.equals(DefaultValue.SINGLE_CHOICE)) {
+	// int pageCount = iSingleChoiceDao.getPageCountBySubject(subjectId);
+	// int pageNow = 1;
+	// if (pageNowString != null) {
+	// pageNow = Integer.parseInt(pageNowString);
+	// if (pageNow < 1)
+	// pageNow = 1;
+	// else if (pageNow > pageCount)
+	// pageNow = pageCount;
+	//
+	// }
+	//
+	// pageMap.put("pageCount", pageCount);
+	// pageMap.put("pageNow", pageNow);
+	//
+	// List singleCohiceList = iSingleChoiceDao.getSingleChoiceBySubject(
+	// pageNow, subjectId);
+	//
+	// collection.add(pageCount);
+	// collection.add(singleCohiceList);
+	// collection.add("showSingleChoice");
+	//
+	// } else if (typeName.equals(DefaultValue.MULTI_CHOICE)) {
+	// int pageCount = iMultiChoiceDao.getPageCountBySubject(subjectId);
+	// int pageNow = 1;
+	// if (pageNowString != null) {
+	// pageNow = Integer.parseInt(pageNowString);
+	// if (pageNow < 1)
+	// pageNow = 1;
+	// else if (pageNow > pageCount)
+	// pageNow = pageCount;
+	//
+	// }
+	//
+	// pageMap.put("pageCount", pageCount);
+	// pageMap.put("pageNow", pageNow);
+	//
+	// List multiCohiceList = iMultiChoiceDao.getMultiChoiceBySubject(
+	// pageNow, subjectId);
+	//
+	// collection.add(pageCount);
+	// collection.add(multiCohiceList);
+	// collection.add("showMultiChoice");
+	//
+	// } else if (typeName.equals(DefaultValue.TRUE_OR_FALSE)) {
+	// int pageCount = iTrueOrFalseDao.getPageCountBySubject(subjectId);
+	// int pageNow = 1;
+	// if (pageNowString != null) {
+	// pageNow = Integer.parseInt(pageNowString);
+	// if (pageNow < 1)
+	// pageNow = 1;
+	// else if (pageNow > pageCount)
+	// pageNow = pageCount;
+	//
+	// }
+	//
+	// pageMap.put("pageCount", pageCount);
+	// pageMap.put("pageNow", pageNow);
+	//
+	// List trueOrFalseList = iTrueOrFalseDao.getTrueOrFalseBySubject(
+	// pageNow, subjectId);
+	//
+	// collection.add(pageCount);
+	// collection.add(trueOrFalseList);
+	// collection.add("showTrueOrFalse");
+	//
+	// } else if (typeName.equals(DefaultValue.MATERIAL_ANALYSIS)) {
+	// int pageCount = iMaterialAnalysisDao
+	// .getPageCountBySubject(subjectId);
+	// int pageNow = 1;
+	// if (pageNowString != null) {
+	// pageNow = Integer.parseInt(pageNowString);
+	// if (pageNow < 1)
+	// pageNow = 1;
+	// else if (pageNow > pageCount)
+	// pageNow = pageCount;
+	//
+	// }
+	//
+	// pageMap.put("pageCount", pageCount);
+	// pageMap.put("pageNow", pageNow);
+	//
+	// List materialAnalysisList = iMaterialAnalysisDao
+	// .getMaterialAnalysisBySubject(pageNow, subjectId);
+	//
+	// collection.add(pageCount);
+	// collection.add(materialAnalysisList);
+	// collection.add("showMaterialAnalysis");
+	// }
+	// return collection;
+	// }
+
+	/**
+	 * 通过类型及id号获取对象
+	 * 
+	 * @param id
+	 * @param typeName
+	 * @return
+	 */
+	public Object getQuestion(int id, String typeName) {
+		if (typeName.equals(DefaultValue.SINGLE_CHOICE)) {
+			return iSingleChoiceDao.showSinglechoice(id);
+		} else if (typeName.equals(DefaultValue.MULTI_CHOICE)) {
+			return iMultiChoiceDao.showMultichoice(id);
+
+		} else if (typeName.equals(DefaultValue.TRUE_OR_FALSE)) {
+			return iTrueOrFalseDao.showTrueorfalse(id);
+		} else if (typeName.equals(DefaultValue.MATERIAL_ANALYSIS)) {
+			return iMaterialAnalysisDao.showMaterialAnalysis(id);
+		}
+		return null;
+	}
+
+	/**
+	 * 根据科目下的章节显示题目列表
+	 * 
+	 * @param sectionId
+	 * @return
+	 */
+	public List listQuestionBySection(int sectionId, String pageNowString,
+			String typeName) {
+		Map<String, Integer> pageMap = new HashMap<String, Integer>();
+		List collection = new ArrayList();
+		if (typeName.equals(DefaultValue.SINGLE_CHOICE)) {
+			int pageCount = iSingleChoiceDao.getPageCountBySection(sectionId);
+			int pageNow = 1;
+			if (pageNowString != null) {
+				pageNow = Integer.parseInt(pageNowString);
+				if (pageNow < 1)
+					pageNow = 1;
+				else if (pageNow > pageCount)
+					pageNow = pageCount;
+
+			}
+
+			pageMap.put("pageCount", pageCount);
+			pageMap.put("pageNow", pageNow);
+
+			List singleCohiceList = iSingleChoiceDao.getSingleChoiceBySection(
+					pageNow, sectionId);
+
+			collection.add(pageMap);
+			collection.add(singleCohiceList);
+			collection.add("showSingleChoiceList");
+
+		} else if (typeName.equals(DefaultValue.MULTI_CHOICE)) {
+			int pageCount = iMultiChoiceDao.getPageCountBySection(sectionId);
+			int pageNow = 1;
+			if (pageNowString != null) {
+				pageNow = Integer.parseInt(pageNowString);
+				if (pageNow < 1)
+					pageNow = 1;
+				else if (pageNow > pageCount)
+					pageNow = pageCount;
+
+			}
+
+			pageMap.put("pageCount", pageCount);
+			pageMap.put("pageNow", pageNow);
+
+			List multiCohiceList = iMultiChoiceDao.getMultiChoiceBySection(
+					pageNow, sectionId);
+
+			collection.add(pageMap);
+			collection.add(multiCohiceList);
+			collection.add("showMultiChoiceList");
+
+		} else if (typeName.equals(DefaultValue.TRUE_OR_FALSE)) {
+			int pageCount = iTrueOrFalseDao.getPageCountBySection(sectionId);
+			int pageNow = 1;
+			if (pageNowString != null) {
+				pageNow = Integer.parseInt(pageNowString);
+				if (pageNow < 1)
+					pageNow = 1;
+				else if (pageNow > pageCount)
+					pageNow = pageCount;
+
+			}
+
+			pageMap.put("pageCount", pageCount);
+			pageMap.put("pageNow", pageNow);
+
+			List trueOrFalseList = iTrueOrFalseDao.getTrueOrFalseBySection(
+					pageNow, sectionId);
+
+			collection.add(pageMap);
+			collection.add(trueOrFalseList);
+			collection.add("showTrueOrFalseList");
+
+		} else if (typeName.equals(DefaultValue.MATERIAL_ANALYSIS)) {
+			int pageCount = iMaterialAnalysisDao
+					.getPageCountBySection(sectionId);
+			int pageNow = 1;
+			if (pageNowString != null) {
+				pageNow = Integer.parseInt(pageNowString);
+				if (pageNow < 1)
+					pageNow = 1;
+				else if (pageNow > pageCount)
+					pageNow = pageCount;
+
+			}
+
+			pageMap.put("pageCount", pageCount);
+			pageMap.put("pageNow", pageNow);
+
+			List materialAnalysisList = iMaterialAnalysisDao
+					.getMaterialAnalysisBySection(pageNow, sectionId);
+
+			collection.add(pageMap);
+			collection.add(materialAnalysisList);
+			collection.add("showMaterialAnalysisList");
+		}
+		return collection;
+	}
+
+	/**
+	 * 查看某题的具体信息
+	 * 
+	 * @param singleChoiceId
+	 * @return
+	 */
+	public Object showQuestion(int id, String typeName) {
+		if (typeName.equals(DefaultValue.SINGLE_CHOICE)) {
+			return iSingleChoiceDao.showSinglechoice(id);
+		}
+
+		else if (typeName.equals(DefaultValue.MULTI_CHOICE)) {
+			return iMultiChoiceDao.showMultichoice(id);
+
+		} else if (typeName.equals(DefaultValue.TRUE_OR_FALSE)) {
+			return iTrueOrFalseDao.showTrueorfalse(id);
+
+		} else if (typeName.equals(DefaultValue.MATERIAL_ANALYSIS)) {
+			return iMaterialAnalysisDao.showMaterialAnalysis(id);
+		}
+		return null;
+	}
+
+	/**
+	 * 删除某个题
+	 * 
+	 * @param request
+	 * @param typeName
+	 * @param id
+	 */
+	public void deleteQuestion(String typeName, int id) {
+		if (typeName.equals(DefaultValue.SINGLE_CHOICE))
+			iSingleChoiceDao.delSingleChoice(id);
+
+		else if (typeName.equals(DefaultValue.MULTI_CHOICE))
+			iMultiChoiceDao.delMultiChoice(id);
+
+		else if (typeName.equals(DefaultValue.TRUE_OR_FALSE))
+			iTrueOrFalseDao.delTrueOrFalse(id);
+		else if (typeName.equals(DefaultValue.MATERIAL_ANALYSIS))
+			iMaterialAnalysisDao.delMaterialAnalysis(id);
+
+	}
+
+	public List<Questiontype> showQuestiontypes() {
+		List<Questiontype> questiontypes = iQuestionTypeDao.getQuestionTypes();
+		return questiontypes;
+	}
+
+	// /**
+	// * 显示题型
+	// *
+	// * @param pageNowString
+	// * @return
+	// */
+	// public List listType(String pageNowString) {
+	// int pageNow = 1;
+	// int pageCount = iQuestionTypeDao.getPageCount();
+	// if (pageNowString != null) {
+	// pageNow = Integer.parseInt(pageNowString);
+	// if (pageNow < 1)
+	// pageNow = 1;
+	// else if (pageNow > pageCount)
+	// pageNow = pageCount;
+	// }
+	// List list = iQuestionTypeDao.getQuestionType(pageNow);
+	// return list;
+	// }
+
+	/**
+	 * 添加单选题
+	 * 
+	 * @param sectionId
+	 * @param singlechoice
+	 */
+	public void addSingleChoice( Singlechoice singlechoice) {
+		iSingleChoiceDao.addSingleChoice(singlechoice);
+
+	}
+
+	/**
+	 * 添加多选题
+	 * 
+	 * @param sectionId
+	 * @param multichoice
+	 */
+	public void addMultiChoice(int sectionId, Multichoice multichoice) {
+		Section section = (Section) iSectionDao.getSectionById(sectionId);
+		multichoice.setSection(section);
+		iMultiChoiceDao.add(multichoice);
+	}
+
+	/**
+	 * 增加判断题
+	 * 
+	 * @param sectionId
+	 * @param trueorfalse
+	 */
+	public void addTrueOrFalse(int sectionId, Trueorfalse trueorfalse) {
+		Section section = (Section) iSectionDao.getSectionById(sectionId);
+		trueorfalse.setSection(section);
+		iTrueOrFalseDao.add(trueorfalse);
+	}
+
+	/**
+	 * 增加材料分析题
+	 * 
+	 * @param sectionId
+	 * @param materialanalysis
+	 * @param questionofMaterial
+	 */
+	public void addMaterialAnalysis(int sectionId,
+			Materialanalysis materialanalysis, Set questionofMaterial) {
+		Section section = (Section) iSectionDao.getSectionById(sectionId);
+		materialanalysis.setSection(section);
+		materialanalysis.setQuestionsofmaterials(questionofMaterial);
+		iMaterialAnalysisDao.add(materialanalysis);
+	}
+
+	/**
+	 * 增加材料分析题的小题
+	 * 
+	 * @param materialAnalysisId
+	 * @param questionsofmaterial
+	 */
+	public void addQuestionofMaterial(int materialAnalysisId,
+			Set questionsofmaterialSet) {
+		Materialanalysis materialanalysis = iMaterialAnalysisDao
+				.showMaterialAnalysis(materialAnalysisId);
+
+		Questionsofmaterial questionsofmaterial = null;
+		if (!questionsofmaterialSet.isEmpty()) {
+			Set set = materialanalysis.getQuestionsofmaterials();
+			Iterator<Questionsofmaterial> iterator = questionsofmaterialSet
+					.iterator();
+			while (iterator.hasNext()) {
+				questionsofmaterial = (Questionsofmaterial) iterator.next();
+				questionsofmaterial.setQuestionNumber(iQuestionsOfMaterial
+						.getMaxQuestionNumByMaterialId(materialAnalysisId) + 1);
+				set.add(questionsofmaterial);
+				questionsofmaterial.setMaterialanalysis(materialanalysis);
+			}
+			materialanalysis.setQuestionsofmaterials(set);
+			iMaterialAnalysisDao.update(materialanalysis);
+			iQuestionsOfMaterial.add(questionsofmaterial);
+		}
+	}
+
+	/**
+	 * 修改单选题
+	 * 
+	 * @param singlechoice
+	 */
+	public void updateSingleChoice(Singlechoice singlechoice) {
+		iSingleChoiceDao.updateSinglechoice(singlechoice);
+	}
+
+	/**
+	 * 修改多选题
+	 * 
+	 * @param multichoice
+	 */
+	public void updateMultiChoice(Multichoice multichoice) {
+		iMultiChoiceDao.update(multichoice);
+	}
+
+	/**
+	 * 修改材料题
+	 * 
+	 * @param materialanalysis
+	 */
+	public void updateMaterialAnalysis(Materialanalysis materialanalysis) {
+		iMaterialAnalysisDao.updateMaterialAnalysis(materialanalysis);
+	}
+
+	public void updateQuestionofMaterial(Questionsofmaterial questionsofmaterial) {
+		iQuestionsOfMaterial.updateQuestionOfMaterial(questionsofmaterial);
+	}
+}

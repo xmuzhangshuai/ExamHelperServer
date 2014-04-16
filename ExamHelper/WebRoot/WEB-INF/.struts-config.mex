@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowViewLayout Version="1.2">
+  <StrutsActivity path="/login.do" location="390,75" dimension="232,104" />
+  <StrutsActivity path="/subject.do" location="930,255" dimension="242,104" />
+  <StrutsActivity path="/listQuestion.do" location="585,480" dimension="271,104" />
+  <StrutsActivity path="/question.do" location="950,450" dimension="252,104" />
+  <StrutsActivity path="success;6" location="120,360" dimension="170,87" />
+  <StrutsActivity path="fail;6" location="104,229" dimension="150,100" />
+  <StrutsActivity path="/WEB-INF/Login.jsp" location="120,90" dimension="150,100" />
+  <StrutsActivity path="/WEB-INF/AddSubject.jsp" location="950,150" dimension="180,53" />
+  <StrutsActivity path="/WEB-INF/ListSubjects.jsp" location="296,467" dimension="150,100" />
+  <StrutsActivity path="/WEB-INF/ListQuestionBySection.jsp" location="350,250" dimension="241,53" />
+  <StrutsActivity path="/WEB-INF/ListQuestionByType.jsp" location="50,650" dimension="227,53" />
+  <StrutsActivity path="/WEB-INF/ListQuestionsType.jsp" location="420,585" dimension="150,100" />
+  <StrutsActivity path="/WEB-INF/ShowSingleChoice.jsp" location="650,650" dimension="219,53" />
+  <StrutsActivity path="/WEB-INF/AddSingleChoice.jsp" location="950,750" dimension="212,53" />
+  <StrutsActivity path="/WEB-INF/ShowMultiChoice.jsp" location="350,750" dimension="213,53" />
+  <StrutsActivity path="/WEB-INF/Success.jsp" location="645,390" dimension="159,53" />
+  <StrutsActivity path="/WEB-INF/Fail.jsp" location="650,250" dimension="133,53" />
+  <StrutsActivity path="/WEB-INF/listQuestionBySection.jsp" location="1044,590" dimension="150,100" />
+  <StrutsActivity path="/WEB-INF/MainFrame.jsp" location="750,75" dimension="150,100" />
+  <StrutsActivity path="/WEB-INF/ShowMaterialAnalysis.jsp" location="50,850" dimension="239,53" />
+  <StrutsTransition id="success;6,null,/WEB-INF/Success.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="290,416" />
+      <AbsolutePoint location="645,416" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/listQuestion.do,chooseType,/WEB-INF/ListQuestionsType.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="720,532" />
+      <AbsolutePoint location="495,635" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/question.do,showSingleChoice,/WEB-INF/ShowSingleChoice.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="1076,502" />
+      <AbsolutePoint location="0,0" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/question.do,showMultiChoice,/WEB-INF/ShowMultiChoice.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="1076,502" />
+      <AbsolutePoint location="0,0" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/question.do,addSingleChoice,/WEB-INF/AddSingleChoice.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="1029,554" />
+      <AbsolutePoint location="1029,750" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/listQuestion.do,listQuestionByType,/WEB-INF/ListQuestionByType.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="720,532" />
+      <AbsolutePoint location="0,0" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/listQuestion.do,listQuestionBySection,/WEB-INF/ListQuestionBySection.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="720,532" />
+      <AbsolutePoint location="0,0" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/subject.do,addSubject,/WEB-INF/AddSubject.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="1040,255" />
+      <AbsolutePoint location="1040,203" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/WEB-INF/Login.jsp,null,/login.do,2" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="270,127" />
+      <AbsolutePoint location="390,127" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/question.do,showMaterialAnalysis,/WEB-INF/ShowMaterialAnalysis.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="950,502" />
+      <AbsolutePoint location="884,502" />
+      <AbsolutePoint location="884,876" />
+      <AbsolutePoint location="289,876" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="fail;6,null,/WEB-INF/Fail.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="254,235" />
+      <AbsolutePoint location="716,235" />
+      <AbsolutePoint location="716,250" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/subject.do,listSubject,/WEB-INF/ListSubjects.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="930,318" />
+      <AbsolutePoint location="371,318" />
+      <AbsolutePoint location="371,467" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+</FlowViewLayout>
+
