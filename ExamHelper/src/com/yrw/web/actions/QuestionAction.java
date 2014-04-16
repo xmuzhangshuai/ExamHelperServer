@@ -124,8 +124,7 @@ public class QuestionAction extends DispatchAction {
 				"ISO-8859-1"), "utf-8");
 		request.getSession().setAttribute("typeName", typeName);
 		String pageNowString = request.getParameter("pageNow");
-		System.out.println("QuestionAction:showQUestionBYSection" + sectionName
-				+ " " + typeName);
+		
 		int subjectId = (Integer) request.getSession()
 				.getAttribute("subjectId");
 		
@@ -138,6 +137,7 @@ public class QuestionAction extends DispatchAction {
 		request.setAttribute("pageCount", pageMap.get("pageCount"));
 		request.setAttribute("pageNow", pageMap.get("pageNow"));
 
+		request.setAttribute("sectionName", sectionName);
 		if (typeName.equals(DefaultValue.SINGLE_CHOICE))
 
 			request.setAttribute("singleChoices", (List) collection.get(1));

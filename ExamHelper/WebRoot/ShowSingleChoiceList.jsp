@@ -28,11 +28,16 @@
 	}
 	function chooseQuestionType(){
 	var questionType=document.getElementById("questionType").value;
-	
+	var sectionName=document.getElementById("sectionName").value;
 	if(questionType.toString().equals("单项选择题"))
-	document.getElementById("fom").action="${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&sectionName=${}&typeName=单项选择题"
+	document.getElementById("fom").action="${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=单项选择题&sectionName="+sectionName;
 	else if(questionType.toString().equals("多项选择题"))
-	document.getElementById("fom").action="${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&sectionName=${}&typeName=单项选择题"
+	document.getElementById("fom").action="${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=多项项选择题&sectionName="+sectionName;
+	else if(questionType.toString().equals("判断题"))
+	document.getElementById("fom").action="${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=判断题&sectionName="+sectionName;
+	else if(questionType.toString().equals("材料分析题"))
+	document.getElementById("fom").action="${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=材料分析题&sectionName="+sectionName;
+	
 	}
 	function selectAll() {
 
@@ -286,6 +291,7 @@
 												</c:forEach>
 											</table>
 										</td>
+										<td><input type="hidden" value="${sectionName}"/></td>
 									</tr>
 								</table>
 								<table width="95%" border="0" align="center" cellpadding="0"
