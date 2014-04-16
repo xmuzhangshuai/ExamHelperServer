@@ -42,7 +42,7 @@ public class AnswerQueryDao extends BasicDao implements IAnswerQueryDao {
 	public List getAnswerQueryByUserId(int pageNow, int userId) {
 		// TODO Auto-generated method stub
 		String hql = "select answerQuery from Answerquery answerQuery left join  answerQuery.user"
-				+ " user where user.id=" + userId + " order by answerQuery.answerTime";
+				+ " user where user.id=" + userId + " order by answerQuery.answerTime desc";
 		List list = this.executeQueryByPage(hql, null, pageNow);
 		return list;
 	}
@@ -56,7 +56,7 @@ public class AnswerQueryDao extends BasicDao implements IAnswerQueryDao {
 	public int getPageCountByUserId(int userId) {
 		// TODO Auto-generated method stub
 		String hql = "select count(answerQuery) from Answerquery answerQuery left join  answerQuery.user"
-				+ " user where user.id=" + userId + " order by answerQuery.answerTime";
+				+ " user where user.id=" + userId + " order by answerQuery.answerTime desc";
 		int pageCount = this.queryPageCount(hql, null);
 		return pageCount;
 	}
@@ -65,7 +65,7 @@ public class AnswerQueryDao extends BasicDao implements IAnswerQueryDao {
 	public List getAnswerQueryByQueryId(int queryId, int pageNow) {
 		// TODO Auto-generated method stub
 		String hql = "select answerQuery from Answerquery answerQuery left join answerQuery.query query where query.id="
-				+ queryId + " order by answerQuery.answerTime";
+				+ queryId + " order by answerQuery.answerTime desc";
 		List list = this.executeQueryByPage(hql, null, pageNow);
 		return list;
 	}
@@ -74,7 +74,7 @@ public class AnswerQueryDao extends BasicDao implements IAnswerQueryDao {
 	public List<Answerquery> getAnswerQueryByQueryId(int queryId) {
 		// TODO Auto-generated method stub
 		String hql = "select answerQuery from Answerquery answerQuery left join answerQuery.query query where query.id="
-				+ queryId + " order by answerQuery.answerTime";
+				+ queryId + " order by answerQuery.answerTime desc";
 		return this.executeQuery(hql, null);
 	}
 

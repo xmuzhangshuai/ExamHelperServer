@@ -270,7 +270,18 @@ public class QueryService {
 		return collection;
 	}
 
+	/**
+	 * @param query
+	 */
 	public void addQuery(Query query) {
 		iQueryDao.addQuery(query);
+	}
+
+	/**
+	 * 
+	 * @param answerquery
+	 */
+	public void addAnswerQuery(Answerquery answerquery) {
+		iAnswerQueryDao.addAnswerQuery(answerquery);
 	}
 }
