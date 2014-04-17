@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.yrw.domains.Answerquery;
 import com.yrw.domains.Query;
 import com.yrw.idao.IQueryDao;
 import com.yrw.idao.IUserDao;
@@ -44,10 +45,10 @@ public class JAnswerQuery {
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 		IUserDao iUserDao = (IUserDao) applicationContext.getBean("userDao");
 		IQueryDao iQueryDao = (IQueryDao) applicationContext.getBean("queryDao");
-		
-		com.yrw.domains.Answerquery answerquery = new com.yrw.domains.Answerquery(iUserDao.getUserById(id.intValue()),
-				(Query) iQueryDao.findById(Query.class, this.query_id), this.answer_content, new Timestamp(answer_time.getTime()));
-		answerquery.setId(id.intValue());
+
+		Answerquery answerquery = new Answerquery(iUserDao.getUserById(new Long(user_id).intValue()),
+				(Query) iQueryDao.findById(Query.class, new Long(query_id).intValue()), this.answer_content,
+				new Timestamp(answer_time.getTime()));
 		return answerquery;
 	}
 
