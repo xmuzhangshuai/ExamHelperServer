@@ -33,6 +33,22 @@
 	function check() {
 		document.getElementById("aa").style.display = "";
 	}
+	function InitCheckBox() {
+      var checked="true";
+     
+      if(document.getElementById("answerA").value==checked)
+      document.getElementById("answerA").checked=true
+     if(document.getElementById("answerB").value==checked)
+      document.getElementById("answerB").checked=true
+       if(document.getElementById("answerC").value==checked)
+      document.getElementById("answerC").checked=true
+       if(document.getElementById("answerD").value==checked)
+      document.getElementById("answerD").checked=true
+       if(document.getElementById("answerE").value==checked)
+      document.getElementById("answerE").checked=true
+       if(document.getElementById("answerF").value==checked)
+      document.getElementById("answerF").checked=true
+	}
 	function edit() {
 		var txtN = document.getElementsByTagName("input");
 		for (i = 0; i < txtN.length; i++) {
@@ -47,33 +63,34 @@
 		for (var i = 0; i < txtSelect.length; i++)
 			txtSelect[i].disabled = false;
 	}
-	function save(){
-	document.getElementById("fom").submit();
-	
+	function save() {
+		document.getElementById("fom").submit();
+
 	}
-	function back(){
-	var sectionName=document.getElementById("sectionName").value;
-	document.getElementById("fom").action="${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=多项选择题&sectionName="+sectionName;
-	document.getElementById("fom").submit();
+	function back() {
+		var sectionName = document.getElementById("sectionName").value;
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=多项选择题&sectionName="
+				+ sectionName;
+		document.getElementById("fom").submit();
 	}
-	
 </script>
 </head>
 
-<body class="ContentBody">
+<body class="ContentBody" onload="InitCheckBox();">
 	<form
 		action="${pageContext.request.contextPath}/question.do?flag=editMultiChoice&multiChoiceId=${multiChoice.id}"
 		method="post" enctype="multipart/form-data" name="fom" id="fom"
 		target="mainFrame">
 		<div class="MainDiv">
 			<table width="99%" border="0" cellpadding="0" cellspacing="0"
-				class="CContent" >
+				class="CContent">
 				<tr>
 					<th class="tablestyle_title">多项选题</th>
 				</tr>
 				<tr>
-					<td style="width: 485px; "><input type="button" value="返回单选题列表"
-						style="width: 111px; " onclick="back();" class="button"/> </td>
+					<td style="width: 485px; "><input type="button"
+						value="返回单选题列表" style="width: 111px; " onclick="back();"
+						class="button" /></td>
 
 				</tr>
 
@@ -149,17 +166,17 @@
 											<tr>
 												<td>答案</td>
 												<td><input type="radio" id="answerA" name="answerA"
-													readonly="readonly" checked="${multiChoice.answerA}" />A</td>
-													<td><input type="radio" id="answerB" name="answerB"
-													readonly="readonly" checked="${multiChoice.answerB}"/>B</td>
-													<td><input type="radio" id="answerC" name="answerC"
-													readonly="readonly" checked="${multiChoice.answerC}"/>C</td>
-													<td><input type="radio" id="answerD" name="answerD"
-													readonly="readonly" checked="${multiChoice.answerD}"/>D</td>
-													<td><input type="radio" id="answerE" name="answerE"
-													readonly="readonly" checked="${multiChoice.answerE}"/>E</td>
-													<td><input type="radio" id="answerF" name="answerF"
-													readonly="readonly" checked="${multiChoice.answerF}"/>F</td>
+													readonly="readonly" value="${multiChoice.answerA}"/>A</td>
+												<td><input type="radio" id="answerB" name="answerB"
+													readonly="readonly" value="${multiChoice.answerB}"/>B</td>
+												<td><input type="radio" id="answerC" name="answerC"
+													readonly="readonly" value="${multiChoice.answerC}"/>C</td>
+												<td><input type="radio" id="answerD" name="answerD"
+													readonly="readonly" value="${multiChoice.answerD}"/>D</td>
+												<td><input type="radio" id="answerE" name="answerE"
+													readonly="readonly" value="${multiChoice.answerE}"/>E</td>
+												<td><input type="radio" id="answerF" name="answerF"
+													readonly="readonly" value="${multiChoice.answerF}"/>F</td>
 											</tr>
 
 										</table></td>
@@ -203,15 +220,18 @@
 												<option>${item.sectionName}</option>
 											</c:forEach>
 									</select></td>
-									<td><input type="hidden" id="sectionId" value="${section.sectionName}"/></td>
+									<td><input type="hidden" id="sectionId"
+										value="${section.sectionName}" /></td>
 								</tr>
 							</table>
 						</fieldset></td>
 				</tr>
 				<TR>
-					<TD colspan="2" align="center" height="50px"><input type="button" value="编辑"
-						class="button" style="width: 83px; " onclick="edit();" /> <input type="button"
-						value="保存" type="submit" style="width: 77px;" onclick="save();" class="button"/></TD>
+					<TD colspan="2" align="center" height="50px"><input
+						type="button" value="编辑" class="button" style="width: 83px; "
+						onclick="edit();" /> <input type="button" value="保存"
+						type="submit" style="width: 77px;" onclick="save();"
+						class="button" /></TD>
 				</TR>
 			</TABLE>
 

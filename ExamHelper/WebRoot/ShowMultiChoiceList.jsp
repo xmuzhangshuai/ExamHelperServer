@@ -270,10 +270,10 @@
 													<td width="10%">题目名</td>
 													<td width="12%">操作</td>
 												</tr>
-												<c:forEach items="${multiChoices}" var="mulChoice">
+												<c:forEach items="${multiChoices}" var="multiChoice">
 													<tr bgcolor="#FFFFFF">
 														<td height="20"><input type="checkbox"
-															name="delid${mulChoice.id}" /></td>
+															name="delid${multiChoice.id}" /></td>
 														<td><a
 															href="${pageContext.request.contextPath}/question.do?flag=showMultiChoice&multiChoiceId=${multiChoice.id}">
 																<c:set var="testStr"
