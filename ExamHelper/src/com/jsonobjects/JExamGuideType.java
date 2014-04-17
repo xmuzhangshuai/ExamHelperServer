@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.yrw.domains.Examguidetype;
+import com.yrw.idao.ISubjectDao;
 
 public class JExamGuideType {
 
@@ -16,11 +17,13 @@ public class JExamGuideType {
 	 * 
 	 * @return
 	 */
-	// public static Examguidetype NetToLocal() {
-	// ApplicationContext applicationContext = new
-	// ClassPathXmlApplicationContext("applicationContext.xml");
-	//
-	// }
+	public Examguidetype NetToLocal() {
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ISubjectDao iSubjectDao = (ISubjectDao) applicationContext.getBean("subjectDao");
+
+		Examguidetype local = new Examguidetype(iSubjectDao.getSubjectById(subjectId), typeName, null);
+		return local;
+	}
 
 	/**
 	 * 本地变为网络
@@ -28,9 +31,11 @@ public class JExamGuideType {
 	 * @param local
 	 * @return
 	 */
-	// public static JExamGuideType LocalToNet(Examguidetype local) {
-	//
-	// }
+	public static JExamGuideType LocalToNet(Examguidetype local) {
+		JExamGuideType jExamGuideType = new JExamGuideType(local.getId(), local.getSubject().getId(),
+				local.getTypeName());
+		return jExamGuideType;
+	}
 
 	public JExamGuideType() {
 		// TODO Auto-generated constructor stub

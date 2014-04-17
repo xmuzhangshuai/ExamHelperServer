@@ -62,6 +62,8 @@
 				<value>com/yrw/domains/Subject.hbm.xml </value>
 				<value>com/yrw/domains/Trueorfalse.hbm.xml</value>
 				<value>com/yrw/domains/User.hbm.xml</value>
+				<value>com/yrw/domains/Examguide.hbm.xml</value>
+				<value>com/yrw/domains/Examguidetype.hbm.xml</value>
 			</list>
 		</property>
 
@@ -96,6 +98,7 @@
 	<bean id="collectionDao" class="com.yrw.dao.CollectionDao" />
 	<bean id="noteDao" class="com.yrw.dao.NoteDao" />
 	<bean id="errorQuestionDao" class="com.yrw.dao.ErrorQuestionDao" />
+	<bean id="examGuideDao" class="com.yrw.dao.ExamGuideDao" />
 	<!-- 托管services -->
 	<bean id="questionService" class="com.yrw.service.QuestionService">
 		<property name="iQuestionTypeDao" ref="questionTypeDao" />
@@ -138,6 +141,9 @@
 		<property name="iExaminationDao" ref="examinationDao" />
 		<property name="iExamQuestionDao" ref="examQuestionDao" />
 		<property name="iExamSectionDao" ref="examSectionDao" />
+	</bean>
+	<bean id="examGuideService" class="com.yrw.service.ExamGuideService">
+	<property name="iExamGuideDao" ref="examGuideDao"/>
 	</bean>
 	<!-- 托管action -->
 	<bean name="/login" class="com.yrw.web.actions.LoginAction">

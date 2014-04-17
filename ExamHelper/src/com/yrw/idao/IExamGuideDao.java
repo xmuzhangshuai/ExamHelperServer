@@ -5,7 +5,7 @@ import java.util.List;
 import com.yrw.domains.Examguide;
 import com.yrw.domains.Examguidetype;
 
-public interface iExamGuideDao extends IBasicDao {
+public interface IExamGuideDao extends IBasicDao {
 
 	/**获得考试指南
 	 * @return

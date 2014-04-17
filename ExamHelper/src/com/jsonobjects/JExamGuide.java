@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.yrw.domains.Examguide;
+import com.yrw.idao.IExamGuideDao;
 
 public class JExamGuide {
 
@@ -25,19 +26,28 @@ public class JExamGuide {
 	 * 
 	 * @return
 	 */
-//	public static Examguide NetToLocal() {
-//		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
-//	}
-//
-//	/**
-//	 * 本地变为网络
-//	 * 
-//	 * @param local
-//	 * @return
-//	 */
-//	public static JExamGuide LocalToNet(Examguide local) {
-//
-//	}
+	public Examguide NetToLocal() {
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+		IExamGuideDao iExamGuideDao = (IExamGuideDao) applicationContext.getBean("examGuideDao");
+
+		Examguide local = new Examguide(iExamGuideDao.getExamguidetypeById(examguidetypeId), title, url, new Timestamp(
+				time.getTime()));
+
+		return local;
+	}
+
+	/**
+	 * 本地变为网络
+	 * 
+	 * @param local
+	 * @return
+	 */
+	public static JExamGuide LocalToNet(Examguide local) {
+		JExamGuide net = new JExamGuide(local.getId(), local.getExamguidetype().getId(), local.getTitle(),
+				local.getUrl(), local.getTime());
+
+		return net;
+	}
 
 	public JExamGuide(Integer id, Integer examguidetypeId, String title, String url, Date time) {
 		super();
