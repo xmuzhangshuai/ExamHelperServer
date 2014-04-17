@@ -73,7 +73,7 @@
 	}
 
 	function link() {
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=addSingleChoiceUI";
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=addMultiChoiceUI";
 		document.getElementById("fom").submit();
 	}
 	function goByPage() {
@@ -270,17 +270,17 @@
 													<td width="10%">题目名</td>
 													<td width="12%">操作</td>
 												</tr>
-												<c:forEach items="${multiChoices}" var="mulChoice">
+												<c:forEach items="${multiChoices}" var="multiChoice">
 													<tr bgcolor="#FFFFFF">
 														<td height="20"><input type="checkbox"
-															name="delid${mulChoice.id}" /></td>
+															name="delid${multiChoice.id}" /></td>
 														<td><a
-															href="${pageContext.request.contextPath}/question.do?flag=showMultiChoice&multiChoiceId=${multiChoice.id}">
+															href="${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoice&multiChoiceId=${multiChoice.id}">
 																<c:set var="testStr"
 																	value="${multiChoice.questionStem}" /> <c:choose>
 																	<c:when test="${fn:length(testStr) > 50}">
 																		<c:out value="${fn:substring(testStr, 0, 50)}......"
-																			escapeXml="${pageContext.request.contextPath}/question.do?flag=showMultiChoice&multiChoiceId=${mulChoice.id}" />
+																			escapeXml="${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoice&multiChoiceId=${mulChoice.id}" />
 																	</c:when>
 																	<c:otherwise>
 																		<c:out value="${testStr}" />
@@ -290,8 +290,8 @@
 
 														</a></td>
 														<td><a
-															href="${pageContext.request.contextPath}/question.do?flag=showMultiChoice&multiChoiceId=${mulitChoice.id}&edit=true">编辑|</a><a
-															href="${pageContext.request.contextPath}/question.do?flag=showMultiChoice&multiChoiceId=${multiChoice.id}">查看|</a>
+															href="${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoice&multiChoiceId=${mulitChoice.id}&edit=true">编辑|</a><a
+															href="${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoice&multiChoiceId=${multiChoice.id}">查看|</a>
 															<!--  	<a href="${pageContext.request.contextPath}/listQuestion.do?flag=deleteSection&sectionId=${section.id}">删除</a></td>-->
 															<a href="#">删除</a></td>
 													</tr>

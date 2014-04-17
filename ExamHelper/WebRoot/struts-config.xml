@@ -6,9 +6,10 @@
 		<form-bean name="loginForm" type="com.yrw.web.forms.LoginForm" />
 		<form-bean name="subjectForm" type="com.yrw.web.forms.SubjectForm" />
 		<form-bean name="sectionForm" type="com.yrw.web.forms.SectionForm" />
-    <form-bean name="singleChoiceForm" type="com.yrw.web.forms.SingleChoiceForm" />
-   
-   
+		<form-bean name="singleChoiceForm" type="com.yrw.web.forms.SingleChoiceForm" />
+		<form-bean name="multiChoiceForm" type="com.yrw.web.forms.MultiChoiceForm" />
+
+
 
 
 	</form-beans>
@@ -45,29 +46,32 @@
 			<forward name="showExamList" path="/ShowExamList.jsp" />
 		</action>
 
-		<action
-      attribute="singleChoiceForm"
-      name="singleChoiceForm"
-      parameter="flag"
-      path="/question"
-      scope="request"
-      type="com.yrw.web.actions.QuestionAction"
-      validate="false"
-      cancellable="true">
-       <forward name="addSingleChoice" path="/AddSingleChoice.jsp" />
-      <forward name="edtiSingleChoice" path="/EditSingleChoice.jsp"/>
-      <forward name="showSingleChoiceList" path="/ShowSingleChoiceList.jsp" />
-      <forward name="showSingleChoice" path="/ShowSingleChoice.jsp" />
-      
-      <forward name="showTrueOrFalseList" path="/ShowTrueOrFalseList.jsp" />
-      
-      <forward name="showMaterialAnalysisList" path="/ShowMaterialAnalysisList.jsp" />
-      
-      <forward name="showMultiChoiceList" path="/ShowMultiChoiceList.jsp" />
-      <forward name="showMultiChoice" path="/ShowMultiChoice.jsp"/>
-     
-    </action>
-
+		<action attribute="singleChoiceForm" name="singleChoiceForm"
+			parameter="flag" path="/question" scope="request"
+			type="com.yrw.web.actions.QuestionAction" validate="false"
+			cancellable="true">
+			<forward name="showSingleChoiceList" path="/ShowSingleChoiceList.jsp" />
+			<forward name="showTrueOrFalseList" path="/ShowTrueOrFalseList.jsp" />
+			<forward name="showMaterialAnalysisList" path="/ShowMaterialAnalysisList.jsp" />
+			<forward name="showMultiChoiceList" path="/ShowMultiChoiceList.jsp" />
+	</action>
+		<action attribute="multiChoiceForm" name="multiChoiceForm"
+			parameter="flag" path="/multiChoice" scope="request"
+			type="com.yrw.web.actions.MultiChoiceAction" cancellable="true">
+			<forward name="showMultiChoice" path="/ShowMultiChoice.jsp" />
+			<forward name="editMultiChoice" path="/EditMultiChoice.jsp"/>
+			<forward name="addMultiChoice" path="/AddMultiChoice.jsp"/>
+			<forward name="showMultiChoiceList" path="/ShowMultiChoiceList.jsp" />
+			
+		</action>
+		<action attribute="singleChoiceForm" name="singleChoiceForm"
+			parameter="flag" path="/singleChoice" scope="request"
+			type="com.yrw.web.actions.SingleChoiceAction" cancellable="true">
+			<forward name="addSingleChoice" path="/AddSingleChoice.jsp" />
+			<forward name="edtiSingleChoice" path="/EditSingleChoice.jsp" />
+			<forward name="showSingleChoice" path="/ShowSingleChoice.jsp" />
+			<forward name="showSingleChoiceList" path="/ShowSingleChoiceList.jsp" />
+		</action>
 
 
 

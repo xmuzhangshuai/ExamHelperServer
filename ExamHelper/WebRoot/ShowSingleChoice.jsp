@@ -166,6 +166,19 @@
 				</tr>
 				<tr>
 					<td><fieldset>
+							<legend>备注</legend>
+							<table>
+								<tr>
+									<td>题目备注</td>
+									<td><textarea id="remark" cols="" rows=""
+											name="remark" readonly="readonly"
+											style="height: 119px; width: 394px">${singleChoice.remark}</textarea></td>
+								</tr>
+							</table>
+						</fieldset></td>
+				</tr>
+				<tr>
+					<td><fieldset>
 							<legend>所属科目、章节</legend>
 							<table>
 								<tr>

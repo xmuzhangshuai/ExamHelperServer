@@ -75,7 +75,7 @@
 	}
 
 	function link() {
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=addSingleChoiceUI";
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=addSingleChoiceUI";
 		document.getElementById("fom").submit();
 	}
 	function goByPage() {
@@ -277,12 +277,12 @@
 														<td height="20"><input type="checkbox"
 															name="delid${singleChoice.id}" /></td>
 														<td><a
-															href="${pageContext.request.contextPath}/question.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">
+															href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">
 																<c:set var="testStr"
 																	value="${singleChoice.questionStem}" /> <c:choose>
 																	<c:when test="${fn:length(testStr) > 50}">
 																		<c:out value="${fn:substring(testStr, 0, 50)}......"
-																			escapeXml="${pageContext.request.contextPath}/question.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}" />
+																			escapeXml="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}" />
 																	</c:when>
 																	<c:otherwise>
 																		<c:out value="${testStr}" />
@@ -292,8 +292,8 @@
 
 														</a></td>
 														<td><a
-															href="${pageContext.request.contextPath}/question.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}&edit=true">编辑|</a><a
-															href="${pageContext.request.contextPath}/question.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">查看|</a>
+															href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}&edit=true">编辑|</a><a
+															href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">查看|</a>
 															<!--  	<a href="${pageContext.request.contextPath}/listQuestion.do?flag=deleteSection&sectionId=${section.id}">删除</a></td>-->
 															<a href="#">删除</a></td>
 													</tr>
