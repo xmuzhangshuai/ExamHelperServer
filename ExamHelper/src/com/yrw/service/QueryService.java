@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.jsonobjects.JQuerys;
 import com.yrw.domains.Answerquery;
 import com.yrw.domains.Query;
 import com.yrw.idao.IAnswerQueryDao;
@@ -63,17 +62,91 @@ public class QueryService {
 	}
 
 	/**
-	 * 根据疑问ID返回回答列表数量
+	 * 根据用户id分页返回疑问列表 张帅
 	 * 
+	 * @author 张帅
+	 * @param userId
+	 * @param pageNowString
+	 * @return
+	 */
+	public List<Query> getQueryByUserId(int userId, int pageNow) {
+		pageNow++;
+		int pageCount = iQueryDao.getPageCountByUser(userId);
+		if (pageNow < 1)
+			pageNow = 1;
+		else if (pageNow > pageCount)
+			pageNow = pageCount;
+
+		List<Query> queryList = iQueryDao.getQueryByUser(userId, pageNow);
+
+		return queryList;
+	}
+
+	/**
+	 * 根据用户ID分页返回回答
+	 * 
+	 * @author 张帅
+	 * @param userId
+	 * @param pageNow
+	 * @return
+	 */
+	public List<Answerquery> getAnswerQueryByUserId(int userId, int pageNow) {
+		pageNow++;
+		int pageCount = iAnswerQueryDao.getPageCountByUserId(userId);
+
+		if (pageNow < 1)
+			pageNow = 1;
+		else if (pageNow > pageCount)
+			pageNow = pageCount;
+
+		List<Answerquery> answerQueryList = iAnswerQueryDao.getAnswerQueryByUserId(pageNow, userId);
+
+		return answerQueryList;
+	}
+
+	/**
+	 * 根据疑问ID返回疑问
+	 * 
+	 * @author张帅
 	 * @param queryID
 	 * @return
 	 */
-	public int getAnswerCounetByQueryID(int queryID) {
+	public Query getQueryByID(int queryID) {
+		return (Query) iQueryDao.findById(Query.class, queryID);
+	}
+
+	/**
+	 * 根据疑问ID返回回答列表数量
+	 * 
+	 * @author张帅
+	 * @param queryID
+	 * @return
+	 */
+	public int getAnswerCountByQueryID(int queryID) {
 		List<Answerquery> temp = iAnswerQueryDao.getAnswerQueryByQueryId(queryID);
 		if (temp == null) {
 			return 0;
 		}
 		return temp.size();
+	}
+
+	/**
+	 * 返回某个疑问某个用户的所有回答
+	 * 
+	 * @author张帅
+	 * @param userId
+	 * @param queryId
+	 * @return
+	 */
+	public List<Answerquery> getAnswerQueriesByUserAndQuery(int userId, int queryId) {
+		List<Answerquery> temp = new ArrayList<Answerquery>();
+		List<Answerquery> byQuery = iAnswerQueryDao.getAnswerQueryByQueryId(queryId);
+		for (Answerquery answerquery : byQuery) {
+			if (answerquery.getUser().getId() == userId) {
+				temp.add(answerquery);
+			}
+		}
+		return temp;
 	}
 
 	/**

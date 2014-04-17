@@ -1,11 +1,16 @@
 package com.jsonobjects;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.yrw.domains.Answerquery;
+import com.yrw.domains.Query;
 import com.yrw.idao.IQuestionTypeDao;
 import com.yrw.idao.IUserDao;
 
@@ -78,7 +83,7 @@ public class JQuerys {
 	 * 
 	 * @return
 	 */
-	public static JQuerys LocalToNet(com.yrw.domains.Query local) {
+	public static JQuerys LocalToNet(Query local) {
 		Long adoptUserID = null;
 		if (local.getAdoptUserId() != null) {
 			adoptUserID = local.getAdoptUserId().longValue();
@@ -88,6 +93,21 @@ public class JQuerys {
 				local.getQueryStem(), local.getIntegral(), adoptUserID, local.getQueryImage(), local.getUser().getId(),
 				local.getQuestiontype().getId());
 		return net;
+	}
+
+	/**
+	 * 本地变为网络
+	 * 
+	 * @param local
+	 * @return
+	 */
+	public static List<JAnswerQuery> LocalListToNetList(List<Answerquery> local) {
+		List<JAnswerQuery> temp = new ArrayList<JAnswerQuery>();
+		for (Answerquery answerquery : local) {
+			JAnswerQuery jAnswerQuery = JAnswerQuery.LocalToNet(answerquery);
+			temp.add(jAnswerQuery);
+		}
+		return temp;
 	}
 
 	public Long getId() {

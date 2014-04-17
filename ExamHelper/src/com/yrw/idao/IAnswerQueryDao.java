@@ -59,6 +59,14 @@ public interface IAnswerQueryDao extends IBasicDao {
 	 */
 	public List<Answerquery> getAnswerQueryByQueryId(int queryId);
 
+//	/**
+//	 * 根据用户和疑问返回回答列表
+//	 * @param userId
+//	 * @param queryId
+//	 * @return
+//	 */
+//	public List<Answerquery> getAnswerqueriesByUserAndQuery(int userId, int queryId);
+
 	/**
 	 * @param queryId
 	 * @return
