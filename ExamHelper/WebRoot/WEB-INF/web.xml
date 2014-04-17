@@ -73,6 +73,11 @@
     <servlet-name>ImageUploadServlet</servlet-name>
     <servlet-class>com.yrw.servlet.ImageUploadServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ExamGuideServlet</servlet-name>
+    <servlet-class>com.yrw.servlet.ExamGuideServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -129,6 +134,10 @@
   <servlet-mapping>
     <servlet-name>ImageUploadServlet</servlet-name>
     <url-pattern>/ImageUploadServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ExamGuideServlet</servlet-name>
+    <url-pattern>/ExamGuideServlet</url-pattern>
   </servlet-mapping>
 
 

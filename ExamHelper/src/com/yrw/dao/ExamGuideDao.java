@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.yrw.domains.Examguide;
 import com.yrw.domains.Examguidetype;
-import com.yrw.idao.iExamGuideDao;
+import com.yrw.idao.IExamGuideDao;
 
-public class ExamGuideDao extends BasicDao implements iExamGuideDao{
+public class ExamGuideDao extends BasicDao implements IExamGuideDao{
 
 	@Override
 	public List<Examguide> getExamguidesByExamguideTypeId(int examGuideTypeId ) {
