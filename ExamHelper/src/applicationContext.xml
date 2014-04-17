@@ -135,9 +135,9 @@
 		<property name="iErrorQuestionDao" ref="errorQuestionDao" />
 	</bean>
 	<bean id="examService" class="com.yrw.service.ExamService">
-	<property name="iExaminationDao" ref="examinationDao"/>
-	<property name="iExamQuestionDao" ref="examQuestionDao"/>
-	<property name="iExamSectionDao" ref="examSectionDao"/>
+		<property name="iExaminationDao" ref="examinationDao" />
+		<property name="iExamQuestionDao" ref="examQuestionDao" />
+		<property name="iExamSectionDao" ref="examSectionDao" />
 	</bean>
 	<!-- 托管action -->
 	<bean name="/login" class="com.yrw.web.actions.LoginAction">
@@ -145,18 +145,27 @@
 	</bean>
 	<bean name="/subject" class="com.yrw.web.actions.SubjectAction">
 		<property name="subjectService" ref="subjectService" />
-		<property name="sectionService" ref="sectionService"/>
+		<property name="sectionService" ref="sectionService" />
 	</bean>
 	<bean name="/listQuestion" class="com.yrw.web.actions.ListQuestionAction">
 		<property name="questionService" ref="questionService" />
 		<property name="sectionService" ref="sectionService" />
 		<property name="subjectService" ref="subjectService" />
-		<property name="examService" ref="examService"/>
+		<property name="examService" ref="examService" />
 	</bean>
 	<bean name="/question" class="com.yrw.web.actions.QuestionAction">
 		<property name="questionService" ref="questionService" />
-		<property name="subjectService" ref="subjectService"/>
-		<property name="sectionService" ref="sectionService"/>
+		<property name="sectionService" ref="sectionService" />
+	</bean>
+	<bean name="/singleChoice" class="com.yrw.web.actions.SingleChoiceAction">
+		<property name="questionService" ref="questionService" />
+		<property name="sectionService" ref="sectionService" />
+		<property name="subjectService" ref="subjectService" />
+	</bean>
+	<bean name="/multiChoice" class="com.yrw.web.actions.MultiChoiceAction">
+		<property name="questionService" ref="questionService" />
+		<property name="sectionService" ref="sectionService" />
+		<property name="subjectService" ref="subjectService" />
 	</bean>
 	<!-- 事务管理器 -->
 	<bean id="transactionManager"

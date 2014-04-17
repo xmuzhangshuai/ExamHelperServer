@@ -51,9 +51,18 @@ public class SingleChoiceForm extends ActionForm {
 	/** optionE property */
 	private String optionE;
 
+	private String remark;
 	/*
 	 * Generated Methods
 	 */
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 
 	/** 
 	 * Method validate

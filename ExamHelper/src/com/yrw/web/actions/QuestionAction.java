@@ -41,16 +41,12 @@ public class QuestionAction extends DispatchAction {
 	 */
 
 	QuestionService questionService;
-	private SubjectService subjectService;
 	private SectionService sectionService;
 
 	public void setSectionService(SectionService sectionService) {
 		this.sectionService = sectionService;
 	}
 
-	public void setSubjectService(SubjectService subjectService) {
-		this.subjectService = subjectService;
-	}
 
 	public void setQuestionService(QuestionService questionService) {
 		this.questionService = questionService;
@@ -146,7 +142,7 @@ public class QuestionAction extends DispatchAction {
 		request.setAttribute("pageNow", pageMap.get("pageNow"));
 		// 为jsp中的hidden设置值
 		request.setAttribute("sectionName", sectionName);
-		//设置问题
+		// 设置问题
 		if (typeName.equals(DefaultValue.SINGLE_CHOICE))
 
 			request.setAttribute("singleChoices", (List) collection.get(1));
@@ -184,207 +180,6 @@ public class QuestionAction extends DispatchAction {
 		return showQuestionBySection(mapping, form, request, response);
 	}
 
-	/**
-	 * 显示单项选择详情
-	 * 
-	 * @param mapping
-	 * @param form
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	public ActionForward showSingleChoice(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
-			HttpServletResponse response) {
-		int singleChoiceId = Integer.parseInt(request
-				.getParameter("singleChoiceId"));
-		String isEdit = request.getParameter("edit");
-		Singlechoice singlechoice = (Singlechoice) questionService
-				.showQuestion(singleChoiceId, DefaultValue.SINGLE_CHOICE);
-		request.setAttribute("singleChoice", singlechoice);
-
-		// 获得subject下拉菜单里的所有subject
-		int subjectId = (Integer) request.getSession()
-				.getAttribute("subjectId");
-		List<Subject> subjectList = subjectService.getSubjectList(subjectId);
-		if (subjectList != null) {
-			request.setAttribute("subject", subjectList.get(0));
-			subjectList.remove(0);
-			request.setAttribute("subjects", subjectList);
-		} else
-			request.setAttribute("subject", "暂无所属科目");
-
-		// 获得下拉菜单里的所有section
-
-		List<Section> sectionList = sectionService.listSectionBySubIdAndSecId(
-				subjectId, singlechoice.getSection().getId());
-
-		if (sectionList != null) {
-
-			request.setAttribute("section", sectionList.get(0));
-			sectionList.remove(0);
-			request.setAttribute("sections", sectionList);
-		} else
-			request.setAttribute("section", "暂无所属科目");
-		if (isEdit != null) {
-			return mapping.findForward("edtiSingleChoice");
-		} else
-			return mapping.findForward("showSingleChoice");
-	}
-
-	/**
-	 * Method addQuestionUI 跳转到添加单选题的UI界面
-	 * 
-	 * @param mapping
-	 * @param form
-	 * @param request
-	 * @param response
-	 * @return ActionForward
-	 */
-	public ActionForward addSingleChoiceUI(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
-			HttpServletResponse response) {
-		int subjectId = (Integer) request.getSession()
-				.getAttribute("subjectId");
-		System.out.println("QuestionAction addSingleChoiceUi " + subjectId);
-		List<Section> sectionList = sectionService.listSection(subjectId);
-		List<Subject> subjectList = subjectService.getSubjects();
-		request.setAttribute("subjects", subjectList);
-		request.setAttribute("sections", sectionList);
-		return mapping.findForward("addSingleChoice");
-	}
-
-	/**
-	 * Method addQuestion 添加单选题
-	 * 
-	 * @param mapping
-	 * @param form
-	 * @param request
-	 * @param response
-	 * @return ActionForward
-	 * @throws UnsupportedEncodingException
-	 */
-	public ActionForward addSingleChoice(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
-			HttpServletResponse response) throws UnsupportedEncodingException {
-
-		SingleChoiceForm singleChoiceForm = (SingleChoiceForm) form;
-		Singlechoice singlechoice = new Singlechoice();
-		singlechoice.setQuestionStem(singleChoiceForm.getQuestionStem());
-		singlechoice.setOptionA(singleChoiceForm.getOptionA());
-		singlechoice.setOptionB(singleChoiceForm.getOptionB());
-		singlechoice.setOptionC(singleChoiceForm.getOptionC());
-		singlechoice.setOptionD(singleChoiceForm.getOptionD());
-		singlechoice.setOptionE(singleChoiceForm.getOptionE());
-		singlechoice.setAnswer(singleChoiceForm.getAnswer());
-		singlechoice.setAnalysis(singleChoiceForm.getAnalysis());
-
-		if (singleChoiceForm.getSectionName() != null) {
-			Section section = sectionService
-					.getSectionBySectionName(singleChoiceForm.getSectionName());
-			singlechoice.setSection(section);
-		} else {
-			singlechoice.setSection(null);
-
-		}
-
-		questionService.addSingleChoice(singlechoice);
-		// 设置在showQuestioBySection中要使用参数
-		request.setAttribute("sectionName", singlechoice.getSection()
-				.getSectionName());
-		request.setAttribute("typeName", "单项选择题");
-
-		return showQuestionBySection(mapping, null, request, response);
-	}
-
-	/**
-	 * 修该单项选择题
-	 * 
-	 * @param mapping
-	 * @param form
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws UnsupportedEncodingException
-	 */
-	public ActionForward editSingleChoice(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
-			HttpServletResponse response) throws UnsupportedEncodingException {
-		SingleChoiceForm singleChoiceForm = (SingleChoiceForm) form;
-		int singleChoiceId = Integer.parseInt(request
-				.getParameter("singleChoiceId"));
-
-		Singlechoice singlechoice = (Singlechoice) questionService.getQuestion(
-				singleChoiceId, "单项选择题");
-
-		singlechoice.setQuestionStem(singleChoiceForm.getQuestionStem());
-		singlechoice.setOptionA(singleChoiceForm.getOptionA());
-		singlechoice.setOptionB(singleChoiceForm.getOptionB());
-		singlechoice.setOptionC(singleChoiceForm.getOptionC());
-		singlechoice.setOptionD(singleChoiceForm.getOptionD());
-		singlechoice.setOptionE(singleChoiceForm.getOptionE());
-		singlechoice.setAnswer(singleChoiceForm.getAnswer());
-		singlechoice.setAnalysis(singleChoiceForm.getAnalysis());
-
-		System.out.println("QuestionAction editSingleChoice  "
-				+ singleChoiceForm.getSectionName()
-				+ singleChoiceForm.getSubjectName());
-		if (singleChoiceForm.getSectionName() != null) {
-			Section section = sectionService
-					.getSectionBySectionName(singleChoiceForm.getSectionName());
-			singlechoice.setSection(section);
-		}
-
-		questionService.updateSingleChoice(singlechoice);
-		request.setAttribute("singleChoiceId", singleChoiceId);
-		return showSingleChoice(mapping, singleChoiceForm, request, response);
-	}
-	/**
-	 * 显示多项选择详情
-	 * 
-	 * @param mapping
-	 * @param form
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	public ActionForward showMultiChoice(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
-			HttpServletResponse response) {
-		int multiChoiceId = Integer.parseInt(request
-				.getParameter("multiChoiceId"));
-		String isEdit = request.getParameter("edit");
-		Multichoice multichoice = (Multichoice) questionService
-				.showQuestion(multiChoiceId, DefaultValue.MULTI_CHOICE);
-		request.setAttribute("multiChoice", multichoice);
-
-		// 获得subject下拉菜单里的所有subject
-		int subjectId = (Integer) request.getSession()
-				.getAttribute("subjectId");
-		List<Subject> subjectList = subjectService.getSubjectList(subjectId);
-		if (subjectList != null) {
-			request.setAttribute("subject", subjectList.get(0));
-			subjectList.remove(0);
-			request.setAttribute("subjects", subjectList);
-		} else
-			request.setAttribute("subject", "暂无所属科目");
-
-		// 获得下拉菜单里的所有section
-
-		List<Section> sectionList = sectionService.listSectionBySubIdAndSecId(
-				subjectId, multichoice.getSection().getId());
-
-		if (sectionList != null) {
-
-			request.setAttribute("section", sectionList.get(0));
-			sectionList.remove(0);
-			request.setAttribute("sections", sectionList);
-		} else
-			request.setAttribute("section", "暂无所属科目");
-		if (isEdit != null) {
-			return mapping.findForward("edtiMultiChoice");
-		} else
-			return mapping.findForward("showMultiChoice");
-	}
-
+	
+	
 }
