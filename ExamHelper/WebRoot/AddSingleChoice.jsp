@@ -35,18 +35,13 @@
 	}
 
 	function save() {
-	
-	if(document.getElementById("questionStem").value.trim().length!=0){
-	
-		var sectionName = document.getElementById("sectionName").value;
-		alert(sectionName)
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=addSingleChoice&sectionName="
-				+ sectionName;
-		document.getElementById("fom").submit();
-		}
-		else
-		alert("请输入题干");
-		
+
+		if (document.getElementById("questionStem").value.trim().length != 0) {
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=addSingleChoice"
+
+			document.getElementById("fom").submit();
+		} else
+			alert("请输入题干");
 
 	}
 	function back() {

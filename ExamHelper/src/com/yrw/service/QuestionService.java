@@ -401,12 +401,9 @@ public class QuestionService {
 	/**
 	 * 添加多选题
 	 * 
-	 * @param sectionId
 	 * @param multichoice
 	 */
-	public void addMultiChoice(int sectionId, Multichoice multichoice) {
-		Section section = (Section) iSectionDao.getSectionById(sectionId);
-		multichoice.setSection(section);
+	public void addMultiChoice( Multichoice multichoice) {
 		iMultiChoiceDao.add(multichoice);
 	}
 

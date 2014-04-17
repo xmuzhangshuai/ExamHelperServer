@@ -4,7 +4,9 @@
  */
 package com.yrw.web.actions;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,19 +18,23 @@ import org.apache.struts.actions.DispatchAction;
 
 import com.yrw.config.DefaultValue;
 import com.yrw.domains.Multichoice;
+import com.yrw.domains.Questiontype;
 import com.yrw.domains.Section;
+import com.yrw.domains.Singlechoice;
 import com.yrw.domains.Subject;
 import com.yrw.service.QuestionService;
 import com.yrw.service.SectionService;
 import com.yrw.service.SubjectService;
 import com.yrw.web.forms.MultiChoiceForm;
+import com.yrw.web.forms.SingleChoiceForm;
 
-/** 
- * MyEclipse Struts
- * Creation date: 04-17-2014
+/**
+ * MyEclipse Struts Creation date: 04-17-2014
  * 
  * XDoclet definition:
- * @struts.action path="/multiChoice" name="multiChoiceForm" parameter="flag" scope="request" validate="true"
+ * 
+ * @struts.action path="/multiChoice" name="multiChoiceForm" parameter="flag"
+ *                scope="request" validate="true"
  */
 public class MultiChoiceAction extends DispatchAction {
 	private QuestionService questionService;
@@ -45,6 +51,60 @@ public class MultiChoiceAction extends DispatchAction {
 
 	public void setSubjectService(SubjectService subjectService) {
 		this.subjectService = subjectService;
+	}
+
+	/**
+	 * Method showQuestionBySection 按题目章节
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return ActionForward
+	 * @throws UnsupportedEncodingException
+	 */
+	public ActionForward showMultiChoiceList(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws UnsupportedEncodingException {
+		// TODO Auto-generated method stub
+
+		// 加载章节类型
+		String sectionName = new String(request.getParameter("sectionName")
+				.getBytes("ISO-8859-1"), "utf-8");
+		String typeName = "多项选择题";
+
+		request.getSession().setAttribute("typeName", typeName);
+		String pageNowString = request.getParameter("pageNow");
+
+		int subjectId = (Integer) request.getSession()
+				.getAttribute("subjectId");
+
+		// 加载问题类型
+		List<Questiontype> questiontypes = questionService
+				.showQuestiontypes(typeName);
+		request.setAttribute("questionType", questiontypes.get(0));
+		questiontypes.remove(0);
+		request.setAttribute("questionTypes", questiontypes);
+
+		// 加载章节下的题目
+		Section existSection = sectionService
+				.getSectionBySectionName(sectionName);
+		
+		List collection = questionService.listQuestionBySection(
+				existSection.getId(), pageNowString, typeName);
+
+		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
+		request.setAttribute("pageCount", pageMap.get("pageCount"));
+		request.setAttribute("pageNow", pageMap.get("pageNow"));
+		// 为jsp中的hidden设置值
+		request.setAttribute("sectionName", sectionName);
+		// 设置问题
+
+		if (typeName.equals(DefaultValue.MULTI_CHOICE))
+
+			request.setAttribute("multiChoices", (List) collection.get(1));
+
+		return mapping.findForward((String) collection.get(2));
 	}
 
 	/**
@@ -95,4 +155,138 @@ public class MultiChoiceAction extends DispatchAction {
 			return mapping.findForward("showMultiChoice");
 	}
 
+	/**
+	 * 修该多项选择题
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+	public ActionForward editMultiChoice(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws UnsupportedEncodingException {
+
+		MultiChoiceForm multiChoiceForm = (MultiChoiceForm) form;
+		int multiChoiceId = Integer.parseInt(request
+				.getParameter("multiChoiceId"));
+
+		Multichoice multichoice = (Multichoice) questionService.getQuestion(
+				multiChoiceId, "多项选择题");
+
+		multichoice.setQuestionStem(multiChoiceForm.getQuestionStem());
+		multichoice.setOptionA(multiChoiceForm.getOptionA());
+		multichoice.setOptionB(multiChoiceForm.getOptionB());
+		multichoice.setOptionC(multiChoiceForm.getOptionC());
+		multichoice.setOptionD(multiChoiceForm.getOptionD());
+		multichoice.setOptionE(multiChoiceForm.getOptionE());
+		multichoice.setOptionF(multiChoiceForm.getOptionF());
+		multichoice.setAnalysis(multiChoiceForm.getAnalysis());
+		multichoice.setAnswerA(Boolean.parseBoolean(multiChoiceForm
+				.getAnswerA()));
+		multichoice.setAnswerB(Boolean.parseBoolean(multiChoiceForm
+				.getAnswerB()));
+		multichoice.setAnswerC(Boolean.parseBoolean(multiChoiceForm
+				.getAnswerC()));
+		multichoice.setAnswerD(Boolean.parseBoolean(multiChoiceForm
+				.getAnswerD()));
+		multichoice.setAnswerE(Boolean.parseBoolean(multiChoiceForm
+				.getAnswerE()));
+		multichoice.setAnswerF(Boolean.parseBoolean(multiChoiceForm
+				.getAnswerF()));
+		multichoice.setRemark(multiChoiceForm.getRemark());
+
+		System.out.println("QuestionAction editMultiChoice  "
+				+ multiChoiceForm.getSectionName()
+				+ multiChoiceForm.getSubjectName());
+		if (multiChoiceForm.getSectionName() != null) {
+			Section section = sectionService
+					.getSectionBySectionName(multiChoiceForm.getSectionName());
+			multichoice.setSection(section);
+		}
+
+		questionService.updateMultiChoice(multichoice);
+		request.setAttribute("multiChoiceId", multiChoiceId);
+		return showMultiChoice(mapping, multiChoiceForm, request, response);
+	}
+
+	/**
+	 * Method addMultiChoiceUI 跳转到添加多选题的UI界面
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return ActionForward
+	 */
+	public ActionForward addMultiChoiceUI(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		int subjectId = (Integer) request.getSession()
+				.getAttribute("subjectId");
+		System.out.println("MultiChoiceAction addMultiChoiceUI " + subjectId);
+		List<Section> sectionList = sectionService.listSection(subjectId);
+		List<Subject> subjectList = subjectService.getSubjects();
+		request.setAttribute("subjects", subjectList);
+		request.setAttribute("sections", sectionList);
+		return mapping.findForward("addMultiChoice");
+	}
+
+	/**
+	 * Method addMultiChoice 添加多选题
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return ActionForward
+	 * @throws UnsupportedEncodingException
+	 */
+	public ActionForward addMultiChoice(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws UnsupportedEncodingException {
+
+		MultiChoiceForm multiChoiceForm = (MultiChoiceForm) form;
+		Multichoice multichoice = new Multichoice();
+		multichoice.setQuestionStem(multiChoiceForm.getQuestionStem());
+		multichoice.setOptionA(multiChoiceForm.getOptionA());
+		multichoice.setOptionB(multiChoiceForm.getOptionB());
+		multichoice.setOptionC(multiChoiceForm.getOptionC());
+		multichoice.setOptionD(multiChoiceForm.getOptionD());
+		multichoice.setOptionE(multiChoiceForm.getOptionE());
+		multichoice.setOptionF(multiChoiceForm.getOptionF());
+		multichoice.setAnswerA(Boolean.parseBoolean(multiChoiceForm
+				.getAnswerA()));
+		multichoice.setAnswerB(Boolean.parseBoolean(multiChoiceForm
+				.getAnswerB()));
+		multichoice.setAnswerC(Boolean.parseBoolean(multiChoiceForm
+				.getAnswerC()));
+		multichoice.setAnswerD(Boolean.parseBoolean(multiChoiceForm
+				.getAnswerD()));
+		multichoice.setAnswerE(Boolean.parseBoolean(multiChoiceForm
+				.getAnswerE()));
+		multichoice.setAnswerF(Boolean.parseBoolean(multiChoiceForm
+				.getAnswerF()));
+
+		multichoice.setRemark(multiChoiceForm.getRemark());
+
+		if (multiChoiceForm.getSectionName() != null) {
+			Section section = sectionService
+					.getSectionBySectionName(multiChoiceForm.getSectionName());
+
+			multichoice.setSection(section);
+		} else {
+			multichoice.setSection(null);
+
+		}
+
+		questionService.addMultiChoice(multichoice);
+		// 设置在showQuestioBySection中要使用参数
+		request.setAttribute("sectionName", multichoice.getSection()
+				.getSectionName());
+
+		return showMultiChoiceList(mapping, multiChoiceForm, request, response);
+	}
 }

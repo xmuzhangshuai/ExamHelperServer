@@ -4,6 +4,8 @@
   <StrutsActivity path="/subject.do" location="109,604" dimension="242,104" />
   <StrutsActivity path="/listQuestion.do" location="319,302" dimension="271,104" />
   <StrutsActivity path="/question.do" location="475,0" dimension="252,104" />
+  <StrutsActivity path="/multiChoice.do" location="1850,750" dimension="268,104" />
+  <StrutsActivity path="/singleChoice.do" location="1850,950" dimension="274,104" />
   <StrutsActivity path="success;6" location="506,604" dimension="170,87" />
   <StrutsActivity path="fail;6" location="0,906" dimension="144,87" />
   <StrutsActivity path="/Login.jsp" location="15,1185" dimension="150,100" />
@@ -14,14 +16,16 @@
   <StrutsActivity path="/ShowSection.jsp" location="1550,650" dimension="130,53" />
   <StrutsActivity path="/AddSection.jsp" location="1550,1050" dimension="123,53" />
   <StrutsActivity path="/ShowExamList.jsp" location="1550,1250" dimension="138,53" />
-  <StrutsActivity path="/EditSingleChoice.jsp" location="950,1550" dimension="153,53" />
   <StrutsActivity path="/ShowMaterialAnalysisList.jsp" location="1850,250" dimension="201,53" />
   <StrutsActivity path="/ShowMultiChoiceList.jsp" location="1250,1550" dimension="175,53" />
-  <StrutsActivity path="/ShowSingleChoice.jsp" location="950,1350" dimension="162,53" />
   <StrutsActivity path="/ShowSingleChoiceList.jsp" location="1550,1450" dimension="181,53" />
   <StrutsActivity path="/ShowTrueOrFalseList.jsp" location="1850,450" dimension="177,53" />
-  <StrutsActivity path="/AddSingleChoice.jsp" location="50,1550" dimension="155,53" />
+  <StrutsActivity path="/AddMultiChoice.jsp" location="1850,1350" dimension="149,53" />
+  <StrutsActivity path="/EditMultiChoice.jsp" location="1850,1150" dimension="147,53" />
   <StrutsActivity path="/ShowMultiChoice.jsp" location="350,1550" dimension="156,53" />
+  <StrutsActivity path="/EditSingleChoice.jsp" location="950,1550" dimension="153,53" />
+  <StrutsActivity path="/ShowSingleChoice.jsp" location="950,1350" dimension="162,53" />
+  <StrutsActivity path="/AddSingleChoice.jsp" location="50,1550" dimension="155,53" />
   <StrutsActivity path="/Success.jsp" location="650,1550" dimension="102,53" />
   <StrutsActivity path="/Fail.jsp" location="60,1050" dimension="150,100" />
   <StrutsActivity path="/ShowQuestionList.jsp" location="1550,1650" dimension="159,53" />
@@ -50,10 +54,8 @@
   <StrutsActivity path="./ShowMultiChoice.jsp" location="350,1050" dimension="159,53" />
   <StrutsActivity path="./Success.jsp" location="650,1150" dimension="105,53" />
   <StrutsActivity path="./Fail.jsp" location="950,1150" dimension="79,53" />
-  <StrutsActivity path="/multiChoice.do" location="1850,750" dimension="268,104" />
-  <StrutsActivity path="/singleChoice.do" location="1850,950" dimension="274,104" />
-  <StrutsActivity path="/EditMultiChoice.jsp" location="1850,1150" dimension="147,53" />
-  <StrutsActivity path="/AddMultiChoice.jsp" location="1850,1350" dimension="149,53" />
+  <StrutsActivity path="/trueOrFalse.do" location="1850,1550" dimension="270,104" />
+  <StrutsActivity path="/materialAnalysis.do" location="50,1750" dimension="294,104" />
   <StrutsTransition id="/question.do,showMaterialAnalysisList,/ShowMaterialAnalysisList.jsp,1" routingType="0">
     <AutomaticBendpoints>
       <AbsolutePoint location="601,52" />
@@ -68,10 +70,10 @@
   </StrutsTransition>
   <StrutsTransition id="/singleChoice.do,addSingleChoice,/AddSingleChoice.jsp,1" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="2017,1054" />
-      <AbsolutePoint location="2017,1778" />
-      <AbsolutePoint location="127,1778" />
-      <AbsolutePoint location="127,1603" />
+      <AbsolutePoint location="2044,1054" />
+      <AbsolutePoint location="2044,1518" />
+      <AbsolutePoint location="127,1518" />
+      <AbsolutePoint location="127,1550" />
     </AutomaticBendpoints>
   </StrutsTransition>
   <StrutsTransition id="/listQuestion.do,showExamList,/ShowExamList.jsp,1" routingType="0">
@@ -82,6 +84,14 @@
       <AbsolutePoint location="1550,1300" />
     </AutomaticBendpoints>
   </StrutsTransition>
+  <StrutsTransition id="/singleChoice.do,edtiSingleChoice,/EditSingleChoice.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="2014,1054" />
+      <AbsolutePoint location="2014,1418" />
+      <AbsolutePoint location="1026,1418" />
+      <AbsolutePoint location="1026,1550" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
   <StrutsTransition id="/multiChoice.do,showMultiChoice,/ShowMultiChoice.jsp,1" routingType="0">
     <AutomaticBendpoints>
       <AbsolutePoint location="1850,823" />
@@ -90,34 +100,10 @@
       <AbsolutePoint location="506,1576" />
     </AutomaticBendpoints>
   </StrutsTransition>
-  <StrutsTransition id="/singleChoice.do,edtiSingleChoice,/EditSingleChoice.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="2047,1054" />
-      <AbsolutePoint location="2047,1868" />
-      <AbsolutePoint location="1026,1868" />
-      <AbsolutePoint location="1026,1603" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
   <StrutsTransition id="/Login.jsp,null,/login.do,2" routingType="0">
     <AutomaticBendpoints>
       <AbsolutePoint location="165,1205" />
       <AbsolutePoint location="360,1205" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/question.do,addSingleChoice,/AddSingleChoice.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="475,52" />
-      <AbsolutePoint location="-75,52" />
-      <AbsolutePoint location="-75,1576" />
-      <AbsolutePoint location="50,1576" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/question.do,showSingleChoice,/ShowSingleChoice.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="727,52" />
-      <AbsolutePoint location="932,52" />
-      <AbsolutePoint location="932,1376" />
-      <AbsolutePoint location="950,1376" />
     </AutomaticBendpoints>
   </StrutsTransition>
   <StrutsTransition id="/singleChoice.do,showSingleChoice,/ShowSingleChoice.jsp,1" routingType="0">
@@ -142,12 +128,6 @@
     </AutomaticBendpoints>
   </StrutsTransition>
   <StrutsTransition id="/question.do,showTrueOrFalseList,/ShowTrueOrFalseList.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="601,52" />
-      <AbsolutePoint location="0,0" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/question.do,edtiSingleChoice,/EditSingleChoice.jsp,1" routingType="0">
     <AutomaticBendpoints>
       <AbsolutePoint location="601,52" />
       <AbsolutePoint location="0,0" />
@@ -214,18 +194,6 @@
       <AbsolutePoint location="650,1576" />
     </AutomaticBendpoints>
   </StrutsTransition>
-  <StrutsTransition id="/question.do,showMultiChoice,/ShowMultiChoice.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="601,52" />
-      <AbsolutePoint location="428,1576" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/question.do,showSingleChoiceList,/ShowSingleChoiceList.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="601,52" />
-      <AbsolutePoint location="1640,1476" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
   <StrutsTransition id="/subject.do,addSubject,/AddSubject.jsp,1" routingType="0">
     <AutomaticBendpoints>
       <AbsolutePoint location="249,708" />
@@ -238,6 +206,12 @@
       <AbsolutePoint location="245,604" />
       <AbsolutePoint location="245,276" />
       <AbsolutePoint location="192,276" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/question.do,showSingleChoiceList,/ShowSingleChoiceList.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="601,52" />
+      <AbsolutePoint location="1640,1476" />
     </AutomaticBendpoints>
   </StrutsTransition>
   <StrutsTransition id="/multiChoice.do,addMultiChoice,/AddMultiChoice.jsp,1" routingType="0">

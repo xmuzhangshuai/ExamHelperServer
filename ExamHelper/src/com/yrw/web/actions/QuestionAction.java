@@ -117,7 +117,7 @@ public class QuestionAction extends DispatchAction {
 		String typeName = new String(request.getParameter("typeName").getBytes(
 				"ISO-8859-1"), "utf-8");
 
-		System.out.println("showQuestionByTySection " + typeName);
+		
 		request.getSession().setAttribute("typeName", typeName);
 		String pageNowString = request.getParameter("pageNow");
 

@@ -250,11 +250,11 @@
 														<td height="20"><input type="checkbox"
 															name="delid${section.id}" /></td>
 														<td><a
-															href="${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&sectionName=${section.sectionName}&typeName=单项选择题"
+															href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&sectionName=${section.sectionName}&typeName=单项选择题"
 															onclick="">${section.sectionName}</a></td>
 														<td><a
 															href="${pageContext.request.contextPath}/listQuestion.do?flag=updateSectionUI&sectionId=${section.id}" target="mainFrame">编辑|</a><a
-															href="${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&sectionName=${section.sectionName}&typeName=单项选择题">查看|</a>
+															href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&sectionName=${section.sectionName}&typeName=单项选择题">查看|</a>
 														<!--  	<a href="${pageContext.request.contextPath}/listQuestion.do?flag=deleteSection&sectionId=${section.id}">删除</a></td>-->
 													<a href="#">删除</a>
 													</td>

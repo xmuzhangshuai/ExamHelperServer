@@ -6,6 +6,7 @@ package com.yrw.web.actions;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DispatchAction;
 
 import com.yrw.config.DefaultValue;
+import com.yrw.domains.Questiontype;
 import com.yrw.domains.Section;
 import com.yrw.domains.Singlechoice;
 import com.yrw.domains.Subject;
@@ -49,6 +51,64 @@ public class SingleChoiceAction extends DispatchAction {
 	public void setSubjectService(SubjectService subjectService) {
 		this.subjectService = subjectService;
 	}
+	
+	
+	/**
+	 * Method showSingleChoiceList 按章节显示单选题列表
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return ActionForward
+	 * @throws UnsupportedEncodingException
+	 */
+	public ActionForward showSingleChoiceList(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws UnsupportedEncodingException {
+		// TODO Auto-generated method stub
+
+		// 加载章节类型
+		String sectionName = new String(request.getParameter("sectionName")
+				.getBytes("ISO-8859-1"), "utf-8");
+		String typeName = new String(request.getParameter("typeName").getBytes(
+				"ISO-8859-1"), "utf-8");
+
+		
+		request.getSession().setAttribute("typeName", typeName);
+		String pageNowString = request.getParameter("pageNow");
+
+		int subjectId = (Integer) request.getSession()
+				.getAttribute("subjectId");
+
+		// 加载问题类型
+		List<Questiontype> questiontypes = questionService
+				.showQuestiontypes(typeName);
+		request.setAttribute("questionType", questiontypes.get(0));
+		questiontypes.remove(0);
+		request.setAttribute("questionTypes", questiontypes);
+
+		// 加载章节下的题目
+		Section existSection = sectionService
+				.getSectionBySectionName(sectionName);
+		List collection = questionService.listQuestionBySection(
+				existSection.getId(), pageNowString, typeName);
+
+		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
+		request.setAttribute("pageCount", pageMap.get("pageCount"));
+		request.setAttribute("pageNow", pageMap.get("pageNow"));
+		// 为jsp中的hidden设置值
+		request.setAttribute("sectionName", sectionName);
+		// 设置问题
+		if (typeName.equals(DefaultValue.SINGLE_CHOICE))
+
+			request.setAttribute("singleChoices", (List) collection.get(1));
+	
+
+		return mapping.findForward((String) collection.get(2));
+	}
+
+	
 	/**
 	 * 显示单项选择详情
 	 * 
@@ -111,7 +171,7 @@ public class SingleChoiceAction extends DispatchAction {
 			HttpServletResponse response) {
 		int subjectId = (Integer) request.getSession()
 				.getAttribute("subjectId");
-		System.out.println("QuestionAction addSingleChoiceUi " + subjectId);
+		
 		List<Section> sectionList = sectionService.listSection(subjectId);
 		List<Subject> subjectList = subjectService.getSubjects();
 		request.setAttribute("subjects", subjectList);

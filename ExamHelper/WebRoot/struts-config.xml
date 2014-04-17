@@ -46,23 +46,22 @@
 			<forward name="showExamList" path="/ShowExamList.jsp" />
 		</action>
 
-		<action attribute="singleChoiceForm" name="singleChoiceForm"
-			parameter="flag" path="/question" scope="request"
+		<action parameter="flag" path="/question" scope="request"
 			type="com.yrw.web.actions.QuestionAction" validate="false"
 			cancellable="true">
 			<forward name="showSingleChoiceList" path="/ShowSingleChoiceList.jsp" />
 			<forward name="showTrueOrFalseList" path="/ShowTrueOrFalseList.jsp" />
 			<forward name="showMaterialAnalysisList" path="/ShowMaterialAnalysisList.jsp" />
 			<forward name="showMultiChoiceList" path="/ShowMultiChoiceList.jsp" />
-	</action>
+		</action>
 		<action attribute="multiChoiceForm" name="multiChoiceForm"
 			parameter="flag" path="/multiChoice" scope="request"
 			type="com.yrw.web.actions.MultiChoiceAction" cancellable="true">
 			<forward name="showMultiChoice" path="/ShowMultiChoice.jsp" />
-			<forward name="editMultiChoice" path="/EditMultiChoice.jsp"/>
-			<forward name="addMultiChoice" path="/AddMultiChoice.jsp"/>
+			<forward name="editMultiChoice" path="/EditMultiChoice.jsp" />
+			<forward name="addMultiChoice" path="/AddMultiChoice.jsp" />
 			<forward name="showMultiChoiceList" path="/ShowMultiChoiceList.jsp" />
-			
+
 		</action>
 		<action attribute="singleChoiceForm" name="singleChoiceForm"
 			parameter="flag" path="/singleChoice" scope="request"
@@ -72,6 +71,15 @@
 			<forward name="showSingleChoice" path="/ShowSingleChoice.jsp" />
 			<forward name="showSingleChoiceList" path="/ShowSingleChoiceList.jsp" />
 		</action>
+    <action
+      path="/trueOrFalse"
+      type="com.yrw.web.actions.TrueOrFalseAction"
+      cancellable="true" />
+    <action
+      path="/materialAnalysis"
+      type="com.yrw.web.actions.MaterialAnalysisAction"
+      validate="false"
+      cancellable="true" />
 
 
 
