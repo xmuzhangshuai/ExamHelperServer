@@ -67,10 +67,14 @@ public class MultiChoiceAction extends DispatchAction {
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws UnsupportedEncodingException {
 		// TODO Auto-generated method stub
-
+		String sectionName;
 		// 加载章节类型
-		String sectionName = new String(request.getParameter("sectionName")
-				.getBytes("ISO-8859-1"), "utf-8");
+		if (request.getAttribute("source") != null)
+			sectionName = (String) request.getAttribute("sectionName");
+		else
+			sectionName = new String(request.getParameter("sectionName")
+					.getBytes("ISO-8859-1"), "utf-8");
+
 		String typeName = "多项选择题";
 
 		request.getSession().setAttribute("typeName", typeName);
@@ -89,7 +93,7 @@ public class MultiChoiceAction extends DispatchAction {
 		// 加载章节下的题目
 		Section existSection = sectionService
 				.getSectionBySectionName(sectionName);
-		
+
 		List collection = questionService.listQuestionBySection(
 				existSection.getId(), pageNowString, typeName);
 
@@ -286,7 +290,7 @@ public class MultiChoiceAction extends DispatchAction {
 		// 设置在showQuestioBySection中要使用参数
 		request.setAttribute("sectionName", multichoice.getSection()
 				.getSectionName());
-
+		request.setAttribute("source", "addMultiChoice");
 		return showMultiChoiceList(mapping, multiChoiceForm, request, response);
 	}
 }

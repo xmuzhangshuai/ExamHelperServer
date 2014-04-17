@@ -39,13 +39,13 @@
 	
 	
 	if(questionType==singleChoice)
-	document.getElementById("fom").action="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&typeName=单项选择题&sectionName="+sectionName;
+	document.getElementById("fom").action="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&sectionName="+sectionName;
 	else if(questionType==multiChoice){
-	document.getElementById("fom").action="${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoiceList&typeName=多项选择题&sectionName="+sectionName;
+	document.getElementById("fom").action="${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoiceList&sectionName="+sectionName;
 	}else if(questionType==trueOrFalse)
-	document.getElementById("fom").action="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&typeName=判断题&sectionName="+sectionName;
+	document.getElementById("fom").action="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&sectionName="+sectionName;
 	else if(questionType==analysis)
-	document.getElementById("fom").action="${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&typeName=材料分析题&sectionName="+sectionName;
+	document.getElementById("fom").action="${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&sectionName="+sectionName;
 	document.getElementById("fom").submit();
 	document.getElementById("fom").submit();
 	}

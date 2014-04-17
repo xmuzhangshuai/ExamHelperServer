@@ -69,10 +69,14 @@ public class SingleChoiceAction extends DispatchAction {
 		// TODO Auto-generated method stub
 
 		// 加载章节类型
-		String sectionName = new String(request.getParameter("sectionName")
-				.getBytes("ISO-8859-1"), "utf-8");
-		String typeName = new String(request.getParameter("typeName").getBytes(
-				"ISO-8859-1"), "utf-8");
+		String sectionName;
+		// 加载章节类型
+		if (request.getAttribute("source") != null)
+			sectionName = (String) request.getAttribute("sectionName");
+		else
+			sectionName = new String(request.getParameter("sectionName")
+					.getBytes("ISO-8859-1"), "utf-8");
+		String typeName = "单项选择题";
 
 		
 		request.getSession().setAttribute("typeName", typeName);
@@ -217,8 +221,8 @@ public class SingleChoiceAction extends DispatchAction {
 		// 设置在showQuestioBySection中要使用参数
 		request.setAttribute("sectionName", singlechoice.getSection()
 				.getSectionName());
-		request.setAttribute("typeName", "单项选择题");
-
+		
+		request.setAttribute("source", "addSingleChoice");
 		return mapping.findForward("showSingleChoiceList");
 	}
 
