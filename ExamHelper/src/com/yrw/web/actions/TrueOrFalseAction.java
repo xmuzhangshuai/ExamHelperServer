@@ -26,12 +26,13 @@ import com.yrw.service.QuestionService;
 import com.yrw.service.SectionService;
 import com.yrw.service.SubjectService;
 import com.yrw.web.forms.SingleChoiceForm;
+import com.yrw.web.forms.TrueOrFalseForm;
 
-/** 
- * MyEclipse Struts
- * Creation date: 04-17-2014
+/**
+ * MyEclipse Struts Creation date: 04-17-2014
  * 
  * XDoclet definition:
+ * 
  * @struts.action validate="true"
  */
 public class TrueOrFalseAction extends DispatchAction {
@@ -76,7 +77,6 @@ public class TrueOrFalseAction extends DispatchAction {
 					.getBytes("ISO-8859-1"), "utf-8");
 		String typeName = DefaultValue.TRUE_OR_FALSE;
 
-		
 		request.getSession().setAttribute("typeName", typeName);
 		String pageNowString = request.getParameter("pageNow");
 
@@ -102,13 +102,11 @@ public class TrueOrFalseAction extends DispatchAction {
 		// 为jsp中的hidden设置值
 		request.setAttribute("sectionName", sectionName);
 		// 设置问题
-			request.setAttribute("trueOrFalses", (List) collection.get(1));
-	
+		request.setAttribute("trueOrFalses", (List) collection.get(1));
 
 		return mapping.findForward((String) collection.get(2));
 	}
 
-	
 	/**
 	 * 显示判断题详情
 	 * 
@@ -124,8 +122,8 @@ public class TrueOrFalseAction extends DispatchAction {
 		int singleChoiceId = Integer.parseInt(request
 				.getParameter("trueOrFalseId"));
 		String isEdit = request.getParameter("edit");
-		Trueorfalse trueorfalse = (Trueorfalse) questionService
-				.showQuestion(singleChoiceId, DefaultValue.TRUE_OR_FALSE);
+		Trueorfalse trueorfalse = (Trueorfalse) questionService.showQuestion(
+				singleChoiceId, DefaultValue.TRUE_OR_FALSE);
 		request.setAttribute("trueOrFalse", trueorfalse);
 
 		// 获得subject下拉菜单里的所有subject
@@ -158,7 +156,7 @@ public class TrueOrFalseAction extends DispatchAction {
 	}
 
 	/**
-	 * Method  跳转到添加判断题的UI界面
+	 * Method 跳转到添加判断题的UI界面
 	 * 
 	 * @param mapping
 	 * @param form
@@ -171,7 +169,7 @@ public class TrueOrFalseAction extends DispatchAction {
 			HttpServletResponse response) {
 		int subjectId = (Integer) request.getSession()
 				.getAttribute("subjectId");
-		
+
 		List<Section> sectionList = sectionService.listSection(subjectId);
 		List<Subject> subjectList = subjectService.getSubjects();
 		request.setAttribute("subjects", subjectList);
@@ -180,7 +178,7 @@ public class TrueOrFalseAction extends DispatchAction {
 	}
 
 	/**
-	 * Method  添加判断题
+	 * Method 添加判断题
 	 * 
 	 * @param mapping
 	 * @param form
@@ -189,38 +187,37 @@ public class TrueOrFalseAction extends DispatchAction {
 	 * @return ActionForward
 	 * @throws UnsupportedEncodingException
 	 */
-	/**public ActionForward addTrueOrFalse(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
-			HttpServletResponse response) throws UnsupportedEncodingException {
+	public ActionForward addTrueOrFalse(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws UnsupportedEncodingException {
 
-		SingleChoiceForm singleChoiceForm = (SingleChoiceForm) form;
-		Singlechoice singlechoice = new Singlechoice();
-		singlechoice.setQuestionStem(singleChoiceForm.getQuestionStem());
-		singlechoice.setOptionA(singleChoiceForm.getOptionA());
-		singlechoice.setOptionB(singleChoiceForm.getOptionB());
-		singlechoice.setOptionC(singleChoiceForm.getOptionC());
-		singlechoice.setOptionD(singleChoiceForm.getOptionD());
-		singlechoice.setOptionE(singleChoiceForm.getOptionE());
-		singlechoice.setAnswer(singleChoiceForm.getAnswer());
-		singlechoice.setAnalysis(singleChoiceForm.getAnalysis());
+		TrueOrFalseForm trueOrFalseForm = (TrueOrFalseForm) form;
+		Trueorfalse trueorfalse = new Trueorfalse();
+		trueorfalse.setQuestionStem(trueOrFalseForm.getQuestionStem());
+		if (Boolean.parseBoolean(trueOrFalseForm.getAnswerR())
+				&& !Boolean.parseBoolean(trueOrFalseForm.getAnswerW()))
+			trueorfalse.setAnswer(true);
+		else
+			trueorfalse.setAnswer(false);
+		trueorfalse.setAnalysis(trueOrFalseForm.getAnalysis());
+		trueorfalse.setRemark(trueOrFalseForm.getRemark());
 
-		if (singleChoiceForm.getSectionName() != null) {
+		if (trueOrFalseForm.getSectionName() != null) {
 			Section section = sectionService
-					.getSectionBySectionName(singleChoiceForm.getSectionName());
-			singlechoice.setSection(section);
+					.getSectionBySectionName(trueOrFalseForm.getSectionName());
+			trueorfalse.setSection(section);
 		} else {
-			singlechoice.setSection(null);
+			trueorfalse.setSection(null);
 
 		}
-
-		questionService.addSingleChoice(singlechoice);
+		questionService.addTrueOrFalse(trueorfalse);
 		// 设置在showQuestioBySection中要使用参数
-		request.setAttribute("sectionName", singlechoice.getSection()
+		request.setAttribute("sectionName", trueorfalse.getSection()
 				.getSectionName());
-		
-		request.setAttribute("source", "addSingleChoice");
-		return mapping.findForward("showSingleChoiceList");
-	}**/
+
+		request.setAttribute("source", "addTrueOrFalse");
+		return mapping.findForward("showTrueOrFalseList");
+	}
 
 	/**
 	 * 修该判断题
@@ -232,59 +229,61 @@ public class TrueOrFalseAction extends DispatchAction {
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	/**public ActionForward editTrueOrFalse(ActionMapping mapping,
+
+	public ActionForward editTrueOrFalse(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws UnsupportedEncodingException {
-		SingleChoiceForm singleChoiceForm = (SingleChoiceForm) form;
-		int singleChoiceId = Integer.parseInt(request
-				.getParameter("singleChoiceId"));
+		TrueOrFalseForm trueOrFalseForm = (TrueOrFalseForm) form;
+		int trueOrFalseId = Integer.parseInt(request
+				.getParameter("trueOrFalseId"));
 
-		Singlechoice singlechoice = (Singlechoice) questionService.getQuestion(
-				singleChoiceId, "单项选择题");
-		System.out.println(singleChoiceForm.getRemark());
+		Trueorfalse trueorfalse = (Trueorfalse) questionService.getQuestion(
+				trueOrFalseId, DefaultValue.TRUE_OR_FALSE);
+	
 
-		singlechoice.setQuestionStem(singleChoiceForm.getQuestionStem());
-		singlechoice.setOptionA(singleChoiceForm.getOptionA());
-		singlechoice.setOptionB(singleChoiceForm.getOptionB());
-		singlechoice.setOptionC(singleChoiceForm.getOptionC());
-		singlechoice.setOptionD(singleChoiceForm.getOptionD());
-		singlechoice.setOptionE(singleChoiceForm.getOptionE());
-		singlechoice.setAnswer(singleChoiceForm.getAnswer());
-		singlechoice.setAnalysis(singleChoiceForm.getAnalysis());
-		singlechoice.setRemark(singleChoiceForm.getRemark());
+		trueorfalse.setQuestionStem( trueOrFalseForm.getQuestionStem());
+		if (Boolean.parseBoolean(trueOrFalseForm.getAnswerR())
+				&& !Boolean.parseBoolean(trueOrFalseForm.getAnswerW()))
+			trueorfalse.setAnswer(true);
+		else
+			trueorfalse.setAnswer(false);
+		trueorfalse.setAnalysis(trueOrFalseForm.getAnalysis());
+		trueorfalse.setRemark(trueOrFalseForm.getRemark());
 
-		System.out.println("QuestionAction editSingleChoice  "
-				+ singleChoiceForm.getSectionName()
-				+ singleChoiceForm.getSubjectName());
-		if (singleChoiceForm.getSectionName() != null) {
+		
+		if (trueOrFalseForm.getSectionName() != null) {
 			Section section = sectionService
-					.getSectionBySectionName(singleChoiceForm.getSectionName());
-			singlechoice.setSection(section);
+					.getSectionBySectionName(trueOrFalseForm.getSectionName());
+			trueorfalse.setSection(section);
 		}
 
-		questionService.updateSingleChoice(singlechoice);
-		request.setAttribute("singleChoiceId", singleChoiceId);
-		return showSingleChoice(mapping, singleChoiceForm, request, response);
-	}**/
+		questionService.updateTrueOrFalse(trueorfalse);
+		request.setAttribute("trueOrFalseId", trueOrFalseId);
+		return showTrueOrFalse(mapping, null, request, response);
+	}
 
-	/**删除判断题
+	/**
+	 * 删除判断题
+	 * 
 	 * @param mapping
 	 * @param form
 	 * @param request
 	 * @param response
 	 * @return
-	 * @throws UnsupportedEncodingException 
+	 * @throws UnsupportedEncodingException
 	 */
 	public ActionForward deleteTrueOrFalse(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws UnsupportedEncodingException {
 		int trueOrFalseId = Integer.parseInt(request
 				.getParameter("trueOrFalseId"));
-		Trueorfalse trueorfalse=(Trueorfalse) questionService.showQuestion(trueOrFalseId, DefaultValue.TRUE_OR_FALSE);
-		request.setAttribute("sectionName", trueorfalse.getSection().getSectionName());
+		Trueorfalse trueorfalse = (Trueorfalse) questionService.showQuestion(
+				trueOrFalseId, DefaultValue.TRUE_OR_FALSE);
+		request.setAttribute("sectionName", trueorfalse.getSection()
+				.getSectionName());
 		request.setAttribute("source", "deleteTrueOrFalse");
 		questionService.deleteQuestion(DefaultValue.TRUE_OR_FALSE, trueorfalse);
 		return showTrueOrFalseList(mapping, form, request, response);
-		
+
 	}
 }

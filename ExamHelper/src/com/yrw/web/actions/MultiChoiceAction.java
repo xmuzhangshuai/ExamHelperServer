@@ -154,7 +154,7 @@ public class MultiChoiceAction extends DispatchAction {
 		} else
 			request.setAttribute("section", "暂无所属科目");
 		if (isEdit != null) {
-			return mapping.findForward("edtiMultiChoice");
+			return mapping.findForward("editMultiChoice");
 		} else
 			return mapping.findForward("showMultiChoice");
 	}
@@ -192,6 +192,7 @@ public class MultiChoiceAction extends DispatchAction {
 				.getAnswerA()));
 		multichoice.setAnswerB(Boolean.parseBoolean(multiChoiceForm
 				.getAnswerB()));
+		System.out.println(multiChoiceForm.getAnswerB());
 		multichoice.setAnswerC(Boolean.parseBoolean(multiChoiceForm
 				.getAnswerC()));
 		multichoice.setAnswerD(Boolean.parseBoolean(multiChoiceForm
@@ -212,6 +213,8 @@ public class MultiChoiceAction extends DispatchAction {
 		}
 
 		questionService.updateMultiChoice(multichoice);
+		
+		
 		request.setAttribute("multiChoiceId", multiChoiceId);
 		return showMultiChoice(mapping, multiChoiceForm, request, response);
 	}

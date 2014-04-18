@@ -34,49 +34,47 @@
 		document.getElementById("aa").style.display = "";
 	}
 
-	function edit() {
-		var txtN = document.getElementsByTagName("input");
-		for (i = 0; i < txtN.length; i++) {
-			txtN[i].readOnly = false;
-		}
-
-		var txtArea = document.getElementsByTagName("textarea");
-		for (i = 0; i < txtArea.length; i++)
-			txtArea[i].readOnly = false;
-
-		var txtSelect = document.getElementsByTagName("select");
-		for (var i = 0; i < txtSelect.length; i++)
-			txtSelect[i].disabled = false;
-	}
 	function save() {
 
 		if (document.getElementById("questionStem").value.trim().length != 0) {
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=addSingleChoice"
 
-			
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=addMultiChoice"
-				
 			document.getElementById("fom").submit();
 		} else
 			alert("请输入题干");
 
 	}
 	function back() {
-		var sectionName = document.getElementById("sectionName").value;
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=多项选择题&sectionName="
-				+ sectionName;
-		document.getElementById("fom").submit();
+		var sectionId = document.getElementById("sectionId").value;
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=单项选择题&sectionId="
+				+ sectionId;
+	}
+	function right() {
+		var right = document.getElementById("answerR");
+		var wrong = document.getElementById("answerW")
+		if (wrong.checked == true)
+				wrong.checked = false;
+		
+	}
+	function wrong(){
+	var right = document.getElementById("answerR");
+		var wrong = document.getElementById("answerW")
+
+			if (right.checked == true)
+				right.checked = false;
+		
 	}
 </script>
 </head>
 
-<body class="ContentBody" onload="InitCheckBox();">
+<body class="ContentBody">
 	<form method="post" enctype="multipart/form-data" name="fom" id="fom"
 		target="mainFrame">
 		<div class="MainDiv">
 			<table width="99%" border="0" cellpadding="0" cellspacing="0"
 				class="CContent">
 				<tr>
-					<th class="tablestyle_title">多项选题</th>
+					<th class="tablestyle_title">单选题</th>
 				</tr>
 				<tr>
 					<td style="width: 485px; "><input type="button"
@@ -95,7 +93,7 @@
 									<td align="left" width="13%">题干内容:</td>
 									<td style="width: 448px; "><textarea rows="" cols=""
 											id="questionStem" name="questionStem"
-											style="width: 376px; height: 100px" ></textarea><span
+											style="width: 376px; height: 100px"></textarea><span
 										class="red"> *</span></td>
 
 								</tr>
@@ -108,58 +106,29 @@
 				</TR>
 				<tr>
 					<td><fieldset>
-							<legend>选项</legend>
+							<legend>答案</legend>
 
 							<table>
 								<tr>
 									<td>
-										<table>
+										<table style="width: 341px; ">
+
 											<tr>
-												<td align="right" width="13%" style="width: 41px; ">选项A:</td>
-												<td width="43%"><input id="optionA" name="optionA"
-													class="text" style="width:250px" type="text" size="40" /></td>
-											</tr>
-											<tr>
-												<td align="right" width="13%" style="width: 41px; ">选项B:</td>
-												<td width="43%"><input id="optionB" name="optionB"
-													class="text" style="width:250px" type="text" size="40" /></td>
-											</tr>
-											<tr>
-												<td align="right" width="13%" style="width: 41px; ">选项C:</td>
-												<td width="43%"><input id="optionC" class="text"
-													style="width:250px" type="text" size="40" name="optionC" /></td>
-											</tr>
-											<tr>
-												<td align="right" width="13%" style="width: 41px; ">选项D:</td>
-												<td width="43%"><input id="optionD" class="text"
-													style="width:250px" type="text" size="40" name="optionD" /></td>
-											</tr>
-											<tr>
-												<td align="right" width="13%" style="width: 41px; ">选项E:</td>
-												<td width="43%"><input id="optionE" name="optionE"
-													class="text" style="width:250px" type="text" size="40"
-													name="optionE" /></td>
-											</tr>
-											<tr>
-												<td align="right" width="13%" style="width: 41px; ">选项F:</td>
-												<td width="43%"><input id="optionE" name="optionE"
-													class="text" style="width:250px" type="text" size="40"
-													name="optionF" /></td>
+												<td align="left" width="13%"
+													style="height: 42px; width: 40px">答案：</td>
+												<td width="43%"><input id="answerR" name="answerR"
+													onclick="right();" class="text" style="width: 24px"
+													type="radio" size="40" /></td>
+												<td><img src="./images/image_right.png"
+													style="width: 43px; " /></td>
+												<td width="43%"><input id="answerW" name="answerW"
+													class="text" style="width: 24px" type="radio" size="40"
+													onclick="wrong();" /></td>
+												<td><img src="./images/image_wrong.png" /></td>
 											</tr>
 										</table>
 									</td>
-									<td><table>
-											<tr>
-												<td>答案</td>
-												<td><input type="radio" id="answerA" name="answerA" />A</td>
-												<td><input type="radio" id="answerB" name="answerB" />B</td>
-												<td><input type="radio" id="answerC" name="answerC" />C</td>
-												<td><input type="radio" id="answerD" name="answerD" />D</td>
-												<td><input type="radio" id="answerE" name="answerE" />E</td>
-												<td><input type="radio" id="answerF" name="answerF" />F</td>
-											</tr>
 
-										</table></td>
 								</tr>
 							</table>
 
@@ -172,7 +141,7 @@
 								<tr>
 									<td>题目分析</td>
 									<td><textarea id="analysis" cols="" rows=""
-											name="analysis" style="height: 119px; width: 394px" ></textarea></td>
+											name="analysis" style="height: 119px; width: 394px"></textarea></td>
 								</tr>
 							</table>
 						</fieldset></td>
@@ -204,10 +173,8 @@
 				</tr>
 				<TR>
 					<TD colspan="2" align="center" height="50px"><input
-						type="button" value="编辑" class="button" style="width: 83px; "
-						onclick="edit();" /> <input type="button" value="保存"
-						type="submit" style="width: 77px;" onclick="save();"
-						class="button" /></TD>
+						type="button" value="保存" type="submit" style="width: 77px;"
+						onclick="save();" class="button" /></TD>
 				</TR>
 			</TABLE>
 

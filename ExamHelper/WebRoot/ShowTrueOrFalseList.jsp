@@ -43,10 +43,9 @@
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoiceList&sectionName="
 					+ sectionName;
 			alert(document.getElementById("fom").action);
-		} else if (questionType == trueOrFalse){
+		} else if (questionType == trueOrFalse)
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&sectionName="
 					+ sectionName;
-					alert(document.getElementById("fom").action);}
 		else if (questionType == analysis)
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&sectionName="
 					+ sectionName;
@@ -80,7 +79,7 @@
 	}
 
 	function link() {
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=addSingleChoiceUI";
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=addTrueOrFalseUI";
 		document.getElementById("fom").submit();
 	}
 
@@ -96,7 +95,7 @@
 		}
 		document.getElementById("paramsHidden").value = list;
 
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=delSubjectByList&pageNow=${pageNow}";
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=delSubjectByList&pageNow=${pageNow}";
 		document.getElementById("fom").submit();
 	}
 	function keywordSearch() {
@@ -114,14 +113,14 @@
 		if (keyword == nonContent)
 
 		{
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&pageNow="
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&pageNow="
 					+ page+"&sectionName="+sectionName;
 					alert(document.getElementById("fom").action);
 			document.getElementById("fom").submit();
 		} else {
 
 			document.getElementById("textfield").value = keyword;
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=searchSubjectByKeyWord&pageNow="
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=searchSubjectByKeyWord&pageNow="
 			+ page+"&sectionName="+sectionName;
 			document.getElementById("fom").submit();
 
@@ -139,14 +138,14 @@
 			if (keyword == nonContent)
 
 			{
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&pageNow="
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&pageNow="
 						+ (pageNow - 1) + "&sectionName=" + sectionName;
 				alert(document.getElementById("fom").action);
 				document.getElementById("fom").submit();
 			} else {
 
 				document.getElementById("textfield").value = keyword;
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=searchSubjectByKeyWord&pageNow="
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=searchSubjectByKeyWord&pageNow="
 			+ (pageNow - 1) + "&sectionName=" + sectionName;
 				document.getElementById("fom").submit();
 
@@ -166,14 +165,14 @@
 			if (keyword == nonContent)
 
 			{
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&pageNow="
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&pageNow="
 						+ (pageNow + 1) + "&sectionName=" + sectionName;
 				alert(document.getElementById("fom").action);
 				document.getElementById("fom").submit();
 			} else {
 
 				document.getElementById("textfield").value = keyword;
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=searchSubjectByKeyWord&pageNow="
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=searchSubjectByKeyWord&pageNow="
 				+ (pageNow + 1) + "&sectionName=" + sectionName;
 				document.getElementById("fom").submit();
 			}
@@ -187,14 +186,14 @@
 			if (keyword == nonContent)
 
 			{
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&pageNow=1"
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&pageNow=1"
 						 + "&sectionName=" + sectionName;
 				alert(document.getElementById("fom").action);
 				document.getElementById("fom").submit();
 			} else {
 
 				document.getElementById("textfield").value = keyword;
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=searchSubjectByKeyWord&pageNow=1"
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=searchSubjectByKeyWord&pageNow=1"
 				+"&sectionName=" + sectionName;
 				document.getElementById("fom").submit();
 			}
@@ -203,20 +202,20 @@
 	
 		var sectionName=document.getElementById("hiddenValue").value;
 		<%String keywordEP = (String) request.getAttribute("keyword");%>
-		var keyword="<%=keywordEP%>";
-
+		var keyword="<%=keywordEP%>"
+		
 		var nonContent = "null";
 		if (keyword == nonContent)
 
 		{
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&pageNow="
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&pageNow="
 					+ pageCount + "&sectionName=" + sectionName;
 			alert(document.getElementById("fom").action);
 			document.getElementById("fom").submit();
 		} else {
 
 			document.getElementById("textfield").value = keyword;
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=searchSubjectByKeyWord&pageNow="
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=searchSubjectByKeyWord&pageNow="
 					+ pageCount + "&sectionName=" + sectionName;
 			document.getElementById("fom").submit();
 		}
@@ -286,7 +285,7 @@
 											value="删除所选题目" onclick="delSelected();" /> <input
 											type="hidden" name="paramsHidden" id="paramsHidden" /> <input
 											name="Submit2" type="button" class="right-button08"
-											value="添加单项选择题" onclick="link();" /></td>
+											value="添加判断题" onclick="link();" /></td>
 									</tr>
 									<tr>
 										<td height="40" class="font42">
@@ -294,24 +293,24 @@
 												cellspacing="1" bgcolor="#464646" class="newfont03">
 												<tr class="CTitle">
 													<td height="22" colspan="7" align="center"
-														style="font-size:16px">单项选择题列表</td>
+														style="font-size:16px">判断题列表</td>
 												</tr>
 												<tr bgcolor="#EEEEEE">
 													<td width="4%" align="center" height="30">选择</td>
 													<td width="10%">题目名</td>
 													<td width="12%">操作</td>
 												</tr>
-												<c:forEach items="${singleChoices}" var="singleChoice">
+												<c:forEach items="${trueOrFalses}" var="trueOrFalse">
 													<tr bgcolor="#FFFFFF">
 														<td height="20"><input type="checkbox"
-															name="delid${singleChoice.id}" /></td>
+															name="delid${trueOrFalse.id}" /></td>
 														<td><a
-															href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">
+															href="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalse&trueOrFalseId=${trueOrFalse.id}">
 																<c:set var="testStr"
-																	value="${singleChoice.questionStem}" /> <c:choose>
+																	value="${trueOrFalse.questionStem}" /> <c:choose>
 																	<c:when test="${fn:length(testStr) > 50}">
 																		<c:out value="${fn:substring(testStr, 0, 50)}......"
-																			escapeXml="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}" />
+																			escapeXml="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalse&trueOrFalseId=${trueOrFalse.id}" />
 																	</c:when>
 																	<c:otherwise>
 																		<c:out value="${testStr}" />
@@ -321,10 +320,10 @@
 
 														</a></td>
 														<td><a
-															href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}&edit=true">编辑|</a><a
-															href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">查看|</a>
+															href="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalse&trueOrFalseId=${trueOrFalse.id}&edit=true">编辑|</a><a
+															href="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalse&trueOrFalseId=${trueOrFalse.id}">查看|</a>
 															<a
-															href="${pageContext.request.contextPath}/singleChoice.do?flag=deleteSingleChoice&singleChoiceId=${singleChoice.id}">删除</a></td>
+															href="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalse&trueOrFalseId=${trueOrFalse.id}">删除</a></td>
 
 													</tr>
 												</c:forEach>

@@ -227,13 +227,12 @@ public class QuestionService {
 			pageMap.put("pageCount", pageCount);
 			pageMap.put("pageNow", pageNow);
 
-			List<Singlechoice> singleCohiceList = iSingleChoiceDao.getSingleChoiceBySection(
-					pageNow, sectionId);
+			List<Singlechoice> singleCohiceList = iSingleChoiceDao
+					.getSingleChoiceBySection(pageNow, sectionId);
 
 			collection.add(pageMap);
 			collection.add(singleCohiceList);
 			collection.add("showSingleChoiceList");
-			
 
 		} else if (typeName.equals(DefaultValue.MULTI_CHOICE)) {
 			int pageCount = iMultiChoiceDao.getPageCountBySection(sectionId);
@@ -301,7 +300,7 @@ public class QuestionService {
 			collection.add(pageMap);
 			collection.add(materialAnalysisList);
 			collection.add("showMaterialAnalysisList");
-			
+
 		}
 		return collection;
 	}
@@ -352,16 +351,15 @@ public class QuestionService {
 
 	public List<Questiontype> showQuestiontypes(String typeName) {
 		List<Questiontype> questiontypes = iQuestionTypeDao.getQuestionTypes();
-		Questiontype questiontype=null;
-		int i=0;
-		for(;i<questiontypes.size();i++)
-		{
-			if(questiontypes.get(i).getTypeName().equals(typeName)){
-				questiontype=questiontypes.get(i);
+		Questiontype questiontype = null;
+		int i = 0;
+		for (; i < questiontypes.size(); i++) {
+			if (questiontypes.get(i).getTypeName().equals(typeName)) {
+				questiontype = questiontypes.get(i);
 				break;
 			}
 		}
-		
+
 		questiontypes.set(i, questiontypes.get(0));
 		questiontypes.set(0, questiontype);
 		return questiontypes;
@@ -393,7 +391,7 @@ public class QuestionService {
 	 * @param sectionId
 	 * @param singlechoice
 	 */
-	public void addSingleChoice( Singlechoice singlechoice) {
+	public void addSingleChoice(Singlechoice singlechoice) {
 		iSingleChoiceDao.addSingleChoice(singlechoice);
 
 	}
@@ -403,7 +401,7 @@ public class QuestionService {
 	 * 
 	 * @param multichoice
 	 */
-	public void addMultiChoice( Multichoice multichoice) {
+	public void addMultiChoice(Multichoice multichoice) {
 		iMultiChoiceDao.add(multichoice);
 	}
 
@@ -413,9 +411,7 @@ public class QuestionService {
 	 * @param sectionId
 	 * @param trueorfalse
 	 */
-	public void addTrueOrFalse(int sectionId, Trueorfalse trueorfalse) {
-		Section section = (Section) iSectionDao.getSectionById(sectionId);
-		trueorfalse.setSection(section);
+	public void addTrueOrFalse(Trueorfalse trueorfalse) {
 		iTrueOrFalseDao.add(trueorfalse);
 	}
 
@@ -479,6 +475,15 @@ public class QuestionService {
 	 */
 	public void updateMultiChoice(Multichoice multichoice) {
 		iMultiChoiceDao.update(multichoice);
+	}
+
+	/**
+	 * ÐÞ¸ÄÅÐ¶ÏÌâ
+	 * 
+	 * @param trueorfalse
+	 */
+	public void updateTrueOrFalse(Trueorfalse trueorfalse) {
+
 	}
 
 	/**
