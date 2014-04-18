@@ -67,19 +67,24 @@
 			parameter="flag" path="/singleChoice" scope="request"
 			type="com.yrw.web.actions.SingleChoiceAction" cancellable="true">
 			<forward name="addSingleChoice" path="/AddSingleChoice.jsp" />
-			<forward name="edtiSingleChoice" path="/EditSingleChoice.jsp" />
+			<forward name="editSingleChoice" path="/EditSingleChoice.jsp" />
 			<forward name="showSingleChoice" path="/ShowSingleChoice.jsp" />
 			<forward name="showSingleChoiceList" path="/ShowSingleChoiceList.jsp" />
 		</action>
-    <action
-      path="/trueOrFalse"
-      type="com.yrw.web.actions.TrueOrFalseAction"
-      cancellable="true" />
-    <action
-      path="/materialAnalysis"
-      type="com.yrw.web.actions.MaterialAnalysisAction"
-      validate="false"
-      cancellable="true" />
+		<action path="/trueOrFalse" type="com.yrw.web.actions.TrueOrFalseAction"
+			cancellable="true">
+			<forward name="addTrueOrFalse" path="/AddTrueOrFalse.jsp" />
+			<forward name="editTrueOrFalse" path="/EditTrueOrFalse.jsp" />
+			<forward name="showTrueOrFalse" path="/ShowTrueOrFalse.jsp" />
+			<forward name="showTrueOrFalseList" path="/ShowTrueOrFalseList.jsp" />
+		</action>
+		<action path="/materialAnalysis" type="com.yrw.web.actions.MaterialAnalysisAction"
+			validate="false" cancellable="true" >
+				<forward name="addMaterialAnalysis" path="/AddMaterialAnalysis.jsp" />
+			<forward name="editMaterialAnalysis" path="/EditMaterialAnalysis.jsp" />
+			<forward name="showMaterialAnalysis" path="/ShowMaterialAnalysis.jsp" />
+			<forward name="showMaterialAnalysisList" path="/ShowMaterialAnalysisList.jsp" />
+			</action>
 
 
 

@@ -21,14 +21,11 @@ public interface ISingleChoiceDao extends IBasicDao {
 	 * @return void
 	 */
 	public void addSingleChoice(Singlechoice singlechoice);
-	/**
-	 * Method delSingleChoice 删除某条
-	 * 
-	 * @param singleChoiceId
-	 * @return void
-	 */
-	public void delSingleChoice(int singlechoiceId);
 	
+	/**删除单选题
+	 * @param object
+	 */
+	public void delSingleChoice(Object object); 
 	
 	
 	/**

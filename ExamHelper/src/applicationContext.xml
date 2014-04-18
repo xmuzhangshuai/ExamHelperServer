@@ -143,7 +143,7 @@
 		<property name="iExamSectionDao" ref="examSectionDao" />
 	</bean>
 	<bean id="examGuideService" class="com.yrw.service.ExamGuideService">
-	<property name="iExamGuideDao" ref="examGuideDao"/>
+		<property name="iExamGuideDao" ref="examGuideDao" />
 	</bean>
 	<!-- 托管action -->
 	<bean name="/login" class="com.yrw.web.actions.LoginAction">
@@ -169,6 +169,16 @@
 		<property name="subjectService" ref="subjectService" />
 	</bean>
 	<bean name="/multiChoice" class="com.yrw.web.actions.MultiChoiceAction">
+		<property name="questionService" ref="questionService" />
+		<property name="sectionService" ref="sectionService" />
+		<property name="subjectService" ref="subjectService" />
+	</bean>
+	<bean name="/trueOrFalse" class="com.yrw.web.actions.TrueOrFalseAction">
+		<property name="questionService" ref="questionService" />
+		<property name="sectionService" ref="sectionService" />
+		<property name="subjectService" ref="subjectService" />
+	</bean>
+	<bean name="/materialAnalysis" class="com.yrw.web.actions.MaterialAnalysisAction">
 		<property name="questionService" ref="questionService" />
 		<property name="sectionService" ref="sectionService" />
 		<property name="subjectService" ref="subjectService" />

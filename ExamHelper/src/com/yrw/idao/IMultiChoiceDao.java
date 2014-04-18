@@ -65,13 +65,11 @@ public interface IMultiChoiceDao extends IBasicDao {
 	 * @return
 	 */
 	public Multichoice showMultichoice(int multiChoiceId);
-	/**
-	 * Method delMultichoice 删除多选题
-	 * 
-	 * @param multichoiceId
-	 * @return void
+	
+	/**删除多选题
+	 * @param object
 	 */
-	public void delMultiChoice(int multichoiceId);
+	public void delMultiChoice(Object object);
 	/**
 	 * Method addMultichoice 添加多选题
 	 * 

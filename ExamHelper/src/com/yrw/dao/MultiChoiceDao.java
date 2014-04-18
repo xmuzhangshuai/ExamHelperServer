@@ -1,8 +1,12 @@
 package com.yrw.dao;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import com.yrw.domains.Multichoice;
+import com.yrw.domains.Section;
+import com.yrw.domains.Singlechoice;
 import com.yrw.idao.IMultiChoiceDao;
 
 public class MultiChoiceDao extends BasicDao implements IMultiChoiceDao {
@@ -55,9 +59,22 @@ public class MultiChoiceDao extends BasicDao implements IMultiChoiceDao {
 	}
 
 	@Override
-	public void delMultiChoice(int multichoiceId) {
+	public void delMultiChoice(Object object) {
 		// TODO Auto-generated method stub
-		this.deletById(Multichoice.class, multichoiceId);
+		Multichoice multichoice=(Multichoice)object;
+		
+		
+		if (multichoice != null) {
+			Section section = multichoice.getSection();
+			Set<Multichoice> multichoices = section.getMultichoices();
+			Iterator<Multichoice> iterator = multichoices.iterator();
+			while (iterator.hasNext())
+				if (iterator.next().getId() == multichoice.getId()) {
+					iterator.remove();
+					break;
+				}
+			this.deletById(Multichoice.class, multichoice.getId());
+		}
 	}
 
 	@Override

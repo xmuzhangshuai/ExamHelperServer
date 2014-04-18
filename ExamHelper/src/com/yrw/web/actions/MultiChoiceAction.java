@@ -75,7 +75,7 @@ public class MultiChoiceAction extends DispatchAction {
 			sectionName = new String(request.getParameter("sectionName")
 					.getBytes("ISO-8859-1"), "utf-8");
 
-		String typeName = "多项选择题";
+		String typeName = DefaultValue.MULTI_CHOICE;
 
 		request.getSession().setAttribute("typeName", typeName);
 		String pageNowString = request.getParameter("pageNow");
@@ -178,7 +178,7 @@ public class MultiChoiceAction extends DispatchAction {
 				.getParameter("multiChoiceId"));
 
 		Multichoice multichoice = (Multichoice) questionService.getQuestion(
-				multiChoiceId, "多项选择题");
+				multiChoiceId, DefaultValue.MULTI_CHOICE);
 
 		multichoice.setQuestionStem(multiChoiceForm.getQuestionStem());
 		multichoice.setOptionA(multiChoiceForm.getOptionA());

@@ -76,7 +76,7 @@ public class SingleChoiceAction extends DispatchAction {
 		else
 			sectionName = new String(request.getParameter("sectionName")
 					.getBytes("ISO-8859-1"), "utf-8");
-		String typeName = "单项选择题";
+		String typeName = DefaultValue.SINGLE_CHOICE;
 
 		
 		request.getSession().setAttribute("typeName", typeName);
@@ -156,7 +156,7 @@ public class SingleChoiceAction extends DispatchAction {
 		} else
 			request.setAttribute("section", "暂无所属科目");
 		if (isEdit != null) {
-			return mapping.findForward("edtiSingleChoice");
+			return mapping.findForward("editSingleChoice");
 		} else
 			return mapping.findForward("showSingleChoice");
 	}
@@ -244,7 +244,7 @@ public class SingleChoiceAction extends DispatchAction {
 				.getParameter("singleChoiceId"));
 
 		Singlechoice singlechoice = (Singlechoice) questionService.getQuestion(
-				singleChoiceId, "单项选择题");
+				singleChoiceId, DefaultValue.SINGLE_CHOICE);
 		System.out.println(singleChoiceForm.getRemark());
 
 		singlechoice.setQuestionStem(singleChoiceForm.getQuestionStem());
@@ -271,5 +271,24 @@ public class SingleChoiceAction extends DispatchAction {
 		return showSingleChoice(mapping, singleChoiceForm, request, response);
 	}
 
-	
+	/**删除单选题
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws UnsupportedEncodingException 
+	 */
+	public ActionForward deleteSingleChoice(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws UnsupportedEncodingException {
+		int singleChoiceId = Integer.parseInt(request
+				.getParameter("singleChoiceId"));
+		Singlechoice singlechoice=(Singlechoice) questionService.showQuestion(singleChoiceId, DefaultValue.SINGLE_CHOICE);
+		request.setAttribute("sectionName", singlechoice.getSection().getSectionName());
+		request.setAttribute("source", "deleteSingleChoice");
+		questionService.deleteQuestion(DefaultValue.SINGLE_CHOICE, singlechoice);
+		return showSingleChoiceList(mapping, form, request, response);
+		
+	}
 }

@@ -227,7 +227,7 @@ public class QuestionService {
 			pageMap.put("pageCount", pageCount);
 			pageMap.put("pageNow", pageNow);
 
-			List singleCohiceList = iSingleChoiceDao.getSingleChoiceBySection(
+			List<Singlechoice> singleCohiceList = iSingleChoiceDao.getSingleChoiceBySection(
 					pageNow, sectionId);
 
 			collection.add(pageMap);
@@ -336,17 +336,17 @@ public class QuestionService {
 	 * @param typeName
 	 * @param id
 	 */
-	public void deleteQuestion(String typeName, int id) {
+	public void deleteQuestion(String typeName, Object object) {
 		if (typeName.equals(DefaultValue.SINGLE_CHOICE))
-			iSingleChoiceDao.delSingleChoice(id);
+			iSingleChoiceDao.delSingleChoice(object);
 
 		else if (typeName.equals(DefaultValue.MULTI_CHOICE))
-			iMultiChoiceDao.delMultiChoice(id);
+			iMultiChoiceDao.delMultiChoice(object);
 
 		else if (typeName.equals(DefaultValue.TRUE_OR_FALSE))
-			iTrueOrFalseDao.delTrueOrFalse(id);
+			iTrueOrFalseDao.delTrueOrFalse(object);
 		else if (typeName.equals(DefaultValue.MATERIAL_ANALYSIS))
-			iMaterialAnalysisDao.delMaterialAnalysis(id);
+			iMaterialAnalysisDao.delMaterialAnalysis(object);
 
 	}
 

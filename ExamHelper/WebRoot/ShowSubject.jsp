@@ -21,7 +21,6 @@
 
 	function deleteSubject(subjectId) {
    
-  
    var id="deleteSingleSubject"+subjectId
    document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=deleteSubject&subjectId="+subjectId;
    document.getElementById("fom").submit();	
@@ -179,7 +178,6 @@
 		if (keyword == nonContent)
 
 		{
-
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=listSubject&pageNow=${pageCount}";
 			document.getElementById("fom").submit();
 		} else {

@@ -112,8 +112,7 @@
 	
 		if (keyword==nonContent)
 
- {
-			
+ {		
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=listSubject&pageNow=${pageNow-1}";
 			document.getElementById("fom").submit();
 		} else {
@@ -173,7 +172,7 @@
 
 </head>
 
-<body >
+<body>
 	<form name="fom" id="fom" method="post" action="" target="mainFrame">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 
@@ -191,8 +190,10 @@
 												<tr>
 													<td width="538" style="width: 88px; ">查看题目方式：</td>
 													<td style="width: 129px; "><a
-														href="${pageContext.request.contextPath}/listQuestion.do?flag=showSection" target="mainFrame">按章节查看</a></td>
-													<td style="width: 79px; "><a href="${pageContext.request.contextPath}/listQuestion.do?flag=showExamList">按试卷查看</a></td>
+														href="${pageContext.request.contextPath}/listQuestion.do?flag=showSection"
+														target="mainFrame">按章节查看</a></td>
+													<td style="width: 79px; "><a
+														href="${pageContext.request.contextPath}/listQuestion.do?flag=showExamList">按试卷查看</a></td>
 												</tr>
 											</table>
 										</td>
@@ -253,11 +254,11 @@
 															href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&sectionName=${section.sectionName}"
 															onclick="">${section.sectionName}</a></td>
 														<td><a
-															href="${pageContext.request.contextPath}/listQuestion.do?flag=updateSectionUI&sectionId=${section.id}" target="mainFrame">编辑|</a><a
+															href="${pageContext.request.contextPath}/listQuestion.do?flag=updateSectionUI&sectionId=${section.id}"
+															target="mainFrame">编辑|</a><a
 															href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&sectionName=${section.sectionName}">查看|</a>
-														<!--  	<a href="${pageContext.request.contextPath}/listQuestion.do?flag=deleteSection&sectionId=${section.id}">删除</a></td>-->
-													<a href="#">删除</a>
-													</td>
+															<!--  	<a href="${pageContext.request.contextPath}/listQuestion.do?flag=deleteSection&sectionId=${section.id}">删除</a></td>-->
+															<a href="#">删除</a></td>
 													</tr>
 												</c:forEach>
 											</table>

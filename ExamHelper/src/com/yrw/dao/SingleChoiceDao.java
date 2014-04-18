@@ -1,7 +1,10 @@
 package com.yrw.dao;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
+import com.yrw.domains.Section;
 import com.yrw.domains.Singlechoice;
 import com.yrw.idao.ISingleChoiceDao;
 
@@ -14,9 +17,20 @@ public class SingleChoiceDao extends BasicDao implements ISingleChoiceDao {
 	}
 
 	@Override
-	public void delSingleChoice(int singleChoiceId) {
+	public void delSingleChoice(Object object) {
 		// TODO Auto-generated method stub
-		this.deletById(Singlechoice.class, singleChoiceId);
+		Singlechoice singlechoice = (Singlechoice)object;
+		if (singlechoice != null) {
+			Section section = singlechoice.getSection();
+			Set<Singlechoice> singlechoices = section.getSinglechoices();
+			Iterator<Singlechoice> iterator = singlechoices.iterator();
+			while (iterator.hasNext())
+				if (iterator.next().getId() == singlechoice.getId()) {
+					iterator.remove();
+					break;
+				}
+			this.deletById(Singlechoice.class, singlechoice.getId());
+		}
 	}
 
 	@Override
@@ -30,7 +44,7 @@ public class SingleChoiceDao extends BasicDao implements ISingleChoiceDao {
 	@Override
 	public int getPageCountBySection(int sectionId) {
 		// TODO Auto-generated method stub
-		String hql = "select count(*) from Singlechoice as s where s.section.id="
+		String hql = "select count(s) from Singlechoice as s where s.section.id="
 				+ sectionId;
 		return this.queryPageCount(hql, null);
 	}
@@ -46,7 +60,7 @@ public class SingleChoiceDao extends BasicDao implements ISingleChoiceDao {
 
 	@Override
 	public int getPageCountBySubject(int subjectId) {
-		String hql = "select count(*) from Singlechoice where s.section.id in (select section.id from Section  section where section.subjectId="
+		String hql = "select count(s) from Singlechoice where s.section.id in (select section.id from Section  section where section.subjectId="
 				+ subjectId + ")";
 		return this.queryPageCount(hql, null);
 	}
@@ -54,7 +68,7 @@ public class SingleChoiceDao extends BasicDao implements ISingleChoiceDao {
 	@Override
 	public int getPageCountByName(String singleChoiceName) {
 		// TODO Auto-generated method stub
-		String hql = "select count(*) from Singlechoice as s where s.questionStem like '%"
+		String hql = "select count(s) from Singlechoice as s where s.questionStem like '%"
 				+ singleChoiceName + "%'";
 		return this.queryPageCount(hql, null);
 	}
@@ -78,7 +92,5 @@ public class SingleChoiceDao extends BasicDao implements ISingleChoiceDao {
 		// TODO Auto-generated method stub
 		this.update(singlechoice);
 	}
-
-	
 
 }
