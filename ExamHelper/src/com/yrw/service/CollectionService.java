@@ -53,6 +53,15 @@ public class CollectionService {
 			icollectionDao.deletById(Collection.class, collection2.getId());
 		}
 	}
+	
+	/**
+	 * 根据用户ID返回收藏列表
+	 * @param userID
+	 * @return
+	 */
+	public List<Collection> getCollectionListByUser(int userID){
+		return icollectionDao.getCollectionByUser(userID);
+	}
 
 	
 }

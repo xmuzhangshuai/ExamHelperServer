@@ -101,4 +101,15 @@ public class NoteService {
 
 	}
 
+	/**
+	 * 根据用户ID返回笔记列表
+	 * 
+	 * @param userID
+	 * @return
+	 */
+	public List<Note> getNoteList(int userID) {
+		List<Note> noteList = iNoteDao.getNoteByUserId(userID);
+		return noteList;
+	}
+
 }

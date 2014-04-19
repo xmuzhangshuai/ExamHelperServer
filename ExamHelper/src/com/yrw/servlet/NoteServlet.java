@@ -105,7 +105,6 @@ public class NoteServlet extends BaseServlet {
 		/**
 		 * 如果是根据用户Key返回用户列表
 		 */
-
 		else if (type.trim().equals("getUserList")) {
 			List<JUser> jUserList = FastJsonTools.createJsonToListBean(jsonString, JUser.class);
 			List<JUser> newUserList = new ArrayList<JUser>();
@@ -118,6 +117,23 @@ public class NoteServlet extends BaseServlet {
 
 				msg = FastJsonTools.createJsonString(newUserList);
 			}
+		}
+
+		/**
+		 * 如果是genuine用户ID返回笔记列表
+		 */
+		else if (type.trim().equals("getNoteListByUser")) {
+			Integer userID = Integer.parseInt(request.getParameter("userId"));
+			List<JNote> temp = new ArrayList<JNote>();
+			List<Note> noteList = noteService.getNoteList(userID);
+			if (noteList != null) {
+				for (Note note : noteList) {
+					JNote jNote = JNote.LocalToNet(note);
+					temp.add(jNote);
+				}
+				msg = FastJsonTools.createJsonString(temp);
+			}
+
 		}
 
 		out.write(msg);

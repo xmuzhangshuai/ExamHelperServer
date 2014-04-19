@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.yrw.domains.Collection;
 import com.yrw.idao.IQuestionTypeDao;
 import com.yrw.idao.ISectionDao;
 import com.yrw.idao.IUserDao;
@@ -63,11 +64,11 @@ public class JCollection {
 	 * @param netCollection
 	 * @return
 	 */
-	public static JCollection LocalToNet(com.yrw.domains.Collection localCollection) {
+	public static JCollection LocalToNet(Collection localCollection) {
 
 		JCollection netCollection = new JCollection((long) localCollection.getId(), localCollection.getQuestionId(),
 				localCollection.getCollectTime(), localCollection.getUser().getId(), localCollection.getQuestiontype()
-						.getId(), localCollection.getSection().getSubjectId());
+						.getId(), localCollection.getSection().getId());
 
 		return netCollection;
 	}

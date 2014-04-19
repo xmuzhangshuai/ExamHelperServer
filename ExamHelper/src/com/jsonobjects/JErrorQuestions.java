@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.yrw.domains.Errorquestions;
 import com.yrw.idao.IQuestionTypeDao;
 import com.yrw.idao.ISectionDao;
 import com.yrw.idao.IUserDao;
@@ -68,7 +69,7 @@ public class JErrorQuestions {
 	 * 
 	 * @return
 	 */
-	public static JErrorQuestions LocalToNet(com.yrw.domains.Errorquestions local) {
+	public static JErrorQuestions LocalToNet(Errorquestions local) {
 		JErrorQuestions errorQuestions = new JErrorQuestions((long) local.getId(), (long) local.getQuestionId(),
 				local.getErrorTime(), local.getErrorNum(), (long) local.getUser().getId(), (long) local
 						.getQuestiontype().getId(), (long) local.getSection().getId());

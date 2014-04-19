@@ -40,7 +40,7 @@ public class ErrorQuestionDao extends BasicDao implements IErrorQuestionDao {
 	@Override
 	public List getErrorQuestionByUser(int userId) {
 		// TODO Auto-generated method stub
-		String hql = "from Errorquestions as e where e.user.id=" + userId;
+		String hql = "from Errorquestions as e where e.user.id=" + userId + "order by e.errorTime desc";
 		return this.executeQuery(hql, null);
 	}
 
