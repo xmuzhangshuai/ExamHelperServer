@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.yrw.domains.Note;
 import com.yrw.idao.IQuestionTypeDao;
 import com.yrw.idao.IUserDao;
 
@@ -32,13 +33,13 @@ public class JNote {
 	 * 
 	 * @return
 	 */
-	public com.yrw.domains.Note NetToLocal() {
+	public Note NetToLocal() {
 
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 		IUserDao iUserDao = (IUserDao) applicationContext.getBean("userDao");
 		IQuestionTypeDao iQuestionTypeDao = (IQuestionTypeDao) applicationContext.getBean("questionTypeDao");
 
-		com.yrw.domains.Note local = new com.yrw.domains.Note(iUserDao.getUserById(new Long(user_id).intValue()),
+		Note local = new Note(iUserDao.getUserById(new Long(user_id).intValue()),
 				iQuestionTypeDao.getQuestiontypeById(new Long(questionType_id).intValue()),
 				new Long(question_id).intValue(), new Timestamp(note_time.getTime()), note_content);
 		return local;

@@ -51,7 +51,7 @@ public class ErrorQuestionServlet extends BaseServlet {
 		// 如果是根据用户ID返回错题列表
 		else if (type.equals("getErrorListByUser")) {
 			Integer userID = Integer.parseInt(request.getParameter("userId"));
-			System.out.println(userID);
+
 			List<JErrorQuestions> temp = new ArrayList<JErrorQuestions>();
 			List<Errorquestions> errorquestionList = errorQuestionService.getErrorquestionsByUser(userID);
 			if (errorquestionList != null) {
@@ -63,7 +63,6 @@ public class ErrorQuestionServlet extends BaseServlet {
 			}
 		}
 
-		System.out.println(msg);
 		out.write(msg);
 		out.flush();
 		out.close();
