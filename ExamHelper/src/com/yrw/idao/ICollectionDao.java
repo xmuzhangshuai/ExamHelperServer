@@ -27,6 +27,13 @@ public interface ICollectionDao extends IBasicDao {
 	public List getCollectionByUser(int userId, int pageNow);
 
 	/**
+	 * 根据用户ID返回笔记列表
+	 * @param userId
+	 * @return
+	 */
+	public List<Collection> getCollectionByUser(int userId);
+
+	/**
 	 * Method getPageCountByUser 得到某位用户收藏信息页数
 	 * 
 	 * @param userId

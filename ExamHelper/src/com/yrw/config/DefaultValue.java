@@ -3,7 +3,7 @@ package com.yrw.config;
 public class DefaultValue {
 
 	//页面大小
-	public static final int PAGE_SIZE=3;
+	public static final int PAGE_SIZE=10;
 	//单项选择题默认值
 	public static final  String SINGLE_CHOICE="单项选择题";
 	//多选题

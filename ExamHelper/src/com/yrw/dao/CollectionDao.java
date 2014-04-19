@@ -33,4 +33,12 @@ public class CollectionDao extends BasicDao implements ICollectionDao {
 
 	}
 
+	@Override
+	public List<Collection> getCollectionByUser(int userId) {
+		// TODO Auto-generated method stub
+		String hql = "select collection from Collection collection left join collection.user user where user.id="
+				+ userId + "order by collection.collectTime desc";
+		return this.executeQuery(hql, null);
+	}
+
 }

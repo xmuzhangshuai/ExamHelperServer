@@ -49,4 +49,13 @@ public class ErrorQuestionService {
 	public List<Errorquestions> getErrorQuestion() {
 		return iErrorQuestionDao.getErrorQuestions();
 	}
+	
+	/**
+	 * 根据用户ID返回错题列表
+	 * @param UserId
+	 * @return
+	 */
+	public List<Errorquestions> getErrorquestionsByUser(int userId){
+		return iErrorQuestionDao.getErrorQuestionByUser(userId);
+	}
 }

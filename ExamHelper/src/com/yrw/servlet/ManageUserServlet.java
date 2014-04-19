@@ -76,6 +76,15 @@ public class ManageUserServlet extends BaseServlet {
 			}
 		}
 
+		// 如果是更改密码
+		else if (type.equals("modifyPass")) {
+			String newPass = request.getParameter("newPass");
+			int userId = Integer.parseInt(request.getParameter("userId"));
+			User user = userService.getUserByKey(userId);
+			user.setPassword(newPass);
+			userService.modifyUser(user);
+		}
+
 		out.write(msg);
 		out.flush();
 		out.close();

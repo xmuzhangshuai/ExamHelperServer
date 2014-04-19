@@ -1,11 +1,15 @@
 package com.yrw.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.validator.Msg;
 
 import com.jsonobjects.JCollection;
 import com.yrw.domains.Collection;
@@ -13,11 +17,14 @@ import com.yrw.service.CollectionService;
 import com.yrw.tools.FastJsonTools;
 
 public class CollectionServlet extends BaseServlet {
+	private static final long serialVersionUID = 995075144103168711L;
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset = utf-8");
 		response.setCharacterEncoding("utf-8");
 		request.setCharacterEncoding("utf-8");
+		PrintWriter out = response.getWriter();
+		String msg = "";
 
 		// ÊÕ²ØJsonString
 		String jsonString = request.getParameter("collection");
@@ -64,6 +71,22 @@ public class CollectionServlet extends BaseServlet {
 			}
 		}
 
+		else if (type.trim().equals("getCollectionListByUser")) {
+			Integer userID = Integer.parseInt(request.getParameter("userId"));
+			List<JCollection> temp = new ArrayList<JCollection>();
+			List<Collection> collectionList = collectionService.getCollectionListByUser(userID);
+			if (collectionList != null) {
+				for (Collection collection : collectionList) {
+					JCollection jCollection = JCollection.LocalToNet(collection);
+					temp.add(jCollection);
+				}
+				msg = FastJsonTools.createJsonString(temp);
+			}
+
+		}
+		out.write(msg);
+		out.flush();
+		out.close();
 	}
 
 }
