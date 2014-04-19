@@ -156,25 +156,29 @@
 
 	}
 	function nextPage(pageNow, pageCount) {
-		if (pageNow + 1 > pageCount)
-			alert(当前为最后一页)
+		pageCount=parseInt(pageCount);
+		pageNow=parseInt(pageNow);
+		
+		if (pageNow+1> pageCount)
+			alert(当前为最后一页);
 		else {
 		var sectionName=document.getElementById("hiddenValue").value;
 		<%String keywordNP = (String) request.getAttribute("keyword");%>
 		var keyword="<%=keywordNP%>"
 			var nonContent = "null";
-			if (keyword == nonContent)
+			pageNow=parseInt(pageNow)+1;
+				if (keyword == nonContent)
 
 			{
 				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&pageNow="
-						+ (pageNow + 1) + "&sectionName=" + sectionName;
+						+ pageNow + "&sectionName=" + sectionName;
 				alert(document.getElementById("fom").action);
 				document.getElementById("fom").submit();
 			} else {
 
 				document.getElementById("textfield").value = keyword;
 				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=searchSubjectByKeyWord&pageNow="
-				+ (pageNow + 1) + "&sectionName=" + sectionName;
+				+pageNow+ "&sectionName=" + sectionName;
 				document.getElementById("fom").submit();
 			}
 		}

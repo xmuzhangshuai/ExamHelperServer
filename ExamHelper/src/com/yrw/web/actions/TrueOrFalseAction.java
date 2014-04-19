@@ -15,6 +15,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DispatchAction;
+import org.hibernate.type.TrueFalseType;
 
 import com.yrw.config.DefaultValue;
 import com.yrw.domains.Questiontype;
@@ -122,6 +123,8 @@ public class TrueOrFalseAction extends DispatchAction {
 		Trueorfalse trueorfalse = (Trueorfalse) questionService.getQuestion(
 				singleChoiceId, DefaultValue.TRUE_OR_FALSE);
 		request.setAttribute("trueOrFalse", trueorfalse);
+		
+		
 
 		// 获得subject下拉菜单里的所有subject
 		int subjectId = (Integer) request.getSession()
@@ -191,13 +194,8 @@ public class TrueOrFalseAction extends DispatchAction {
 		TrueOrFalseForm trueOrFalseForm = (TrueOrFalseForm) form;
 		Trueorfalse trueorfalse = new Trueorfalse();
 		trueorfalse.setQuestionStem(trueOrFalseForm.getQuestionStem());
-		System.out.println(Boolean.parseBoolean(trueOrFalseForm.getAnswerR()));
-		System.out.println(Boolean.parseBoolean(trueOrFalseForm.getAnswerW()));
-		if (Boolean.parseBoolean(trueOrFalseForm.getAnswerR())
-				&& !Boolean.parseBoolean(trueOrFalseForm.getAnswerW()))
-			trueorfalse.setAnswer(true);
-		else
-			trueorfalse.setAnswer(false);
+	
+		trueorfalse.setAnswer(Boolean.parseBoolean(trueOrFalseForm.getAnswer()));
 		trueorfalse.setAnalysis(trueOrFalseForm.getAnalysis());
 		trueorfalse.setRemark(trueOrFalseForm.getRemark());
 
@@ -213,7 +211,6 @@ public class TrueOrFalseAction extends DispatchAction {
 		// 设置在showTrueOrFalseList中要使用参数
 		request.setAttribute("sectionName", trueorfalse.getSection()
 				.getSectionName());
-
 		request.setAttribute("source", "addTrueOrFalse");
 		return showTrueOrFalseList(mapping, null, request, response);
 	}
@@ -240,11 +237,8 @@ public class TrueOrFalseAction extends DispatchAction {
 				trueOrFalseId, DefaultValue.TRUE_OR_FALSE);
 
 		trueorfalse.setQuestionStem(trueOrFalseForm.getQuestionStem());
-		if (Boolean.parseBoolean(trueOrFalseForm.getAnswerR())
-				&& !Boolean.parseBoolean(trueOrFalseForm.getAnswerW()))
-			trueorfalse.setAnswer(true);
-		else
-			trueorfalse.setAnswer(false);
+	System.out.println(trueOrFalseForm.getAnswer());
+		trueorfalse.setAnswer(Boolean.parseBoolean(request.getParameter("answer")));
 		trueorfalse.setAnalysis(trueOrFalseForm.getAnalysis());
 		trueorfalse.setRemark(trueOrFalseForm.getRemark());
 
@@ -255,8 +249,12 @@ public class TrueOrFalseAction extends DispatchAction {
 		}
 
 		questionService.updateTrueOrFalse(trueorfalse);
-		request.setAttribute("trueOrFalseId", trueOrFalseId);
-		return showTrueOrFalse(mapping, null, request, response);
+		// 为转入shwoTrueOrFalse设置参数
+		request.setAttribute("sectionName", trueorfalse.getSection()
+				.getSectionName());
+
+		request.setAttribute("source", "editTrueOrFalse");
+		return showTrueOrFalseList(mapping, null, request, response);
 	}
 
 	/**

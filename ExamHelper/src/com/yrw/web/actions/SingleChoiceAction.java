@@ -220,7 +220,7 @@ public class SingleChoiceAction extends DispatchAction {
 				.getSectionName());
 
 		request.setAttribute("source", "addSingleChoice");
-		return mapping.findForward("showSingleChoiceList");
+		return showSingleChoiceList(mapping, null, request, response);
 	}
 
 	/**
@@ -269,7 +269,7 @@ public class SingleChoiceAction extends DispatchAction {
 				.getSectionName());
 
 		request.setAttribute("source", "editSingleChoice");
-		return mapping.findForward("showSingleChoiceList");
+		return showSingleChoiceList(mapping, null, request, response);
 	}
 
 	/**
@@ -295,7 +295,7 @@ public class SingleChoiceAction extends DispatchAction {
 		questionService
 				.deleteQuestion(DefaultValue.SINGLE_CHOICE, singlechoice);
 		
-		return mapping.findForward("showSingleChoiceList");
+		return showSingleChoiceList(mapping, null, request, response);
 
 	}
 }

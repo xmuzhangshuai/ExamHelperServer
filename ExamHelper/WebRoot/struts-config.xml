@@ -8,7 +8,8 @@
 		<form-bean name="sectionForm" type="com.yrw.web.forms.SectionForm" />
 		<form-bean name="singleChoiceForm" type="com.yrw.web.forms.SingleChoiceForm" />
 		<form-bean name="multiChoiceForm" type="com.yrw.web.forms.MultiChoiceForm" />
-		<form-bean name="trueOrFalseForm" type="com.yrw.web.forms.TrueOrFalseForm" />
+    <form-bean name="trueOrFalseForm" type="com.yrw.web.forms.TrueOrFalseForm" />
+		
 
 
 

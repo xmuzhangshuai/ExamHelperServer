@@ -13,7 +13,7 @@
 <head>
 
 
-<title>单线选择题</title>
+<title>多项选择题</title>
 
 
 <link rel="stylesheet" rev="stylesheet" href="./css/style.css"

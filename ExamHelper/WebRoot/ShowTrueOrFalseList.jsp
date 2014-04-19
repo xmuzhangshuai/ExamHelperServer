@@ -100,7 +100,7 @@
 	}
 	function keywordSearch() {
 
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=searchSubjectByKeyWord";
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=searchSubjectByKeyWord";
 		document.getElementById("fom").submit();
 	}
 	function goByPage(){
@@ -155,25 +155,28 @@
 
 	}
 	function nextPage(pageNow, pageCount) {
+		pageCount=parseInt(pageCount);
+		pageNow=parseInt(pageNow);
 		if (pageNow + 1 > pageCount)
 			alert(当前为最后一页)
 		else {
 		var sectionName=document.getElementById("hiddenValue").value;
 		<%String keywordNP = (String) request.getAttribute("keyword");%>
 		var keyword="<%=keywordNP%>"
-			var nonContent = "null";
+			var nonContent = "null";		
+		pageNow=parseInt(pageNow)+1;
 			if (keyword == nonContent)
 
 			{
 				document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&pageNow="
-						+ (pageNow + 1) + "&sectionName=" + sectionName;
+						+ pageNow + "&sectionName=" + sectionName;
 				alert(document.getElementById("fom").action);
 				document.getElementById("fom").submit();
 			} else {
 
 				document.getElementById("textfield").value = keyword;
 				document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=searchSubjectByKeyWord&pageNow="
-				+ (pageNow + 1) + "&sectionName=" + sectionName;
+				+ pageNow + "&sectionName=" + sectionName;
 				document.getElementById("fom").submit();
 			}
 		}
@@ -203,7 +206,7 @@
 		var sectionName=document.getElementById("hiddenValue").value;
 		<%String keywordEP = (String) request.getAttribute("keyword");%>
 		var keyword="<%=keywordEP%>"
-		
+
 		var nonContent = "null";
 		if (keyword == nonContent)
 
@@ -306,8 +309,8 @@
 															name="delid${trueOrFalse.id}" /></td>
 														<td><a
 															href="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalse&trueOrFalseId=${trueOrFalse.id}">
-																<c:set var="testStr"
-																	value="${trueOrFalse.questionStem}" /> <c:choose>
+																<c:set var="testStr" value="${trueOrFalse.questionStem}" />
+																<c:choose>
 																	<c:when test="${fn:length(testStr) > 50}">
 																		<c:out value="${fn:substring(testStr, 0, 50)}......"
 																			escapeXml="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalse&trueOrFalseId=${trueOrFalse.id}" />
