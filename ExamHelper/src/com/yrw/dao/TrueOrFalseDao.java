@@ -1,7 +1,11 @@
 package com.yrw.dao;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
+import com.yrw.domains.Multichoice;
+import com.yrw.domains.Section;
 import com.yrw.domains.Trueorfalse;
 import com.yrw.idao.ITrueOrFalseDao;
 
@@ -28,7 +32,7 @@ public class TrueOrFalseDao extends BasicDao implements ITrueOrFalseDao {
 	public List getTrueOrFalseBySection(int pageNow, int sectionId) {
 		// TODO Auto-generated method stub
 		String hql = "from Trueorfalse as t where t.section.id="
-				+ sectionId;
+				+ sectionId+" order by t.id desc";
 		List list = this.executeQueryByPage(hql, null, pageNow);
 		return list;
 	}
@@ -56,9 +60,22 @@ public class TrueOrFalseDao extends BasicDao implements ITrueOrFalseDao {
 		return this.queryPageCount(hql, null);
 	}
 	@Override
-	public void delTrueOrFalse(int trueorfalseId) {
+	public void delTrueOrFalse(Object object) {
 		// TODO Auto-generated method stub
-		this.deletById(Trueorfalse.class, trueorfalseId);
+		Trueorfalse trueorfalse=(Trueorfalse)object;
+		
+		
+		if (trueorfalse != null) {
+			Section section = trueorfalse.getSection();
+			Set<Trueorfalse> trueorfalses = section.getTrueorfalses();
+			Iterator<Trueorfalse> iterator = trueorfalses.iterator();
+			while (iterator.hasNext())
+				if (iterator.next().getId() == trueorfalse.getId()) {
+					iterator.remove();
+					break;
+				}
+			this.deletById(Trueorfalse.class, trueorfalse.getId());
+		}
 	}
 	@Override
 	public void addTrueOrFalse(Trueorfalse trueorfalse){

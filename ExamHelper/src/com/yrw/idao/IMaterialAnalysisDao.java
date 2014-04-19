@@ -1,8 +1,10 @@
 package com.yrw.idao;
 
 import java.util.List;
+import java.util.Set;
 
 import com.yrw.domains.Materialanalysis;
+import com.yrw.domains.Questionsofmaterial;
 
 /**
  * 
@@ -67,13 +69,14 @@ public interface IMaterialAnalysisDao extends IBasicDao {
 	 */
 	public void addMaterialAnalysis(Materialanalysis materialanalysis);
 
-	/**
-	 * Method delMaterialAnalysis 删除材料分析题
-	 * 
-	 * @param materialanalysisId
-	 * @return void
+	/** 删除材料分析题
+	 * @param object
 	 */
-	public void delMaterialAnalysis(int materialanalysisId);
+	public void delMaterialAnalysis(Object object);
+	/**删除材料分析题下的小题
+	 * @param questionsOfMaterial
+	 */
+	public void delQuestionsofMaterial(Set<Questionsofmaterial> questionsOfMaterial);
 	/**
 	 * Method delMaterialAnalysises 删除多条材料分析题
 	 * 

@@ -67,13 +67,11 @@ public interface ITrueOrFalseDao extends IBasicDao {
 	 * @return
 	 */
 	public Trueorfalse showTrueorfalse(int trueOrFalseId);
-	/**
-	 * Method delTrueOrFalse É¾³ı
-	 * 
-	 * @param trueorfalseId
-	 * @return void
+	
+	/**É¾³ıÅĞ¶ÏÌâ
+	 * @param object
 	 */
-	public void delTrueOrFalse(int trueorfalseId);
+	public void delTrueOrFalse(Object object);
 
 	/**
 	 * Ìí¼ÓÅĞ¶ÏÌâ

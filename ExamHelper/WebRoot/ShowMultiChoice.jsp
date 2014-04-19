@@ -34,26 +34,20 @@
 		document.getElementById("aa").style.display = "";
 	}
 	function InitCheckBox() {
-      var checked="true";
-     
-      if(document.getElementById("answerA").value==checked)
-      document.getElementById("answerA").checked=true
-     if(document.getElementById("answerB").value==checked)
-      document.getElementById("answerB").checked=true
-       if(document.getElementById("answerC").value==checked)
-      document.getElementById("answerC").checked=true
-       if(document.getElementById("answerD").value==checked)
-      document.getElementById("answerD").checked=true
-       if(document.getElementById("answerE").value==checked)
-      document.getElementById("answerE").checked=true
-       if(document.getElementById("answerF").value==checked)
-      document.getElementById("answerF").checked=true
+		var checked = "true";
+		for (var i = 1; i < 7; i++) {
+			if (document.getElementById("answer" + i).value == checked)
+				document.getElementById("answer" + i).checked = true;
+		}
+
 	}
 	function edit() {
+		for (var i = 1; i < 7; i++)
+			document.getElementById("answer" + i).disabled = false;
+
 		var txtN = document.getElementsByTagName("input");
-		for (i = 0; i < txtN.length; i++) {
+		for (i = 0; i < txtN.length; i++)
 			txtN[i].readOnly = false;
-		}
 
 		var txtArea = document.getElementsByTagName("textarea");
 		for (i = 0; i < txtArea.length; i++)
@@ -63,9 +57,9 @@
 		for (var i = 0; i < txtSelect.length; i++)
 			txtSelect[i].disabled = false;
 	}
-	function save(){
-	document.getElementById("fom").submit();
-	
+	function save() {
+		document.getElementById("fom").submit();
+
 	}
 	function back() {
 		var sectionName = document.getElementById("sectionName").value;
@@ -89,7 +83,7 @@
 				</tr>
 				<tr>
 					<td style="width: 485px; "><input type="button"
-						value="返回单选题列表" style="width: 111px; " onclick="back();"
+						value="返回多选题列表" style="width: 111px; " onclick="back();"
 						class="button" /></td>
 
 				</tr>
@@ -165,18 +159,18 @@
 									<td><table>
 											<tr>
 												<td>答案</td>
-												<td><input type="radio" id="answerA" name="answerA"
-													readonly="readonly" value="${multiChoice.answerA}"/>A</td>
-												<td><input type="radio" id="answerB" name="answerB"
-													readonly="readonly" value="${multiChoice.answerB}"/>B</td>
-												<td><input type="radio" id="answerC" name="answerC"
-													readonly="readonly" value="${multiChoice.answerC}"/>C</td>
-												<td><input type="radio" id="answerD" name="answerD"
-													readonly="readonly" value="${multiChoice.answerD}"/>D</td>
-												<td><input type="radio" id="answerE" name="answerE"
-													readonly="readonly" value="${multiChoice.answerE}"/>E</td>
-												<td><input type="radio" id="answerF" name="answerF"
-													readonly="readonly" value="${multiChoice.answerF}"/>F</td>
+												<td><input type="checkbox" id="answer1" name="answerA"
+													disabled="disabled" value="${multiChoice.answerA}" />A</td>
+												<td><input type="checkbox" id="answer2" name="answerB"
+													disabled="disabled" value="${multiChoice.answerB}" />B</td>
+												<td><input type="checkbox" id="answer3" name="answerC"
+													disabled="disabled" value="${multiChoice.answerC}" />C</td>
+												<td><input type="checkbox" id="answer4" name="answerD"
+													disabled="disabled" value="${multiChoice.answerD}" />D</td>
+												<td><input type="checkbox" id="answer5" name="answerE"
+													disabled="disabled" value="${multiChoice.answerE}" />E</td>
+												<td><input type="checkbox" id="answer6" name="answerF"
+													disabled="disabled" value="${multiChoice.answerF}" />F</td>
 											</tr>
 
 										</table></td>

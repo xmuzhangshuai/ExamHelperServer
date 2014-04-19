@@ -6,10 +6,15 @@ package com.yrw.web.actions;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DispatchAction;
+
+import com.yrw.service.QuestionService;
+import com.yrw.service.SectionService;
+import com.yrw.service.SubjectService;
 
 /** 
  * MyEclipse Struts
@@ -19,9 +24,22 @@ import org.apache.struts.actions.DispatchAction;
  * @struts.action
  */
 public class MaterialAnalysisAction extends DispatchAction {
-	/*
-	 * Generated Methods
-	 */
+	private QuestionService questionService;
+	private SectionService sectionService;
+	private SubjectService subjectService;
+
+	public void setQuestionService(QuestionService questionService) {
+		this.questionService = questionService;
+	}
+
+	public void setSectionService(SectionService sectionService) {
+		this.sectionService = sectionService;
+	}
+
+	public void setSubjectService(SubjectService subjectService) {
+		this.subjectService = subjectService;
+	}
+
 
 	/** 
 	 * Method execute

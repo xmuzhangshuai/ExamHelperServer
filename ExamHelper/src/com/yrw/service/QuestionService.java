@@ -30,6 +30,14 @@ import com.yrw.idao.ISingleChoiceDao;
 import com.yrw.idao.ISubjectDao;
 import com.yrw.idao.ITrueOrFalseDao;
 
+/**
+ * @author Administrator
+ *
+ */
+/**
+ * @author Administrator
+ *
+ */
 public class QuestionService {
 	private IQuestionTypeDao iQuestionTypeDao;
 	private ISingleChoiceDao iSingleChoiceDao;
@@ -181,26 +189,7 @@ public class QuestionService {
 	// return collection;
 	// }
 
-	/**
-	 * 通过类型及id号获取对象
-	 * 
-	 * @param id
-	 * @param typeName
-	 * @return
-	 */
-	public Object getQuestion(int id, String typeName) {
-		if (typeName.equals(DefaultValue.SINGLE_CHOICE)) {
-			return iSingleChoiceDao.showSinglechoice(id);
-		} else if (typeName.equals(DefaultValue.MULTI_CHOICE)) {
-			return iMultiChoiceDao.showMultichoice(id);
-
-		} else if (typeName.equals(DefaultValue.TRUE_OR_FALSE)) {
-			return iTrueOrFalseDao.showTrueorfalse(id);
-		} else if (typeName.equals(DefaultValue.MATERIAL_ANALYSIS)) {
-			return iMaterialAnalysisDao.showMaterialAnalysis(id);
-		}
-		return null;
-	}
+	
 
 	/**
 	 * 根据科目下的章节显示题目列表
@@ -227,13 +216,12 @@ public class QuestionService {
 			pageMap.put("pageCount", pageCount);
 			pageMap.put("pageNow", pageNow);
 
-			List singleCohiceList = iSingleChoiceDao.getSingleChoiceBySection(
-					pageNow, sectionId);
+			List<Singlechoice> singleCohiceList = iSingleChoiceDao
+					.getSingleChoiceBySection(pageNow, sectionId);
 
 			collection.add(pageMap);
 			collection.add(singleCohiceList);
 			collection.add("showSingleChoiceList");
-			
 
 		} else if (typeName.equals(DefaultValue.MULTI_CHOICE)) {
 			int pageCount = iMultiChoiceDao.getPageCountBySection(sectionId);
@@ -301,18 +289,18 @@ public class QuestionService {
 			collection.add(pageMap);
 			collection.add(materialAnalysisList);
 			collection.add("showMaterialAnalysisList");
-			
+
 		}
 		return collection;
 	}
 
-	/**
-	 * 查看某题的具体信息
-	 * 
-	 * @param singleChoiceId
+	
+	/**得到某个题对象
+	 * @param id
+	 * @param typeName
 	 * @return
 	 */
-	public Object showQuestion(int id, String typeName) {
+	public Object getQuestion(int id, String typeName) {
 		if (typeName.equals(DefaultValue.SINGLE_CHOICE)) {
 			return iSingleChoiceDao.showSinglechoice(id);
 		}
@@ -336,32 +324,31 @@ public class QuestionService {
 	 * @param typeName
 	 * @param id
 	 */
-	public void deleteQuestion(String typeName, int id) {
+	public void deleteQuestion(String typeName, Object object) {
 		if (typeName.equals(DefaultValue.SINGLE_CHOICE))
-			iSingleChoiceDao.delSingleChoice(id);
+			iSingleChoiceDao.delSingleChoice(object);
 
 		else if (typeName.equals(DefaultValue.MULTI_CHOICE))
-			iMultiChoiceDao.delMultiChoice(id);
+			iMultiChoiceDao.delMultiChoice(object);
 
 		else if (typeName.equals(DefaultValue.TRUE_OR_FALSE))
-			iTrueOrFalseDao.delTrueOrFalse(id);
+			iTrueOrFalseDao.delTrueOrFalse(object);
 		else if (typeName.equals(DefaultValue.MATERIAL_ANALYSIS))
-			iMaterialAnalysisDao.delMaterialAnalysis(id);
+			iMaterialAnalysisDao.delMaterialAnalysis(object);
 
 	}
 
 	public List<Questiontype> showQuestiontypes(String typeName) {
 		List<Questiontype> questiontypes = iQuestionTypeDao.getQuestionTypes();
-		Questiontype questiontype=null;
-		int i=0;
-		for(;i<questiontypes.size();i++)
-		{
-			if(questiontypes.get(i).getTypeName().equals(typeName)){
-				questiontype=questiontypes.get(i);
+		Questiontype questiontype = null;
+		int i = 0;
+		for (; i < questiontypes.size(); i++) {
+			if (questiontypes.get(i).getTypeName().equals(typeName)) {
+				questiontype = questiontypes.get(i);
 				break;
 			}
 		}
-		
+
 		questiontypes.set(i, questiontypes.get(0));
 		questiontypes.set(0, questiontype);
 		return questiontypes;
@@ -393,7 +380,7 @@ public class QuestionService {
 	 * @param sectionId
 	 * @param singlechoice
 	 */
-	public void addSingleChoice( Singlechoice singlechoice) {
+	public void addSingleChoice(Singlechoice singlechoice) {
 		iSingleChoiceDao.addSingleChoice(singlechoice);
 
 	}
@@ -403,7 +390,7 @@ public class QuestionService {
 	 * 
 	 * @param multichoice
 	 */
-	public void addMultiChoice( Multichoice multichoice) {
+	public void addMultiChoice(Multichoice multichoice) {
 		iMultiChoiceDao.add(multichoice);
 	}
 
@@ -413,9 +400,7 @@ public class QuestionService {
 	 * @param sectionId
 	 * @param trueorfalse
 	 */
-	public void addTrueOrFalse(int sectionId, Trueorfalse trueorfalse) {
-		Section section = (Section) iSectionDao.getSectionById(sectionId);
-		trueorfalse.setSection(section);
+	public void addTrueOrFalse(Trueorfalse trueorfalse) {
 		iTrueOrFalseDao.add(trueorfalse);
 	}
 
@@ -479,6 +464,15 @@ public class QuestionService {
 	 */
 	public void updateMultiChoice(Multichoice multichoice) {
 		iMultiChoiceDao.update(multichoice);
+	}
+
+	/**
+	 * 修改判断题
+	 * 
+	 * @param trueorfalse
+	 */
+	public void updateTrueOrFalse(Trueorfalse trueorfalse) {
+
 	}
 
 	/**

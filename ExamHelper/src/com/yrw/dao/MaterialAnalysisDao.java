@@ -1,8 +1,13 @@
 package com.yrw.dao;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import com.yrw.domains.Materialanalysis;
+import com.yrw.domains.Questionsofmaterial;
+import com.yrw.domains.Section;
+import com.yrw.domains.Trueorfalse;
 import com.yrw.idao.IMaterialAnalysisDao;
 
 public class MaterialAnalysisDao extends BasicDao implements
@@ -58,11 +63,37 @@ public class MaterialAnalysisDao extends BasicDao implements
 	}
 
 	@Override
-	public void delMaterialAnalysis(int materialanalysisId) {
+	public void delMaterialAnalysis(Object object) {
 		// TODO Auto-generated method stub
-		this.deletById(Materialanalysis.class, materialanalysisId);
+		Materialanalysis materialanalysis=(Materialanalysis)object;
+		
+		if (materialanalysis != null) {
+			//É¾³ýÐ¡Ìâ
+			delQuestionsofMaterial(materialanalysis.getQuestionsofmaterials());
+			materialanalysis.setQuestionsofmaterials(null);
+			//É¾³ýÕÂ½Ú
+			Section section = materialanalysis.getSection();
+			Set<Materialanalysis> materialanalysises = section.getMaterialanalysises();
+			Iterator<Materialanalysis> iterator = materialanalysises.iterator();
+			while (iterator.hasNext())
+				if (iterator.next().getId() == materialanalysis.getId()) {
+					iterator.remove();
+					break;
+				}
+			this.deletById(Materialanalysis.class,  materialanalysis.getId());
+		}
 	}
-
+	@Override
+	public void delQuestionsofMaterial(Set<Questionsofmaterial> questionsOfMaterial) {
+		// TODO Auto-generated method stub
+		if(questionsOfMaterial!=null){
+			Iterator<Questionsofmaterial>iterator=questionsOfMaterial.iterator();
+			while(iterator.hasNext()){
+				Questionsofmaterial questionofmaterial=(Questionsofmaterial)iterator.next();
+				this.deletById(Questionsofmaterial.class,questionofmaterial.getId());
+			}
+		}
+	}
 	@Override
 	public void delMaterialAnalysises(List<Materialanalysis> materialanalysises) {
 		// TODO Auto-generated method stub
@@ -89,5 +120,7 @@ public class MaterialAnalysisDao extends BasicDao implements
 				+ stem + "%'";
 		return this.queryPageCount(hql, null);
 	}
+
+	
 
 }

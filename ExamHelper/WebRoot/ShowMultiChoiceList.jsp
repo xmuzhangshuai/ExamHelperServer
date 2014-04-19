@@ -37,13 +37,13 @@
 
 	
 	if(questionType==singleChoice)
-	document.getElementById("fom").action="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&typeName=单项选择题&sectionName="+sectionName;
+	document.getElementById("fom").action="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&sectionName="+sectionName;
 	else if(questionType==multiChoice){
-	document.getElementById("fom").action="${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoiceList&typeName=多项选择题&sectionName="+sectionName;
+	document.getElementById("fom").action="${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoiceList&sectionName="+sectionName;
 	}else if(questionType==trueOrFalse)
-	document.getElementById("fom").action="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&typeName=判断题&sectionName="+sectionName;
+	document.getElementById("fom").action="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&sectionName="+sectionName;
 	else if(questionType==analysis)
-	document.getElementById("fom").action="${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&typeName=材料分析题&sectionName="+sectionName;
+	document.getElementById("fom").action="${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&sectionName="+sectionName;
 	document.getElementById("fom").submit();
 	}
 	function selectAll() {
@@ -76,30 +76,7 @@
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=addMultiChoiceUI";
 		document.getElementById("fom").submit();
 	}
-	function goByPage() {
-		int
-		page = document.getElementById("page").value;
-		<%String keyword = (String) request.getAttribute("keyword");%>
-	var keyword="<%=keyword%>"
-	var nonContent="null";
 	
-	
-		if (keyword==nonContent)
-
- {
-			
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=listSubject&pageNow=${page}";
-			document.getElementById("fom").submit();
-		} else {
-			
-			document.getElementById("textfield").value=keyword;
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=searchSubjectByKeyWord&pageNow=${page}";
-			document.getElementById("fom").submit();
-			
-			
-		}
-		
-	}
 
 	function delSelected() {
 		var obj = document.fom.elements;
@@ -121,74 +98,122 @@
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=searchSubjectByKeyWord";
 		document.getElementById("fom").submit();
 	}
-	function firstPageClick() {
 	
-
-	}
-	function lastPageClick(){
-	<%String keyword2 = (String) request.getAttribute("keyword");%>
-	var keyword="<%=keyword2%>"
-	var nonContent="null";
-	
-	
-		if (keyword==nonContent)
-
- {
-			
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=listSubject&pageNow=${pageNow-1}";
-			document.getElementById("fom").submit();
-		} else {
-			
-			document.getElementById("textfield").value=keyword;
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=searchSubjectByKeyWord&pageNow=${pageNow-1}";
-			document.getElementById("fom").submit();
-			
-			
-		}
-	
-	}
-	function nextPageClick(){
-	<%String keyword3 = (String) request.getAttribute("keyword");%>
-	var keyword="<%=keyword3%>"
-	var nonContent="null";
-	
-	
-		if (keyword==nonContent)
-
- {
-			
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=listSubject&pageNow=${pageNow+1}";
-			document.getElementById("fom").submit();
-		} else {
-			
-			document.getElementById("textfield").value=keyword;
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=searchSubjectByKeyWord&pageNow=${pageNow+1}";
-			document.getElementById("fom").submit();
-			
-			
-		}
-	
-	}
-	function endPageClick(){
-	<%String keyword4 = (String) request.getAttribute("keyword");%>
-	var keyword="<%=keyword4%>"
-
+	function goByPage(){
+		var sectionName=document.getElementById("hiddenValue").value;
+		var page=document.getElementById("page").value;
+		<%String keyword = (String) request.getAttribute("keyword");%>
+	var keyword="<%=keyword%>"
 		var nonContent = "null";
 
 		if (keyword == nonContent)
 
 		{
-
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=listSubject&pageNow=${pageCount}";
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoiceList&pageNow="
+					+ page+"&sectionName="+sectionName;
+					alert(document.getElementById("fom").action);
 			document.getElementById("fom").submit();
 		} else {
 
 			document.getElementById("textfield").value = keyword;
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=searchSubjectByKeyWord&pageNow=${pageCount}";
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=searchSubjectByKeyWord&pageNow="
+			+ page+"&sectionName="+sectionName;
 			document.getElementById("fom").submit();
 
 		}
 
+	}
+	function lastPage(pageNow){
+	if(pageNow==1)
+	alert("当前页为第一页")
+	else{
+	var sectionName=document.getElementById("hiddenValue").value;
+		<%String keywordLP = (String) request.getAttribute("keyword");%>
+	var keyword="<%=keywordLP%>"
+			var nonContent = "null";
+			if (keyword == nonContent)
+
+			{
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoiceList&pageNow="
+						+ (pageNow - 1) + "&sectionName=" + sectionName;
+				alert(document.getElementById("fom").action);
+				document.getElementById("fom").submit();
+			} else {
+
+				document.getElementById("textfield").value = keyword;
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=searchSubjectByKeyWord&pageNow="
+			+ (pageNow - 1) + "&sectionName=" + sectionName;
+				document.getElementById("fom").submit();
+
+			}
+
+		}
+
+	}
+	function nextPage(pageNow, pageCount) {
+		if (pageNow + 1 > pageCount)
+			alert(当前为最后一页)
+		else {
+		var sectionName=document.getElementById("hiddenValue").value;
+		<%String keywordNP = (String) request.getAttribute("keyword");%>
+		var keyword="<%=keywordNP%>"
+			var nonContent = "null";
+			if (keyword == nonContent)
+
+			{
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoiceList&pageNow="
+						+ (pageNow + 1) + "&sectionName=" + sectionName;
+				alert(document.getElementById("fom").action);
+				document.getElementById("fom").submit();
+			} else {
+
+				document.getElementById("textfield").value = keyword;
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=searchSubjectByKeyWord&pageNow="
+				+ (pageNow + 1) + "&sectionName=" + sectionName;
+				document.getElementById("fom").submit();
+			}
+		}
+	}
+	function firstPage() {
+	var sectionName=document.getElementById("hiddenValue").value;
+		<%String keywordFP = (String) request.getAttribute("keyword");%>
+		var keyword="<%=keywordFP%>"
+			var nonContent = "null";
+			if (keyword == nonContent)
+
+			{
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoiceList&pageNow=1"
+						 + "&sectionName=" + sectionName;
+				alert(document.getElementById("fom").action);
+				document.getElementById("fom").submit();
+			} else {
+
+				document.getElementById("textfield").value = keyword;
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=searchSubjectByKeyWord&pageNow=1"
+				+"&sectionName=" + sectionName;
+				document.getElementById("fom").submit();
+			}
+	}
+	function endPage(pageCount) {
+	
+		var sectionName=document.getElementById("hiddenValue").value;
+		<%String keywordEP = (String) request.getAttribute("keyword");%>
+		var keyword="<%=keywordEP%>"
+		var nonContent = "null";
+		if (keyword == nonContent)
+
+		{
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoiceList&pageNow="
+					+ pageCount + "&sectionName=" + sectionName;
+			alert(document.getElementById("fom").action);
+			document.getElementById("fom").submit();
+		} else {
+
+			document.getElementById("textfield").value = keyword;
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=searchSubjectByKeyWord&pageNow="
+					+ pageCount + "&sectionName=" + sectionName;
+			document.getElementById("fom").submit();
+		}
 	}
 </script>
 
@@ -211,7 +236,7 @@
 											<table style="height: 126px; width: 439px; ">
 												<tr>
 													<td width="538" style="width: 154px; height: 48px">题型选择：
-														<select id="chooseQT"  onchange="chooseQuestionType();">
+														<select id="chooseQT" onchange="chooseQuestionType();">
 															<option>${questionType.typeName}</option>
 															<c:forEach items="${questionTypes}" var="type">
 																<option>${type.typeName}</option>
@@ -276,8 +301,8 @@
 															name="delid${multiChoice.id}" /></td>
 														<td><a
 															href="${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoice&multiChoiceId=${multiChoice.id}">
-																<c:set var="testStr"
-																	value="${multiChoice.questionStem}" /> <c:choose>
+																<c:set var="testStr" value="${multiChoice.questionStem}" />
+																<c:choose>
 																	<c:when test="${fn:length(testStr) > 50}">
 																		<c:out value="${fn:substring(testStr, 0, 50)}......"
 																			escapeXml="${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoice&multiChoiceId=${mulChoice.id}" />
@@ -290,15 +315,17 @@
 
 														</a></td>
 														<td><a
-															href="${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoice&multiChoiceId=${mulitChoice.id}&edit=true">编辑|</a><a
+															href="${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoice&multiChoiceId=${multiChoice.id}&edit=true">编辑|</a><a
 															href="${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoice&multiChoiceId=${multiChoice.id}">查看|</a>
-															<!--  	<a href="${pageContext.request.contextPath}/listQuestion.do?flag=deleteSection&sectionId=${section.id}">删除</a></td>-->
-															<a href="#">删除</a></td>
+															<a
+															href="${pageContext.request.contextPath}/multiChoice.do?flag=deleteMultiChoice&multiChoiceId=${multiChoice.id}">删除</a></td>
+
 													</tr>
 												</c:forEach>
 											</table>
 										</td>
-										<td><input id="hiddenValue" type="hidden" value="${sectionName}" /></td>
+										<td><input id="hiddenValue" type="hidden"
+											value="${sectionName}" /></td>
 									</tr>
 								</table>
 								<table width="95%" border="0" align="center" cellpadding="0"
@@ -316,10 +343,11 @@
 														页 | 第 <span class="right-text09">${pageNow}</span> 页
 													</td>
 													<td width="49%" align="right">[<a class="right-font08"
-														onclick="firstPageClick();">首页</a> | <a
-														class="right-font08" onclick="lastPageClick();">上一页</a> |
-														<a class="right-font08" onclick="nextPageClick();">下一页</a>
-														| <a class="right-font08" onclick="endPageClick();">末页</a>]
+														onclick="firstPage();">首页</a> | <a class="right-font08"
+														onclick="lastPage('${pageNow}');">上一页</a> | <a
+														class="right-font08"
+														onclick="nextPage('${pageNow}','${pageCount}');">下一页</a> |
+														<a class="right-font08" onclick="endPage('${pageCount}');">末页</a>]
 														转至：
 													</td>
 													<td width="1%"><table width="20" border="0"

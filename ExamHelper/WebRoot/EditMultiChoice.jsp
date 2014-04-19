@@ -19,6 +19,13 @@
 <link rel="stylesheet" rev="stylesheet" href="./css/style.css"
 	type="text/css" media="all" />
 <script language="JavaScript" type="text/javascript">
+	function checkedAnswer(answer) {
+		if(answer.checked == true)
+		answer.value=true;
+		else answer.value=false;
+		
+		alert(answer);
+	}
 	function tishi() {
 		var a = confirm('数据库中保存有该人员基本信息，您可以修改或保留该信息。');
 		if (a != true)
@@ -31,55 +38,47 @@
 	}
 
 	function check() {
+	
 		document.getElementById("aa").style.display = "";
 	}
+	function InitCheckBox() {
+		var checked = "true";
 
-	function edit() {
-		var txtN = document.getElementsByTagName("input");
-		for (i = 0; i < txtN.length; i++) {
-			txtN[i].readOnly = false;
+		var checked = "true";
+		for (var i = 1; i < 7; i++) {
+			if (document.getElementById("answer" + i).value == checked)
+				document.getElementById("answer" + i).checked = true;
 		}
-
-		var txtArea = document.getElementsByTagName("textarea");
-		for (i = 0; i < txtArea.length; i++)
-			txtArea[i].readOnly = false;
-
-		var txtSelect = document.getElementsByTagName("select");
-		for (var i = 0; i < txtSelect.length; i++)
-			txtSelect[i].disabled = false;
 	}
+
 	function save() {
-
-		if (document.getElementById("questionStem").value.trim().length != 0) {
-
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=addMultiChoice"
-
-			document.getElementById("fom").submit();
-		} else
-			alert("请输入题干");
+		document.getElementById("fom").submit();
 
 	}
 	function back() {
-		var sectionName = document.getElementById("sectionName").value;
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=多项选择题&sectionName="
-				+ sectionName;
+		var sectionId = document.getElementById("sectionId").value;
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=单项选择题&sectionId="
+				+ sectionId;
 		document.getElementById("fom").submit();
 	}
+	
 </script>
 </head>
 
 <body class="ContentBody" onload="InitCheckBox();">
-	<form method="post" enctype="multipart/form-data" name="fom" id="fom"
+	<form
+		action="${pageContext.request.contextPath}/multiChoice.do?flag=editMultiChoice&multiChoiceId=${multiChoice.id}"
+		method="post" enctype="multipart/form-data" name="fom" id="fom"
 		target="mainFrame">
 		<div class="MainDiv">
 			<table width="99%" border="0" cellpadding="0" cellspacing="0"
 				class="CContent">
 				<tr>
-					<th class="tablestyle_title">多项选题</th>
+					<th class="tablestyle_title">多项选折题</th>
 				</tr>
 				<tr>
 					<td style="width: 485px; "><input type="button"
-						value="返回单选题列表" style="width: 111px; " onclick="back();"
+						value="返回多选题列表" style="width: 111px; " onclick="back();"
 						class="button" /></td>
 
 				</tr>
@@ -94,8 +93,7 @@
 									<td align="left" width="13%">题干内容:</td>
 									<td style="width: 448px; "><textarea rows="" cols=""
 											id="questionStem" name="questionStem"
-											style="width: 376px; height: 100px"></textarea><span
-										class="red"> *</span></td>
+											style="width: 376px; height: 100px">${multiChoice.questionStem}</textarea></td>
 
 								</tr>
 
@@ -116,52 +114,56 @@
 											<tr>
 												<td align="right" width="13%" style="width: 41px; ">选项A:</td>
 												<td width="43%"><input id="optionA" name="optionA"
-													class="text" style="width:250px" type="text" size="40" /></td>
+													class="text" style="width:250px" type="text" size="40"
+													value="${multiChoice.optionA}" /></td>
 											</tr>
 											<tr>
 												<td align="right" width="13%" style="width: 41px; ">选项B:</td>
 												<td width="43%"><input id="optionB" name="optionB"
-													class="text" style="width:250px" type="text" size="40" /></td>
+													class="text" style="width:250px" type="text" size="40"
+													value="${multiChoice.optionB}" /></td>
 											</tr>
 											<tr>
 												<td align="right" width="13%" style="width: 41px; ">选项C:</td>
 												<td width="43%"><input id="optionC" class="text"
-													style="width:250px" type="text" size="40" name="optionC" /></td>
+													style="width:250px" type="text" size="40" name="optionC"
+													value="${multiChoice.optionC}" /></td>
 											</tr>
 											<tr>
 												<td align="right" width="13%" style="width: 41px; ">选项D:</td>
 												<td width="43%"><input id="optionD" class="text"
-													style="width:250px" type="text" size="40" name="optionD" /></td>
+													style="width:250px" type="text" size="40" name="optionD"
+													readonly="readonly" value="${multiChoice.optionD}" /></td>
 											</tr>
 											<tr>
 												<td align="right" width="13%" style="width: 41px; ">选项E:</td>
 												<td width="43%"><input id="optionE" name="optionE"
 													class="text" style="width:250px" type="text" size="40"
-													name="optionE" /></td>
+													name="optionE" value="${multiChoice.optionE}" /></td>
 											</tr>
 											<tr>
 												<td align="right" width="13%" style="width: 41px; ">选项F:</td>
 												<td width="43%"><input id="optionE" name="optionE"
 													class="text" style="width:250px" type="text" size="40"
-													name="optionF" /></td>
+													name="optionF" value="${multiChoice.optionF}" /></td>
 											</tr>
 										</table>
 									</td>
 									<td><table>
 											<tr>
 												<td>答案</td>
-												<td><input type="checkbox" id="answerA" name="answerA"
-													value="${multiChoice.answerA}" />A</td>
-												<td><input type="checkbox" id="answerB" name="answerB"
-													value="${multiChoice.answerB}" onselect="" />B</td>
-												<td><input type="checkbox" id="answerC" name="answerC"
-													value="${multiChoice.answerC}" />C</td>
-												<td><input type="checkbox" id="answerD" name="answerD"
-													value="${multiChoice.answerD}" />D</td>
-												<td><input type="checkbox" id="answerE" name="answerE"
-													value="${multiChoice.answerE}" />E</td>
-												<td><input type="checkbox" id="answerF" name="answerF"
-													value="${multiChoice.answerF}" />F</td>
+												<td><input type="checkbox" id="answer1" name="answerA"
+													 value="${multiChoice.answerA}" />A</td>
+												<td><input type="checkbox" id="answer2" name="answerB"
+													 value="${multiChoice.answerB}" />B</td>
+												<td><input type="checkbox" id="answer3" name="answerC"
+													 value="${multiChoice.answerC}" />C</td>
+												<td><input type="checkbox" id="answer4" name="answerD"
+													 value="${multiChoice.answerD}" />D</td>
+												<td><input type="checkbox" id="answer5" name="answerE"
+													 value="${multiChoice.answerE}" />E</td>
+												<td><input type="checkbox" id="answer6" name="answerF"
+													 value="${multiChoice.answerF}" />F</td>
 											</tr>
 
 										</table></td>
@@ -177,7 +179,7 @@
 								<tr>
 									<td>题目分析</td>
 									<td><textarea id="analysis" cols="" rows=""
-											name="analysis" style="height: 119px; width: 394px"></textarea></td>
+											name="analysis" style="height: 119px; width: 394px">${singleChoice.analysis}</textarea></td>
 								</tr>
 							</table>
 						</fieldset></td>
@@ -189,6 +191,7 @@
 								<tr>
 									<td>科目名称：</td>
 									<td><select name="subjectName">
+											<option selected="selected">${subject.subName}</option>
 											<c:forEach items="${subjects}" var="item">
 												<option>${item.subName}</option>
 											</c:forEach>
@@ -197,22 +200,21 @@
 								<tr>
 									<td>章节名称:</td>
 									<td><select id="sectionName" name="sectionName">
+											<option selected="selected">${section.sectionName}</option>
 											<c:forEach items="${sections}" var="item">
 												<option>${item.sectionName}</option>
 											</c:forEach>
 									</select></td>
 									<td><input type="hidden" id="sectionId"
-										value="${section.id}" /></td>
+										value="${section.sectionName}" /></td>
 								</tr>
 							</table>
 						</fieldset></td>
 				</tr>
 				<TR>
 					<TD colspan="2" align="center" height="50px"><input
-						type="button" value="编辑" class="button" style="width: 83px; "
-						onclick="edit();" /> <input type="button" value="保存"
-						type="submit" style="width: 77px;" onclick="save();"
-						class="button" /></TD>
+						type="button" value="保存" type="submit" style="width: 77px;"
+						onclick="save();" class="button" /></TD>
 				</TR>
 			</TABLE>
 

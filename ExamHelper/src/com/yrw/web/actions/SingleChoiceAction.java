@@ -26,15 +26,15 @@ import com.yrw.service.SectionService;
 import com.yrw.service.SubjectService;
 import com.yrw.web.forms.SingleChoiceForm;
 
-/** 
- * MyEclipse Struts
- * Creation date: 04-17-2014
+/**
+ * MyEclipse Struts Creation date: 04-17-2014
  * 
  * XDoclet definition:
- * @struts.action path="/singleChoice" name="singleChoiceForm" parameter="flag" scope="request" validate="true"
+ * 
+ * @struts.action path="/singleChoice" name="singleChoiceForm" parameter="flag"
+ *                scope="request" validate="true"
  */
 public class SingleChoiceAction extends DispatchAction {
-	
 
 	private QuestionService questionService;
 	private SectionService sectionService;
@@ -51,8 +51,7 @@ public class SingleChoiceAction extends DispatchAction {
 	public void setSubjectService(SubjectService subjectService) {
 		this.subjectService = subjectService;
 	}
-	
-	
+
 	/**
 	 * Method showSingleChoiceList 按章节显示单选题列表
 	 * 
@@ -69,12 +68,15 @@ public class SingleChoiceAction extends DispatchAction {
 		// TODO Auto-generated method stub
 
 		// 加载章节类型
-		String sectionName = new String(request.getParameter("sectionName")
-				.getBytes("ISO-8859-1"), "utf-8");
-		String typeName = new String(request.getParameter("typeName").getBytes(
-				"ISO-8859-1"), "utf-8");
+		String sectionName;
+		// 加载章节类型
+		if (request.getAttribute("source") != null)
+			sectionName = (String) request.getAttribute("sectionName");
+		else
+			sectionName = new String(request.getParameter("sectionName")
+					.getBytes("ISO-8859-1"), "utf-8");
+		String typeName = DefaultValue.SINGLE_CHOICE;
 
-		
 		request.getSession().setAttribute("typeName", typeName);
 		String pageNowString = request.getParameter("pageNow");
 
@@ -103,12 +105,10 @@ public class SingleChoiceAction extends DispatchAction {
 		if (typeName.equals(DefaultValue.SINGLE_CHOICE))
 
 			request.setAttribute("singleChoices", (List) collection.get(1));
-	
 
 		return mapping.findForward((String) collection.get(2));
 	}
 
-	
 	/**
 	 * 显示单项选择详情
 	 * 
@@ -125,7 +125,7 @@ public class SingleChoiceAction extends DispatchAction {
 				.getParameter("singleChoiceId"));
 		String isEdit = request.getParameter("edit");
 		Singlechoice singlechoice = (Singlechoice) questionService
-				.showQuestion(singleChoiceId, DefaultValue.SINGLE_CHOICE);
+				.getQuestion(singleChoiceId, DefaultValue.SINGLE_CHOICE);
 		request.setAttribute("singleChoice", singlechoice);
 
 		// 获得subject下拉菜单里的所有subject
@@ -152,7 +152,7 @@ public class SingleChoiceAction extends DispatchAction {
 		} else
 			request.setAttribute("section", "暂无所属科目");
 		if (isEdit != null) {
-			return mapping.findForward("edtiSingleChoice");
+			return mapping.findForward("editSingleChoice");
 		} else
 			return mapping.findForward("showSingleChoice");
 	}
@@ -171,7 +171,7 @@ public class SingleChoiceAction extends DispatchAction {
 			HttpServletResponse response) {
 		int subjectId = (Integer) request.getSession()
 				.getAttribute("subjectId");
-		
+
 		List<Section> sectionList = sectionService.listSection(subjectId);
 		List<Subject> subjectList = subjectService.getSubjects();
 		request.setAttribute("subjects", subjectList);
@@ -203,6 +203,7 @@ public class SingleChoiceAction extends DispatchAction {
 		singlechoice.setOptionE(singleChoiceForm.getOptionE());
 		singlechoice.setAnswer(singleChoiceForm.getAnswer());
 		singlechoice.setAnalysis(singleChoiceForm.getAnalysis());
+		singlechoice.setRemark(singleChoiceForm.getRemark());
 
 		if (singleChoiceForm.getSectionName() != null) {
 			Section section = sectionService
@@ -217,8 +218,8 @@ public class SingleChoiceAction extends DispatchAction {
 		// 设置在showQuestioBySection中要使用参数
 		request.setAttribute("sectionName", singlechoice.getSection()
 				.getSectionName());
-		request.setAttribute("typeName", "单项选择题");
 
+		request.setAttribute("source", "addSingleChoice");
 		return mapping.findForward("showSingleChoiceList");
 	}
 
@@ -240,7 +241,7 @@ public class SingleChoiceAction extends DispatchAction {
 				.getParameter("singleChoiceId"));
 
 		Singlechoice singlechoice = (Singlechoice) questionService.getQuestion(
-				singleChoiceId, "单项选择题");
+				singleChoiceId, DefaultValue.SINGLE_CHOICE);
 		System.out.println(singleChoiceForm.getRemark());
 
 		singlechoice.setQuestionStem(singleChoiceForm.getQuestionStem());
@@ -263,9 +264,38 @@ public class SingleChoiceAction extends DispatchAction {
 		}
 
 		questionService.updateSingleChoice(singlechoice);
-		request.setAttribute("singleChoiceId", singleChoiceId);
-		return showSingleChoice(mapping, singleChoiceForm, request, response);
+		//设置转到showSIngleChoiceLIst中要使用参数
+		request.setAttribute("sectionName", singlechoice.getSection()
+				.getSectionName());
+
+		request.setAttribute("source", "editSingleChoice");
+		return mapping.findForward("showSingleChoiceList");
 	}
 
-	
+	/**
+	 * 删除单选题
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+	public ActionForward deleteSingleChoice(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws UnsupportedEncodingException {
+		int singleChoiceId = Integer.parseInt(request
+				.getParameter("singleChoiceId"));
+		Singlechoice singlechoice = (Singlechoice) questionService
+				.getQuestion(singleChoiceId, DefaultValue.SINGLE_CHOICE);
+		request.setAttribute("sectionName", singlechoice.getSection()
+				.getSectionName());
+		request.setAttribute("source", "deleteSingleChoice");
+		questionService
+				.deleteQuestion(DefaultValue.SINGLE_CHOICE, singlechoice);
+		
+		return mapping.findForward("showSingleChoiceList");
+
+	}
 }

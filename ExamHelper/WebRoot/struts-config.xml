@@ -8,6 +8,7 @@
 		<form-bean name="sectionForm" type="com.yrw.web.forms.SectionForm" />
 		<form-bean name="singleChoiceForm" type="com.yrw.web.forms.SingleChoiceForm" />
 		<form-bean name="multiChoiceForm" type="com.yrw.web.forms.MultiChoiceForm" />
+		<form-bean name="trueOrFalseForm" type="com.yrw.web.forms.TrueOrFalseForm" />
 
 
 
@@ -33,15 +34,15 @@
 			validate="false" cancellable="true">
 			<forward name="listSubject" path="/ShowSubject.jsp" />
 			<forward name="addSubject" path="/AddSubject.jsp" />
-			<forward name="updateSubject" path="/UpdateSubject.jsp" />
-			<forward name="updateSectionUI" path="/UpdateSection.jsp" />
+			<forward name="updateSubject" path="/EditSubject.jsp" />
+			<forward name="updateSectionUI" path="/EditSection.jsp" />
 		</action>
 
 		<action attribute="sectionForm" name="sectionForm" parameter="flag"
 			path="/listQuestion" scope="request" type="com.yrw.web.actions.ListQuestionAction"
 			cancellable="true">
 			<forward name="listSection" path="/ShowSection.jsp" />
-			<forward name="updateSectionUI" path="/UpdateSection.jsp" />
+			<forward name="updateSectionUI" path="/EditSection.jsp" />
 			<forward name="addSectionUI" path="/AddSection.jsp" />
 			<forward name="showExamList" path="/ShowExamList.jsp" />
 		</action>
@@ -67,19 +68,25 @@
 			parameter="flag" path="/singleChoice" scope="request"
 			type="com.yrw.web.actions.SingleChoiceAction" cancellable="true">
 			<forward name="addSingleChoice" path="/AddSingleChoice.jsp" />
-			<forward name="edtiSingleChoice" path="/EditSingleChoice.jsp" />
+			<forward name="editSingleChoice" path="/EditSingleChoice.jsp" />
 			<forward name="showSingleChoice" path="/ShowSingleChoice.jsp" />
 			<forward name="showSingleChoiceList" path="/ShowSingleChoiceList.jsp" />
 		</action>
-    <action
-      path="/trueOrFalse"
-      type="com.yrw.web.actions.TrueOrFalseAction"
-      cancellable="true" />
-    <action
-      path="/materialAnalysis"
-      type="com.yrw.web.actions.MaterialAnalysisAction"
-      validate="false"
-      cancellable="true" />
+		<action attribute="trueOrFalseForm" name="trueOrFalseForm" parameter="flag" 
+			path="/trueOrFalse" scope="request" type="com.yrw.web.actions.TrueOrFalseAction"
+			validate="false" cancellable="true">
+			<forward name="editTrueOrFalse" path="/EditTrueOrFalse.jsp" />
+			<forward name="addTrueOrFalse" path="/AddTrueOrFalse.jsp" />
+			<forward name="showTrueOrFalse" path="/ShowTrueOrFalse.jsp" />
+			<forward name="showTrueOrFalseList" path="/ShowTrueOrFalseList.jsp" />
+		</action>
+		<action path="/materialAnalysis" type="com.yrw.web.actions.MaterialAnalysisAction" parameter="flag" 
+			validate="false" cancellable="true">
+			<forward name="addMaterialAnalysis" path="/AddMaterialAnalysis.jsp" />
+			<forward name="editMaterialAnalysis" path="/EditMaterialAnalysis.jsp" />
+			<forward name="showMaterialAnalysis" path="/ShowMaterialAnalysis.jsp" />
+			<forward name="showMaterialAnalysisList" path="/ShowMaterialAnalysisList.jsp" />
+		</action>
 
 
 
