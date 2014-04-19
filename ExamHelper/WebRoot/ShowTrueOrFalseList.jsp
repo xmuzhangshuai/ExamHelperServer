@@ -326,7 +326,7 @@
 															href="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalse&trueOrFalseId=${trueOrFalse.id}&edit=true">编辑|</a><a
 															href="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalse&trueOrFalseId=${trueOrFalse.id}">查看|</a>
 															<a
-															href="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalse&trueOrFalseId=${trueOrFalse.id}">删除</a></td>
+															href="${pageContext.request.contextPath}/trueOrFalse.do?flag=deleteTrueOrFalse&trueOrFalseId=${trueOrFalse.id}">删除</a></td>
 
 													</tr>
 												</c:forEach>
