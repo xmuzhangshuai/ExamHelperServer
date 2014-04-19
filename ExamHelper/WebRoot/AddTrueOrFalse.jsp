@@ -116,14 +116,14 @@
 											<tr>
 												<td align="left" width="13%"
 													style="height: 42px; width: 40px">答案：</td>
-												<td width="43%"><input id="answerR" name="answerR"
+												<td width="43%"><input id="answerR" name="answer" value="true"
 													onclick="right();" class="text" style="width: 24px"
 													type="radio" size="40" /></td>
 												<td><img src="./images/image_right.png"
 													style="width: 43px; " /></td>
-												<td width="43%"><input id="answerW" name="answerW"
+												<td width="43%"><input id="answerW" name="answer"
 													class="text" style="width: 24px" type="radio" size="40"
-													onclick="wrong();" /></td>
+													onclick="wrong();" value="false"/></td>
 												<td><img src="./images/image_wrong.png" /></td>
 											</tr>
 										</table>

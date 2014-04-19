@@ -13,7 +13,7 @@
 <head>
 
 
-<title>单线选择题</title>
+<title>多项选择题</title>
 
 
 <link rel="stylesheet" rev="stylesheet" href="./css/style.css"
@@ -68,14 +68,14 @@
 </script>
 </head>
 
-<body class="ContentBody" onload="InitCheckBox();">
+<body class="ContentBody" >
 	<form method="post" enctype="multipart/form-data" name="fom" id="fom"
 		target="mainFrame">
 		<div class="MainDiv">
 			<table width="99%" border="0" cellpadding="0" cellspacing="0"
 				class="CContent">
 				<tr>
-					<th class="tablestyle_title">多项选题</th>
+					<th class="tablestyle_title">多项选择题</th>
 				</tr>
 				<tr>
 					<td style="width: 485px; "><input type="button"

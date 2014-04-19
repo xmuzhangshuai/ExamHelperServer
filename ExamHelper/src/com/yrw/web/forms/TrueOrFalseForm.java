@@ -11,7 +11,7 @@ import org.apache.struts.action.ActionMapping;
 
 /** 
  * MyEclipse Struts
- * Creation date: 04-18-2014
+ * Creation date: 04-19-2014
  * 
  * XDoclet definition:
  * @struts.form name="trueOrFalseForm"
@@ -27,14 +27,11 @@ public class TrueOrFalseForm extends ActionForm {
 	/** remark property */
 	private String remark;
 
-	/** answerW property */
-	private String answerW;
+	/** answer property */
+	private String answer;
 
 	/** sectionName property */
 	private String sectionName;
-
-	/** answerR property */
-	private String answerR;
 
 	/** questionStem property */
 	private String questionStem;
@@ -100,19 +97,19 @@ public class TrueOrFalseForm extends ActionForm {
 	}
 
 	/** 
-	 * Returns the answerW.
+	 * Returns the answer.
 	 * @return String
 	 */
-	public String getAnswerW() {
-		return answerW;
+	public String getAnswer() {
+		return answer;
 	}
 
 	/** 
-	 * Set the answerW.
-	 * @param answerW The answerW to set
+	 * Set the answer.
+	 * @param answer The answer to set
 	 */
-	public void setAnswerW(String answerW) {
-		this.answerW = answerW;
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 
 	/** 
@@ -129,22 +126,6 @@ public class TrueOrFalseForm extends ActionForm {
 	 */
 	public void setSectionName(String sectionName) {
 		this.sectionName = sectionName;
-	}
-
-	/** 
-	 * Returns the answerR.
-	 * @return String
-	 */
-	public String getAnswerR() {
-		return answerR;
-	}
-
-	/** 
-	 * Set the answerR.
-	 * @param answerR The answerR to set
-	 */
-	public void setAnswerR(String answerR) {
-		this.answerR = answerR;
 	}
 
 	/** 

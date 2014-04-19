@@ -13,11 +13,12 @@
 <head>
 
 
-<title>判断题</title>
+<title>单项选择题</title>
 
 
 <link rel="stylesheet" rev="stylesheet" href="./css/style.css"
 	type="text/css" media="all" />
+
 <script language="JavaScript" type="text/javascript">
 	function tishi() {
 		var a = confirm('数据库中保存有该人员基本信息，您可以修改或保留该信息。');
@@ -35,16 +36,13 @@
 	}
 
 	function edit() {
-		var answers = document.getElementsByName("answer");
-		answers[0].disabled = false;
-		answers[1].disabled = false;
-
 		var txtN = document.getElementsByTagName("input");
-		for (var i = 0; i < txtN.length; i++)
+		for (i = 0; i < txtN.length; i++) {
 			txtN[i].readOnly = false;
+		}
 
 		var txtArea = document.getElementsByTagName("textarea");
-		for (var i = 0; i < txtArea.length; i++)
+		for (i = 0; i < txtArea.length; i++)
 			txtArea[i].readOnly = false;
 
 		var txtSelect = document.getElementsByTagName("select");
@@ -52,44 +50,37 @@
 			txtSelect[i].disabled = false;
 	}
 	function save() {
-		document.getElementById("fom").submit();
+
+		if (document.getElementById("material").value.trim().length != 0) {
+
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=addMaterialAnalysis"
+
+			document.getElementById("fom").submit();
+		} else
+			alert("请输入题干");
 
 	}
 	function back() {
 		var sectionName = document.getElementById("sectionName").value;
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=判断题&sectionName="
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=材料分析题&sectionName="
 				+ sectionName;
 		document.getElementById("fom").submit();
-	}
-	function initAnswer(answer) {
-		var checked = "true";
-		var answers = document.getElementsByName("answer");
-		if (answer == checked) {
-			answers[0].checked = true;
-			answers[1].checked = false;
-		} else {
-			answers[0].checked = false;
-			answers[1].checked = true;
-		}
-
 	}
 </script>
 </head>
 
-<body class="ContentBody" onload="initAnswer('${trueOrFalse.answer}');">
-	<form
-		action="${pageContext.request.contextPath}/trueOrFalse.do?flag=editTrueOrFalse&trueOrFalseId=${trueOrFalse.id}"
-		method="post" enctype="multipart/form-data" name="fom" id="fom"
+<body class="ContentBody">
+	<form method="post" enctype="multipart/form-data" name="fom" id="fom"
 		target="mainFrame">
 		<div class="MainDiv">
 			<table width="99%" border="0" cellpadding="0" cellspacing="0"
 				class="CContent">
 				<tr>
-					<th class="tablestyle_title">判断题题</th>
+					<th class="tablestyle_title">材料分析题</th>
 				</tr>
 				<tr>
 					<td style="width: 485px; "><input type="button"
-						value="返回判断题列表" style="width: 111px; " onclick="back();"
+						value="返回材料分析题列表" style="width: 137px; " onclick="back();"
 						class="button" /></td>
 
 				</tr>
@@ -103,8 +94,9 @@
 								<tr align="left">
 									<td align="left" width="13%">题干内容:</td>
 									<td style="width: 448px; "><textarea rows="" cols=""
-											id="questionStem" readonly="readonly" name="questionStem"
-											style="width: 376px; height: 100px">${trueOrFalse.questionStem}</textarea></td>
+											id="material" name="material"
+											style="width: 376px; height: 100px"></textarea><span
+										class="red"> *</span></td>
 
 								</tr>
 
@@ -116,41 +108,12 @@
 				</TR>
 				<tr>
 					<td><fieldset>
-							<legend>答案</legend>
-
+							<legend>题目图片:</legend>
 							<table>
 								<tr>
-
-									<td><table style="width: 341px; ">
-
-											<tr>
-												<td align="left" width="13%"
-													style="height: 42px; width: 40px">答案：</td>
-												<td width="43%"><input id="answer" name="answer"
-													value="true" disabled="disabled" class="text"
-													style="width: 24px" type="radio" size="40" /></td>
-												<td><img src="./images/image_right.png"
-													style="width: 43px; " /></td>
-												<td width="43%"><input id="answer" name="answer"
-													value="false" class="text" style="width: 24px" type="radio"
-													size="40" disabled="disabled" /></td>
-												<td><img src="./images/image_wrong.png" /></td>
-											</tr>
-										</table></td>
-								</tr>
-							</table>
-
-						</fieldset></td>
-				</tr>
-				<tr>
-					<td><fieldset>
-							<legend>分析</legend>
-							<table>
-								<tr>
-									<td>题目分析</td>
-									<td><textarea id="analysis" cols="" rows=""
-											name="analysis" readonly="readonly"
-											style="height: 119px; width: 394px">${trueOrFalse.analysis}</textarea></td>
+									<td>题目图片</td>
+									<td><input type="file" name="materialImage"
+										id="materialImage" tit /></td>
 								</tr>
 							</table>
 						</fieldset></td>
@@ -161,8 +124,7 @@
 							<table>
 								<tr>
 									<td>科目名称：</td>
-									<td><select name="subjectName" disabled="disabled">
-											<option selected="selected">${subject.subName}</option>
+									<td><select name="subjectName">
 											<c:forEach items="${subjects}" var="item">
 												<option>${item.subName}</option>
 											</c:forEach>
@@ -170,19 +132,58 @@
 								</tr>
 								<tr>
 									<td>章节名称:</td>
-									<td><select id="sectionName" disabled="disabled"
-										name="sectionName">
-											<option selected="selected">${section.sectionName}</option>
+									<td><select id="sectionName" name="sectionName">
 											<c:forEach items="${sections}" var="item">
 												<option>${item.sectionName}</option>
 											</c:forEach>
 									</select></td>
 									<td><input type="hidden" id="sectionId"
-										value="${section.sectionName}" /></td>
+										value="${section.id}" /></td>
 								</tr>
 							</table>
 						</fieldset></td>
 				</tr>
+				<tr>
+					<td><fieldset>
+							<legend>小题</legend>
+							<c:forEach items="${questionOfMaterials}"
+								var="questionOfMaterial">
+								<fieldset>
+									<table>
+										<tr>
+											<td>小题编号：</td>
+											<td><input type="text"
+												id="questionOfMaterial${questionOfMaterial.questionNumber}"
+												readonly="readonly" value="${questionOfMaterial.questionNumber}"" /></td>
+										</tr>
+										<tr>
+											<td>小题题干:</td>
+											<td><textarea
+													id="questionStem${questionOfMaterial.questionNumber}" style="width: 304px; height: 93px">${questionOfMaterial.questionStem}</textarea></td>
+										</tr>
+										<tr>
+											<td>小题答案：</td>
+											<td><textarea
+													id="answer${questionOfMaterial.questionNumber}" style="width: 302px; height: 98px">${questionOfMaterial.answer}</textarea></td>
+										</tr>
+										<tr>
+										<td>小题分析：</td>
+											<td style="height: 84px; "><textarea
+													id="analysis${questionOfMaterial.questionNumber}" style="width: 305px; height: 89px">${questionOfMaterial.analysis}</textarea></td>
+										</tr>
+										<tr>
+										<td>小题分值：</td>
+											<td><input type="text"
+												id="score${questionOfMaterial.questionNumber}"
+												readonly="readonly" value="${questionOfMaterial.score}"/></td>
+										</tr>
+									</table>
+								</fieldset>
+							</c:forEach>
+							<a href="${pageContext.request.contextPath}/materialAnalysis.do?flag=addQuestionOfMaterial" style="font-size: small;">添加小题</a>
+						</fieldset></td>
+				</tr>
+
 				<TR>
 					<TD colspan="2" align="center" height="50px"><input
 						type="button" value="编辑" class="button" style="width: 83px; "
