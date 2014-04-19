@@ -19,9 +19,12 @@
 <link rel="stylesheet" rev="stylesheet" href="./css/style.css"
 	type="text/css" media="all" />
 <script language="JavaScript" type="text/javascript">
-	function checked(answer) {
-		answer = true;
-		alert(answer)
+	function checkedAnswer(answer) {
+		if(answer.checked == true)
+		answer.value=true;
+		else answer.value=false;
+		
+		alert(answer);
 	}
 	function tishi() {
 		var a = confirm('数据库中保存有该人员基本信息，您可以修改或保留该信息。');
@@ -35,23 +38,17 @@
 	}
 
 	function check() {
+	
 		document.getElementById("aa").style.display = "";
 	}
 	function InitCheckBox() {
 		var checked = "true";
 
-		if (document.getElementById("answerA").value == checked)
-			document.getElementById("answerA").checked = true
-		if (document.getElementById("answerB").value == checked)
-			document.getElementById("answerB").checked = true
-		if (document.getElementById("answerC").value == checked)
-			document.getElementById("answerC").checked = true
-		if (document.getElementById("answerD").value == checked)
-			document.getElementById("answerD").checked = true
-		if (document.getElementById("answerE").value == checked)
-			document.getElementById("answerE").checked = true
-		if (document.getElementById("answerF").value == checked)
-			document.getElementById("answerF").checked = true
+		var checked = "true";
+		for (var i = 1; i < 7; i++) {
+			if (document.getElementById("answer" + i).value == checked)
+				document.getElementById("answer" + i).checked = true;
+		}
 	}
 
 	function save() {
@@ -64,14 +61,7 @@
 				+ sectionId;
 		document.getElementById("fom").submit();
 	}
-	function answerAClick() {
-		var a = document.getElementById("answerA");
-		alert(a)
-		if (a.checked == true)
-			a.checked = false;
-		else
-			a.checked = true;
-	}
+	
 </script>
 </head>
 
@@ -88,7 +78,7 @@
 				</tr>
 				<tr>
 					<td style="width: 485px; "><input type="button"
-						value="返回单选题列表" style="width: 111px; " onclick="back();"
+						value="返回多选题列表" style="width: 111px; " onclick="back();"
 						class="button" /></td>
 
 				</tr>
@@ -162,19 +152,18 @@
 									<td><table>
 											<tr>
 												<td>答案</td>
-												<td><input type="checkbox" id="answerA" name="answerA"
-													value="${multiChoice.answerA}"
-													onselect="checked('document.getElementById(answerA).checked')" />A</td>
-												<td><input type="checkbox" id="answerB" name="answerB"
-													value="${multiChoice.answerB}" onclick="checked();" />B</td>
-												<td><input type="checkbox" id="answerC" name="answerC"
-													value="${multiChoice.answerC}" />C</td>
-												<td><input type="checkbox" id="answerD" name="answerD"
-													value="${multiChoice.answerD}" />D</td>
-												<td><input type="checkbox" id="answerE" name="answerE"
-													value="${multiChoice.answerE}" />E</td>
-												<td><input type="checkbox" id="answerF" name="answerF"
-													value="${multiChoice.answerF}" />F</td>
+												<td><input type="checkbox" id="answer1" name="answerA"
+													 value="${multiChoice.answerA}" />A</td>
+												<td><input type="checkbox" id="answer2" name="answerB"
+													 value="${multiChoice.answerB}" />B</td>
+												<td><input type="checkbox" id="answer3" name="answerC"
+													 value="${multiChoice.answerC}" />C</td>
+												<td><input type="checkbox" id="answer4" name="answerD"
+													 value="${multiChoice.answerD}" />D</td>
+												<td><input type="checkbox" id="answer5" name="answerE"
+													 value="${multiChoice.answerE}" />E</td>
+												<td><input type="checkbox" id="answer6" name="answerF"
+													 value="${multiChoice.answerF}" />F</td>
 											</tr>
 
 										</table></td>

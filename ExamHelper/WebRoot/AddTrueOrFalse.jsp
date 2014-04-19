@@ -37,7 +37,7 @@
 	function save() {
 
 		if (document.getElementById("questionStem").value.trim().length != 0) {
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=addSingleChoice"
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=addTrueOrFalse"
 
 			document.getElementById("fom").submit();
 		} else
@@ -46,7 +46,7 @@
 	}
 	function back() {
 		var sectionId = document.getElementById("sectionId").value;
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=单项选择题&sectionId="
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=判断题&sectionId="
 				+ sectionId;
 	}
 	function right() {
@@ -74,11 +74,11 @@
 			<table width="99%" border="0" cellpadding="0" cellspacing="0"
 				class="CContent">
 				<tr>
-					<th class="tablestyle_title">单选题</th>
+					<th class="tablestyle_title">判断题</th>
 				</tr>
 				<tr>
 					<td style="width: 485px; "><input type="button"
-						value="返回单选题列表" style="width: 111px; " onclick="back();"
+						value="返回判断题列表" style="width: 111px; " onclick="back();"
 						class="button" /></td>
 
 				</tr>

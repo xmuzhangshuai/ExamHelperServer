@@ -199,21 +199,21 @@
 		var sectionName=document.getElementById("hiddenValue").value;
 		<%String keywordEP = (String) request.getAttribute("keyword");%>
 		var keyword="<%=keywordEP%>"
-			var nonContent = "null";
-			if (keyword == nonContent)
+		var nonContent = "null";
+		if (keyword == nonContent)
 
-			{
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoiceList&pageNow="+pageCount
-						 + "&sectionName=" + sectionName;
-				alert(document.getElementById("fom").action);
-				document.getElementById("fom").submit();
-			} else {
+		{
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoiceList&pageNow="
+					+ pageCount + "&sectionName=" + sectionName;
+			alert(document.getElementById("fom").action);
+			document.getElementById("fom").submit();
+		} else {
 
-				document.getElementById("textfield").value = keyword;
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=searchSubjectByKeyWord&pageNow="+pageCount
-				+"&sectionName=" + sectionName;
-				document.getElementById("fom").submit();
-			}
+			document.getElementById("textfield").value = keyword;
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=searchSubjectByKeyWord&pageNow="
+					+ pageCount + "&sectionName=" + sectionName;
+			document.getElementById("fom").submit();
+		}
 	}
 </script>
 
@@ -317,8 +317,9 @@
 														<td><a
 															href="${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoice&multiChoiceId=${multiChoice.id}&edit=true">编辑|</a><a
 															href="${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoice&multiChoiceId=${multiChoice.id}">查看|</a>
-															<!--  	<a href="${pageContext.request.contextPath}/listQuestion.do?flag=deleteSection&sectionId=${section.id}">删除</a></td>-->
-															<a href="#">删除</a></td>
+															<a
+															href="${pageContext.request.contextPath}/multiChoice.do?flag=deleteMultiChoice&multiChoiceId=${multiChoice.id}">删除</a></td>
+
 													</tr>
 												</c:forEach>
 											</table>

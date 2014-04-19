@@ -125,7 +125,7 @@ public class SingleChoiceAction extends DispatchAction {
 				.getParameter("singleChoiceId"));
 		String isEdit = request.getParameter("edit");
 		Singlechoice singlechoice = (Singlechoice) questionService
-				.showQuestion(singleChoiceId, DefaultValue.SINGLE_CHOICE);
+				.getQuestion(singleChoiceId, DefaultValue.SINGLE_CHOICE);
 		request.setAttribute("singleChoice", singlechoice);
 
 		// 获得subject下拉菜单里的所有subject
@@ -264,8 +264,12 @@ public class SingleChoiceAction extends DispatchAction {
 		}
 
 		questionService.updateSingleChoice(singlechoice);
-		request.setAttribute("singleChoiceId", singleChoiceId);
-		return showSingleChoice(mapping, singleChoiceForm, request, response);
+		//设置转到showSIngleChoiceLIst中要使用参数
+		request.setAttribute("sectionName", singlechoice.getSection()
+				.getSectionName());
+
+		request.setAttribute("source", "editSingleChoice");
+		return mapping.findForward("showSingleChoiceList");
 	}
 
 	/**
@@ -284,13 +288,14 @@ public class SingleChoiceAction extends DispatchAction {
 		int singleChoiceId = Integer.parseInt(request
 				.getParameter("singleChoiceId"));
 		Singlechoice singlechoice = (Singlechoice) questionService
-				.showQuestion(singleChoiceId, DefaultValue.SINGLE_CHOICE);
+				.getQuestion(singleChoiceId, DefaultValue.SINGLE_CHOICE);
 		request.setAttribute("sectionName", singlechoice.getSection()
 				.getSectionName());
 		request.setAttribute("source", "deleteSingleChoice");
 		questionService
 				.deleteQuestion(DefaultValue.SINGLE_CHOICE, singlechoice);
-		return showSingleChoiceList(mapping, form, request, response);
+		
+		return mapping.findForward("showSingleChoiceList");
 
 	}
 }

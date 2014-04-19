@@ -75,6 +75,7 @@ public class MultiChoiceAction extends DispatchAction {
 			sectionName = new String(request.getParameter("sectionName")
 					.getBytes("ISO-8859-1"), "utf-8");
 
+		
 		String typeName = DefaultValue.MULTI_CHOICE;
 
 		request.getSession().setAttribute("typeName", typeName);
@@ -126,7 +127,7 @@ public class MultiChoiceAction extends DispatchAction {
 		int multiChoiceId = Integer.parseInt(request
 				.getParameter("multiChoiceId"));
 		String isEdit = request.getParameter("edit");
-		Multichoice multichoice = (Multichoice) questionService.showQuestion(
+		Multichoice multichoice = (Multichoice) questionService.getQuestion(
 				multiChoiceId, DefaultValue.MULTI_CHOICE);
 		request.setAttribute("multiChoice", multichoice);
 
@@ -188,24 +189,34 @@ public class MultiChoiceAction extends DispatchAction {
 		multichoice.setOptionE(multiChoiceForm.getOptionE());
 		multichoice.setOptionF(multiChoiceForm.getOptionF());
 		multichoice.setAnalysis(multiChoiceForm.getAnalysis());
-		multichoice.setAnswerA(Boolean.parseBoolean(multiChoiceForm
-				.getAnswerA()));
-		multichoice.setAnswerB(Boolean.parseBoolean(multiChoiceForm
-				.getAnswerB()));
-		System.out.println(multiChoiceForm.getAnswerB());
-		multichoice.setAnswerC(Boolean.parseBoolean(multiChoiceForm
-				.getAnswerC()));
-		multichoice.setAnswerD(Boolean.parseBoolean(multiChoiceForm
-				.getAnswerD()));
-		multichoice.setAnswerE(Boolean.parseBoolean(multiChoiceForm
-				.getAnswerE()));
-		multichoice.setAnswerF(Boolean.parseBoolean(multiChoiceForm
-				.getAnswerF()));
+
+		if (multiChoiceForm.getAnswerA() != null)
+			multichoice.setAnswerA(true);
+		else
+			multichoice.setAnswerA(false);
+		if (multiChoiceForm.getAnswerB() != null)
+			multichoice.setAnswerB(true);
+		else
+			multichoice.setAnswerB(false);
+		if (multiChoiceForm.getAnswerC() != null)
+			multichoice.setAnswerC(true);
+		else
+			multichoice.setAnswerC(false);
+		if (multiChoiceForm.getAnswerD() != null)
+			multichoice.setAnswerD(true);
+		else
+			multichoice.setAnswerD(false);
+		if (multiChoiceForm.getAnswerE() != null)
+			multichoice.setAnswerE(true);
+		else
+			multichoice.setAnswerE(false);
+		if (multiChoiceForm.getAnswerF() != null)
+			multichoice.setAnswerF(true);
+		else
+			multichoice.setAnswerF(false);
+
 		multichoice.setRemark(multiChoiceForm.getRemark());
 
-		System.out.println("QuestionAction editMultiChoice  "
-				+ multiChoiceForm.getSectionName()
-				+ multiChoiceForm.getSubjectName());
 		if (multiChoiceForm.getSectionName() != null) {
 			Section section = sectionService
 					.getSectionBySectionName(multiChoiceForm.getSectionName());
@@ -213,10 +224,12 @@ public class MultiChoiceAction extends DispatchAction {
 		}
 
 		questionService.updateMultiChoice(multichoice);
-		
-		
-		request.setAttribute("multiChoiceId", multiChoiceId);
-		return showMultiChoice(mapping, multiChoiceForm, request, response);
+		// 设置在showMultiChoice中要使用参数
+		request.setAttribute("sectionName", multichoice.getSection()
+				.getSectionName());
+		request.setAttribute("source", "editMultiChoice");
+		return showMultiChoiceList(mapping, multiChoiceForm, request, response);
+
 	}
 
 	/**
@@ -264,18 +277,30 @@ public class MultiChoiceAction extends DispatchAction {
 		multichoice.setOptionD(multiChoiceForm.getOptionD());
 		multichoice.setOptionE(multiChoiceForm.getOptionE());
 		multichoice.setOptionF(multiChoiceForm.getOptionF());
-		multichoice.setAnswerA(Boolean.parseBoolean(multiChoiceForm
-				.getAnswerA()));
-		multichoice.setAnswerB(Boolean.parseBoolean(multiChoiceForm
-				.getAnswerB()));
-		multichoice.setAnswerC(Boolean.parseBoolean(multiChoiceForm
-				.getAnswerC()));
-		multichoice.setAnswerD(Boolean.parseBoolean(multiChoiceForm
-				.getAnswerD()));
-		multichoice.setAnswerE(Boolean.parseBoolean(multiChoiceForm
-				.getAnswerE()));
-		multichoice.setAnswerF(Boolean.parseBoolean(multiChoiceForm
-				.getAnswerF()));
+		if (multiChoiceForm.getAnswerA() != null)
+			multichoice.setAnswerA(true);
+		else
+			multichoice.setAnswerA(false);
+		if (multiChoiceForm.getAnswerB() != null)
+			multichoice.setAnswerB(true);
+		else
+			multichoice.setAnswerB(false);
+		if (multiChoiceForm.getAnswerC() != null)
+			multichoice.setAnswerC(true);
+		else
+			multichoice.setAnswerC(false);
+		if (multiChoiceForm.getAnswerD() != null)
+			multichoice.setAnswerD(true);
+		else
+			multichoice.setAnswerD(false);
+		if (multiChoiceForm.getAnswerE() != null)
+			multichoice.setAnswerE(true);
+		else
+			multichoice.setAnswerE(false);
+		if (multiChoiceForm.getAnswerF() != null)
+			multichoice.setAnswerF(true);
+		else
+			multichoice.setAnswerF(false);
 
 		multichoice.setRemark(multiChoiceForm.getRemark());
 
@@ -295,5 +320,38 @@ public class MultiChoiceAction extends DispatchAction {
 				.getSectionName());
 		request.setAttribute("source", "addMultiChoice");
 		return showMultiChoiceList(mapping, multiChoiceForm, request, response);
+	}
+
+	/**
+	 * 删除多选题
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+	public ActionForward deleteMultiChoice(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws UnsupportedEncodingException {
+		int multiChoiceId = Integer.parseInt(request
+				.getParameter("multiChoiceId"));
+		
+		Multichoice multichoice = (Multichoice) questionService.getQuestion(
+				multiChoiceId, DefaultValue.MULTI_CHOICE);
+		if (multichoice != null) {
+			request.setAttribute("sectionName", multichoice.getSection()
+					.getSectionName());
+			System.out.println("deleteMultiChoice "+multichoice.getSection().getSectionName());
+			questionService.deleteQuestion(DefaultValue.MULTI_CHOICE,
+					multichoice);
+			
+		}
+
+		request.setAttribute("source", "deleteMultiChoice");
+
+		return showMultiChoiceList(mapping, null, request, response);
+
 	}
 }

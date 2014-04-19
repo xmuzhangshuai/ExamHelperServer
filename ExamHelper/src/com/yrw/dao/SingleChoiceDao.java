@@ -36,7 +36,7 @@ public class SingleChoiceDao extends BasicDao implements ISingleChoiceDao {
 	@Override
 	public List getSingleChoiceBySection(int pageNow, int sectionId) {
 		// TODO Auto-generated method stub
-		String hql = "from Singlechoice as s where s.section.id=" + sectionId;
+		String hql = "from Singlechoice as s where s.section.id=" + sectionId+" order by s.id desc";
 		List list = this.executeQueryByPage(hql, null, pageNow);
 		return list;
 	}

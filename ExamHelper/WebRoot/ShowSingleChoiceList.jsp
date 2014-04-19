@@ -42,11 +42,11 @@
 		else if (questionType == multiChoice) {
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoiceList&sectionName="
 					+ sectionName;
-			alert(document.getElementById("fom").action);
-		} else if (questionType == trueOrFalse){
+			
+		} else if (questionType == trueOrFalse)
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&sectionName="
 					+ sectionName;
-					alert(document.getElementById("fom").action);}
+				
 		else if (questionType == analysis)
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&sectionName="
 					+ sectionName;

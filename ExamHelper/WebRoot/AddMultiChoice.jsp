@@ -52,9 +52,8 @@
 
 		if (document.getElementById("questionStem").value.trim().length != 0) {
 
-			
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=addMultiChoice"
-				
+
 			document.getElementById("fom").submit();
 		} else
 			alert("请输入题干");
@@ -95,7 +94,7 @@
 									<td align="left" width="13%">题干内容:</td>
 									<td style="width: 448px; "><textarea rows="" cols=""
 											id="questionStem" name="questionStem"
-											style="width: 376px; height: 100px" ></textarea><span
+											style="width: 376px; height: 100px"></textarea><span
 										class="red"> *</span></td>
 
 								</tr>
@@ -151,12 +150,18 @@
 									<td><table>
 											<tr>
 												<td>答案</td>
-												<td><input type="radio" id="answerA" name="answerA" />A</td>
-												<td><input type="radio" id="answerB" name="answerB" />B</td>
-												<td><input type="radio" id="answerC" name="answerC" />C</td>
-												<td><input type="radio" id="answerD" name="answerD" />D</td>
-												<td><input type="radio" id="answerE" name="answerE" />E</td>
-												<td><input type="radio" id="answerF" name="answerF" />F</td>
+												<td><input type="checkbox" id="answerA" name="answerA"
+													value="${multiChoice.answerA}" />A</td>
+												<td><input type="checkbox" id="answerB" name="answerB"
+													value="${multiChoice.answerB}" onselect="" />B</td>
+												<td><input type="checkbox" id="answerC" name="answerC"
+													value="${multiChoice.answerC}" />C</td>
+												<td><input type="checkbox" id="answerD" name="answerD"
+													value="${multiChoice.answerD}" />D</td>
+												<td><input type="checkbox" id="answerE" name="answerE"
+													value="${multiChoice.answerE}" />E</td>
+												<td><input type="checkbox" id="answerF" name="answerF"
+													value="${multiChoice.answerF}" />F</td>
 											</tr>
 
 										</table></td>
@@ -172,7 +177,7 @@
 								<tr>
 									<td>题目分析</td>
 									<td><textarea id="analysis" cols="" rows=""
-											name="analysis" style="height: 119px; width: 394px" ></textarea></td>
+											name="analysis" style="height: 119px; width: 394px"></textarea></td>
 								</tr>
 							</table>
 						</fieldset></td>

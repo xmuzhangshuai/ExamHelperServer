@@ -32,7 +32,7 @@ public class TrueOrFalseDao extends BasicDao implements ITrueOrFalseDao {
 	public List getTrueOrFalseBySection(int pageNow, int sectionId) {
 		// TODO Auto-generated method stub
 		String hql = "from Trueorfalse as t where t.section.id="
-				+ sectionId;
+				+ sectionId+" order by t.id desc";
 		List list = this.executeQueryByPage(hql, null, pageNow);
 		return list;
 	}

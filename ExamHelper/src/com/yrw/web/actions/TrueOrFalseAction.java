@@ -69,17 +69,14 @@ public class TrueOrFalseAction extends DispatchAction {
 
 		// 加载章节类型
 		String sectionName;
-		// 加载章节类型
+
 		if (request.getAttribute("source") != null)
 			sectionName = (String) request.getAttribute("sectionName");
 		else
 			sectionName = new String(request.getParameter("sectionName")
 					.getBytes("ISO-8859-1"), "utf-8");
 		String typeName = DefaultValue.TRUE_OR_FALSE;
-
-		request.getSession().setAttribute("typeName", typeName);
 		String pageNowString = request.getParameter("pageNow");
-
 		int subjectId = (Integer) request.getSession()
 				.getAttribute("subjectId");
 
@@ -122,7 +119,7 @@ public class TrueOrFalseAction extends DispatchAction {
 		int singleChoiceId = Integer.parseInt(request
 				.getParameter("trueOrFalseId"));
 		String isEdit = request.getParameter("edit");
-		Trueorfalse trueorfalse = (Trueorfalse) questionService.showQuestion(
+		Trueorfalse trueorfalse = (Trueorfalse) questionService.getQuestion(
 				singleChoiceId, DefaultValue.TRUE_OR_FALSE);
 		request.setAttribute("trueOrFalse", trueorfalse);
 
@@ -194,6 +191,8 @@ public class TrueOrFalseAction extends DispatchAction {
 		TrueOrFalseForm trueOrFalseForm = (TrueOrFalseForm) form;
 		Trueorfalse trueorfalse = new Trueorfalse();
 		trueorfalse.setQuestionStem(trueOrFalseForm.getQuestionStem());
+		System.out.println(Boolean.parseBoolean(trueOrFalseForm.getAnswerR()));
+		System.out.println(Boolean.parseBoolean(trueOrFalseForm.getAnswerW()));
 		if (Boolean.parseBoolean(trueOrFalseForm.getAnswerR())
 				&& !Boolean.parseBoolean(trueOrFalseForm.getAnswerW()))
 			trueorfalse.setAnswer(true);
@@ -211,12 +210,12 @@ public class TrueOrFalseAction extends DispatchAction {
 
 		}
 		questionService.addTrueOrFalse(trueorfalse);
-		// 设置在showQuestioBySection中要使用参数
+		// 设置在showTrueOrFalseList中要使用参数
 		request.setAttribute("sectionName", trueorfalse.getSection()
 				.getSectionName());
 
 		request.setAttribute("source", "addTrueOrFalse");
-		return mapping.findForward("showTrueOrFalseList");
+		return showTrueOrFalseList(mapping, null, request, response);
 	}
 
 	/**
@@ -239,9 +238,8 @@ public class TrueOrFalseAction extends DispatchAction {
 
 		Trueorfalse trueorfalse = (Trueorfalse) questionService.getQuestion(
 				trueOrFalseId, DefaultValue.TRUE_OR_FALSE);
-	
 
-		trueorfalse.setQuestionStem( trueOrFalseForm.getQuestionStem());
+		trueorfalse.setQuestionStem(trueOrFalseForm.getQuestionStem());
 		if (Boolean.parseBoolean(trueOrFalseForm.getAnswerR())
 				&& !Boolean.parseBoolean(trueOrFalseForm.getAnswerW()))
 			trueorfalse.setAnswer(true);
@@ -250,7 +248,6 @@ public class TrueOrFalseAction extends DispatchAction {
 		trueorfalse.setAnalysis(trueOrFalseForm.getAnalysis());
 		trueorfalse.setRemark(trueOrFalseForm.getRemark());
 
-		
 		if (trueOrFalseForm.getSectionName() != null) {
 			Section section = sectionService
 					.getSectionBySectionName(trueOrFalseForm.getSectionName());
@@ -277,13 +274,19 @@ public class TrueOrFalseAction extends DispatchAction {
 			HttpServletResponse response) throws UnsupportedEncodingException {
 		int trueOrFalseId = Integer.parseInt(request
 				.getParameter("trueOrFalseId"));
-		Trueorfalse trueorfalse = (Trueorfalse) questionService.showQuestion(
+		Trueorfalse trueorfalse = (Trueorfalse) questionService.getQuestion(
 				trueOrFalseId, DefaultValue.TRUE_OR_FALSE);
-		request.setAttribute("sectionName", trueorfalse.getSection()
-				.getSectionName());
+
+		if (trueorfalse != null) {
+			request.setAttribute("sectionName", trueorfalse.getSection()
+					.getSectionName());
+			questionService.deleteQuestion(DefaultValue.TRUE_OR_FALSE,
+					trueorfalse);
+		}
+		// 为showTrueOrFList设置参数
 		request.setAttribute("source", "deleteTrueOrFalse");
-		questionService.deleteQuestion(DefaultValue.TRUE_OR_FALSE, trueorfalse);
-		return showTrueOrFalseList(mapping, form, request, response);
+
+		return showTrueOrFalseList(mapping, null, request, response);
 
 	}
 }

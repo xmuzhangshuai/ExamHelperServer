@@ -31,7 +31,7 @@ public class MultiChoiceDao extends BasicDao implements IMultiChoiceDao {
 	public List getMultiChoiceBySection(int pageNow, int sectionId) {
 		// TODO Auto-generated method stub
 		String hql = "from Multichoice as m where m.section.id="
-				+ sectionId;
+				+ sectionId+" order by m.id desc";
 		List list = this.executeQueryByPage(hql, null, pageNow);
 		return list;
 	}
