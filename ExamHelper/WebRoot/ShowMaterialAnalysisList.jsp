@@ -26,32 +26,25 @@
 						"",
 						"depended=0,alwaysRaised=1,width=800,height=510,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
 	}
-	function chooseQuestionType() {
+	function chooseQuestionType(){
+	
+	var questionType=document.getElementById("chooseQT").value;
+	var sectionName=document.getElementById("hiddenValue").value;
+	var singleChoice="单项选择题"
+	var multiChoice="多项选择题"
+	var trueOrFalse="判断题"
+	var analysis="简答题"
 
-		
-		var questionType = document.getElementById("chooseQT").value;
-		var sectionName = document.getElementById("hiddenValue").value;
-		var singleChoice = "单项选择题";
-		var multiChoice = "多项选择题";
-		var trueOrFalse = "判断题";
-		var analysis = "材料分析题";
-
-		if (questionType == singleChoice)
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&sectionName="
-					+ sectionName;
-		else if (questionType == multiChoice) {
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoiceList&sectionName="
-					+ sectionName;
-			
-		} else if (questionType == trueOrFalse)
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&sectionName="
-					+ sectionName;
-				
-		else if (questionType == analysis)
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&sectionName="
-					+ sectionName;
-
-		document.getElementById("fom").submit();
+	
+	if(questionType==singleChoice)
+	document.getElementById("fom").action="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&sectionName="+sectionName;
+	else if(questionType==multiChoice){
+	document.getElementById("fom").action="${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoiceList&sectionName="+sectionName;
+	}else if(questionType==trueOrFalse)
+	document.getElementById("fom").action="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&sectionName="+sectionName;
+	else if(questionType==analysis)
+	document.getElementById("fom").action="${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&sectionName="+sectionName;
+	document.getElementById("fom").submit();
 	}
 	function selectAll() {
 
@@ -80,9 +73,10 @@
 	}
 
 	function link() {
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=addSingleChoiceUI";
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=addMaterialAnalysisUI";
 		document.getElementById("fom").submit();
 	}
+	
 
 	function delSelected() {
 		var obj = document.fom.elements;
@@ -96,14 +90,15 @@
 		}
 		document.getElementById("paramsHidden").value = list;
 
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=delSubjectByList&pageNow=${pageNow}";
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=delSubjectByList&pageNow=${pageNow}";
 		document.getElementById("fom").submit();
 	}
 	function keywordSearch() {
 
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=searchSubjectByKeyWord";
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=searchSubjectByKeyWord";
 		document.getElementById("fom").submit();
 	}
+	
 	function goByPage(){
 		var sectionName=document.getElementById("hiddenValue").value;
 		var page=document.getElementById("page").value;
@@ -114,14 +109,14 @@
 		if (keyword == nonContent)
 
 		{
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&pageNow="
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&pageNow="
 					+ page+"&sectionName="+sectionName;
-				
+					
 			document.getElementById("fom").submit();
 		} else {
 
 			document.getElementById("textfield").value = keyword;
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=searchSubjectByKeyWord&pageNow="
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&pageNow="
 			+ page+"&sectionName="+sectionName;
 			document.getElementById("fom").submit();
 
@@ -139,14 +134,14 @@
 			if (keyword == nonContent)
 
 			{
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&pageNow="
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&pageNow="
 						+ (pageNow - 1) + "&sectionName=" + sectionName;
-				alert(document.getElementById("fom").action);
+				
 				document.getElementById("fom").submit();
 			} else {
 
 				document.getElementById("textfield").value = keyword;
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=searchSubjectByKeyWord&pageNow="
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=searchSubjectByKeyWord&pageNow="
 			+ (pageNow - 1) + "&sectionName=" + sectionName;
 				document.getElementById("fom").submit();
 
@@ -156,29 +151,28 @@
 
 	}
 	function nextPage(pageNow, pageCount) {
-		pageCount=parseInt(pageCount);
+	pageCount=parseInt(pageCount);
 		pageNow=parseInt(pageNow);
-		
-		if (pageNow+1> pageCount)
-			alert(当前为最后一页);
+		if (pageNow+1 >pageCount)
+			alert(当前为最后一页)
 		else {
 		var sectionName=document.getElementById("hiddenValue").value;
 		<%String keywordNP = (String) request.getAttribute("keyword");%>
 		var keyword="<%=keywordNP%>"
 			var nonContent = "null";
-			pageNow=parseInt(pageNow)+1;
-				if (keyword == nonContent)
+				pageNow=parseInt(pageNow)+1;
+			if (keyword == nonContent)
 
 			{
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&pageNow="
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&pageNow="
 						+ pageNow + "&sectionName=" + sectionName;
-				alert(document.getElementById("fom").action);
+				
 				document.getElementById("fom").submit();
 			} else {
 
 				document.getElementById("textfield").value = keyword;
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=searchSubjectByKeyWord&pageNow="
-				+pageNow+ "&sectionName=" + sectionName;
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=searchSubjectByKeyWord&pageNow="
+				+ page + "&sectionName=" + sectionName;
 				document.getElementById("fom").submit();
 			}
 		}
@@ -191,14 +185,14 @@
 			if (keyword == nonContent)
 
 			{
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&pageNow=1"
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&pageNow=1"
 						 + "&sectionName=" + sectionName;
 				alert(document.getElementById("fom").action);
 				document.getElementById("fom").submit();
 			} else {
 
 				document.getElementById("textfield").value = keyword;
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=searchSubjectByKeyWord&pageNow=1"
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=searchSubjectByKeyWord&pageNow=1"
 				+"&sectionName=" + sectionName;
 				document.getElementById("fom").submit();
 			}
@@ -207,20 +201,19 @@
 	
 		var sectionName=document.getElementById("hiddenValue").value;
 		<%String keywordEP = (String) request.getAttribute("keyword");%>
-		var keyword="<%=keywordEP%>";
-
+		var keyword="<%=keywordEP%>"
 		var nonContent = "null";
 		if (keyword == nonContent)
 
 		{
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&pageNow="
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&pageNow="
 					+ pageCount + "&sectionName=" + sectionName;
 			alert(document.getElementById("fom").action);
 			document.getElementById("fom").submit();
 		} else {
 
 			document.getElementById("textfield").value = keyword;
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=searchSubjectByKeyWord&pageNow="
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=searchSubjectByKeyWord&pageNow="
 					+ pageCount + "&sectionName=" + sectionName;
 			document.getElementById("fom").submit();
 		}
@@ -237,7 +230,7 @@
 				<td height="30">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
 						<tr>
-							<td height="62" style="background-image:./images/nav04.gif">
+							<td height="62" style="background-image:./images/nav04.gif ">
 
 								<table width="98%" border="0" align="center" cellpadding="0"
 									cellspacing="0">
@@ -247,7 +240,7 @@
 												<tr>
 													<td width="538" style="width: 154px; height: 48px">题型选择：
 														<select id="chooseQT" onchange="chooseQuestionType();">
-															<option selected="selected">${questionType.typeName}</option>
+															<option>${questionType.typeName}</option>
 															<c:forEach items="${questionTypes}" var="type">
 																<option>${type.typeName}</option>
 															</c:forEach>
@@ -259,7 +252,7 @@
 										<td align="left">
 											<table>
 												<tr>
-													<td width="21" style="width: 13px;"><img
+													<td width="21" style="width: 13px; "><img
 														src="./images/ico07.gif" width="20" height="18" /></td>
 													<td style="width: 233px; ">按关键字： <input
 														name="textfield" id="textfield" type="text" size="12" />
@@ -290,7 +283,7 @@
 											value="删除所选题目" onclick="delSelected();" /> <input
 											type="hidden" name="paramsHidden" id="paramsHidden" /> <input
 											name="Submit2" type="button" class="right-button08"
-											value="添加单项选择题" onclick="link();" /></td>
+											value="添加材料题" onclick="link();" /></td>
 									</tr>
 									<tr>
 										<td height="40" class="font42">
@@ -298,24 +291,24 @@
 												cellspacing="1" bgcolor="#464646" class="newfont03">
 												<tr class="CTitle">
 													<td height="22" colspan="7" align="center"
-														style="font-size:16px">单项选择题列表</td>
+														style="font-size:16px">材料题列表</td>
 												</tr>
 												<tr bgcolor="#EEEEEE">
 													<td width="4%" align="center" height="30">选择</td>
 													<td width="10%">题目名</td>
 													<td width="12%">操作</td>
 												</tr>
-												<c:forEach items="${singleChoices}" var="singleChoice">
+												<c:forEach items="${materialAnalysises}" var="materialAnalysis">
 													<tr bgcolor="#FFFFFF">
 														<td height="20"><input type="checkbox"
-															name="delid${singleChoice.id}" /></td>
+															name="delid${materialAnalysis.id}" /></td>
 														<td><a
-															href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">
-																<c:set var="testStr"
-																	value="${singleChoice.questionStem}" /> <c:choose>
+															href="${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysis&materialAnalysisId=${materialAnalysis.id}">
+																<c:set var="testStr" value="${materialAnalysis.material}" />
+																<c:choose>
 																	<c:when test="${fn:length(testStr) > 50}">
 																		<c:out value="${fn:substring(testStr, 0, 50)}......"
-																			escapeXml="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}" />
+																			escapeXml="${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysis&materialAnalysisId=${materialAnalysis.id}" />
 																	</c:when>
 																	<c:otherwise>
 																		<c:out value="${testStr}" />
@@ -325,10 +318,10 @@
 
 														</a></td>
 														<td><a
-															href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}&edit=true">编辑|</a><a
-															href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">查看|</a>
+															href="${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysis&materialAnalysisId=${materialAnalysis.id}&edit=true">编辑|</a><a
+															href="${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysis&materialAnalysisId=${materialAnalysis.id}">查看|</a>
 															<a
-															href="${pageContext.request.contextPath}/singleChoice.do?flag=deleteSingleChoice&singleChoiceId=${singleChoice.id}">删除</a></td>
+															href="${pageContext.request.contextPath}/materialAnalysis.do?flag=deleteMaterialAnalysis&materialAnalysisId=${materialAnalysis.id}">删除</a></td>
 
 													</tr>
 												</c:forEach>
@@ -366,7 +359,7 @@
 																<td width="1%"><input id="page" name="textfield3"
 																	type="text" class="right-textfield03" size="1" /></td>
 																<td width="87%"><input name="Submit23222"
-																	type="button" class="right-button06"
+																	type="submit" class="right-button06" value=" "
 																	onclick="goByPage();" /></td>
 															</tr>
 														</table></td>

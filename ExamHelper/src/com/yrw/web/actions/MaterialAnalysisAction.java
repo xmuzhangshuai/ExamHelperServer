@@ -4,6 +4,11 @@
  */
 package com.yrw.web.actions;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,15 +17,23 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DispatchAction;
 
+import com.yrw.config.DefaultValue;
+import com.yrw.domains.Materialanalysis;
+import com.yrw.domains.Questionsofmaterial;
+import com.yrw.domains.Questiontype;
+import com.yrw.domains.Section;
+import com.yrw.domains.Singlechoice;
+import com.yrw.domains.Subject;
 import com.yrw.service.QuestionService;
 import com.yrw.service.SectionService;
 import com.yrw.service.SubjectService;
+import com.yrw.web.forms.SingleChoiceForm;
 
-/** 
- * MyEclipse Struts
- * Creation date: 04-17-2014
+/**
+ * MyEclipse Struts Creation date: 04-17-2014
  * 
  * XDoclet definition:
+ * 
  * @struts.action
  */
 public class MaterialAnalysisAction extends DispatchAction {
@@ -40,18 +53,253 @@ public class MaterialAnalysisAction extends DispatchAction {
 		this.subjectService = subjectService;
 	}
 
-
-	/** 
-	 * Method execute
+	/**
+	 * 材料分析题列表
+	 * 
 	 * @param mapping
 	 * @param form
 	 * @param request
 	 * @param response
-	 * @return ActionForward
+	 * @return
+	 * @throws UnsupportedEncodingException
 	 */
-	public ActionForward execute(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response) {
+	public ActionForward showMaterialAnalysisList(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws UnsupportedEncodingException {
 		// TODO Auto-generated method stub
-		return null;
+
+		// 加载章节类型
+		String sectionName;
+		// 加载章节类型
+		if (request.getAttribute("source") != null)
+			sectionName = (String) request.getAttribute("sectionName");
+		else
+			sectionName = new String(request.getParameter("sectionName")
+					.getBytes("ISO-8859-1"), "utf-8");
+		String typeName = DefaultValue.MATERIAL_ANALYSIS;
+
+		request.getSession().setAttribute("typeName", typeName);
+		String pageNowString = request.getParameter("pageNow");
+
+		int subjectId = (Integer) request.getSession()
+				.getAttribute("subjectId");
+
+		// 加载问题类型
+		List<Questiontype> questiontypes = questionService
+				.showQuestiontypes(typeName);
+		request.setAttribute("questionType", questiontypes.get(0));
+		questiontypes.remove(0);
+		request.setAttribute("questionTypes", questiontypes);
+
+		// 加载章节下的题目
+		Section existSection = sectionService
+				.getSectionBySectionName(sectionName);
+		List collection = questionService.listQuestionBySection(
+				existSection.getId(), pageNowString, typeName);
+
+		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
+		request.setAttribute("pageCount", pageMap.get("pageCount"));
+		request.setAttribute("pageNow", pageMap.get("pageNow"));
+		// 为jsp中的hidden设置值
+		request.setAttribute("sectionName", sectionName);
+		// 设置多选题问题
+		request.setAttribute("materialAnalysises", (List) collection.get(1));
+
+		return mapping.findForward((String) collection.get(2));
+	}
+
+	/**
+	 * 显示多选题详情
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward showMaterialAnalysis(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		int materialAnalysisId = Integer.parseInt(request
+				.getParameter("materialAnalysisId"));
+		String isEdit = request.getParameter("edit");
+		Materialanalysis materialanalysis = (Materialanalysis) questionService
+				.getQuestion(materialAnalysisId, DefaultValue.MATERIAL_ANALYSIS);
+		// 设置材料分析题
+		request.setAttribute("materialAnalysis", materialanalysis);
+		Iterator<Questionsofmaterial> iterator = materialanalysis
+				.getQuestionsofmaterials().iterator();
+		while (iterator.hasNext()) {
+			Questionsofmaterial questionsofmaterial = iterator.next();
+		// 设置分析题下的小题
+			request.setAttribute("questionofmaterial"+questionsofmaterial.getQuestionNumber()
+					.toString(), questionsofmaterial);
+		}
+
+		// 获得subject下拉菜单里的所有subject
+		int subjectId = (Integer) request.getSession()
+				.getAttribute("subjectId");
+		List<Subject> subjectList = subjectService.getSubjectList(subjectId);
+		if (subjectList != null) {
+			request.setAttribute("subject", subjectList.get(0));
+			subjectList.remove(0);
+			request.setAttribute("subjects", subjectList);
+		} else
+			request.setAttribute("subject", "暂无所属科目");
+
+		// 获得下拉菜单里的所有section
+
+		List<Section> sectionList = sectionService.listSectionBySubIdAndSecId(
+				subjectId, materialanalysis.getSection().getId());
+
+		if (sectionList != null) {
+
+			request.setAttribute("section", sectionList.get(0));
+			sectionList.remove(0);
+			request.setAttribute("sections", sectionList);
+		} else
+			request.setAttribute("section", "暂无所属科目");
+		if (isEdit != null) {
+			return mapping.findForward("editMaterialAnalysis");
+		} else
+			return mapping.findForward("showMaterialAnalysis");
+	}
+
+	/**
+	 * 添加材料分析题的页面跳转
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward addMaterialAnalysisUI(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		int subjectId = (Integer) request.getSession()
+				.getAttribute("subjectId");
+
+		List<Section> sectionList = sectionService.listSection(subjectId);
+		List<Subject> subjectList = subjectService.getSubjects();
+		request.setAttribute("subjects", subjectList);
+		request.setAttribute("sections", sectionList);
+		return mapping.findForward("addMaterialAnalysis");
+	}
+
+	/**
+	 * 添加材料分析题
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+	/*
+	 * public ActionForward addMaterialAnalysis(ActionMapping mapping,
+	 * ActionForm form, HttpServletRequest request, HttpServletResponse
+	 * response) throws UnsupportedEncodingException {
+	 * 
+	 * MaterialAnalysisForm singleChoiceForm = (SingleChoiceForm) form;
+	 * Singlechoice singlechoice = new Singlechoice();
+	 * singlechoice.setQuestionStem(singleChoiceForm.getQuestionStem());
+	 * singlechoice.setOptionA(singleChoiceForm.getOptionA());
+	 * singlechoice.setOptionB(singleChoiceForm.getOptionB());
+	 * singlechoice.setOptionC(singleChoiceForm.getOptionC());
+	 * singlechoice.setOptionD(singleChoiceForm.getOptionD());
+	 * singlechoice.setOptionE(singleChoiceForm.getOptionE());
+	 * singlechoice.setAnswer(singleChoiceForm.getAnswer());
+	 * singlechoice.setAnalysis(singleChoiceForm.getAnalysis());
+	 * singlechoice.setRemark(singleChoiceForm.getRemark());
+	 * 
+	 * if (singleChoiceForm.getSectionName() != null) { Section section =
+	 * sectionService
+	 * .getSectionBySectionName(singleChoiceForm.getSectionName());
+	 * singlechoice.setSection(section); } else { singlechoice.setSection(null);
+	 * 
+	 * }
+	 * 
+	 * questionService.addSingleChoice(singlechoice); //
+	 * 设置在showQuestioBySection中要使用参数 request.setAttribute("sectionName",
+	 * singlechoice.getSection() .getSectionName());
+	 * 
+	 * request.setAttribute("source", "addSingleChoice"); return
+	 * showSingleChoiceList(mapping, null, request, response); }
+	 */
+
+	/**
+	 * 修该单项选择题
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+	/*
+	 * public ActionForward editSingleChoice(ActionMapping mapping, ActionForm
+	 * form, HttpServletRequest request, HttpServletResponse response) throws
+	 * UnsupportedEncodingException { SingleChoiceForm singleChoiceForm =
+	 * (SingleChoiceForm) form; int singleChoiceId = Integer.parseInt(request
+	 * .getParameter("singleChoiceId"));
+	 * 
+	 * Singlechoice singlechoice = (Singlechoice) questionService.getQuestion(
+	 * singleChoiceId, DefaultValue.SINGLE_CHOICE);
+	 * System.out.println(singleChoiceForm.getRemark());
+	 * 
+	 * singlechoice.setQuestionStem(singleChoiceForm.getQuestionStem());
+	 * singlechoice.setOptionA(singleChoiceForm.getOptionA());
+	 * singlechoice.setOptionB(singleChoiceForm.getOptionB());
+	 * singlechoice.setOptionC(singleChoiceForm.getOptionC());
+	 * singlechoice.setOptionD(singleChoiceForm.getOptionD());
+	 * singlechoice.setOptionE(singleChoiceForm.getOptionE());
+	 * singlechoice.setAnswer(singleChoiceForm.getAnswer());
+	 * singlechoice.setAnalysis(singleChoiceForm.getAnalysis());
+	 * singlechoice.setRemark(singleChoiceForm.getRemark());
+	 * 
+	 * System.out.println("QuestionAction editSingleChoice  " +
+	 * singleChoiceForm.getSectionName() + singleChoiceForm.getSubjectName());
+	 * if (singleChoiceForm.getSectionName() != null) { Section section =
+	 * sectionService
+	 * .getSectionBySectionName(singleChoiceForm.getSectionName());
+	 * singlechoice.setSection(section); }
+	 * 
+	 * questionService.updateSingleChoice(singlechoice);
+	 * //设置转到showSIngleChoiceLIst中要使用参数 request.setAttribute("sectionName",
+	 * singlechoice.getSection() .getSectionName());
+	 * 
+	 * request.setAttribute("source", "editSingleChoice"); return
+	 * showSingleChoiceList(mapping, null, request, response); }
+	 */
+
+	/**
+	 * 删除材料题（包含材料题下的小题）
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+	public ActionForward deleteMaterialAnalysis(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws UnsupportedEncodingException {
+		int materialAnalysisId = Integer.parseInt(request
+				.getParameter("materialAnalysisId"));
+		Materialanalysis materialanalysis = (Materialanalysis) questionService
+				.getQuestion(materialAnalysisId, DefaultValue.MATERIAL_ANALYSIS);
+		// 设置跳转到showMaterialAnalysis的参数
+		request.setAttribute("sectionName", materialanalysis.getSection()
+				.getSectionName());
+		request.setAttribute("source", "deleteMaterialAnalysis");
+		questionService.deleteQuestion(DefaultValue.MATERIAL_ANALYSIS,
+				materialanalysis);
+
+		return showMaterialAnalysisList(mapping, null, request, response);
+
 	}
 }

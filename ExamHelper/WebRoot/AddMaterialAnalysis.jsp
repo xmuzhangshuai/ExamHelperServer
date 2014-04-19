@@ -13,11 +13,12 @@
 <head>
 
 
-<title>多项选择题</title>
+<title>单项选择题</title>
 
 
 <link rel="stylesheet" rev="stylesheet" href="./css/style.css"
 	type="text/css" media="all" />
+
 <script language="JavaScript" type="text/javascript">
 	function tishi() {
 		var a = confirm('数据库中保存有该人员基本信息，您可以修改或保留该信息。');
@@ -50,9 +51,9 @@
 	}
 	function save() {
 
-		if (document.getElementById("questionStem").value.trim().length != 0) {
+		if (document.getElementById("material").value.trim().length != 0) {
 
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=addMultiChoice"
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=addMaterialAnalysis"
 
 			document.getElementById("fom").submit();
 		} else
@@ -61,25 +62,25 @@
 	}
 	function back() {
 		var sectionName = document.getElementById("sectionName").value;
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=多项选择题&sectionName="
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=材料分析题&sectionName="
 				+ sectionName;
 		document.getElementById("fom").submit();
 	}
 </script>
 </head>
 
-<body class="ContentBody" >
+<body class="ContentBody">
 	<form method="post" enctype="multipart/form-data" name="fom" id="fom"
 		target="mainFrame">
 		<div class="MainDiv">
 			<table width="99%" border="0" cellpadding="0" cellspacing="0"
 				class="CContent">
 				<tr>
-					<th class="tablestyle_title">多项选择题</th>
+					<th class="tablestyle_title">材料分析题</th>
 				</tr>
 				<tr>
 					<td style="width: 485px; "><input type="button"
-						value="返回单选题列表" style="width: 111px; " onclick="back();"
+						value="返回材料分析题列表" style="width: 137px; " onclick="back();"
 						class="button" /></td>
 
 				</tr>
@@ -93,7 +94,7 @@
 								<tr align="left">
 									<td align="left" width="13%">题干内容:</td>
 									<td style="width: 448px; "><textarea rows="" cols=""
-											id="questionStem" name="questionStem"
+											id="material" name="material"
 											style="width: 376px; height: 100px"></textarea><span
 										class="red"> *</span></td>
 
@@ -107,77 +108,12 @@
 				</TR>
 				<tr>
 					<td><fieldset>
-							<legend>选项</legend>
-
+							<legend>题目图片:</legend>
 							<table>
 								<tr>
-									<td>
-										<table>
-											<tr>
-												<td align="right" width="13%" style="width: 41px; ">选项A:</td>
-												<td width="43%"><input id="optionA" name="optionA"
-													class="text" style="width:250px" type="text" size="40" /></td>
-											</tr>
-											<tr>
-												<td align="right" width="13%" style="width: 41px; ">选项B:</td>
-												<td width="43%"><input id="optionB" name="optionB"
-													class="text" style="width:250px" type="text" size="40" /></td>
-											</tr>
-											<tr>
-												<td align="right" width="13%" style="width: 41px; ">选项C:</td>
-												<td width="43%"><input id="optionC" class="text"
-													style="width:250px" type="text" size="40" name="optionC" /></td>
-											</tr>
-											<tr>
-												<td align="right" width="13%" style="width: 41px; ">选项D:</td>
-												<td width="43%"><input id="optionD" class="text"
-													style="width:250px" type="text" size="40" name="optionD" /></td>
-											</tr>
-											<tr>
-												<td align="right" width="13%" style="width: 41px; ">选项E:</td>
-												<td width="43%"><input id="optionE" name="optionE"
-													class="text" style="width:250px" type="text" size="40"
-													name="optionE" /></td>
-											</tr>
-											<tr>
-												<td align="right" width="13%" style="width: 41px; ">选项F:</td>
-												<td width="43%"><input id="optionE" name="optionE"
-													class="text" style="width:250px" type="text" size="40"
-													name="optionF" /></td>
-											</tr>
-										</table>
-									</td>
-									<td><table>
-											<tr>
-												<td>答案</td>
-												<td><input type="checkbox" id="answerA" name="answerA"
-													value="${multiChoice.answerA}" />A</td>
-												<td><input type="checkbox" id="answerB" name="answerB"
-													value="${multiChoice.answerB}" onselect="" />B</td>
-												<td><input type="checkbox" id="answerC" name="answerC"
-													value="${multiChoice.answerC}" />C</td>
-												<td><input type="checkbox" id="answerD" name="answerD"
-													value="${multiChoice.answerD}" />D</td>
-												<td><input type="checkbox" id="answerE" name="answerE"
-													value="${multiChoice.answerE}" />E</td>
-												<td><input type="checkbox" id="answerF" name="answerF"
-													value="${multiChoice.answerF}" />F</td>
-											</tr>
-
-										</table></td>
-								</tr>
-							</table>
-
-						</fieldset></td>
-				</tr>
-				<tr>
-					<td><fieldset>
-							<legend>分析</legend>
-							<table>
-								<tr>
-									<td>题目分析</td>
-									<td><textarea id="analysis" cols="" rows=""
-											name="analysis" style="height: 119px; width: 394px"></textarea></td>
+									<td>题目图片</td>
+									<td><input type="file" name="materialImage"
+										id="materialImage" tit /></td>
 								</tr>
 							</table>
 						</fieldset></td>
@@ -207,6 +143,47 @@
 							</table>
 						</fieldset></td>
 				</tr>
+				<tr>
+					<td><fieldset>
+							<legend>小题</legend>
+							<c:forEach items="${questionOfMaterials}"
+								var="questionOfMaterial">
+								<fieldset>
+									<table>
+										<tr>
+											<td>小题编号：</td>
+											<td><input type="text"
+												id="questionOfMaterial${questionOfMaterial.questionNumber}"
+												readonly="readonly" value="${questionOfMaterial.questionNumber}"" /></td>
+										</tr>
+										<tr>
+											<td>小题题干:</td>
+											<td><textarea
+													id="questionStem${questionOfMaterial.questionNumber}" style="width: 304px; height: 93px">${questionOfMaterial.questionStem}</textarea></td>
+										</tr>
+										<tr>
+											<td>小题答案：</td>
+											<td><textarea
+													id="answer${questionOfMaterial.questionNumber}" style="width: 302px; height: 98px">${questionOfMaterial.answer}</textarea></td>
+										</tr>
+										<tr>
+										<td>小题分析：</td>
+											<td style="height: 84px; "><textarea
+													id="analysis${questionOfMaterial.questionNumber}" style="width: 305px; height: 89px">${questionOfMaterial.analysis}</textarea></td>
+										</tr>
+										<tr>
+										<td>小题分值：</td>
+											<td><input type="text"
+												id="score${questionOfMaterial.questionNumber}"
+												readonly="readonly" value="${questionOfMaterial.score}"/></td>
+										</tr>
+									</table>
+								</fieldset>
+							</c:forEach>
+							<a href="${pageContext.request.contextPath}/materialAnalysis.do?flag=addQuestionOfMaterial" style="font-size: small;">添加小题</a>
+						</fieldset></td>
+				</tr>
+
 				<TR>
 					<TD colspan="2" align="center" height="50px"><input
 						type="button" value="编辑" class="button" style="width: 83px; "

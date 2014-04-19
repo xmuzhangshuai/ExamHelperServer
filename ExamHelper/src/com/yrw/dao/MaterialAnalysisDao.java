@@ -35,7 +35,7 @@ public class MaterialAnalysisDao extends BasicDao implements
 	public List getMaterialAnalysisBySection(int pageNow, int sectionId) {
 		// TODO Auto-generated method stub
 		String hql = "from Materialanalysis as m where m.section.id="
-				+ sectionId;
+				+ sectionId+" order by m.id desc";
 		List list = this.executeQueryByPage(hql, null, pageNow);
 		return list;
 	}
