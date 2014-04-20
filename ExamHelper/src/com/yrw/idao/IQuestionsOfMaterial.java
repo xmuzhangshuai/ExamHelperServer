@@ -16,6 +16,7 @@ import net.sf.cglib.transform.impl.AddDelegateTransformer;
  */
 public interface IQuestionsOfMaterial extends IBasicDao {
 
+	
 	/**通过小题题干得到材料题列表
 	 * @param pageNow
 	 * @param stem
@@ -56,7 +57,7 @@ public interface IQuestionsOfMaterial extends IBasicDao {
 	/**删除分析题小题
 	 * @param questionOfMaterial
 	 */
-	public void delQuestionOfMaterial(Questionsofmaterial questionOfMaterial );
+	public void delQuestionOfMaterial(Object object );
 	/**修改分析题小题
 	 * @param questionOfMaterial
 	 */

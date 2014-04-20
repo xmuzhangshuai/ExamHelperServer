@@ -53,6 +53,13 @@ public interface IMaterialAnalysisDao extends IBasicDao {
 	 * @return pageCount
 	 */
 	public int getPageCountBySection(int sectionId);
+	
+	/**通过大题题干内容获得该大题Id
+	 * @param material
+	 * @return
+	 */
+	public int getMaterialAnalysisIdByMaterial(String material);
+	
 	/**
 	 * 显示MaterialAnalysis的具体信息
 	 * 

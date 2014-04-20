@@ -10,6 +10,7 @@
 		<form-bean name="multiChoiceForm" type="com.yrw.web.forms.MultiChoiceForm" />
     <form-bean name="trueOrFalseForm" type="com.yrw.web.forms.TrueOrFalseForm" />
     <form-bean name="materialAnalysisForm" type="com.yrw.web.forms.MaterialAnalysisForm" />
+  
 		
 
 
@@ -95,7 +96,11 @@
       <forward name="addMaterialAnalysis" path="/AddMaterialAnalysis.jsp" />
       <forward name="showMaterialAnalysisList" path="/ShowMaterialAnalysisList.jsp" />
       <forward name="showMaterialAnalysis" path="/ShowMaterialAnalysis.jsp" />
+     
+      <forward name="addQuestionOfMaterial" path="/AddQuestionOfMaterial.jsp"/>
+    
     </action>
+
 
 
 

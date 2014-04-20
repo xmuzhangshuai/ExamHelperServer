@@ -10,7 +10,7 @@
             <column name="id" />
             <generator class="native" />
         </id>
-        <many-to-one name="materialanalysis" class="com.yrw.domains.Materialanalysis" fetch="select">
+        <many-to-one name="materialanalysis" class="com.yrw.domains.Materialanalysis" fetch="select" >
             <column name="material_id" not-null="true" />
         </many-to-one>
         <property name="questionNumber" type="java.lang.Integer">

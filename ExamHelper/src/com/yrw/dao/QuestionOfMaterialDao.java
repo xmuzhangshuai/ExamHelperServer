@@ -1,8 +1,13 @@
 package com.yrw.dao;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
+import com.yrw.domains.Materialanalysis;
 import com.yrw.domains.Questionsofmaterial;
+import com.yrw.domains.Section;
+import com.yrw.domains.Singlechoice;
 import com.yrw.idao.IQuestionsOfMaterial;
 
 public class QuestionOfMaterialDao extends BasicDao implements
@@ -25,11 +30,11 @@ public class QuestionOfMaterialDao extends BasicDao implements
 	}
 
 	@Override
-	public Questionsofmaterial showQuestionOfMaterial(int questionOfMaterial) {
+	public Questionsofmaterial showQuestionOfMaterial(int questionOfMaterialId) {
 		// TODO Auto-generated method stub
 
 		return (Questionsofmaterial) this.findById(Questionsofmaterial.class,
-				questionOfMaterial);
+				questionOfMaterialId);
 	}
 
 	@Override
@@ -39,9 +44,20 @@ public class QuestionOfMaterialDao extends BasicDao implements
 	}
 
 	@Override
-	public void delQuestionOfMaterial(Questionsofmaterial questionOfMaterial) {
+	public void delQuestionOfMaterial(Object object) {
 		// TODO Auto-generated method stub
-		this.deletById(Questionsofmaterial.class, questionOfMaterial.getId());
+		Questionsofmaterial questionsofmaterial = (Questionsofmaterial)object;
+		if (questionsofmaterial != null) {
+			Materialanalysis materialanalysis = questionsofmaterial.getMaterialanalysis();
+			Set<Questionsofmaterial> questionsofmaterials = materialanalysis.getQuestionsofmaterials();
+			Iterator<Questionsofmaterial> iterator = questionsofmaterials.iterator();
+			while (iterator.hasNext())
+				if (iterator.next().getId() == questionsofmaterial.getId()) {
+					iterator.remove();
+					break;
+				}
+			this.deletById(Questionsofmaterial.class, questionsofmaterial.getId());
+		}
 	}
 
 	@Override
@@ -73,6 +89,9 @@ public class QuestionOfMaterialDao extends BasicDao implements
 				+ materiaAnalysisId;
 		return (Integer) this.uniqueQuery(hql, null);
 	}
+
+	
+	
 
 	
 

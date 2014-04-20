@@ -56,33 +56,39 @@
 		for (var i = 0; i < txtSelect.length; i++)
 			txtSelect[i].disabled = false;
 	}
-	function saveMaterialAnalysis() {
+	function saveMaterialAnalysis(questionNumber) {
 
-		if (document.getElementById("material").value.trim().length != 0) {
+		if (document.getElementById("questionStem" + questionNumber).value
+				.trim().length != 0) {
 
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=editMaterialAnalysis"
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=editQuestionOfMaterialAnalysis"
 
 			document.getElementById("fom").submit();
 		} else
 			alert("请输入题干");
 	}
-	function editQuestionOfMaterial() {
-		document.getElementById("material").readOnly = false;
-		document.getElementById("materialImage").readOnly = false;
-		document.getElementById("remark").readOnly = false;
-		var txtSelect = document.getElementsByTagName("select");
-		for (var i = 0; i < txtSelect.length; i++)
-			txtSelect[i].disabled = false;
+	function editQuestionOfMaterial(questionNumber) {
+		document.getElementById("questionStem" + questionNumber).readOnly = false;
+		document.getElementById("analysis" + questionNumber).readOnly = false;
+		document.getElementById("answer" + questionNumber).readOnly = false;
+		document.getElementById("score" + questionNumber).readOnly = false;
 	}
-	function saveQuestionOfMaterial() {
+	function saveQuestionOfMaterial(questionOfMaterialId) {
 
 		if (document.getElementById("material").value.trim().length != 0) {
 
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=editMaterialAnalysis"
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=editQuestionOfMaterial&questionOfMaterialId="
+					+ questionOfMaterialId;
 
 			document.getElementById("fom").submit();
 		} else
 			alert("请输入题干");
+	}
+	function deleteQuestionOfMaterial(questionOfMaterialId) {
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=deletetQuestionMaterial&questionOfMaterialId="
+				+ questionOfMaterialId;
+
+		document.getElementById("fom").submit();
 	}
 	function back() {
 		var sectionName = document.getElementById("sectionName").value;
@@ -183,10 +189,10 @@
 								<TR>
 									<TD colspan="2" align="center" height="50px"><input
 										type="button" value="编辑" class="button" style="width: 83px; "
-										onclick="editMaterialAnalysis();" id="materialAnalysis_Save" />
+										onclick="editMaterialAnalysis();" id="materialAnalysis_Edit" />
 										<input type="button" value="保存" style="width: 77px;"
 										onclick="saveMaterialAnalysis();" class="button"
-										id="materialAnalysis_Edit" /></TD>
+										id="materialAnalysis_Save" /></TD>
 								</TR>
 							</table>
 						</fieldset></td>
@@ -203,38 +209,44 @@
 													<tr>
 														<td>
 															<table>
+
 																<tr>
 																	<td>小题编号：</td>
 																	<td><input type="text"
-																		id="questionOfMaterial${questionOfMaterial.questionNumber}"
-																		value="${questionOfMaterial.questionNumber}" " /></td>
+																		id="questionNumber${questionOfMaterial.questionNumber}"
+																		name="questionNumber${questionOfMaterial.questionNumber}"
+																		value="${questionOfMaterial.questionNumber}" /></td>
 																</tr>
-																<br/>
+																<br />
 																<tr>
 																	<td>小题题干:</td>
 																	<td><textarea
 																			id="questionStem${questionOfMaterial.questionNumber}"
+																			name="questionStem${questionOfMaterial.questionNumber}"
 																			style="width: 721px; height: 93px">${questionOfMaterial.questionStem}</textarea></td>
 																</tr>
-																<br/>
+																<br />
 																<tr>
 																	<td>小题答案：</td>
 																	<td><textarea
 																			id="answer${questionOfMaterial.questionNumber}"
+																			name="answer${questionOfMaterial.questionNumber}"
 																			style="width: 723px; height: 98px">${questionOfMaterial.answer}</textarea></td>
 																</tr>
-																<br/>
+																<br />
 																<tr>
 																	<td>小题分析：</td>
 																	<td style="height: 84px; "><textarea
 																			id="analysis${questionOfMaterial.questionNumber}"
+																			name="analysis${questionOfMaterial.questionNumber}"
 																			style="width: 720px; height: 89px">${questionOfMaterial.analysis}</textarea></td>
 																</tr>
-																<br/>
+																<br />
 																<tr>
 																	<td>小题分值：</td>
 																	<td><input type="text"
 																		id="score${questionOfMaterial.questionNumber}"
+																		name="score${questionOfMaterial.questionNumber}"
 																		value="${questionOfMaterial.score}" /></td>
 																</tr>
 
@@ -243,8 +255,10 @@
 														</td>
 														<td><table>
 																<tr>
-																	<td><a href="#">上移</a></td>
-																	<td><a href="#">下移</a></td>
+																	<td><a
+																		href="${pageContext.request.contextPath}/materialAnalysis.do?flag=moveQuestionOfMaterial&type=decrease&questionOfMaterialId=${questionOfMaterial.id}"
+																		>上移</a></td>
+																	<td><a href="${pageContext.request.contextPath}/materialAnalysis.do?flag=moveQuestionOfMaterial&type=increase&questionOfMaterialId=${questionOfMaterial.id}">下移</a></td>
 																</tr>
 															</table></td>
 													</tr>
@@ -252,9 +266,12 @@
 														<TD colspan="2" align="center" height="50px"
 															style="width: 257px; "><input type="button"
 															value="编辑" class="button" style="width: 83px; "
-															onclick="editQuestionOfMaterial();" /> <input
-															type="button" value="保存" type="submit"
-															style="width: 77px;" onclick="saveQuestionOfMaterial();"
+															onclick="editQuestionOfMaterial('${questionOfMaterial.questionNumber}');" />
+															<input type="button" value="保存" style="width: 77px;"
+															onclick="saveQuestionOfMaterial('${questionOfMaterial.id}');"
+															class="button" /><input type="button" value="删除"
+															style="width: 77px;"
+															onclick="deleteQuestionOfMaterial('${questionOfMaterial.id}');"
 															class="button" /></TD>
 													</TR>
 												</table>

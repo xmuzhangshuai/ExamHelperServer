@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +29,7 @@ import com.yrw.domains.Subject;
 import com.yrw.service.QuestionService;
 import com.yrw.service.SectionService;
 import com.yrw.service.SubjectService;
+import com.yrw.web.forms.MaterialAnalysisForm;
 import com.yrw.web.forms.SingleChoiceForm;
 
 /**
@@ -69,13 +71,8 @@ public class MaterialAnalysisAction extends DispatchAction {
 			HttpServletResponse response) throws UnsupportedEncodingException {
 		// TODO Auto-generated method stub
 
-		// 加载章节类型
-		String sectionName;
-		// 加载章节类型
-		if (request.getAttribute("source") != null)
-			sectionName = (String) request.getAttribute("sectionName");
-		else
-			sectionName = new String(request.getParameter("sectionName")
+		
+		String	sectionName = new String(request.getParameter("sectionName")
 					.getBytes("ISO-8859-1"), "utf-8");
 		String typeName = DefaultValue.MATERIAL_ANALYSIS;
 
@@ -121,15 +118,23 @@ public class MaterialAnalysisAction extends DispatchAction {
 	public ActionForward showMaterialAnalysis(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
-		int materialAnalysisId = Integer.parseInt(request
-				.getParameter("materialAnalysisId"));
+
+		int materialAnalysisId;
+		if (request.getAttribute("source") != null)
+			materialAnalysisId = (Integer) request
+					.getAttribute("materialAnalysisId");
+		else
+			materialAnalysisId = Integer.parseInt(request
+					.getParameter("materialAnalysisId"));
+
 		String isEdit = request.getParameter("edit");
 		// 设置材料分析题
 		Materialanalysis materialanalysis = (Materialanalysis) questionService
 				.getQuestion(materialAnalysisId, DefaultValue.MATERIAL_ANALYSIS);
 		request.setAttribute("materialAnalysis", materialanalysis);
 		// 设置分析题下的小题
-		List<Questionsofmaterial>questionsofmaterials=new ArrayList<Questionsofmaterial>(materialanalysis.getQuestionsofmaterials());
+		List<Questionsofmaterial> questionsofmaterials = new ArrayList<Questionsofmaterial>(
+				materialanalysis.getQuestionsofmaterials());
 		request.setAttribute("questionOfMaterials", questionsofmaterials);
 
 		// 获得subject下拉菜单里的所有subject
@@ -162,6 +167,175 @@ public class MaterialAnalysisAction extends DispatchAction {
 	}
 
 	/**
+	 * 添加材料分析题小题的页面跳转
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward addQuestionOfMaterialUI(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		int materialAnalysisId = Integer.parseInt(request
+				.getParameter("materialAnalysisId"));
+		int questionNumber = questionService
+				.getMaxQuestionNumByMaterialId(materialAnalysisId);
+		if (questionNumber != 0)
+			request.setAttribute("questionNumber", questionNumber + 1);
+		else
+			request.setAttribute("quesitonNumber", 1);
+		request.setAttribute("materialAnalysisId", materialAnalysisId);
+		return mapping.findForward("addQuestionOfMaterial");
+	}
+
+	/**
+	 * 添加材料分析题小题
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+
+	public ActionForward addQuestionOfMaterial(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws UnsupportedEncodingException {
+
+		int materialAnalysisId = Integer.parseInt(request
+				.getParameter("materialAnalysisId"));
+		Questionsofmaterial questionsofmaterial = new Questionsofmaterial();
+
+		// 加载QuestionOfMaterialAnalysis中的属性
+		questionsofmaterial.setAnalysis(request.getParameter("analysis"));
+		questionsofmaterial.setAnswer(request.getParameter("answer"));
+		questionsofmaterial.setQuestionNumber(Integer.parseInt(request
+				.getParameter("questionNumber")));
+		questionsofmaterial.setQuestionStem(request
+				.getParameter("questionStem"));
+		questionsofmaterial.setScore(Integer.parseInt(request
+				.getParameter("score")));
+
+		// 持久化questionOfMaterialAnalysis对象
+		questionService.addQuestionofMaterial(materialAnalysisId,
+				questionsofmaterial);
+		// 设置在showMaterialAnalysis中要使用参数
+		request.setAttribute("materialAnalysisId", materialAnalysisId);
+		request.setAttribute("source", "addQuestionOfMaterial");
+		return showMaterialAnalysis(mapping, null, request, response);
+	}
+
+	/**
+	 * 修该材料题小题
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+
+	public ActionForward editQuestionOfMaterial(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		int questionOfMaterialId = Integer.parseInt(request
+				.getParameter("questionOfMaterialId"));
+
+		// 获取QuestionOfMaterial对象
+		Questionsofmaterial questionsofmaterial = (Questionsofmaterial) questionService
+				.getQuestion(questionOfMaterialId,
+						DefaultValue.QUESTION_OF_MATERIAL);
+
+		// 更新QuesitonOfMaterial对象数据
+		questionsofmaterial.setAnalysis(request.getParameter("analysis"));
+		questionsofmaterial.setAnswer(request.getParameter("answer"));
+		questionsofmaterial.setQuestionStem(request
+				.getParameter("questionStem"));
+		questionsofmaterial.setScore(Integer.parseInt(request
+				.getParameter("score")));
+
+		// 持久化materialAnalysi对象
+		questionService.updateQuestionofMaterial(questionsofmaterial);
+		// 设置转到showMaterialAnalysis中要使用参数
+		request.setAttribute("materialAnalysisId", questionsofmaterial
+				.getMaterialanalysis().getId());
+		request.setAttribute("source", "editQuestionOfMaterial");
+		return showMaterialAnalysis(mapping, null, request, response);
+	}
+
+	/**
+	 * 删除材料题下的小题
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+	public ActionForward deleteQuestionOfMaterial(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws UnsupportedEncodingException {
+
+		int questionOfMaterialId = Integer.parseInt(request
+				.getParameter("questionOfMaterialId"));
+
+		Questionsofmaterial questionsofmaterial = (Questionsofmaterial) questionService
+				.getQuestion(questionOfMaterialId,
+						DefaultValue.QUESTION_OF_MATERIAL);
+		Materialanalysis materialanalysis = questionsofmaterial
+				.getMaterialanalysis();
+		questionService.deleteQuestion(DefaultValue.QUESTION_OF_MATERIAL,
+				questionsofmaterial);
+		// 修改剩余小题的小题编号
+		questionService.updateQuestionNumber(
+				questionsofmaterial.getQuestionNumber(), materialanalysis);
+		// 设置跳转到showMaterialAnalysis的参数
+		request.setAttribute("materialAnalysisId", materialanalysis.getId());
+		request.setAttribute("source", "deleteQuestionOfMaterial");
+		return showMaterialAnalysis(mapping, form, request, response);
+
+	}
+
+	/**
+	 * 移动小题位置
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward moveQuestionOfMaterial(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		int questionOfMaterialId = Integer.parseInt(request
+				.getParameter("questionOfMaterialId"));
+		String type = request.getParameter("type");
+		Questionsofmaterial questionsofmaterial = (Questionsofmaterial) questionService
+				.getQuestion(questionOfMaterialId,
+						DefaultValue.QUESTION_OF_MATERIAL);
+		if (type.equals("decrease"))
+			questionService.decreaseQuestionNumber(questionsofmaterial);
+		else {
+			questionService.increaseQuestionNumber(questionsofmaterial);
+		}
+
+		// 设置跳转到showMaterialAnalysis的参数
+		request.setAttribute("materialAnalysisId", questionsofmaterial
+				.getMaterialanalysis().getId());
+		request.setAttribute("source", "moveQuestionOfMaterial");
+		return showMaterialAnalysis(mapping, form, request, response);
+
+	}
+
+	/**
 	 * 添加材料分析题的页面跳转
 	 * 
 	 * @param mapping
@@ -184,7 +358,7 @@ public class MaterialAnalysisAction extends DispatchAction {
 	}
 
 	/**
-	 * 添加材料分析题
+	 * 添加材料分析题大题
 	 * 
 	 * @param mapping
 	 * @param form
@@ -192,41 +366,41 @@ public class MaterialAnalysisAction extends DispatchAction {
 	 * @param response
 	 * @return
 	 * @throws UnsupportedEncodingException
-	 */
-	/*
-	 * public ActionForward addMaterialAnalysis(ActionMapping mapping,
-	 * ActionForm form, HttpServletRequest request, HttpServletResponse
-	 * response) throws UnsupportedEncodingException {
-	 * 
-	 * MaterialAnalysisForm singleChoiceForm = (SingleChoiceForm) form;
-	 * Singlechoice singlechoice = new Singlechoice();
-	 * singlechoice.setQuestionStem(singleChoiceForm.getQuestionStem());
-	 * singlechoice.setOptionA(singleChoiceForm.getOptionA());
-	 * singlechoice.setOptionB(singleChoiceForm.getOptionB());
-	 * singlechoice.setOptionC(singleChoiceForm.getOptionC());
-	 * singlechoice.setOptionD(singleChoiceForm.getOptionD());
-	 * singlechoice.setOptionE(singleChoiceForm.getOptionE());
-	 * singlechoice.setAnswer(singleChoiceForm.getAnswer());
-	 * singlechoice.setAnalysis(singleChoiceForm.getAnalysis());
-	 * singlechoice.setRemark(singleChoiceForm.getRemark());
-	 * 
-	 * if (singleChoiceForm.getSectionName() != null) { Section section =
-	 * sectionService
-	 * .getSectionBySectionName(singleChoiceForm.getSectionName());
-	 * singlechoice.setSection(section); } else { singlechoice.setSection(null);
-	 * 
-	 * }
-	 * 
-	 * questionService.addSingleChoice(singlechoice); //
-	 * 设置在showQuestioBySection中要使用参数 request.setAttribute("sectionName",
-	 * singlechoice.getSection() .getSectionName());
-	 * 
-	 * request.setAttribute("source", "addSingleChoice"); return
-	 * showSingleChoiceList(mapping, null, request, response); }
 	 */
 
+	public ActionForward addMaterialAnalysis(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws UnsupportedEncodingException {
+
+		MaterialAnalysisForm materialAnalysisForm = (MaterialAnalysisForm) form;
+		Materialanalysis materialanalysis = new Materialanalysis();
+		// 加载materialAnalysis中的属性
+		materialanalysis.setMaterial(materialAnalysisForm.getMaterial());
+		//materialanalysis.setMaterialImage(materialAnalysisForm
+			//	.getMaterialImage());
+		materialanalysis.setRemark(materialAnalysisForm.getRemark());
+		materialanalysis.setQuestionsofmaterials(null);
+
+		if (materialAnalysisForm.getSectionName() != null) {
+			Section section = sectionService
+					.getSectionBySectionName(materialAnalysisForm
+							.getSectionName());
+			materialanalysis.setSection(section);
+		} else {
+			materialanalysis.setSection(null);
+
+		}
+		// 持久化materialAnalysis对象,并获得返回的Id
+		int materialAnalysisId = questionService
+				.addMaterialAnalysis(materialanalysis); //
+		// 设置在showMaterialAnalysis中要使用参数
+		request.setAttribute("materialAnalysisId", materialAnalysisId);
+		request.setAttribute("source", "addMaterialAnalysis");
+		return showMaterialAnalysis(mapping, null, request, response);
+	}
+
 	/**
-	 * 修该单项选择题
+	 * 修该材料题大题题干
 	 * 
 	 * @param mapping
 	 * @param form
@@ -235,41 +409,36 @@ public class MaterialAnalysisAction extends DispatchAction {
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	/*
-	 * public ActionForward editSingleChoice(ActionMapping mapping, ActionForm
-	 * form, HttpServletRequest request, HttpServletResponse response) throws
-	 * UnsupportedEncodingException { SingleChoiceForm singleChoiceForm =
-	 * (SingleChoiceForm) form; int singleChoiceId = Integer.parseInt(request
-	 * .getParameter("singleChoiceId"));
-	 * 
-	 * Singlechoice singlechoice = (Singlechoice) questionService.getQuestion(
-	 * singleChoiceId, DefaultValue.SINGLE_CHOICE);
-	 * System.out.println(singleChoiceForm.getRemark());
-	 * 
-	 * singlechoice.setQuestionStem(singleChoiceForm.getQuestionStem());
-	 * singlechoice.setOptionA(singleChoiceForm.getOptionA());
-	 * singlechoice.setOptionB(singleChoiceForm.getOptionB());
-	 * singlechoice.setOptionC(singleChoiceForm.getOptionC());
-	 * singlechoice.setOptionD(singleChoiceForm.getOptionD());
-	 * singlechoice.setOptionE(singleChoiceForm.getOptionE());
-	 * singlechoice.setAnswer(singleChoiceForm.getAnswer());
-	 * singlechoice.setAnalysis(singleChoiceForm.getAnalysis());
-	 * singlechoice.setRemark(singleChoiceForm.getRemark());
-	 * 
-	 * System.out.println("QuestionAction editSingleChoice  " +
-	 * singleChoiceForm.getSectionName() + singleChoiceForm.getSubjectName());
-	 * if (singleChoiceForm.getSectionName() != null) { Section section =
-	 * sectionService
-	 * .getSectionBySectionName(singleChoiceForm.getSectionName());
-	 * singlechoice.setSection(section); }
-	 * 
-	 * questionService.updateSingleChoice(singlechoice);
-	 * //设置转到showSIngleChoiceLIst中要使用参数 request.setAttribute("sectionName",
-	 * singlechoice.getSection() .getSectionName());
-	 * 
-	 * request.setAttribute("source", "editSingleChoice"); return
-	 * showSingleChoiceList(mapping, null, request, response); }
-	 */
+
+	public ActionForward editMaterialAnalysis(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		MaterialAnalysisForm materialAnalysisForm = (MaterialAnalysisForm) form;
+		int materialAnalysisId = Integer.parseInt(request
+				.getParameter("materialAnalysisId"));
+
+		Materialanalysis materialanalysis = (Materialanalysis) questionService
+				.getQuestion(materialAnalysisId, DefaultValue.MATERIAL_ANALYSIS);
+
+		// 更新material对象数据
+		materialanalysis.setMaterial(materialAnalysisForm.getMaterial());
+	//	materialanalysis.setMaterialImage(materialAnalysisForm
+			//	.getMaterialImage());
+		materialanalysis.setRemark(materialAnalysisForm.getRemark());
+
+		if (materialAnalysisForm.getSectionName() != null) {
+			Section section = sectionService
+					.getSectionBySectionName(materialAnalysisForm
+							.getSectionName());
+			materialanalysis.setSection(section);
+		}
+		// 持久化materialAnalysi对象
+		questionService.updateMaterialAnalysis(materialanalysis);
+		// 设置转到showMaterialAnalysis中要使用参数
+		request.setAttribute("materialAnalysisId", materialanalysis.getId());
+		request.setAttribute("source", "editMaterialAnalysis");
+		return showMaterialAnalysis(mapping, null, request, response);
+	}
 
 	/**
 	 * 删除材料题（包含材料题下的小题）
@@ -288,7 +457,7 @@ public class MaterialAnalysisAction extends DispatchAction {
 				.getParameter("materialAnalysisId"));
 		Materialanalysis materialanalysis = (Materialanalysis) questionService
 				.getQuestion(materialAnalysisId, DefaultValue.MATERIAL_ANALYSIS);
-		// 设置跳转到showMaterialAnalysis的参数
+		// 设置跳转到showMaterialAnalysislist的参数
 		request.setAttribute("sectionName", materialanalysis.getSection()
 				.getSectionName());
 		request.setAttribute("source", "deleteMaterialAnalysis");

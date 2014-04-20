@@ -121,6 +121,13 @@ public class MaterialAnalysisDao extends BasicDao implements
 		return this.queryPageCount(hql, null);
 	}
 
+	@Override
+	public int getMaterialAnalysisIdByMaterial(String material) {
+		// TODO Auto-generated method stub
+		String hql="select m.id from Materialanalysis as m where m.material='"+material+"'";
+		return (Integer) this.uniqueQuery(hql, null);
+	}
+
 	
 
 }

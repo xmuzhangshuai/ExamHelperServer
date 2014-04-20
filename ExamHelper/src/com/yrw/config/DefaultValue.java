@@ -13,4 +13,6 @@ public class DefaultValue {
 	//材料分析题
 	public static final  String MATERIAL_ANALYSIS="材料分析题";
 	
+	public static final String QUESTION_OF_MATERIAL="材料分析题小题";
+	
 }

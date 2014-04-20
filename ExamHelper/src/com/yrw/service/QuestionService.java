@@ -2,6 +2,7 @@ package com.yrw.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,7 @@ import com.yrw.idao.ISectionDao;
 import com.yrw.idao.ISingleChoiceDao;
 import com.yrw.idao.ISubjectDao;
 import com.yrw.idao.ITrueOrFalseDao;
+import com.yrw.web.forms.MaterialAnalysisForm;
 
 /**
  * @author Administrator
@@ -36,7 +38,7 @@ import com.yrw.idao.ITrueOrFalseDao;
  */
 /**
  * @author Administrator
- *
+ * 
  */
 public class QuestionService {
 	private IQuestionTypeDao iQuestionTypeDao;
@@ -189,8 +191,6 @@ public class QuestionService {
 	// return collection;
 	// }
 
-	
-
 	/**
 	 * 根据科目下的章节显示题目列表
 	 * 
@@ -294,8 +294,9 @@ public class QuestionService {
 		return collection;
 	}
 
-	
-	/**得到某个题对象
+	/**
+	 * 得到某个题对象
+	 * 
 	 * @param id
 	 * @param typeName
 	 * @return
@@ -313,6 +314,8 @@ public class QuestionService {
 
 		} else if (typeName.equals(DefaultValue.MATERIAL_ANALYSIS)) {
 			return iMaterialAnalysisDao.showMaterialAnalysis(id);
+		} else if (typeName.equals(DefaultValue.QUESTION_OF_MATERIAL)) {
+			return iQuestionsOfMaterial.showQuestionOfMaterial(id);
 		}
 		return null;
 	}
@@ -335,9 +338,17 @@ public class QuestionService {
 			iTrueOrFalseDao.delTrueOrFalse(object);
 		else if (typeName.equals(DefaultValue.MATERIAL_ANALYSIS))
 			iMaterialAnalysisDao.delMaterialAnalysis(object);
+		else if (typeName.equals(DefaultValue.QUESTION_OF_MATERIAL))
+			iQuestionsOfMaterial.delQuestionOfMaterial(object);
 
 	}
 
+	/**
+	 * 显示问题类型列表，单选题、多选题
+	 * 
+	 * @param typeName
+	 * @return
+	 */
 	public List<Questiontype> showQuestiontypes(String typeName) {
 		List<Questiontype> questiontypes = iQuestionTypeDao.getQuestionTypes();
 		Questiontype questiontype = null;
@@ -405,18 +416,18 @@ public class QuestionService {
 	}
 
 	/**
-	 * 增加材料分析题
+	 * 增加材料分析题,返回该题的Id号
 	 * 
 	 * @param sectionId
 	 * @param materialanalysis
 	 * @param questionofMaterial
 	 */
-	public void addMaterialAnalysis(int sectionId,
-			Materialanalysis materialanalysis, Set questionofMaterial) {
-		Section section = (Section) iSectionDao.getSectionById(sectionId);
-		materialanalysis.setSection(section);
-		materialanalysis.setQuestionsofmaterials(questionofMaterial);
+	public int addMaterialAnalysis(Materialanalysis materialanalysis) {
+
 		iMaterialAnalysisDao.add(materialanalysis);
+		int materialAnalysisId = iMaterialAnalysisDao
+				.getMaterialAnalysisIdByMaterial(materialanalysis.getMaterial());
+		return materialAnalysisId;
 	}
 
 	/**
@@ -426,26 +437,19 @@ public class QuestionService {
 	 * @param questionsofmaterial
 	 */
 	public void addQuestionofMaterial(int materialAnalysisId,
-			Set questionsofmaterialSet) {
+			Questionsofmaterial questionsofmaterial) {
+
 		Materialanalysis materialanalysis = iMaterialAnalysisDao
 				.showMaterialAnalysis(materialAnalysisId);
+		Set<Questionsofmaterial> questionsofmaterialSet = materialanalysis
+				.getQuestionsofmaterials();
 
-		Questionsofmaterial questionsofmaterial = null;
-		if (!questionsofmaterialSet.isEmpty()) {
-			Set set = materialanalysis.getQuestionsofmaterials();
-			Iterator<Questionsofmaterial> iterator = questionsofmaterialSet
-					.iterator();
-			while (iterator.hasNext()) {
-				questionsofmaterial = (Questionsofmaterial) iterator.next();
-				questionsofmaterial.setQuestionNumber(iQuestionsOfMaterial
-						.getMaxQuestionNumByMaterialId(materialAnalysisId) + 1);
-				set.add(questionsofmaterial);
-				questionsofmaterial.setMaterialanalysis(materialanalysis);
-			}
-			materialanalysis.setQuestionsofmaterials(set);
-			iMaterialAnalysisDao.update(materialanalysis);
-			iQuestionsOfMaterial.add(questionsofmaterial);
-		}
+		questionsofmaterial.setMaterialanalysis(materialanalysis);
+		questionsofmaterialSet.add(questionsofmaterial);
+
+		iMaterialAnalysisDao.update(materialanalysis);
+		iQuestionsOfMaterial.add(questionsofmaterial);
+
 	}
 
 	/**
@@ -472,7 +476,7 @@ public class QuestionService {
 	 * @param trueorfalse
 	 */
 	public void updateTrueOrFalse(Trueorfalse trueorfalse) {
-
+		iTrueOrFalseDao.updateTrueOrFalse(trueorfalse);
 	}
 
 	/**
@@ -486,5 +490,93 @@ public class QuestionService {
 
 	public void updateQuestionofMaterial(Questionsofmaterial questionsofmaterial) {
 		iQuestionsOfMaterial.updateQuestionOfMaterial(questionsofmaterial);
+	}
+
+	/**
+	 * 得到某道材料分析题已有最大小题编号
+	 * 
+	 * @param materialId
+	 * @return
+	 */
+	public int getMaxQuestionNumByMaterialId(int materialAnalysisId) {
+		return iQuestionsOfMaterial
+				.getMaxQuestionNumByMaterialId(materialAnalysisId);
+	}
+
+	/**
+	 * 修改小题的编号
+	 * 
+	 * @param questionNumber
+	 * @param materialanalysis
+	 */
+	public void updateQuestionNumber(int questionNumber,
+			Materialanalysis materialanalysis) {
+
+		List<Questionsofmaterial> questionsofmaterials = new ArrayList<Questionsofmaterial>(
+				materialanalysis.getQuestionsofmaterials());
+
+		for (int i = 0; i < questionsofmaterials.size(); i++) {
+
+			if (questionsofmaterials.get(i).getQuestionNumber() > questionNumber)
+				questionsofmaterials.get(i).setQuestionNumber(
+						questionsofmaterials.get(i).getQuestionNumber() - 1);
+		}
+		Set<Questionsofmaterial> set = new HashSet<Questionsofmaterial>();
+		for (Iterator it = questionsofmaterials.iterator(); it.hasNext();) {
+			set.add((Questionsofmaterial) it.next());
+		}
+		materialanalysis.setQuestionsofmaterials(set);
+		iMaterialAnalysisDao.updateMaterialAnalysis(materialanalysis);
+	}
+
+	/**
+	 * 减小题目编号
+	 * 
+	 * @param questionNumber
+	 * @param materialanalysis
+	 */
+	public void decreaseQuestionNumber(Questionsofmaterial questionsofmaterial) {
+		if (questionsofmaterial.getQuestionNumber() != 1) {
+			Materialanalysis materialanalysis = questionsofmaterial
+					.getMaterialanalysis();
+			List<Questionsofmaterial> questionsofmaterials = new ArrayList<Questionsofmaterial>(
+					materialanalysis.getQuestionsofmaterials());
+			for (int i = 0; i < questionsofmaterials.size(); i++) {
+				if (questionsofmaterials.get(i).getQuestionNumber() + 1 == questionsofmaterial
+						.getQuestionNumber()) {
+					questionsofmaterials.set(
+							questionsofmaterials.indexOf(questionsofmaterial),
+							questionsofmaterials.get(i));
+					questionsofmaterials.set(i, questionsofmaterial);
+					break;
+				}
+			}
+		}
+	}
+
+	/**
+	 * 增大题目编号
+	 * 
+	 * @param questionNumber
+	 * @param materialanalysis
+	 */
+	public void increaseQuestionNumber(Questionsofmaterial questionsofmaterial) {
+		if (questionsofmaterial.getQuestionNumber() != getMaxQuestionNumByMaterialId(questionsofmaterial
+				.getMaterialanalysis().getId())) {
+			Materialanalysis materialanalysis = questionsofmaterial
+					.getMaterialanalysis();
+			List<Questionsofmaterial> questionsofmaterials = new ArrayList<Questionsofmaterial>(
+					materialanalysis.getQuestionsofmaterials());
+			for (int i = 0; i < questionsofmaterials.size(); i++) {
+				if (questionsofmaterials.get(i).getQuestionNumber() - 1 == questionsofmaterial
+						.getQuestionNumber()) {
+					questionsofmaterials.set(
+							questionsofmaterials.indexOf(questionsofmaterial),
+							questionsofmaterials.get(i));
+					questionsofmaterials.set(i, questionsofmaterial);
+					break;
+				}
+			}
+		}
 	}
 }
