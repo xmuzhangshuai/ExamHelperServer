@@ -77,6 +77,11 @@
     <servlet-name>ExamGuideServlet</servlet-name>
     <servlet-class>com.yrw.servlet.ExamGuideServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>TestServlet</servlet-name>
+    <servlet-class>com.yrw.servlet.TestServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -138,6 +143,10 @@
   <servlet-mapping>
     <servlet-name>ExamGuideServlet</servlet-name>
     <url-pattern>/ExamGuideServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TestServlet</servlet-name>
+    <url-pattern>/TestServlet</url-pattern>
   </servlet-mapping>
 
 
