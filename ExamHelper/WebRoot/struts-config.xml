@@ -9,6 +9,7 @@
 		<form-bean name="singleChoiceForm" type="com.yrw.web.forms.SingleChoiceForm" />
 		<form-bean name="multiChoiceForm" type="com.yrw.web.forms.MultiChoiceForm" />
     <form-bean name="trueOrFalseForm" type="com.yrw.web.forms.TrueOrFalseForm" />
+    <form-bean name="materialAnalysisForm" type="com.yrw.web.forms.MaterialAnalysisForm" />
 		
 
 
@@ -81,13 +82,20 @@
 			<forward name="showTrueOrFalse" path="/ShowTrueOrFalse.jsp" />
 			<forward name="showTrueOrFalseList" path="/ShowTrueOrFalseList.jsp" />
 		</action>
-		<action path="/materialAnalysis" type="com.yrw.web.actions.MaterialAnalysisAction" parameter="flag" 
-			validate="false" cancellable="true">
-			<forward name="addMaterialAnalysis" path="/AddMaterialAnalysis.jsp" />
-			<forward name="editMaterialAnalysis" path="/EditMaterialAnalysis.jsp" />
-			<forward name="showMaterialAnalysis" path="/ShowMaterialAnalysis.jsp" />
-			<forward name="showMaterialAnalysisList" path="/ShowMaterialAnalysisList.jsp" />
-		</action>
+		<action
+      attribute="materialAnalysisForm"
+      name="materialAnalysisForm"
+      parameter="flag"
+      path="/materialAnalysis"
+      scope="request"
+      type="com.yrw.web.actions.MaterialAnalysisAction"
+      validate="false"
+      cancellable="true">
+      <forward name="editMaterialAnalysis" path="/EditMaterialAnalysis.jsp" />
+      <forward name="addMaterialAnalysis" path="/AddMaterialAnalysis.jsp" />
+      <forward name="showMaterialAnalysisList" path="/ShowMaterialAnalysisList.jsp" />
+      <forward name="showMaterialAnalysis" path="/ShowMaterialAnalysis.jsp" />
+    </action>
 
 
 

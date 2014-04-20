@@ -35,36 +35,19 @@
 		document.getElementById("aa").style.display = "";
 	}
 
-	function edit() {
-		var txtN = document.getElementsByTagName("input");
-		for (i = 0; i < txtN.length; i++) {
-			txtN[i].readOnly = false;
-		}
+	function back() {
 
-		var txtArea = document.getElementsByTagName("textarea");
-		for (i = 0; i < txtArea.length; i++)
-			txtArea[i].readOnly = false;
-
-		var txtSelect = document.getElementsByTagName("select");
-		for (var i = 0; i < txtSelect.length; i++)
-			txtSelect[i].disabled = false;
 	}
 	function save() {
 
-		if (document.getElementById("material").value.trim().length != 0) {
+		if (document.getElementById("questionStem").value.trim().length != 0) {
 
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=addMaterialAnalysis"
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/questionOfMaterialAnalysis.do?flag=addQuestionOfMaterial"
 
 			document.getElementById("fom").submit();
 		} else
 			alert("请输入题干");
 
-	}
-	function back() {
-		var sectionName = document.getElementById("sectionName").value;
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=材料分析题&sectionName="
-				+ sectionName;
-		document.getElementById("fom").submit();
 	}
 </script>
 </head>
@@ -78,60 +61,53 @@
 				<tr>
 					<th class="tablestyle_title">材料分析题小题</th>
 				</tr>
-				
-
-			
-				
-				
 				<tr>
 					<td><fieldset>
 							<legend>小题</legend>
-							<c:forEach items="${questionOfMaterials}"
-								var="questionOfMaterial">
-								<fieldset>
-									<table>
-										<tr>
-											<td>小题编号：</td>
-											<td><input type="text"
-												id="questionOfMaterial${questionOfMaterial.questionNumber}"
-												readonly="readonly" value="${questionOfMaterial.questionNumber}"" /><span
-										class="red"> *</span></td>
-										</tr>
-										<tr>
-											<td>小题题干:</td>
-											<td><textarea
-													id="questionStem${questionOfMaterial.questionNumber}" style="width: 304px; height: 93px">${questionOfMaterial.questionStem}</textarea><span
-										class="red"> *</span></td>
-										</tr>
-										<tr>
-											<td>小题答案：</td>
-											<td><textarea
-													id="answer${questionOfMaterial.questionNumber}" style="width: 302px; height: 98px">${questionOfMaterial.answer}</textarea></td>
-										</tr>
-										<tr>
+
+							<fieldset>
+								<table>
+									<tr>
+										<td><input  type="hidden" value="${materialAnalysisId}" name="materialAnalysisId" id="materialAnalysisId"/></td>
+									</tr>
+									<tr>
+										<td>小题编号：</td>
+										<td><input type="text" id="questionNumber"
+											name="questionNumber" value="${questionNumber}"
+											readonly="readonly" /><span class="red"> *</span></td>
+									</tr>
+									<tr>
+										<td>小题题干:</td>
+										<td><textarea id="questionStem" name="questionStem"
+												style="width: 304px; height: 93px"></textarea><span
+											class="red"> *</span></td>
+									</tr>
+									<tr>
+										<td>小题答案：</td>
+										<td><textarea name="answer" id="answer"
+												style="width: 302px; height: 98px"></textarea></td>
+									</tr>
+									<tr>
 										<td>小题分析：</td>
-											<td style="height: 84px; "><textarea
-													id="analysis${questionOfMaterial.questionNumber}" style="width: 305px; height: 89px">${questionOfMaterial.analysis}</textarea></td>
-										</tr>
-										<tr>
+										<td style="height: 84px; "><textarea id="analysis"
+												name="analysis" style="width: 305px; height: 89px"></textarea></td>
+									</tr>
+									<tr>
 										<td>小题分值：</td>
-											<td><input type="text"
-												id="score${questionOfMaterial.questionNumber}"
-												readonly="readonly" value="${questionOfMaterial.score}"/></td>
-										</tr>
-									</table>
-								</fieldset>
-							</c:forEach>
-							<a href="${pageContext.request.contextPath}/materialAnalysis.do?flag=addQuestionOfMaterial" style="font-size: small;">添加小题</a>
+										<td><input type="text" id="score" name="score" /></td>
+									</tr>
+								</table>
+							</fieldset>
+
+
 						</fieldset></td>
 				</tr>
 
 				<TR>
-					<TD colspan="2" align="center" height="50px"> <input type="button" value="保存"
-						type="submit" style="width: 77px;" onclick="save();"
-						class="button" /><input
-						type="button" value="返回" class="button" style="width: 83px; "
-						onclick="edit();" /></TD>
+					<TD colspan="2" align="center" height="50px"><input
+						type="button" value="保存" type="submit" style="width: 77px;"
+						onclick="save();" class="button" /><input type="button"
+						value="返回" class="button" style="width: 83px; " onclick="back();" /></TD>
 				</TR>
 			</TABLE>
 

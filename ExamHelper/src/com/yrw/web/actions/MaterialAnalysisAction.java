@@ -5,6 +5,7 @@
 package com.yrw.web.actions;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -123,18 +124,13 @@ public class MaterialAnalysisAction extends DispatchAction {
 		int materialAnalysisId = Integer.parseInt(request
 				.getParameter("materialAnalysisId"));
 		String isEdit = request.getParameter("edit");
+		// 设置材料分析题
 		Materialanalysis materialanalysis = (Materialanalysis) questionService
 				.getQuestion(materialAnalysisId, DefaultValue.MATERIAL_ANALYSIS);
-		// 设置材料分析题
 		request.setAttribute("materialAnalysis", materialanalysis);
-		Iterator<Questionsofmaterial> iterator = materialanalysis
-				.getQuestionsofmaterials().iterator();
-		while (iterator.hasNext()) {
-			Questionsofmaterial questionsofmaterial = iterator.next();
 		// 设置分析题下的小题
-			request.setAttribute("questionofmaterial"+questionsofmaterial.getQuestionNumber()
-					.toString(), questionsofmaterial);
-		}
+		List<Questionsofmaterial>questionsofmaterials=new ArrayList<Questionsofmaterial>(materialanalysis.getQuestionsofmaterials());
+		request.setAttribute("questionOfMaterials", questionsofmaterials);
 
 		// 获得subject下拉菜单里的所有subject
 		int subjectId = (Integer) request.getSession()
