@@ -6,20 +6,12 @@
 <hibernate-configuration>
 
 	<session-factory>
-		<property name="dialect">
-			org.hibernate.dialect.MySQLDialect
-		</property>
-		<property name="connection.url">
-			jdbc:mysql://localhost:3306/examhelper
-		</property>
-		<property name="connection.username">root</property>
-		<property name="connection.password">930501</property>
-		<property name="connection.driver_class">
-			com.mysql.jdbc.Driver
-		</property>
-		<property name="myeclipse.connection.profile">
-			ExamHelper
-		</property>
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="connection.url">jdbc:mysql://ruiwenpeixun.com:3306/a0418174130</property>
+		<property name="connection.username">a0418174130</property>
+		<property name="connection.password">85673864</property>
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="myeclipse.connection.profile">Server</property>
 		<mapping resource="com/yrw/domains/User.hbm.xml" />
 		<mapping resource="com/yrw/domains/Subject.hbm.xml" />
 		<mapping resource="com/yrw/domains/Section.hbm.xml" />

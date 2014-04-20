@@ -26,7 +26,6 @@ public class ExamGuideServlet extends BaseServlet {
 		request.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
 		String msg = "";
-		System.out.println("lalsjdfo");
 
 		// 获取系统的业务逻辑组件
 		ExamGuideService examGuideService = (ExamGuideService) getApplicationContext().getBean("examGuideService");
@@ -41,7 +40,6 @@ public class ExamGuideServlet extends BaseServlet {
 
 		// 如果是根据类型ID获取文章列表
 		else if (type.equals("getExamGuideTypeList")) {
-			System.out.println(request.getParameter("subjectId"));
 			int subjectId = Integer.parseInt(request.getParameter("subjectId"));
 			List<JExamGuideType> jExamGuideTypes = examGuideService.getExamGuideTypeListBySubjectId(subjectId);
 			msg = FastJsonTools.createJsonString(jExamGuideTypes);

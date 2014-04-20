@@ -70,7 +70,7 @@
     <div id="localImag"><img id="preview" width=-1 height=-1 style="diplay:none" /></div>
 	<form action='${pageContext.request.contextPath}/TestServlet' method='post' enctype='multipart/form-data'>
 		请选择要上传的文件:<input type='file' name='doc' id='doc' onchange="javascript:setImagePreview();"   size='50'> 
-		<input type='submit' value='提交'>
+		<input type='submit' value='上传'>
 	</form>
 	
 </body>
