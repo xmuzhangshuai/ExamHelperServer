@@ -39,9 +39,10 @@
 
 	}
 	function back() {
-		var sectionId = document.getElementById("sectionId").value;
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=单项选择题&sectionId="
-				+ sectionId;
+	var sectionName=document.getElementById("sectionName").value;
+	
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&sectionName="+sectionName;
+				
 		document.getElementById("fom").submit();
 	}
 </script>

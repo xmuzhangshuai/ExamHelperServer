@@ -100,6 +100,8 @@
 	<bean id="noteDao" class="com.yrw.dao.NoteDao" />
 	<bean id="errorQuestionDao" class="com.yrw.dao.ErrorQuestionDao" />
 	<bean id="examGuideDao" class="com.yrw.dao.ExamGuideDao" />
+	
+	
 	<!-- 托管services -->
 	<bean id="questionService" class="com.yrw.service.QuestionService">
 		<property name="iQuestionTypeDao" ref="questionTypeDao" />
@@ -146,6 +148,8 @@
 	<bean id="examGuideService" class="com.yrw.service.ExamGuideService">
 		<property name="iExamGuideDao" ref="examGuideDao" />
 	</bean>
+	
+	
 	<!-- 托管action -->
 	<bean name="/login" class="com.yrw.web.actions.LoginAction">
 		<property name="loginService" ref="loginService" />
@@ -184,6 +188,8 @@
 		<property name="sectionService" ref="sectionService" />
 		<property name="subjectService" ref="subjectService" />
 	</bean>
+	
+	
 	<!-- 事务管理器 -->
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">

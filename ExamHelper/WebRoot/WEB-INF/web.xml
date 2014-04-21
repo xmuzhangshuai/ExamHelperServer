@@ -33,6 +33,7 @@
 		</init-param>
 		<load-on-startup>0</load-on-startup>
 	</servlet>
+	
   <servlet>
     <servlet-name>BaseServlet</servlet-name>
     <servlet-class>com.yrw.servlet.BaseServlet</servlet-class>
@@ -86,12 +87,20 @@
 
 
 
+<error-page> 
 
+<error-code>404</error-code> 
 
+<location>/ErrorPage.jsp</location> 
 
+</error-page> 
+<error-page> 
 
+<error-code>500</error-code> 
 
+<location>/ErrorPage.jsp</location> 
 
+</error-page>
 
 
 

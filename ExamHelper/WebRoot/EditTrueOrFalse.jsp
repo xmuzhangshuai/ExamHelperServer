@@ -40,8 +40,7 @@
 	}
 	function back() {
 		var sectionName = document.getElementById("sectionName").value;
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=判断题&sectionName="
-				+ sectionName;
+		document.getElementById("fom").action = "${pageContext.request.contextPath}trueOrFalse.do?flag=showTrueOrFalseList&sectionName="+sectionName
 		document.getElementById("fom").submit();
 	}
 	function initAnswer(answer) {
