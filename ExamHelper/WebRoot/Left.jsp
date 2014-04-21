@@ -123,7 +123,7 @@
 							<td width="9%" height="20"><img id="xiaotu${subject.id+16}"
 								src="./images/ico06.gif" width="8" height="12" /></td>
 							<td width="91%"><a
-								href="${pageContext.request.contextPath}/listQuestion.do?flag=chooseType&subjectId=${subject.id}"
+								href="${pageContext.request.contextPath}/section.do?flag=chooseType&subjectId=${subject.id}"
 								target="mainFrame" class="left-font03"
 								onclick="tupian('${subject.id+16}');">${subject.subName}</a></td>
 						</tr>

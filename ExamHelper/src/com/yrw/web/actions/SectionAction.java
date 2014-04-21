@@ -32,19 +32,17 @@ import com.yrw.web.forms.SectionForm;
  * @version
  * 
  */
-public class ListQuestionAction extends DispatchAction {
+public class SectionAction extends DispatchAction {
 	/*
 	 * Generated Methods
 	 */
 
-	private QuestionService questionService;
+	
 	private SectionService sectionService;
 	private SubjectService subjectService;
-	private ExamService examService;
 
-	public void setExamService(ExamService examService) {
-		this.examService = examService;
-	}
+
+
 
 	public void setSubjectService(SubjectService subjectService) {
 		this.subjectService = subjectService;
@@ -54,9 +52,7 @@ public class ListQuestionAction extends DispatchAction {
 		this.sectionService = sectionService;
 	}
 
-	public void setQuestionService(QuestionService questionService) {
-		this.questionService = questionService;
-	}
+	
 
 	/**
 	 * Method 为跳转到选择显示方式的action
@@ -220,31 +216,5 @@ public class ListQuestionAction extends DispatchAction {
 		return showSection(mapping, null, request, response);
 	}
 	
-	/**罗列某个科目下的所有试卷
-	 * @param mapping
-	 * @param form
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	public ActionForward showExamList(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response){
-		int subjectId = (Integer) request.getSession()
-				.getAttribute("subjectId");
-		System.out.println("Action: showExam" + subjectId);
-		String pageNowString = request.getParameter("pageNow");
-		List collection = examService.listExaminations(pageNowString, subjectId);
-
-		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
-		request.setAttribute("pageNow", pageMap.get("pageNow"));
-		request.setAttribute("pageCount", pageMap.get("pageCount"));
-
-		List<Examination> exmaList = (List<Examination>) collection.get(1);
-		request.setAttribute("exams", exmaList);
-
-		request.getSession().setAttribute("subjectId", subjectId);
-		
-		return mapping.findForward("showExamList");
-		
-	}
+	
 }

@@ -5,16 +5,56 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.yrw.config.DefaultValue;
 import com.yrw.domains.Examination;
+import com.yrw.domains.Examquestion;
+import com.yrw.domains.Examsection;
+import com.yrw.domains.Materialanalysis;
+import com.yrw.domains.Multichoice;
+import com.yrw.domains.Section;
+import com.yrw.domains.Singlechoice;
+import com.yrw.domains.Trueorfalse;
 import com.yrw.idao.IExamQuestionDao;
 import com.yrw.idao.IExamSectionDao;
 import com.yrw.idao.IExaminationDao;
+import com.yrw.idao.IMaterialAnalysisDao;
+import com.yrw.idao.IMultiChoiceDao;
+import com.yrw.idao.IQuestionTypeDao;
+import com.yrw.idao.IQuestionsOfMaterial;
+import com.yrw.idao.ISingleChoiceDao;
+import com.yrw.idao.ITrueOrFalseDao;
 
 public class ExamService {
 
 	private IExaminationDao iExaminationDao;
 	private IExamQuestionDao iExamQuestionDao;
 	private IExamSectionDao iExamSectionDao;
+	
+	private ISingleChoiceDao iSingleChoiceDao;
+	private IMultiChoiceDao iMultiChoiceDao;
+	private ITrueOrFalseDao iTrueOrFalseDao;
+	private IMaterialAnalysisDao iMaterialAnalysisDao;
+	private IQuestionsOfMaterial iQuestionsOfMaterial;
+	
+	
+	
+
+	public void setiSingleChoiceDao(ISingleChoiceDao iSingleChoiceDao) {
+		this.iSingleChoiceDao = iSingleChoiceDao;
+	}
+
+	public void setiMultiChoiceDao(IMultiChoiceDao iMultiChoiceDao) {
+		this.iMultiChoiceDao = iMultiChoiceDao;
+	}
+
+	public void setiTrueOrFalseDao(ITrueOrFalseDao iTrueOrFalseDao) {
+		this.iTrueOrFalseDao = iTrueOrFalseDao;
+	}
+
+	public void setiMaterialAnalysisDao(
+			IMaterialAnalysisDao iMaterialAnalysisDao) {
+		this.iMaterialAnalysisDao = iMaterialAnalysisDao;
+	}
 	public void setiExaminationDao(IExaminationDao iExaminationDao) {
 		this.iExaminationDao = iExaminationDao;
 	}
@@ -50,5 +90,50 @@ public class ExamService {
 		collection.add(pageMap);
 		collection.add(examsList);
 		return collection;
+	}
+	
+	/**通过试卷Id得到examination对象
+	 * @param examinationId
+	 * @return
+	 */
+	public Examination getExamination(int examinationId){
+		return (Examination) iExaminationDao.showExam(examinationId);
+	}
+	/**通过试卷章节返回该章节下的所有题目集合
+	 * @param examsection
+	 * @return
+	 */
+	public Object getQuestions(Examsection examsection){
+		List<Examquestion> examquestions=new ArrayList<Examquestion>(examsection.getExamquestions());
+		if(examsection.getQuestiontype().getTypeName().equals(DefaultValue.SINGLE_CHOICE)){
+			List<Singlechoice> singlechoiceList=new ArrayList<Singlechoice>();
+		for(int i=0;i<examquestions.size();i++){
+			int singleChoiceId=examquestions.get(i).getQuestionId();
+			singlechoiceList.add(iSingleChoiceDao.showSinglechoice(singleChoiceId));
+		}
+		return singlechoiceList;
+		}else if(examsection.getQuestiontype().getTypeName().equals(DefaultValue.MULTI_CHOICE)){
+			List<Multichoice> multichoiceList=new ArrayList<Multichoice>();
+		for(int i=0;i<examquestions.size();i++){
+			int multiChoiceId=examquestions.get(i).getQuestionId();
+			multichoiceList.add(iMultiChoiceDao.showMultichoice(multiChoiceId));
+		}
+		return multichoiceList;
+		}else if(examsection.getQuestiontype().getTypeName().equals(DefaultValue.TRUE_OR_FALSE)){
+			List<Trueorfalse> trueorfalseList=new ArrayList<Trueorfalse>();
+		for(int i=0;i<examquestions.size();i++){
+			int trueOrFalseId=examquestions.get(i).getQuestionId();
+			trueorfalseList.add(iTrueOrFalseDao.showTrueorfalse(trueOrFalseId));
+		}
+		return trueorfalseList;
+		}else if(examsection.getQuestiontype().getTypeName().equals(DefaultValue.MATERIAL_ANALYSIS)){
+			List<Materialanalysis> materialanalysisList=new ArrayList<Materialanalysis>();
+		for(int i=0;i<examquestions.size();i++){
+			int materialAnalysisId=examquestions.get(i).getQuestionId();
+			materialanalysisList.add(iMaterialAnalysisDao.showMaterialAnalysis(materialAnalysisId));
+		}
+		return materialanalysisList;
+		}
+		return null;
 	}
 }

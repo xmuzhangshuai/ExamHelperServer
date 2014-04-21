@@ -25,7 +25,7 @@
         <property name="questionScore" type="java.lang.Integer">
             <column name="question_score" />
         </property>
-        <set name="examquestions" inverse="true">
+        <set name="examquestions" inverse="true" order-by="questionNumber">
             <key>
                 <column name="examSection_id" not-null="true" />
             </key>

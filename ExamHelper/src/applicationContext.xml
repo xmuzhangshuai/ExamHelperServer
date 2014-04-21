@@ -32,7 +32,7 @@
 		<property name="maxActive" value="500" />
 		<property name="maxIdle" value="2" />
 		<property name="minIdle" value="1" />
-		
+
 
 	</bean>
 	<bean id="sessionFactory"
@@ -100,8 +100,8 @@
 	<bean id="noteDao" class="com.yrw.dao.NoteDao" />
 	<bean id="errorQuestionDao" class="com.yrw.dao.ErrorQuestionDao" />
 	<bean id="examGuideDao" class="com.yrw.dao.ExamGuideDao" />
-	
-	
+
+
 	<!-- 托管services -->
 	<bean id="questionService" class="com.yrw.service.QuestionService">
 		<property name="iQuestionTypeDao" ref="questionTypeDao" />
@@ -144,12 +144,18 @@
 		<property name="iExaminationDao" ref="examinationDao" />
 		<property name="iExamQuestionDao" ref="examQuestionDao" />
 		<property name="iExamSectionDao" ref="examSectionDao" />
+
+		<property name="iSingleChoiceDao" ref="singleChoiceDao" />
+		<property name="iMultiChoiceDao" ref="multiChoiceDao" />
+		<property name="iTrueOrFalseDao" ref="trueOrFalseDao" />
+		<property name="iMaterialAnalysisDao" ref="materialAnalysisDao" />
+		<property name="iQuestionsOfMaterial" ref="questionOfMaterialDao" />
 	</bean>
 	<bean id="examGuideService" class="com.yrw.service.ExamGuideService">
 		<property name="iExamGuideDao" ref="examGuideDao" />
 	</bean>
-	
-	
+
+
 	<!-- 托管action -->
 	<bean name="/login" class="com.yrw.web.actions.LoginAction">
 		<property name="loginService" ref="loginService" />
@@ -158,11 +164,10 @@
 		<property name="subjectService" ref="subjectService" />
 		<property name="sectionService" ref="sectionService" />
 	</bean>
-	<bean name="/listQuestion" class="com.yrw.web.actions.ListQuestionAction">
-		<property name="questionService" ref="questionService" />
+	<bean name="/section" class="com.yrw.web.actions.SectionAction">
 		<property name="sectionService" ref="sectionService" />
 		<property name="subjectService" ref="subjectService" />
-		<property name="examService" ref="examService" />
+
 	</bean>
 	<bean name="/question" class="com.yrw.web.actions.QuestionAction">
 		<property name="questionService" ref="questionService" />
@@ -188,8 +193,10 @@
 		<property name="sectionService" ref="sectionService" />
 		<property name="subjectService" ref="subjectService" />
 	</bean>
-	
-	
+	<bean name="/examination" class="com.yrw.web.actions.ExaminationAction">
+		<property name="examService" ref="examService" />
+	</bean>
+
 	<!-- 事务管理器 -->
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">

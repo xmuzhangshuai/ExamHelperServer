@@ -13,7 +13,7 @@
 <head>
 
 
-<title>单项选择题</title>
+<title>试卷</title>
 
 
 <link rel="stylesheet" rev="stylesheet" href="./css/style.css"
@@ -57,12 +57,11 @@
 	document.getElementById("fom").submit();
 	}
 	
-	
 </script>
 </head>
 
-<body class="ContentBody" >
-	<form 
+<body class="ContentBody">
+	<form
 		action="${pageContext.request.contextPath}/question.do?flag=editSingleChoice&singleChoiceId=${singleChoice.id}"
 		method="post" enctype="multipart/form-data" name="fom" id="fom"
 		target="mainFrame">
@@ -70,10 +69,10 @@
 			<table width="99%" border="0" cellpadding="0" cellspacing="0"
 				class="CContent" >
 				<tr>
-					<th class="tablestyle_title">单项选择题</th>
+					<th class="tablestyle_title">试卷</th>
 				</tr>
 				<tr>
-					<td style="width: 485px; "><input type="button" value="返回单选题列表"
+					<td style="width: 485px; "><input type="button" value="返回试卷列表"
 						style="width: 111px; " onclick="back();" class="button"/> </td>
 
 				</tr>

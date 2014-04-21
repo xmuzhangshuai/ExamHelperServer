@@ -50,7 +50,7 @@
 
 <body class="ContentBody">
 	<form
-		action="${pageContext.request.contextPath}/listQuestion.do?flag=addSection"
+		action="${pageContext.request.contextPath}/section.do?flag=addSection"
 		method="post" enctype="multipart/form-data" name="form"
 		target="mainFrame">
 		<div class="MainDiv">

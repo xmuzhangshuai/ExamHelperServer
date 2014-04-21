@@ -42,12 +42,11 @@
 		</action>
 
 		<action attribute="sectionForm" name="sectionForm" parameter="flag"
-			path="/listQuestion" scope="request" type="com.yrw.web.actions.ListQuestionAction"
+			path="/section" scope="request" type="com.yrw.web.actions.SectionAction"
 			cancellable="true">
 			<forward name="listSection" path="/ShowSection.jsp" />
 			<forward name="updateSectionUI" path="/EditSection.jsp" />
 			<forward name="addSectionUI" path="/AddSection.jsp" />
-			<forward name="showExamList" path="/ShowExamList.jsp" />
 		</action>
 
 		<action parameter="flag" path="/question" scope="request"
@@ -100,6 +99,14 @@
       <forward name="addQuestionOfMaterial" path="/AddQuestionOfMaterial.jsp"/>
     
     </action>
+    <action
+      parameter="flag"
+      path="/examination"
+      type="com.yrw.web.actions.ExaminationAction"
+      cancellable="true" >
+      	<forward name="showExamList" path="/ShowExamList.jsp" />
+      	<forward name="showExamination" path="/ShowExam.jsp"/>
+      </action>
 
 
 
