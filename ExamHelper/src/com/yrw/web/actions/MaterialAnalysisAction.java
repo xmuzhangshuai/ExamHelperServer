@@ -131,6 +131,7 @@ public class MaterialAnalysisAction extends DispatchAction {
 		// 设置材料分析题
 		Materialanalysis materialanalysis = (Materialanalysis) questionService
 				.getQuestion(materialAnalysisId, DefaultValue.MATERIAL_ANALYSIS);
+		
 		request.setAttribute("materialAnalysis", materialanalysis);
 		// 设置分析题下的小题
 		List<Questionsofmaterial> questionsofmaterials = new ArrayList<Questionsofmaterial>(

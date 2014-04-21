@@ -56,13 +56,13 @@
 		for (var i = 0; i < txtSelect.length; i++)
 			txtSelect[i].disabled = false;
 	}
-	function saveMaterialAnalysis(questionNumber) {
+	function saveMaterialAnalysis(materialAnalysisId) {
 
 		if (document.getElementById("questionStem" + questionNumber).value
 				.trim().length != 0) {
 
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=editQuestionOfMaterialAnalysis"
-
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=editMaterialAnalysis&materialAnalysisId="
+					+ materialAnalysisId;
 			document.getElementById("fom").submit();
 		} else
 			alert("请输入题干");
@@ -128,7 +128,7 @@
 													<td align="left" width="13%" style="width: 58px; ">题干内容:</td>
 													<td style="width: 448px; "><textarea rows="" cols=""
 															id="material" name="material"
-															style="width: 731px; height: 100px">${materialAnalysis.material}</textarea><span
+															style="width: 729px; height: 100px">${materialAnalysis.material}</textarea><span
 														class="red"> *</span></td>
 
 												</tr>
@@ -191,8 +191,8 @@
 										type="button" value="编辑" class="button" style="width: 83px; "
 										onclick="editMaterialAnalysis();" id="materialAnalysis_Edit" />
 										<input type="button" value="保存" style="width: 77px;"
-										onclick="saveMaterialAnalysis();" class="button"
-										id="materialAnalysis_Save" /></TD>
+										onclick="saveMaterialAnalysis('${materialAnalysis.id}');"
+										class="button" id="materialAnalysis_Save" /></TD>
 								</TR>
 							</table>
 						</fieldset></td>
@@ -256,9 +256,9 @@
 														<td><table>
 																<tr>
 																	<td><a
-																		href="${pageContext.request.contextPath}/materialAnalysis.do?flag=moveQuestionOfMaterial&type=decrease&questionOfMaterialId=${questionOfMaterial.id}"
-																		>上移</a></td>
-																	<td><a href="${pageContext.request.contextPath}/materialAnalysis.do?flag=moveQuestionOfMaterial&type=increase&questionOfMaterialId=${questionOfMaterial.id}">下移</a></td>
+																		href="${pageContext.request.contextPath}/materialAnalysis.do?flag=moveQuestionOfMaterial&type=decrease&questionOfMaterialId=${questionOfMaterial.id}">上移</a></td>
+																	<td><a
+																		href="${pageContext.request.contextPath}/materialAnalysis.do?flag=moveQuestionOfMaterial&type=increase&questionOfMaterialId=${questionOfMaterial.id}">下移</a></td>
 																</tr>
 															</table></td>
 													</tr>

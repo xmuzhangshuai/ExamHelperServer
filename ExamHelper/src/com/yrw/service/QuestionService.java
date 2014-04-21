@@ -544,6 +544,8 @@ public class QuestionService {
 			for (int i = 0; i < questionsofmaterials.size(); i++) {
 				if (questionsofmaterials.get(i).getQuestionNumber() + 1 == questionsofmaterial
 						.getQuestionNumber()) {
+					questionsofmaterials.get(i).setQuestionNumber(questionsofmaterial.getQuestionNumber());
+					questionsofmaterial.setQuestionNumber(questionsofmaterial.getQuestionNumber()-1);
 					questionsofmaterials.set(
 							questionsofmaterials.indexOf(questionsofmaterial),
 							questionsofmaterials.get(i));
@@ -561,7 +563,10 @@ public class QuestionService {
 	 * @param materialanalysis
 	 */
 	public void increaseQuestionNumber(Questionsofmaterial questionsofmaterial) {
-		if (questionsofmaterial.getQuestionNumber() != getMaxQuestionNumByMaterialId(questionsofmaterial
+		System.out.println(getMaxQuestionNumByMaterialId(questionsofmaterial
+				.getMaterialanalysis().getId()));
+		System.out.println(questionsofmaterial.getQuestionNumber());
+		if (questionsofmaterial.getQuestionNumber() < getMaxQuestionNumByMaterialId(questionsofmaterial
 				.getMaterialanalysis().getId())) {
 			Materialanalysis materialanalysis = questionsofmaterial
 					.getMaterialanalysis();
@@ -570,6 +575,9 @@ public class QuestionService {
 			for (int i = 0; i < questionsofmaterials.size(); i++) {
 				if (questionsofmaterials.get(i).getQuestionNumber() - 1 == questionsofmaterial
 						.getQuestionNumber()) {
+				
+					questionsofmaterials.get(i).setQuestionNumber(questionsofmaterial.getQuestionNumber());
+					questionsofmaterial.setQuestionNumber(questionsofmaterial.getQuestionNumber()+1);
 					questionsofmaterials.set(
 							questionsofmaterials.indexOf(questionsofmaterial),
 							questionsofmaterials.get(i));
