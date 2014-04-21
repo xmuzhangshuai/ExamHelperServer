@@ -503,6 +503,9 @@ public class QuestionService {
 				.getMaxQuestionNumByMaterialId(materialAnalysisId);
 	}
 
+	public List<Questionsofmaterial> getOrderedQuestionsofmaterials(int materialAnalysisId){
+		return iQuestionsOfMaterial.getQuestionOfMaterialByMaterialId(materialAnalysisId);
+	}
 	/**
 	 * 修改小题的编号
 	 * 
@@ -544,28 +547,32 @@ public class QuestionService {
 			for (int i = 0; i < questionsofmaterials.size(); i++) {
 				if (questionsofmaterials.get(i).getQuestionNumber() + 1 == questionsofmaterial
 						.getQuestionNumber()) {
-					questionsofmaterials.get(i).setQuestionNumber(questionsofmaterial.getQuestionNumber());
-					questionsofmaterial.setQuestionNumber(questionsofmaterial.getQuestionNumber()-1);
-					questionsofmaterials.set(
-							questionsofmaterials.indexOf(questionsofmaterial),
-							questionsofmaterials.get(i));
-					questionsofmaterials.set(i, questionsofmaterial);
+					Questionsofmaterial lastQuestionsofmaterial = questionsofmaterials
+							.get(i);
+					lastQuestionsofmaterial
+							.setQuestionNumber(questionsofmaterial
+									.getQuestionNumber());
+					questionsofmaterial.setQuestionNumber(questionsofmaterial
+							.getQuestionNumber() - 1);
+					iQuestionsOfMaterial
+							.updateQuestionOfMaterial(questionsofmaterial);
+					iQuestionsOfMaterial
+							.updateQuestionOfMaterial(lastQuestionsofmaterial);
 					break;
 				}
 			}
+
 		}
 	}
 
 	/**
-	 * 增大题目编号
+	 * 增大题目编号(下移）
 	 * 
 	 * @param questionNumber
 	 * @param materialanalysis
 	 */
 	public void increaseQuestionNumber(Questionsofmaterial questionsofmaterial) {
-		System.out.println(getMaxQuestionNumByMaterialId(questionsofmaterial
-				.getMaterialanalysis().getId()));
-		System.out.println(questionsofmaterial.getQuestionNumber());
+
 		if (questionsofmaterial.getQuestionNumber() < getMaxQuestionNumByMaterialId(questionsofmaterial
 				.getMaterialanalysis().getId())) {
 			Materialanalysis materialanalysis = questionsofmaterial
@@ -575,16 +582,22 @@ public class QuestionService {
 			for (int i = 0; i < questionsofmaterials.size(); i++) {
 				if (questionsofmaterials.get(i).getQuestionNumber() - 1 == questionsofmaterial
 						.getQuestionNumber()) {
+					Questionsofmaterial nextQuestionsofmaterial = questionsofmaterials
+							.get(i);
+					nextQuestionsofmaterial
+							.setQuestionNumber(questionsofmaterial
+									.getQuestionNumber());
+					questionsofmaterial.setQuestionNumber(questionsofmaterial
+							.getQuestionNumber() + 1);
+					iQuestionsOfMaterial
+							.updateQuestionOfMaterial(questionsofmaterial);
+					iQuestionsOfMaterial
+							.updateQuestionOfMaterial(nextQuestionsofmaterial);
 				
-					questionsofmaterials.get(i).setQuestionNumber(questionsofmaterial.getQuestionNumber());
-					questionsofmaterial.setQuestionNumber(questionsofmaterial.getQuestionNumber()+1);
-					questionsofmaterials.set(
-							questionsofmaterials.indexOf(questionsofmaterial),
-							questionsofmaterials.get(i));
-					questionsofmaterials.set(i, questionsofmaterial);
 					break;
 				}
 			}
+
 		}
 	}
 }

@@ -22,7 +22,7 @@
         <property name="remark" type="java.lang.String">
             <column name="remark" length="128" />
         </property>
-        <set name="questionsofmaterials" inverse="true" order-by="questionNumber">
+        <set name="questionsofmaterials" inverse="true" order-by="questionNumber" >
             <key>
                 <column name="material_id" not-null="true" />
             </key>

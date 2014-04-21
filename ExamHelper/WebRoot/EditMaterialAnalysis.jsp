@@ -34,28 +34,9 @@
 	function check() {
 		document.getElementById("aa").style.display = "";
 	}
-	function init() {
-		var txtN = document.getElementsByTagName("input");
-		for (i = 0; i < txtN.length; i++) {
-			txtN[i].readOnly = true;
-		}
-		var txtArea = document.getElementsByTagName("textarea");
-		for (i = 0; i < txtArea.length; i++)
-			txtArea[i].readOnly = true;
+	
 
-		var txtSelect = document.getElementsByTagName("select");
-		for (var i = 0; i < txtSelect.length; i++)
-			txtSelect[i].disabled = true;
-	}
-
-	function editMaterialAnalysis() {
-		document.getElementById("material").readOnly = false;
-		document.getElementById("materialImage").readOnly = false;
-		document.getElementById("remark").readOnly = false;
-		var txtSelect = document.getElementsByTagName("select");
-		for (var i = 0; i < txtSelect.length; i++)
-			txtSelect[i].disabled = false;
-	}
+	
 	function saveMaterialAnalysis(materialAnalysisId) {
 
 		if (document.getElementById("material").value.trim().length != 0) {
@@ -67,12 +48,7 @@
 		} else
 			alert("请输入题干");
 	}
-	function editQuestionOfMaterial(questionNumber) {
-		document.getElementById("questionStem" + questionNumber).readOnly = false;
-		document.getElementById("analysis" + questionNumber).readOnly = false;
-		document.getElementById("answer" + questionNumber).readOnly = false;
-		document.getElementById("score" + questionNumber).readOnly = false;
-	}
+	
 	function saveQuestionOfMaterial(questionOfMaterialId) {
 
 		if (document.getElementById("questionStem" + questionOfMaterialId).value
@@ -86,7 +62,6 @@
 			alert("请输入题干");
 	}
 	function deleteQuestionOfMaterial(questionOfMaterialId) {
-		alert
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=deleteQuestionOfMaterial&questionOfMaterialId="
 				+ questionOfMaterialId;
 
@@ -97,11 +72,12 @@
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=材料分析题&sectionName="
 				+ sectionName;
 		document.getElementById("fom").submit();
+	
 	}
 </script>
 </head>
 
-<body class="ContentBody" onload="init();">
+<body class="ContentBody" >
 	<form method="post" enctype="multipart/form-data" name="fom" id="fom"
 		target="mainFrame">
 		<div class="MainDiv">
@@ -191,9 +167,7 @@
 										</fieldset></td>
 								</tr>
 								<TR>
-									<TD colspan="2" align="center" height="50px"><input
-										type="button" value="编辑" class="button" style="width: 83px; "
-										onclick="editMaterialAnalysis();" id="materialAnalysis_Edit" />
+									<TD colspan="2" align="center" height="50px">
 										<input type="button" value="保存" style="width: 77px;"
 										onclick="saveMaterialAnalysis('${materialAnalysis.id}');"
 										class="button" id="materialAnalysis_Save" /></TD>
@@ -267,9 +241,7 @@
 													</tr>
 													<TR>
 														<TD colspan="2" align="center" height="50px"
-															style="width: 257px; "><input type="button"
-															value="编辑" class="button" style="width: 83px; "
-															onclick="editQuestionOfMaterial('${questionOfMaterial.id}');" />
+															style="width: 257px; ">
 															<input type="button" value="保存" style="width: 77px;"
 															onclick="saveQuestionOfMaterial('${questionOfMaterial.id}');"
 															class="button" /><input type="button" value="删除"

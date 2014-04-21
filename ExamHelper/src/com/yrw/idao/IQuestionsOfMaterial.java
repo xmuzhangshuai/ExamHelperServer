@@ -34,6 +34,12 @@ public interface IQuestionsOfMaterial extends IBasicDao {
 	 * @return
 	 */
 	public List getQuestionOfMaterialByMaterialId(int pageNow,int materialId);
+	
+	/**得到某个materialAnalysis下的所有小题
+	 * @param materialId
+	 * @return
+	 */
+	public List getQuestionOfMaterialByMaterialId(int materialId);
 	/**
 	 * @param materialId
 	 * @return

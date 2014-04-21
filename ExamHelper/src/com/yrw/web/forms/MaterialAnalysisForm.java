@@ -22,7 +22,7 @@ public class MaterialAnalysisForm extends ActionForm {
 	 */
 
 	/** materialImage property */
-	private String materialImage;
+//	private String materialImage;
 
 	/** remark property */
 	private String remark;
@@ -62,17 +62,17 @@ public class MaterialAnalysisForm extends ActionForm {
 	 * Returns the materialImage.
 	 * @return String
 	 */
-	public String getMaterialImage() {
-		return materialImage;
-	}
+	//public String getMaterialImage() {
+	//	return materialImage;
+	//}
 
 	/** 
 	 * Set the materialImage.
 	 * @param materialImage The materialImage to set
 	 */
-	public void setMaterialImage(String materialImage) {
-		this.materialImage = materialImage;
-	}
+	//public void setMaterialImage(String materialImage) {
+	//	this.materialImage = materialImage;
+	//}
 
 	/** 
 	 * Returns the remark.

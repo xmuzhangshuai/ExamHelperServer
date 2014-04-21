@@ -35,14 +35,15 @@
 		document.getElementById("aa").style.display = "";
 	}
 
-	function back() {
+	function back(materialAnalysisId) {
+window.history.back(-1);
 
 	}
-	function save() {
+	function save(materialAnalysisId) {
 
 		if (document.getElementById("questionStem").value.trim().length != 0) {
 
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/questionOfMaterialAnalysis.do?flag=addQuestionOfMaterial"
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=addQuestionOfMaterial&materialAnalysisId="+materialAnalysisId;
 
 			document.getElementById("fom").submit();
 		} else
@@ -67,9 +68,7 @@
 
 							<fieldset>
 								<table>
-									<tr>
-										<td><input  type="hidden" value="${materialAnalysisId}" name="materialAnalysisId" id="materialAnalysisId"/></td>
-									</tr>
+									
 									<tr>
 										<td>小题编号：</td>
 										<td><input type="text" id="questionNumber"
@@ -105,9 +104,9 @@
 
 				<TR>
 					<TD colspan="2" align="center" height="50px"><input
-						type="button" value="保存" type="submit" style="width: 77px;"
-						onclick="save();" class="button" /><input type="button"
-						value="返回" class="button" style="width: 83px; " onclick="back();" /></TD>
+						type="button" value="保存"  style="width: 77px;"
+						onclick="save('${materialAnalysisId}');" class="button" /><input type="button"
+						value="返回" class="button" style="width: 83px; " onclick="back('${materialAnalysisId}');" /></TD>
 				</TR>
 			</TABLE>
 

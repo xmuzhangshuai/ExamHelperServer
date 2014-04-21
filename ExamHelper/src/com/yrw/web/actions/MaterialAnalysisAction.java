@@ -71,9 +71,8 @@ public class MaterialAnalysisAction extends DispatchAction {
 			HttpServletResponse response) throws UnsupportedEncodingException {
 		// TODO Auto-generated method stub
 
-		
-		String	sectionName = new String(request.getParameter("sectionName")
-					.getBytes("ISO-8859-1"), "utf-8");
+		String sectionName = new String(request.getParameter("sectionName")
+				.getBytes("ISO-8859-1"), "utf-8");
 		String typeName = DefaultValue.MATERIAL_ANALYSIS;
 
 		request.getSession().setAttribute("typeName", typeName);
@@ -131,11 +130,11 @@ public class MaterialAnalysisAction extends DispatchAction {
 		// 设置材料分析题
 		Materialanalysis materialanalysis = (Materialanalysis) questionService
 				.getQuestion(materialAnalysisId, DefaultValue.MATERIAL_ANALYSIS);
-		
+
 		request.setAttribute("materialAnalysis", materialanalysis);
 		// 设置分析题下的小题
-		List<Questionsofmaterial> questionsofmaterials = new ArrayList<Questionsofmaterial>(
-				materialanalysis.getQuestionsofmaterials());
+		List<Questionsofmaterial> questionsofmaterials = questionService
+				.getOrderedQuestionsofmaterials(materialanalysis.getId());
 		request.setAttribute("questionOfMaterials", questionsofmaterials);
 
 		// 获得subject下拉菜单里的所有subject
@@ -254,12 +253,12 @@ public class MaterialAnalysisAction extends DispatchAction {
 						DefaultValue.QUESTION_OF_MATERIAL);
 
 		// 更新QuesitonOfMaterial对象数据
-		questionsofmaterial.setAnalysis(request.getParameter("analysis"));
-		questionsofmaterial.setAnswer(request.getParameter("answer"));
+		questionsofmaterial.setAnalysis(request.getParameter("analysis"+questionOfMaterialId));
+		questionsofmaterial.setAnswer(request.getParameter("answer"+questionOfMaterialId));
 		questionsofmaterial.setQuestionStem(request
-				.getParameter("questionStem"));
+				.getParameter("questionStem"+questionOfMaterialId));
 		questionsofmaterial.setScore(Integer.parseInt(request
-				.getParameter("score")));
+				.getParameter("score"+questionOfMaterialId)));
 
 		// 持久化materialAnalysi对象
 		questionService.updateQuestionofMaterial(questionsofmaterial);
@@ -377,8 +376,8 @@ public class MaterialAnalysisAction extends DispatchAction {
 		Materialanalysis materialanalysis = new Materialanalysis();
 		// 加载materialAnalysis中的属性
 		materialanalysis.setMaterial(materialAnalysisForm.getMaterial());
-		//materialanalysis.setMaterialImage(materialAnalysisForm
-			//	.getMaterialImage());
+		// materialanalysis.setMaterialImage(materialAnalysisForm
+		// .getMaterialImage());
 		materialanalysis.setRemark(materialAnalysisForm.getRemark());
 		materialanalysis.setQuestionsofmaterials(null);
 
@@ -423,8 +422,8 @@ public class MaterialAnalysisAction extends DispatchAction {
 
 		// 更新material对象数据
 		materialanalysis.setMaterial(materialAnalysisForm.getMaterial());
-	//	materialanalysis.setMaterialImage(materialAnalysisForm
-			//	.getMaterialImage());
+		// materialanalysis.setMaterialImage(materialAnalysisForm
+		// .getMaterialImage());
 		materialanalysis.setRemark(materialAnalysisForm.getRemark());
 
 		if (materialAnalysisForm.getSectionName() != null) {
