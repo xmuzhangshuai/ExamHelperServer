@@ -123,18 +123,18 @@ function link() {
 						</tr>
 						<c:forEach items="${userList}" var="user">
 							<tr bgcolor="#FFFFFF">
-								<td height="20" align="center" ><input  type="checkbox" name="delid${subject.id}" /></td>
-								<td height="20" align="center" ><label>1234</label></td>
-								<td height="30" align="center" ><img id ="headImage" height="40px" src="./UserImages/1397802180624.png" alt="" /></td>
+								<td height="20" align="center" ><input  type="checkbox" name="delid${user.id}" /></td>
+								<td height="20" align="center" ><label>${user.id}</label></td>
+								<td height="30" align="center" ><img id ="headImage" height="40px" src="${user.avatar}" alt="" /></td>
 								<td height="20" ><label>${user.mail}</label></td>
-								<td height="20" ><label>1234</label></td>
-								<td height="20" ><label>1234</label></td>
-								<td height="20" ><label>1234</label></td>
-								<td height="20" ><label>1234</label></td>
-								<td height="20" ><label>1234</label></td>
-								<td height="20" ><label>1234</label></td>
-								<td height="20" ><label>1234</label></td>
-								<td height="20" ><label>1234</label></td>
+								<td height="20" ><label>${user.nickname}</label></td>
+								<td height="20" ><label>${user.realname}</label></td>
+								<td height="20" ><label>${user.age}</label></td>
+								<td height="20" ><label>${user.phone}</label></td>
+								<td height="20" ><label>${user.profession}</label></td>
+								<td height="20" ><label>${user.area}</label></td>
+								<td height="20" ><label>${user.integral}</label></td>
+								<td height="20" ><label>${user.userState}</label></td>
 								<td height="20" ><a href="${pageContext.request.contextPath}/subject.do?flag=updateSubjectUI&subjectId=${subject.id}">编辑|</a>
 								    <a href="${pageContext.request.contextPath}/section.do?flag=chooseType&subjectId=${subject.id}">查看|</a>
 									<a onclick="deleteSubject('${subject.id}');" id="deleteSingleSubject${subject.id}">删除</a>
