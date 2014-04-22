@@ -114,6 +114,13 @@
       cancellable="true" >
       <forward name="userInfo" path="/UserInfo.jsp"/>
       </action>
+    <action
+      parameter="flag"
+      path="/query"
+      type="com.yrw.web.actions.QueryAction"
+      cancellable="true" >
+      <forward name="querySquare" path="/QuerySquare.jsp"/>
+      </action>
 
 
 
