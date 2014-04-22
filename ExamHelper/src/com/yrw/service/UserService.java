@@ -52,10 +52,14 @@ public class UserService {
 	 * 获取用户列表
 	 * @return
 	 */
-	public List<User> getUserList() {
+	public List<User> getUserListByPage(int pageNow) {
 		List<User> users = new ArrayList<User>();
-		users = iUserDao.getUserList();
+		users = iUserDao.getUserListByPage(pageNow);
 		return users;
+	}
+	
+	public int getPageCount(){
+		return iUserDao.getPageCountOfUser();
 	}
 
 	public void modifyUser(User user) {

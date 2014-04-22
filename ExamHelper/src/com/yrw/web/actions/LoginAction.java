@@ -74,11 +74,7 @@ public class LoginAction extends DispatchAction {
 		request.getSession().setAttribute("subjects", list);
 		Manager manager=(Manager) request.getSession().getAttribute("managerInfor");
 		request.getSession().setAttribute("managerInfor", manager);
-		System.out.println("进入重新加载");
 		return mapping.findForward("loadLeft");
-
-		
-		
 	}
 
 	/**
@@ -94,7 +90,6 @@ public class LoginAction extends DispatchAction {
 	public ActionForward logout(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
-		System.out.println("Enter LoginAction logout");
 		request.getSession().invalidate();
 		return mapping.findForward("goLoginUI");
 	}

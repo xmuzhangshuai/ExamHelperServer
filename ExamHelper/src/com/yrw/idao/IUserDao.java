@@ -19,6 +19,19 @@ public interface IUserDao extends IBasicDao {
 	 */
 	public User getUserByMailAndPsw(String mail, String password);
 
+	/**
+	 * 获取user页数
+	 * @return
+	 */
+	public int getPageCountOfUser();
+	
+	/**
+	 * 分页返回user列表
+	 * @param pageNow
+	 * @return
+	 */
+	public List<User> getUserListByPage(int pageNow);
+	
 	/**通过邮箱获取user对象
 	 * @param mail
 	 * @return

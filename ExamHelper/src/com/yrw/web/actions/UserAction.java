@@ -36,8 +36,22 @@ public class UserAction extends DispatchAction {
 	public ActionForward showUserList(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
 		// TODO Auto-generated method stub
-		List<User> userList = userService.getUserList();
+		int pageNow = 1;
+		int pageCount = userService.getPageCount();
+		String pageNowString = request.getParameter("pageNow");
+		if (pageNowString != null) {
+			pageNow = Integer.parseInt(pageNowString);
+			if (pageNow < 1)
+				pageNow = 1;
+			else if (pageNow > pageCount)
+				pageNow = pageCount;
+		}
+
+		List<User> userList = userService.getUserListByPage(pageNow);
 		request.setAttribute("userList", userList);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("pageNow", pageNow);
 		return mapping.findForward("userInfo");
 	}
+
 }
