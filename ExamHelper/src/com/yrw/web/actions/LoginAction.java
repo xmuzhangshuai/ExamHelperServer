@@ -4,8 +4,6 @@
  */
 package com.yrw.web.actions;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,10 +14,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DispatchAction;
 
-import com.yrw.dao.QuestionTypeDao;
 import com.yrw.domains.Manager;
-import com.yrw.domains.Questiontype;
-import com.yrw.idao.IQuestionTypeDao;
 import com.yrw.service.LoginService;
 import com.yrw.web.forms.LoginForm;
 
