@@ -1,5 +1,7 @@
 package com.yrw.dao;
 
+import java.util.List;
+
 import com.yrw.domains.User;
 import com.yrw.idao.IUserDao;
 
@@ -36,6 +38,13 @@ public class UserDao extends BasicDao implements IUserDao {
 	public User getUserById(int key) {
 		// TODO Auto-generated method stub
 		return (User) this.findById(User.class, key);
+	}
+
+	@Override
+	public List<User> getUserList() {
+		// TODO Auto-generated method stub
+		String hql = "from User order by id desc";
+		return this.executeQuery(hql, null);
 	}
 
 }

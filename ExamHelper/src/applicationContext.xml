@@ -196,6 +196,9 @@
 	<bean name="/examination" class="com.yrw.web.actions.ExaminationAction">
 		<property name="examService" ref="examService" />
 	</bean>
+	<bean name="/user" class="com.yrw.web.actions.UserAction">
+		<property name="userService" ref="userService" />
+	</bean>
 
 	<!-- 事务管理器 -->
 	<bean id="transactionManager"

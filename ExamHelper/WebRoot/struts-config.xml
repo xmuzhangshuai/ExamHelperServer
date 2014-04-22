@@ -107,6 +107,13 @@
       	<forward name="showExamList" path="/ShowExamList.jsp" />
       	<forward name="showExamination" path="/ShowExam.jsp"/>
       </action>
+    <action
+      parameter="flag"
+      path="/user"
+      type="com.yrw.web.actions.UserAction"
+      cancellable="true" >
+      <forward name="userInfo" path="/UserInfo.jsp"/>
+      </action>
 
 
 

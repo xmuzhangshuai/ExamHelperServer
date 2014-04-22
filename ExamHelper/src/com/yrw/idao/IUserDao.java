@@ -1,5 +1,7 @@
 package com.yrw.idao;
 
+import java.util.List;
+
 import com.yrw.domains.User;
 
 /**针对用户对象的操作
@@ -29,6 +31,12 @@ public interface IUserDao extends IBasicDao {
 	 * @return boolean
 	 */
 	public void addUser(User user);
+	
+	/**
+	 * 按ID倒叙返回User
+	 * @return
+	 */
+	public List<User> getUserList();
 
 	/**修改用户信息
 	 * @param user

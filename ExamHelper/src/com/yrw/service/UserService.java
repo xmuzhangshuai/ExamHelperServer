@@ -1,5 +1,8 @@
 package com.yrw.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.yrw.domains.User;
 import com.yrw.idao.IUserDao;
 
@@ -43,6 +46,16 @@ public class UserService {
 			// TODO: handle exception
 			return null;
 		}
+	}
+	
+	/**
+	 * 获取用户列表
+	 * @return
+	 */
+	public List<User> getUserList() {
+		List<User> users = new ArrayList<User>();
+		users = iUserDao.getUserList();
+		return users;
 	}
 
 	public void modifyUser(User user) {

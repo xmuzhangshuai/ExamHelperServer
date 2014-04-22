@@ -121,12 +121,12 @@ function link() {
 							<td width="12%" align="center" height="30">个性签名</td>
 							<td width="10%" align="center" height="30">操作</td>
 						</tr>
-						<c:forEach items="${subjects}" var="subject">
+						<c:forEach items="${userList}" var="user">
 							<tr bgcolor="#FFFFFF">
 								<td height="20" align="center" ><input  type="checkbox" name="delid${subject.id}" /></td>
 								<td height="20" align="center" ><label>1234</label></td>
 								<td height="30" align="center" ><img id ="headImage" height="40px" src="./UserImages/1397802180624.png" alt="" /></td>
-								<td height="20" ><label>1234</label></td>
+								<td height="20" ><label>${user.mail}</label></td>
 								<td height="20" ><label>1234</label></td>
 								<td height="20" ><label>1234</label></td>
 								<td height="20" ><label>1234</label></td>
