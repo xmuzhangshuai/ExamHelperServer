@@ -23,8 +23,10 @@ import com.yrw.domains.Materialanalysis;
 import com.yrw.domains.Multichoice;
 import com.yrw.domains.Questiontype;
 import com.yrw.domains.Singlechoice;
+import com.yrw.domains.Subject;
 import com.yrw.domains.Trueorfalse;
 import com.yrw.service.ExamService;
+import com.yrw.service.SubjectService;
 
 /**
  * MyEclipse Struts Creation date: 04-21-2014
@@ -36,6 +38,11 @@ import com.yrw.service.ExamService;
 public class ExaminationAction extends DispatchAction {
 
 	private ExamService examService;
+	private SubjectService subjectService;
+
+	public void setSubjectService(SubjectService subjectService) {
+		this.subjectService = subjectService;
+	}
 
 	public void setExamService(ExamService examService) {
 		this.examService = examService;
@@ -81,7 +88,7 @@ public class ExaminationAction extends DispatchAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward showExaminationt(ActionMapping mapping,
+	public ActionForward showExamination(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
 		// 得到examination对象
@@ -90,6 +97,14 @@ public class ExaminationAction extends DispatchAction {
 		Examination examination = examService.getExamination(examinationId);
 		// 设置examination在jsp上的对象
 		request.setAttribute("examination", examination);
+		//设置examination中科目的下拉框
+		List<Subject> subjectList = subjectService.getSubjectList(examination.getSubject().getId());
+		if (subjectList != null) {
+			request.setAttribute("subject", subjectList.get(0));
+			subjectList.remove(0);
+			request.setAttribute("subjects", subjectList);
+		} else
+			request.setAttribute("subject", "暂无所属科目");
 		// 设置examination下的题型
 		List<Examsection> examsections = new ArrayList<Examsection>(
 				examination.getExamsections());

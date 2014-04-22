@@ -315,7 +315,7 @@
 																	value="${singleChoice.questionStem}" /> <c:choose>
 																	<c:when test="${fn:length(testStr) > 50}">
 																		<c:out value="${fn:substring(testStr, 0, 50)}......"
-																			escapeXml="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}" />
+																			 />
 																	</c:when>
 																	<c:otherwise>
 																		<c:out value="${testStr}" />

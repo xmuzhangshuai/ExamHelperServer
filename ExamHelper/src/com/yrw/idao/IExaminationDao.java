@@ -63,14 +63,12 @@ public interface IExaminationDao extends IBasicDao {
 	 */
 	public int getPageCountBySubject(int subjectId);
 
-	/**
-	 * Method addExam
-	 * 
+	
+	/**得到exam对象
 	 * @param examId
-	 * @return List
+	 * @return
 	 */
-	public List showExam(int examId);
-
+	public Examination showExam(int examId);
 	/**
 	 * Method addExam
 	 * 

@@ -48,9 +48,9 @@ public class ExaminationDao extends BasicDao implements IExaminationDao {
 	}
 
 	@Override
-	public List showExam(int examId) {
+	public Examination showExam(int examId) {
 		// TODO Auto-generated method stub
-		return null;
+		return (Examination) this.findById(Examination.class, examId);
 	}
 
 	@Override

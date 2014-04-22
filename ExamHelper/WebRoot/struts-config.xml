@@ -105,7 +105,7 @@
       type="com.yrw.web.actions.ExaminationAction"
       cancellable="true" >
       	<forward name="showExamList" path="/ShowExamList.jsp" />
-      	<forward name="showExamination" path="/ShowExam.jsp"/>
+      	<forward name="showExamination" path="/ShowExamination.jsp"/>
       </action>
     <action
       parameter="flag"

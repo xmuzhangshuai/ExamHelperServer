@@ -29,17 +29,15 @@ public class ExamService {
 	private IExaminationDao iExaminationDao;
 	private IExamQuestionDao iExamQuestionDao;
 	private IExamSectionDao iExamSectionDao;
-	
+
 	private ISingleChoiceDao iSingleChoiceDao;
 	private IMultiChoiceDao iMultiChoiceDao;
 	private ITrueOrFalseDao iTrueOrFalseDao;
 	private IMaterialAnalysisDao iMaterialAnalysisDao;
 	private IQuestionsOfMaterial iQuestionsOfMaterial;
-	
-	
-	
 
-	public void setiQuestionsOfMaterial(IQuestionsOfMaterial iQuestionsOfMaterial) {
+	public void setiQuestionsOfMaterial(
+			IQuestionsOfMaterial iQuestionsOfMaterial) {
 		this.iQuestionsOfMaterial = iQuestionsOfMaterial;
 	}
 
@@ -59,21 +57,27 @@ public class ExamService {
 			IMaterialAnalysisDao iMaterialAnalysisDao) {
 		this.iMaterialAnalysisDao = iMaterialAnalysisDao;
 	}
+
 	public void setiExaminationDao(IExaminationDao iExaminationDao) {
 		this.iExaminationDao = iExaminationDao;
 	}
+
 	public void setiExamQuestionDao(IExamQuestionDao iExamQuestionDao) {
 		this.iExamQuestionDao = iExamQuestionDao;
 	}
+
 	public void setiExamSectionDao(IExamSectionDao iExamSectionDao) {
 		this.iExamSectionDao = iExamSectionDao;
 	}
-	
-	/**显示某个科目下的所有大题
+
+	/**
+	 * 显示某个科目下的所有大题
+	 * 
 	 * @param subjectId
 	 * @return
 	 */
-	public List<Examination> listExaminations(String pageNowString,int subjectId){
+	public List<Examination> listExaminations(String pageNowString,
+			int subjectId) {
 		int pageNow = 1;
 		int pageCount = iExaminationDao.getPageCountBySubject(subjectId);
 		if (pageNowString != null) {
@@ -95,48 +99,85 @@ public class ExamService {
 		collection.add(examsList);
 		return collection;
 	}
-	
-	/**通过试卷Id得到examination对象
+
+	/**
+	 * 通过试卷Id得到examination对象
+	 * 
 	 * @param examinationId
 	 * @return
 	 */
-	public Examination getExamination(int examinationId){
+	public Examination getExamination(int examinationId) {
 		return (Examination) iExaminationDao.showExam(examinationId);
 	}
-	/**通过试卷章节返回该章节下的所有题目集合
+
+	/**
+	 * 通过试卷章节返回该章节下的所有题目集合
+	 * 
 	 * @param examsection
 	 * @return
 	 */
-	public Object getQuestions(Examsection examsection){
-		List<Examquestion> examquestions=new ArrayList<Examquestion>(examsection.getExamquestions());
-		if(examsection.getQuestiontype().getTypeName().equals(DefaultValue.SINGLE_CHOICE)){
-			List<Singlechoice> singlechoiceList=new ArrayList<Singlechoice>();
-		for(int i=0;i<examquestions.size();i++){
-			int singleChoiceId=examquestions.get(i).getQuestionId();
-			singlechoiceList.add(iSingleChoiceDao.showSinglechoice(singleChoiceId));
-		}
-		return singlechoiceList;
-		}else if(examsection.getQuestiontype().getTypeName().equals(DefaultValue.MULTI_CHOICE)){
-			List<Multichoice> multichoiceList=new ArrayList<Multichoice>();
-		for(int i=0;i<examquestions.size();i++){
-			int multiChoiceId=examquestions.get(i).getQuestionId();
-			multichoiceList.add(iMultiChoiceDao.showMultichoice(multiChoiceId));
-		}
-		return multichoiceList;
-		}else if(examsection.getQuestiontype().getTypeName().equals(DefaultValue.TRUE_OR_FALSE)){
-			List<Trueorfalse> trueorfalseList=new ArrayList<Trueorfalse>();
-		for(int i=0;i<examquestions.size();i++){
-			int trueOrFalseId=examquestions.get(i).getQuestionId();
-			trueorfalseList.add(iTrueOrFalseDao.showTrueorfalse(trueOrFalseId));
-		}
-		return trueorfalseList;
-		}else if(examsection.getQuestiontype().getTypeName().equals(DefaultValue.MATERIAL_ANALYSIS)){
-			List<Materialanalysis> materialanalysisList=new ArrayList<Materialanalysis>();
-		for(int i=0;i<examquestions.size();i++){
-			int materialAnalysisId=examquestions.get(i).getQuestionId();
-			materialanalysisList.add(iMaterialAnalysisDao.showMaterialAnalysis(materialAnalysisId));
-		}
-		return materialanalysisList;
+	public Object getQuestions(Examsection examsection) {
+		List<Examquestion> examquestions = new ArrayList<Examquestion>(
+				examsection.getExamquestions());
+		if (examsection.getQuestiontype().getTypeName()
+				.equals(DefaultValue.SINGLE_CHOICE)) {
+			List<Singlechoice> singlechoiceList = new ArrayList<Singlechoice>();
+			Singlechoice singlechoice = null;
+			int count = 1;
+			for (int i = 0; i < examquestions.size(); i++) {				
+				int singleChoiceId = examquestions.get(i).getQuestionId();
+				singlechoice = iSingleChoiceDao
+						.showSinglechoice(singleChoiceId);
+				if (singlechoice != null) {
+					singlechoice.setQuestionStem((count++)+":"+singlechoice.getQuestionStem());
+					singlechoiceList.add(singlechoice);
+				}
+			}
+			return singlechoiceList;
+		} else if (examsection.getQuestiontype().getTypeName()
+				.equals(DefaultValue.MULTI_CHOICE)) {
+			List<Multichoice> multichoiceList = new ArrayList<Multichoice>();
+			Multichoice multichoice = null;
+			int count=1;
+			for (int i = 0; i < examquestions.size(); i++) {
+				int multiChoiceId = examquestions.get(i).getQuestionId();
+				multichoice = iMultiChoiceDao.showMultichoice(multiChoiceId);
+				if (multichoice != null){
+					multichoice.setQuestionStem((count++)+":"+multichoice.getQuestionStem());
+					multichoiceList.add(multichoice);
+				}
+			}
+			return multichoiceList;
+		} else if (examsection.getQuestiontype().getTypeName()
+				.equals(DefaultValue.TRUE_OR_FALSE)) {
+			List<Trueorfalse> trueorfalseList = new ArrayList<Trueorfalse>();
+			Trueorfalse trueorfalse = null;
+			int count=0;
+			for (int i = 0; i < examquestions.size(); i++) {
+				int trueOrFalseId = examquestions.get(i).getQuestionId();
+				trueorfalse = iTrueOrFalseDao.showTrueorfalse(trueOrFalseId);
+				if (trueorfalse != null){
+					trueorfalse.setQuestionStem((count++)+":"+trueorfalse.getQuestionStem());
+					trueorfalseList.add(trueorfalse);
+				}
+			}
+			return trueorfalseList;
+		} else if (examsection.getQuestiontype().getTypeName()
+				.equals(DefaultValue.MATERIAL_ANALYSIS)) {
+			List<Materialanalysis> materialanalysisList = new ArrayList<Materialanalysis>();
+			Materialanalysis materialanalysis = null;
+			int count=1;
+			for (int i = 0; i < examquestions.size(); i++) {
+				int materialAnalysisId = examquestions.get(i).getQuestionId();
+				materialanalysis = iMaterialAnalysisDao
+						.showMaterialAnalysis(materialAnalysisId);
+				if (materialanalysis != null){
+					materialanalysis.setMaterial((count++)+":"+materialanalysis.getMaterial());
+					materialanalysisList.add(materialanalysis);
+				}
+					
+			}
+			return materialanalysisList;
 		}
 		return null;
 	}

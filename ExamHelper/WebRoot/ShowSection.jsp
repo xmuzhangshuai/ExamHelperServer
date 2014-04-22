@@ -55,30 +55,7 @@
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=addSectionUI";
 		document.getElementById("fom").submit();
 	}
-	function goByPage() {
-		int
-		page = document.getElementById("page").value;
-		<%String keyword = (String) request.getAttribute("keyword");%>
-	var keyword="<%=keyword%>"
-	var nonContent="null";
 	
-	
-		if (keyword==nonContent)
-
- {
-			
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=listSubject&pageNow=${page}";
-			document.getElementById("fom").submit();
-		} else {
-			
-			document.getElementById("textfield").value=keyword;
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=searchSubjectByKeyWord&pageNow=${page}";
-			document.getElementById("fom").submit();
-			
-			
-		}
-		
-	}
 
 	function delSelected() {
 		var obj = document.fom.elements;
@@ -100,73 +77,124 @@
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=searchSubjectByKeyWord";
 		document.getElementById("fom").submit();
 	}
-	function firstPageClick() {
-	
-
-	}
-	function lastPageClick(){
-	<%String keyword2 = (String) request.getAttribute("keyword");%>
-	var keyword="<%=keyword2%>"
-	var nonContent="null";
-	
-	
-		if (keyword==nonContent)
-
- {		
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=listSubject&pageNow=${pageNow-1}";
-			document.getElementById("fom").submit();
-		} else {
-			
-			document.getElementById("textfield").value=keyword;
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=searchSubjectByKeyWord&pageNow=${pageNow-1}";
-			document.getElementById("fom").submit();
-			
-			
-		}
-	
-	}
-	function nextPageClick(){
-	<%String keyword3 = (String) request.getAttribute("keyword");%>
-	var keyword="<%=keyword3%>"
-	var nonContent="null";
-	
-	
-		if (keyword==nonContent)
-
- {
-			
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=listSubject&pageNow=${pageNow+1}";
-			document.getElementById("fom").submit();
-		} else {
-			
-			document.getElementById("textfield").value=keyword;
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=searchSubjectByKeyWord&pageNow=${pageNow+1}";
-			document.getElementById("fom").submit();
-			
-			
-		}
-	
-	}
-	function endPageClick(){
-	<%String keyword4 = (String) request.getAttribute("keyword");%>
-	var keyword="<%=keyword4%>"
-
+function goByPage(){
+		var page=document.getElementById("page").value;
+		<%String keyword = (String) request.getAttribute("keyword");%>
+	var keyword="<%=keyword%>"
 		var nonContent = "null";
 
 		if (keyword == nonContent)
 
 		{
-
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=listSubject&pageNow=${pageCount}";
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=showSection&pageNow="
+					+ page;
+				
 			document.getElementById("fom").submit();
 		} else {
 
 			document.getElementById("textfield").value = keyword;
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=searchSubjectByKeyWord&pageNow=${pageCount}";
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=searchSubjectByKeyWord&pageNow="
+			+ page+"&sectionName="+sectionName;
 			document.getElementById("fom").submit();
 
 		}
 
+	}
+	function lastPage(pageNow){
+	if(pageNow==1)
+	alert("当前页为第一页")
+	else{
+		<%String keywordLP = (String) request.getAttribute("keyword");%>
+	var keyword="<%=keywordLP%>"
+			var nonContent = "null";
+			if (keyword == nonContent)
+
+			{
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=showSection&pageNow="
+						+ (pageNow - 1) ;
+				alert(document.getElementById("fom").action);
+				document.getElementById("fom").submit();
+			} else {
+
+				document.getElementById("textfield").value = keyword;
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=searchSubjectByKeyWord&pageNow="
+			+ (pageNow - 1) + "&sectionName=" + sectionName;
+				document.getElementById("fom").submit();
+
+			}
+
+		}
+
+	}
+	function nextPage(pageNow, pageCount) {
+		pageCount=parseInt(pageCount);
+		pageNow=parseInt(pageNow);
+		
+		if (pageNow+1> pageCount)
+			alert(当前为最后一页);
+		else {
+	
+		<%String keywordNP = (String) request.getAttribute("keyword");%>
+		var keyword="<%=keywordNP%>"
+			var nonContent = "null";
+			pageNow=parseInt(pageNow)+1;
+				if (keyword == nonContent)
+
+			{
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=showSection&pageNow="
+						+ pageNow;
+				alert(document.getElementById("fom").action);
+				document.getElementById("fom").submit();
+			} else {
+
+				document.getElementById("textfield").value = keyword;
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=searchSubjectByKeyWord&pageNow="
+				+pageNow;
+				document.getElementById("fom").submit();
+			}
+		}
+	}
+	function firstPage() {
+
+		<%String keywordFP = (String) request.getAttribute("keyword");%>
+		var keyword="<%=keywordFP%>"
+			var nonContent = "null";
+			if (keyword == nonContent)
+
+			{
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=showSection&pageNow=1"
+						;
+				alert(document.getElementById("fom").action);
+				document.getElementById("fom").submit();
+			} else {
+
+				document.getElementById("textfield").value = keyword;
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=searchSubjectByKeyWord&pageNow=1"
+				+"&sectionName=" + sectionName;
+				document.getElementById("fom").submit();
+			}
+	}
+	function endPage(pageCount) {
+	
+
+		<%String keywordEP = (String) request.getAttribute("keyword");%>
+		var keyword="<%=keywordEP%>";
+
+		var nonContent = "null";
+		if (keyword == nonContent)
+
+		{
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=showSection&pageNow="
+					+ pageCount;
+			alert(document.getElementById("fom").action);
+			document.getElementById("fom").submit();
+		} else {
+
+			document.getElementById("textfield").value = keyword;
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=searchSubjectByKeyWord&pageNow="
+					+ pageCount;
+			document.getElementById("fom").submit();
+		}
 	}
 </script>
 
@@ -280,10 +308,11 @@
 														页 | 第 <span class="right-text09">${pageNow}</span> 页
 													</td>
 													<td width="49%" align="right">[<a class="right-font08"
-														onclick="firstPageClick();">首页</a> | <a
-														class="right-font08" onclick="lastPageClick();">上一页</a> |
-														<a class="right-font08" onclick="nextPageClick();">下一页</a>
-														| <a class="right-font08" onclick="endPageClick();">末页</a>]
+														onclick="firstPage();">首页</a> | <a class="right-font08"
+														onclick="lastPage('${pageNow}');">上一页</a> | <a
+														class="right-font08"
+														onclick="nextPage('${pageNow}','${pageCount}');">下一页</a> |
+														<a class="right-font08" onclick="endPage('${pageCount}');">末页</a>]
 														转至：
 													</td>
 													<td width="1%"><table width="20" border="0"
@@ -292,7 +321,7 @@
 																<td width="1%"><input id="page" name="textfield3"
 																	type="text" class="right-textfield03" size="1" /></td>
 																<td width="87%"><input name="Submit23222"
-																	type="submit" class="right-button06" value=" "
+																	type="button" class="right-button06"
 																	onclick="goByPage();" /></td>
 															</tr>
 														</table></td>
