@@ -85,11 +85,11 @@
 								<tr>
 									<td>试卷名称：</td>
 									<td><input type="text" name="examName" id="examName"
-										value="${examination.examName}" /></td>
+										value="${examination.examName}" style="width: 244px; "/></td>
 								</tr>
 								<tr align="left">
 									<td>科目名称：</td>
-									<td><select name="subjectName" id="subjectName">
+									<td><select name="subjectName" id="subjectName" style="width: 243px; ">
 											<option>${subject.subName}</option>
 											<c:forEach items="${subjects}" var="item">
 												<option>${item.subName}</option>
@@ -99,17 +99,20 @@
 								<tr>
 									<td>试卷类型：</td>
 									<td><input type="text" name="examType" id="examType"
-										value="${examination.examType}" /></td>
-								</tr>
-								<tr>
-									<td>考试要求：</td>
-									<td><textarea id="examRequest" name="examRequest">${examination.examRequest}</textarea></td>
+										value="${examination.examType}" style="width: 246px; "/></td>
 								</tr>
 								<tr>
 									<td>考试时间：</td>
 									<td><input id="examTime" name="examTime" type="text"
-										value="${examination.examTime}" /></td>
+										value="${examination.examTime}" style="width: 248px; "/></td>
 								</tr>
+								<tr>
+									<td>考试要求：</td>
+									<td style="height: 67px; width: 236px"><textarea
+											id="examRequest" name="examRequest"
+											style="width: 245px; height: 56px">${examination.examRequest}</textarea></td>
+								</tr>
+								
 							</table>
 							<br />
 						</fieldset>
@@ -126,7 +129,7 @@
 									<tr>
 										<td><img name="img1" id="img1" src="./images/ico04.gif"
 											width="8" height="11" />
-											${examSection.questionType.typeName}信息</td>
+											${examSection.questiontype.typeName}信息</td>
 									</tr>
 									<tr>
 										<td><table style="display:none;">
@@ -143,24 +146,20 @@
 												</tr>
 											</table></td>
 									</tr>
+								</c:forEach>
 							</table>
+							</fieldset>
 					</td>
 				</tr>
-				</c:forEach>
-
-			</table>
-			</fieldset>
-
-			</td>
-
-			</tr>
+				
+				
 			<tr>
 				<td><fieldset>
 						<legend>试卷内容</legend>
 						<table>
 							<tr>
 								<td>
-									<fieldset style="display:none; ">
+									<fieldset >
 										<legend>单项选择题</legend>
 										<table>
 
@@ -170,18 +169,58 @@
 														<c:forEach items="${singleChoices}" var="singleChoice">
 															<tr>
 																<td><a
-																	href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">${singleChoice.questionStem}</a>
+																	href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}" style="background-image: ./images/1.jpg">${singleChoice.questionStem}</a>
 																</td>
 															</tr>
 															<tr>
 																<td>
 																	<table>
 																		<tr>
-																			<td>A:${singleChoice.optionA}</td>
+																			<td >A:${singleChoice.optionA}</td>
 																			<td>B:${singleChoice.optionB}</td>
 																			<td>C:${singleChoice.optionC}</td>
 																			<td>D:${singleChoice.optionD}</td>
 																			<td>E:${singleChoice.optionE}</td>
+																		</tr>
+																	</table>
+																</td>
+															</tr>
+														</c:forEach>
+													</table>
+												</td>
+											</tr>
+
+										</table>
+									</fieldset>
+								</td>
+							</tr>
+							
+							
+							<tr>
+								<td>
+									<fieldset >
+										<legend>多项选择题</legend>
+										<table>
+
+											<tr>
+												<td>
+													<table>
+														<c:forEach items="${multiChoices}" var="mulitChoice">
+															<tr>
+																<td><a
+																	href="${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoice&multiChoiceId=${multiChoice.id}">${multiChoice.questionStem}</a>
+																</td>
+															</tr>
+															<tr>
+																<td>
+																	<table>
+																		<tr>
+																			<td>A:${multiChoice.optionA}</td>
+																			<td>B:${multiChoice.optionB}</td>
+																			<td>C:${multiChoice.optionC}</td>
+																			<td>D:${multiChoice.optionD}</td>
+																			<td>E:${multiChoice.optionE}</td>
+																			<td>F:${multiChoice.optionF}</td>
 																		</tr>
 																	</table>
 																</td>

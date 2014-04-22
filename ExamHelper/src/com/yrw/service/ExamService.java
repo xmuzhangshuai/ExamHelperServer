@@ -123,13 +123,13 @@ public class ExamService {
 				.equals(DefaultValue.SINGLE_CHOICE)) {
 			List<Singlechoice> singlechoiceList = new ArrayList<Singlechoice>();
 			Singlechoice singlechoice = null;
-			int count = 1;
+			
 			for (int i = 0; i < examquestions.size(); i++) {				
 				int singleChoiceId = examquestions.get(i).getQuestionId();
 				singlechoice = iSingleChoiceDao
 						.showSinglechoice(singleChoiceId);
 				if (singlechoice != null) {
-					singlechoice.setQuestionStem((count++)+":"+singlechoice.getQuestionStem());
+				
 					singlechoiceList.add(singlechoice);
 				}
 			}
@@ -138,12 +138,12 @@ public class ExamService {
 				.equals(DefaultValue.MULTI_CHOICE)) {
 			List<Multichoice> multichoiceList = new ArrayList<Multichoice>();
 			Multichoice multichoice = null;
-			int count=1;
+			
 			for (int i = 0; i < examquestions.size(); i++) {
 				int multiChoiceId = examquestions.get(i).getQuestionId();
 				multichoice = iMultiChoiceDao.showMultichoice(multiChoiceId);
 				if (multichoice != null){
-					multichoice.setQuestionStem((count++)+":"+multichoice.getQuestionStem());
+					System.out.println(multichoice.getId());
 					multichoiceList.add(multichoice);
 				}
 			}
@@ -152,12 +152,12 @@ public class ExamService {
 				.equals(DefaultValue.TRUE_OR_FALSE)) {
 			List<Trueorfalse> trueorfalseList = new ArrayList<Trueorfalse>();
 			Trueorfalse trueorfalse = null;
-			int count=0;
+			
 			for (int i = 0; i < examquestions.size(); i++) {
 				int trueOrFalseId = examquestions.get(i).getQuestionId();
 				trueorfalse = iTrueOrFalseDao.showTrueorfalse(trueOrFalseId);
 				if (trueorfalse != null){
-					trueorfalse.setQuestionStem((count++)+":"+trueorfalse.getQuestionStem());
+				
 					trueorfalseList.add(trueorfalse);
 				}
 			}
@@ -166,13 +166,13 @@ public class ExamService {
 				.equals(DefaultValue.MATERIAL_ANALYSIS)) {
 			List<Materialanalysis> materialanalysisList = new ArrayList<Materialanalysis>();
 			Materialanalysis materialanalysis = null;
-			int count=1;
+		
 			for (int i = 0; i < examquestions.size(); i++) {
 				int materialAnalysisId = examquestions.get(i).getQuestionId();
 				materialanalysis = iMaterialAnalysisDao
 						.showMaterialAnalysis(materialAnalysisId);
 				if (materialanalysis != null){
-					materialanalysis.setMaterial((count++)+":"+materialanalysis.getMaterial());
+					
 					materialanalysisList.add(materialanalysis);
 				}
 					
