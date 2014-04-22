@@ -15,6 +15,15 @@ html {
 	}
 html { overflow-x: hidden; overflow-y: auto; } 
 
+#listbg{
+	background-color: white;
+}
+
+#listbg:HOVER{
+	background-color: #C6E2FF;
+	cursor:pointer;
+}
+
 TD{
  font-size: 12px;
 }

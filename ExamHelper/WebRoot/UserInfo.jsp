@@ -141,10 +141,10 @@ function link() {
 							<td width="10%" align="center" height="30">操作</td>
 						</tr>
 						<c:forEach items="${userList}" var="user">
-							<tr bgcolor="#FFFFFF">
+							<tr id="listbg">
 								<td height="20" align="center" ><input  type="checkbox" name="delid${user.id}" /></td>
 								<td height="20" align="center" ><label>${user.id}</label></td>
-								<td height="30" align="center" ><img id ="headImage" height="40px" src="${user.avatar}" alt="" /></td>
+								<td height="30" align="center" ><img id ="headImage" height="80px" src="${user.avatar}" alt="" /></td>
 								<td height="20" ><label>${user.mail}</label></td>
 								<td height="20" ><label>${user.nickname}</label></td>
 								<td height="20" ><label>${user.realname}</label></td>
@@ -156,7 +156,7 @@ function link() {
 								<td height="20" ><label>${user.userState}</label></td>
 								<td height="20" ><a href="${pageContext.request.contextPath}/subject.do?flag=updateSubjectUI&subjectId=${subject.id}">编辑|</a>
 								    <a href="${pageContext.request.contextPath}/section.do?flag=chooseType&subjectId=${subject.id}">查看|</a>
-									<a onclick="deleteSubject('${subject.id}');" id="deleteSingleSubject${subject.id}">删除</a>
+									<a href="#" onclick="deleteSubject('${subject.id}');" id="deleteSingleSubject${subject.id}">删除</a>
 								</td>
 							</tr>
 						</c:forEach>

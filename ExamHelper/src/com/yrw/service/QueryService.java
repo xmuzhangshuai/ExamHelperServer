@@ -178,6 +178,10 @@ public class QueryService {
 
 		return collection;
 	}
+	
+	public int getQueryPageCount(){
+		return iQueryDao.getPageCount();
+	}
 
 	/**
 	 * 根据提问内容得到疑问列表
