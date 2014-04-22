@@ -292,7 +292,7 @@
 									<td width="8%"><img name="img4" id="img4"
 										src="./images/ico04.gif" width="8" height="11" /></td>
 									<td width="92%"><a href="javascript:" target="mainFrame"
-										class="left-font03" onclick="list('4');">用户留言</a></td>
+										class="left-font03" onclick="list('4');">用户管理</a></td>
 								</tr>
 							</table>
 						</td>
@@ -303,8 +303,8 @@
 					<tr>
 						<td width="9%" height="20"><img id="xiaotu15"
 							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="sendxiaoxi.htm" target="mainFrame"
-							class="left-font03" onclick="tupian('15');">用户留言列表</a></td>
+						<td width="91%"><a href="${pageContext.request.contextPath}/user.do?flag=showUserList" target="mainFrame"
+							class="left-font03" onclick="tupian('15');">用户信息查看</a></td>
 					</tr>
 				</table> <!--  用户留言系统结束    -->
 				
