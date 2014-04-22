@@ -10,6 +10,7 @@ a.top-font01:hover {
 	color: #FF0000;
 	text-decoration: underline;
 }
+
 .left-table01 {
 	border-top-width: 2px;
 	border-top-style: solid;
@@ -473,6 +474,7 @@ a.right-font08:hover {
 	border-right-width: 0px;
 	border-bottom-width: 0px;
 	border-left-width: 0px;
+	margin-left: 15px;
 }
 .login-text01 {
 	font-family: "ËÎÌו";

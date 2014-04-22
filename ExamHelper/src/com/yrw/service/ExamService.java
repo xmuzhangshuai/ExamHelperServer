@@ -39,6 +39,10 @@ public class ExamService {
 	
 	
 
+	public void setiQuestionsOfMaterial(IQuestionsOfMaterial iQuestionsOfMaterial) {
+		this.iQuestionsOfMaterial = iQuestionsOfMaterial;
+	}
+
 	public void setiSingleChoiceDao(ISingleChoiceDao iSingleChoiceDao) {
 		this.iSingleChoiceDao = iSingleChoiceDao;
 	}
