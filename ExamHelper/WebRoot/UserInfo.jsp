@@ -44,8 +44,27 @@ function selectOrUnSelect(){
     }
 }
 
+function firstPage(){
+	alert("首页");
+}
+
+function lastPage(pageNow){
+	arg = pageNow;
+	if(arg == 0)
+		alert("已经是首页！");
+}
+
+function nextPage(pageNow,pageCount){
+	if(pageNow>pageCount)
+		alert("已经是最后一页！");
+}
+
+function endPage(){
+	alert("末页");
+}
+
 function link() {
-	document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=addSubjectUI";
+	document.getElementById("fom").action = "${pageContext.request.contextPath}/user.do?flag=addSubjectUI";
 	document.getElementById("fom").submit();
 }
 </script>
@@ -123,18 +142,18 @@ function link() {
 						</tr>
 						<c:forEach items="${userList}" var="user">
 							<tr bgcolor="#FFFFFF">
-								<td height="20" align="center" ><input  type="checkbox" name="delid${subject.id}" /></td>
-								<td height="20" align="center" ><label>1234</label></td>
-								<td height="30" align="center" ><img id ="headImage" height="40px" src="./UserImages/1397802180624.png" alt="" /></td>
+								<td height="20" align="center" ><input  type="checkbox" name="delid${user.id}" /></td>
+								<td height="20" align="center" ><label>${user.id}</label></td>
+								<td height="30" align="center" ><img id ="headImage" height="40px" src="${user.avatar}" alt="" /></td>
 								<td height="20" ><label>${user.mail}</label></td>
-								<td height="20" ><label>1234</label></td>
-								<td height="20" ><label>1234</label></td>
-								<td height="20" ><label>1234</label></td>
-								<td height="20" ><label>1234</label></td>
-								<td height="20" ><label>1234</label></td>
-								<td height="20" ><label>1234</label></td>
-								<td height="20" ><label>1234</label></td>
-								<td height="20" ><label>1234</label></td>
+								<td height="20" ><label>${user.nickname}</label></td>
+								<td height="20" ><label>${user.realname}</label></td>
+								<td height="20" align="center" ><label>${user.age}</label></td>
+								<td height="20" ><label>${user.phone}</label></td>
+								<td height="20" ><label>${user.profession}</label></td>
+								<td height="20" ><label>${user.area}</label></td>
+								<td height="20" align="center" ><label>${user.integral}</label></td>
+								<td height="20" ><label>${user.userState}</label></td>
 								<td height="20" ><a href="${pageContext.request.contextPath}/subject.do?flag=updateSubjectUI&subjectId=${subject.id}">编辑|</a>
 								    <a href="${pageContext.request.contextPath}/section.do?flag=chooseType&subjectId=${subject.id}">查看|</a>
 									<a onclick="deleteSubject('${subject.id}');" id="deleteSingleSubject${subject.id}">删除</a>
@@ -155,13 +174,15 @@ function link() {
 					<td height="33">
 						<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="right-font08">
 							<tr>
-								<td width="50%">共 <span class="right-text09">${pageCount}</span>
-									页 | 第 <span class="right-text09">${pageNow}</span> 页
+								<td width="50%">共 <span class="right-text09" id="pageCount">${pageCount}</span>
+									页 | 第 <span class="right-text09" id="pageNowId">${pageNow}</span> 页
 								</td>
-								<td width="49%" align="right">[<a class="right-font08" onclick="firstPageClick();">首页</a> | 
-															   <a class="right-font08" onclick="lastPageClick();">上一页</a> |
-														       <a class="right-font08" onclick="nextPageClick();">下一页</a>| 
-														       <a class="right-font08" onclick="endPageClick();">末页</a>] 转至：
+								<td width="49%" align="right">[<a href="${pageContext.request.contextPath}/user.do?flag=showUserList&pageNow=1" class="right-font08">首页</a> | 
+															   <a href="${pageContext.request.contextPath}/user.do?flag=showUserList&pageNow=${pageNow-1}" 
+															      onclick="lastPage(${pageNow-1});"  class="right-font08">上一页</a> |
+														       <a href="${pageContext.request.contextPath}/user.do?flag=showUserList&pageNow=${pageNow+1}" 
+														          onclick="nextPage(${pageNow+1},${pageCount});" class="right-font08">下一页</a>| 
+														       <a href="${pageContext.request.contextPath}/user.do?flag=showUserList&pageNow=${pageCount}" class="right-font08">末页</a>] 转至：
 								</td>
 								<td width="1%">
 									<table width="20" border="0" cellspacing="0" cellpadding="0">

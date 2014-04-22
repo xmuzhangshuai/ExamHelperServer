@@ -47,4 +47,18 @@ public class UserDao extends BasicDao implements IUserDao {
 		return this.executeQuery(hql, null);
 	}
 
+	@Override
+	public int getPageCountOfUser() {
+		// TODO Auto-generated method stub
+		String hql = "select count(*) from User";
+		return this.queryPageCount(hql, null);
+	}
+
+	@Override
+	public List<User> getUserListByPage(int pageNow) {
+		// TODO Auto-generated method stub
+		String hql = "from User order by id desc";
+		return this.executeQueryByPage(hql, null, pageNow);
+	}
+
 }
