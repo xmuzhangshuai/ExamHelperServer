@@ -36,11 +36,12 @@
   <StrutsActivity path="/AddMaterialAnalysis.jsp" location="1250,1850" dimension="175,53" />
   <StrutsActivity path="/ShowMaterialAnalysis.jsp" location="1250,1350" dimension="182,53" />
   <StrutsActivity path="/AddQuestionOfMaterial.jsp" location="2150,1350" dimension="195,53" />
-  <StrutsActivity path="/ShowExam.jsp" location="650,1950" dimension="119,53" />
+  <StrutsActivity path="/ShowExamination.jsp" location="2150,1950" dimension="158,53" />
   <StrutsActivity path="/ShowExamList.jsp" location="1550,1250" dimension="138,53" />
   <StrutsActivity path="/UserInfo.jsp" location="1850,1950" dimension="107,53" />
   <StrutsActivity path="/Success.jsp" location="650,1550" dimension="102,53" />
   <StrutsActivity path="/Fail.jsp" location="60,1050" dimension="150,100" />
+  <StrutsActivity path="/ShowExam.jsp" location="650,1950" dimension="119,53" />
   <StrutsActivity path="/AddQuestionOfMaterialAnalysis.jsp" location="350,1950" dimension="241,53" />
   <StrutsActivity path="/EditQuestionOfMaterialAnalysis.jsp" location="2150,450" dimension="239,53" />
   <StrutsActivity path="/UpdateSubject.jsp" location="50,250" dimension="142,53" />
@@ -70,7 +71,14 @@
   <StrutsActivity path="./Success.jsp" location="650,1150" dimension="105,53" />
   <StrutsActivity path="./Fail.jsp" location="950,1150" dimension="79,53" />
   <StrutsActivity path="/EditQuestionOfMaterial.jsp" location="2150,1150" dimension="193,53" />
-  <StrutsActivity path="/ShowExamination.jsp" />
+  <StrutsActivity path="/query.do" location="1250,2050" dimension="235,104" />
+  <StrutsActivity path="/QuerySquare.jsp" />
+  <StrutsTransition id="/query.do,querySquare,/QuerySquare.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="1367,2102" />
+      <AbsolutePoint location="0,0" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
   <StrutsTransition id="/question.do,showMaterialAnalysisList,/ShowMaterialAnalysisList.jsp,1" routingType="0">
     <AutomaticBendpoints>
       <AbsolutePoint location="601,52" />
@@ -89,13 +97,6 @@
       <AbsolutePoint location="-225,686" />
       <AbsolutePoint location="-225,1976" />
       <AbsolutePoint location="50,1976" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/examination.do,showExamination,/ShowExam.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="2150,1818" />
-      <AbsolutePoint location="709,1818" />
-      <AbsolutePoint location="709,1950" />
     </AutomaticBendpoints>
   </StrutsTransition>
   <StrutsTransition id="fail;6,null,/Fail.jsp,1" routingType="0">
@@ -257,9 +258,9 @@
   <StrutsTransition id="/subject.do,updateSubject,/EditSubject.jsp,1" routingType="0">
     <AutomaticBendpoints>
       <AbsolutePoint location="109,656" />
-      <AbsolutePoint location="-60,656" />
-      <AbsolutePoint location="-60,2078" />
-      <AbsolutePoint location="1610,2078" />
+      <AbsolutePoint location="-105,656" />
+      <AbsolutePoint location="-105,2229" />
+      <AbsolutePoint location="1610,2229" />
       <AbsolutePoint location="1610,1903" />
     </AutomaticBendpoints>
   </StrutsTransition>
@@ -285,16 +286,16 @@
       <AbsolutePoint location="1850,1376" />
     </AutomaticBendpoints>
   </StrutsTransition>
-  <StrutsTransition id="/examination.do,showExamination,/ShowExamination.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="2285,1802" />
-      <AbsolutePoint location="0,0" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
   <StrutsTransition id="/user.do,userInfo,/UserInfo.jsp,1" routingType="0">
     <AutomaticBendpoints>
       <AbsolutePoint location="1177,1976" />
       <AbsolutePoint location="1850,1976" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/examination.do,showExamination,/ShowExamination.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="2285,1802" />
+      <AbsolutePoint location="0,0" />
     </AutomaticBendpoints>
   </StrutsTransition>
   <StrutsTransition id="/materialAnalysis.do,editMaterialAnalysis,/EditMaterialAnalysis.jsp,1" routingType="0">
