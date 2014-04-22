@@ -117,88 +117,94 @@
 
 				</TR>
 				<tr>
-				<td></td>
-				</tr>
-				<tr>
-					<td><fieldset>
-							<legend>试卷内容</legend>
+					<td>
+						<fieldset>
+							<legend>小题信息</legend>
 							<table>
-								<tr>
-									<td><c:forEach items="${examSections}" var="examSection">
-											<fieldset>
-												<legend>单项选择题</legend>
-												<table>
-													<tr>
-														<td>
-															<table style="display: none;">
-																<tr>
-																	<td><img name="img1" id="img1"
-																		src="./images/ico04.gif" width="8" height="11" />小题信息
-																	</td>
-																</tr>
-																<tr>
-																	<td>
-																		<table>
-																			<tr>
-																				<td>题目要求：</td>
-																				<td><input type="text"
-																					value="${examSection.request}"
-																					id="request${examSection.questiontype.id}" /></td>
-																			</tr>
-																			<tr>
-																				<td>题目分值：</td>
-																				<td><input type="text"
-																					value="${examSection.questionScore}"
-																					id="score${examSection.questiontype.id}" /></td>
-																			</tr>
-																		</table>
-																	</td>
-																</tr>
-															</table>
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<table>
-																<c:forEach items="${singleChoices}" var="singleChoice">
-																	<tr>
-																		<td><a
-																			href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">${singleChoice.questionStem}</a>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td>
-																			<table>
-																				<tr>
-																					<td>A:${singleChoice.optionA}</td>
-																					<td>B:${singleChoice.optionB}</td>
-																					<td>C:${singleChoice.optionC}</td>
-																					<td>D:${singleChoice.optionD}</td>
-																					<td>E:${singleChoice.optionE}</td>
-																				</tr>
-																			</table>
-																		</td>
-																	</tr>
-																</c:forEach>
-															</table>
-														</td>
-													</tr>
+								<c:forEach items="${examSections}" var="examSection">
 
-												</table>
-											</fieldset>
-										</c:forEach></td>
-								</tr>
+									<tr>
+										<td><img name="img1" id="img1" src="./images/ico04.gif"
+											width="8" height="11" />
+											${examSection.questionType.typeName}信息</td>
+									</tr>
+									<tr>
+										<td><table style="display:none;">
+												<tr>
+													<td>题目要求：</td>
+													<td><input type="text" value="${examSection.request}"
+														id="request${examSection.questiontype.id}" /></td>
+												</tr>
+												<tr>
+													<td>题目分值：</td>
+													<td><input type="text"
+														value="${examSection.questionScore}"
+														id="score${examSection.questiontype.id}" /></td>
+												</tr>
+											</table></td>
+									</tr>
 							</table>
-						</fieldset></td>
+					</td>
 				</tr>
+				</c:forEach>
 
-				<TR>
-					<TD colspan="2" align="center" height="50px"><input
-						type="button" value="编辑" class="button" style="width: 83px; "
-						onclick="edit();" /> <input type="button" value="保存"
-						type="submit" style="width: 77px;" onclick="save();"
-						class="button" /></TD>
-				</TR>
+			</table>
+			</fieldset>
+
+			</td>
+
+			</tr>
+			<tr>
+				<td><fieldset>
+						<legend>试卷内容</legend>
+						<table>
+							<tr>
+								<td>
+									<fieldset style="display:none; ">
+										<legend>单项选择题</legend>
+										<table>
+
+											<tr>
+												<td>
+													<table>
+														<c:forEach items="${singleChoices}" var="singleChoice">
+															<tr>
+																<td><a
+																	href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">${singleChoice.questionStem}</a>
+																</td>
+															</tr>
+															<tr>
+																<td>
+																	<table>
+																		<tr>
+																			<td>A:${singleChoice.optionA}</td>
+																			<td>B:${singleChoice.optionB}</td>
+																			<td>C:${singleChoice.optionC}</td>
+																			<td>D:${singleChoice.optionD}</td>
+																			<td>E:${singleChoice.optionE}</td>
+																		</tr>
+																	</table>
+																</td>
+															</tr>
+														</c:forEach>
+													</table>
+												</td>
+											</tr>
+
+										</table>
+									</fieldset>
+								</td>
+							</tr>
+						</table>
+					</fieldset></td>
+			</tr>
+
+			<TR>
+				<TD colspan="2" align="center" height="50px"><input
+					type="button" value="编辑" class="button" style="width: 83px; "
+					onclick="edit();" /> <input type="button" value="保存" type="submit"
+					style="width: 77px;" onclick="save();" class="button" /></TD>
+			</TR>
 			</TABLE>
 
 		</div>
