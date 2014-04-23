@@ -116,7 +116,6 @@
 		{
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&pageNow="
 					+ page+"&sectionName="+sectionName;
-				
 			document.getElementById("fom").submit();
 		} else {
 
@@ -141,7 +140,6 @@
 			{
 				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&pageNow="
 						+ (pageNow - 1) + "&sectionName=" + sectionName;
-				alert(document.getElementById("fom").action);
 				document.getElementById("fom").submit();
 			} else {
 
@@ -172,7 +170,6 @@
 			{
 				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&pageNow="
 						+ pageNow + "&sectionName=" + sectionName;
-				alert(document.getElementById("fom").action);
 				document.getElementById("fom").submit();
 			} else {
 
@@ -193,7 +190,6 @@
 			{
 				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&pageNow=1"
 						 + "&sectionName=" + sectionName;
-				alert(document.getElementById("fom").action);
 				document.getElementById("fom").submit();
 			} else {
 
@@ -215,7 +211,6 @@
 		{
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&pageNow="
 					+ pageCount + "&sectionName=" + sectionName;
-			alert(document.getElementById("fom").action);
 			document.getElementById("fom").submit();
 		} else {
 
@@ -237,16 +232,16 @@
 				<td height="30">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
 						<tr>
-							<td height="62" style="background-image:url('./images/nav04.gif');">
+							<td height="62" style="background-image:url('./images/nav04.gif'); width: 614px">
 
 								<table width="98%" border="0" align="center" cellpadding="0"
 									cellspacing="0">
 									<tr>
-										<td align="left">
-											<table style="height: 126px; width: 439px; ">
+										<td align="left" style="width: 163px; ">
+											<table style="width: 277px; ">
 												<tr>
-													<td width="538" style="width: 154px; height: 48px">题型选择：
-														<select id="chooseQT" onchange="chooseQuestionType();">
+													
+														<td width="538" style="width: 154px; height: 48px">题型选择：<select id="chooseQT" onchange="chooseQuestionType();">
 															<option selected="selected">${questionType.typeName}</option>
 															<c:forEach items="${questionTypes}" var="type">
 																<option>${type.typeName}</option>

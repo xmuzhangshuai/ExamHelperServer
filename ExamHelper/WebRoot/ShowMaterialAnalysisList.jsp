@@ -235,8 +235,8 @@
 								<table width="98%" border="0" align="center" cellpadding="0"
 									cellspacing="0">
 									<tr>
-										<td align="left">
-											<table style="height: 126px; width: 439px; ">
+										<td align="left" style="width: 163px; ">
+											<table style="width: 277px; ">
 												<tr>
 													<td width="538" style="width: 154px; height: 48px">题型选择：
 														<select id="chooseQT" onchange="chooseQuestionType();">
