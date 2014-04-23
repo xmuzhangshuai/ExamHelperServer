@@ -30,6 +30,11 @@ public interface IExamSectionDao extends IBasicDao {
 	 */
 	public List getPageCount(int examId);
 
+	/**得到examSection对象
+	 * @param examSectioId
+	 * @return
+	 */
+	public Examsection showExamsection(int examSectioId);
 	/**
 	 * Method addExamSection 增加试卷大题
 	 * 

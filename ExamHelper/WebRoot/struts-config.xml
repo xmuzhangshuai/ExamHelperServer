@@ -10,6 +10,7 @@
 		<form-bean name="multiChoiceForm" type="com.yrw.web.forms.MultiChoiceForm" />
     <form-bean name="trueOrFalseForm" type="com.yrw.web.forms.TrueOrFalseForm" />
     <form-bean name="materialAnalysisForm" type="com.yrw.web.forms.MaterialAnalysisForm" />
+    <form-bean name="examinationForm" type="com.yrw.web.forms.ExaminationForm" />
   
 		
 
@@ -101,6 +102,8 @@
     
     </action>
     <action
+    attribute="examinationForm"
+    name="examinationForm"
       parameter="flag"
       path="/examination"
       type="com.yrw.web.actions.ExaminationAction"

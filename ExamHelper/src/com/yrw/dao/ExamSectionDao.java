@@ -37,4 +37,10 @@ public class ExamSectionDao extends BasicDao implements IExamSectionDao {
 
 	}
 
+	@Override
+	public Examsection showExamsection(int examSectioId) {
+		// TODO Auto-generated method stub
+		return (Examsection)this.findById(Examsection.class, examSectioId);
+	}
+
 }

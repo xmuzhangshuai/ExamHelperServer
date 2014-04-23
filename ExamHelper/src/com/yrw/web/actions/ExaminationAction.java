@@ -27,6 +27,7 @@ import com.yrw.domains.Subject;
 import com.yrw.domains.Trueorfalse;
 import com.yrw.service.ExamService;
 import com.yrw.service.SubjectService;
+import com.yrw.web.forms.ExaminationForm;
 
 /**
  * MyEclipse Struts Creation date: 04-21-2014
@@ -153,13 +154,17 @@ public class ExaminationAction extends DispatchAction {
 		// 获取jsp页面上的数据
 		int examinationId = Integer.parseInt(request
 				.getParameter("examinationId"));
-		String examName = request.getParameter("examName");
-		String subjectName = request.getParameter("subjectName");
-		String examType = request.getParameter("examType");
-		String examTime = request.getParameter("examTime");
-		String examRequest = request.getParameter("examRequest");
+		ExaminationForm examinationForm = (ExaminationForm) form;
+
+		String examName = examinationForm.getExamName();
+		String subjectName = examinationForm.getSubjectName();
+		String examType = examinationForm.getExamType();
+		String examTime = examinationForm.getExamTime();
+		String examRequest = examinationForm.getExamRequest();
+
 		// 获取examination对象
 		Examination examination = examService.getExamination(examinationId);
+		// 更新examination对象属性
 		if (examName != null)
 			examination.setExamName(examName);
 		if (subjectName != null)
@@ -171,6 +176,37 @@ public class ExaminationAction extends DispatchAction {
 			examination.setExamTime(Integer.parseInt(examTime));
 		if (examRequest != null)
 			examination.setExamRequest(examRequest);
-		return mapping.findForward("showExamination");
+
+		return showExamination(mapping, form, request, response);
+	}
+
+	/**
+	 * 修改试卷章节信息
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward editExamSectionInfor(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		// 获得examinationSection的Id
+		int examSectionId = Integer.parseInt(request
+				.getParameter("examSectionId"));
+		Examsection examsection = examService.getExamsection(examSectionId);
+		// 获得examSection下的题目要求与分数
+		String examSectionRequest = request.getParameter("request"
+				+ examSectionId);
+		String examSectionScore = request.getParameter("score" + examSectionId);
+		System.out.println("ExamSectionRequest "+examSectionRequest);
+		System.out.println("ExamSectionScore "+examSectionScore);
+		// 更新examSection对象
+		if (examSectionRequest != null)
+			examsection.setRequest(examSectionRequest);
+		if (examSectionScore != null)
+			examsection.setQuestionScore(Integer.parseInt(examSectionScore));
+		return showExamination(mapping, form, request, response);
 	}
 }
