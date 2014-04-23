@@ -166,6 +166,23 @@ public class MaterialAnalysisAction extends DispatchAction {
 			return mapping.findForward("showMaterialAnalysis");
 	}
 
+	
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward showQuestionOfMaterial(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		int questionOfMaterialId=Integer.parseInt(request.getParameter("questionOfMaterialId"));
+		Questionsofmaterial questionsofmaterial=(Questionsofmaterial) questionService.getQuestion(questionOfMaterialId, DefaultValue.QUESTION_OF_MATERIAL);
+		request.setAttribute("questionOfMaterial", questionsofmaterial);
+		return mapping.findForward("showQuestionOfMaterial");
+	}
+	
 	/**
 	 * 添加材料分析题小题的页面跳转
 	 * 

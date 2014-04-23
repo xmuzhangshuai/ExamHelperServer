@@ -97,8 +97,9 @@ public class ExaminationAction extends DispatchAction {
 		Examination examination = examService.getExamination(examinationId);
 		// 设置examination在jsp上的对象
 		request.setAttribute("examination", examination);
-		//设置examination中科目的下拉框
-		List<Subject> subjectList = subjectService.getSubjectList(examination.getSubject().getId());
+		// 设置examination中科目的下拉框
+		List<Subject> subjectList = subjectService.getSubjectList(examination
+				.getSubject().getId());
 		if (subjectList != null) {
 			request.setAttribute("subject", subjectList.get(0));
 			subjectList.remove(0);
@@ -109,7 +110,7 @@ public class ExaminationAction extends DispatchAction {
 		List<Examsection> examsections = new ArrayList<Examsection>(
 				examination.getExamsections());
 		request.setAttribute("examSections", examsections);
-	//设置每个题型下的具体题目
+		// 设置每个题型下的具体题目
 		Questiontype questiontype = null;
 		for (int i = 0; i < examsections.size(); i++) {
 			questiontype = examsections.get(i).getQuestiontype();
@@ -117,20 +118,59 @@ public class ExaminationAction extends DispatchAction {
 				List<Singlechoice> singlechoices = (List<Singlechoice>) examService
 						.getQuestions(examsections.get(i));
 				request.setAttribute("singleChoices", singlechoices);
-			}else if (questiontype.getTypeName().equals(DefaultValue.MULTI_CHOICE)) {
+			} else if (questiontype.getTypeName().equals(
+					DefaultValue.MULTI_CHOICE)) {
 				List<Multichoice> multichoices = (List<Multichoice>) examService
 						.getQuestions(examsections.get(i));
 				request.setAttribute("multiChoices", multichoices);
-			}else if (questiontype.getTypeName().equals(DefaultValue.TRUE_OR_FALSE)) {
+			} else if (questiontype.getTypeName().equals(
+					DefaultValue.TRUE_OR_FALSE)) {
 				List<Trueorfalse> trueorfalses = (List<Trueorfalse>) examService
 						.getQuestions(examsections.get(i));
 				request.setAttribute("trueOrFalses", trueorfalses);
-			}else if (questiontype.getTypeName().equals(DefaultValue.MATERIAL_ANALYSIS)) {
+			} else if (questiontype.getTypeName().equals(
+					DefaultValue.MATERIAL_ANALYSIS)) {
 				List<Materialanalysis> materialanalysis = (List<Materialanalysis>) examService
 						.getQuestions(examsections.get(i));
 				request.setAttribute("materialAnalysises", materialanalysis);
 			}
 		}
+		return mapping.findForward("showExamination");
+	}
+
+	/**
+	 * 修改试卷信息
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward editExaminationInfor(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		// 获取jsp页面上的数据
+		int examinationId = Integer.parseInt(request
+				.getParameter("examinationId"));
+		String examName = request.getParameter("examName");
+		String subjectName = request.getParameter("subjectName");
+		String examType = request.getParameter("examType");
+		String examTime = request.getParameter("examTime");
+		String examRequest = request.getParameter("examRequest");
+		// 获取examination对象
+		Examination examination = examService.getExamination(examinationId);
+		if (examName != null)
+			examination.setExamName(examName);
+		if (subjectName != null)
+			examination
+					.setSubject(subjectService.getSubjectByName(subjectName));
+		if (examType != null)
+			examination.setExamType(examType);
+		if (examTime != null)
+			examination.setExamTime(Integer.parseInt(examTime));
+		if (examRequest != null)
+			examination.setExamRequest(examRequest);
 		return mapping.findForward("showExamination");
 	}
 }

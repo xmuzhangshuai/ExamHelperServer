@@ -97,6 +97,7 @@
       <forward name="showMaterialAnalysis" path="/ShowMaterialAnalysis.jsp" />
      
       <forward name="addQuestionOfMaterial" path="/AddQuestionOfMaterial.jsp"/>
+      <forward name="showQuestionOfMaterial" path="/ShowQuestionOfMaterial.jsp"/>
     
     </action>
     <action
