@@ -31,7 +31,6 @@ body {
 
 		for (var i = 1; i < 30; i++) {
 
-			var nametu2 = "xiaotu" + i;
 			if (i != idt * 1) {
 				var tp2 = document.getElementById('xiaotu' + i);
 				if (tp2 != undefined) {
