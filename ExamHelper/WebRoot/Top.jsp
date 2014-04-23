@@ -12,7 +12,16 @@
 <head>
 
 <title>Top</title>
-
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style>
 <link href="./css/css.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -25,8 +34,7 @@
 						<td width="1%"><a target="_blank"> <img
 								src="./images/logo.gif" width="557" height="59" border="0" />
 						</a></td>
-						<td width="64%" align="right"
-							style="font-size:12px;vertical-align:bottom;">&copy; 2014</td>
+						
 					</tr>
 				</table>
 			</td>
