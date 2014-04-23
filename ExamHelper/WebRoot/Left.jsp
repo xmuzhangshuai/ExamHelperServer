@@ -72,7 +72,7 @@ body {
 </head>
 
 <body>
-	<table style="width: 198;border: 0;" cellpadding="0" cellspacing="0" class="left-table01">
+	<table width="198" border="0" cellpadding="0" cellspacing="0" class="left-table01">
 		<tr>
 			<td>
 				<table width="100%" border="0" cellpadding="0" cellspacing="0">

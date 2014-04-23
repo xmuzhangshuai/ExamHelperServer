@@ -30,7 +30,7 @@
 			cancellable="true">
 			<forward name="goLoginUI" path="/Login.jsp" />
 			<forward name="loginSuccess" path="/Lead.jsp" />
-			<forward name="loadLeft" path="/MyLeft.jsp" />
+			<forward name="loadLeft" path="/Left.jsp" />
 		</action>
 
 		<action attribute="subjectForm" name="subjectForm" parameter="flag"
