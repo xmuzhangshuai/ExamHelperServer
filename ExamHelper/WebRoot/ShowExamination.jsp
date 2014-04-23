@@ -29,19 +29,21 @@
 						"",
 						"depended=0,alwaysRaised=1,width=800,height=400,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
 	}
+	function back() {
 
-	function check() {
-		document.getElementById("aa").style.display = "";
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showExamList";
+		document.getElementById("fom").submit();
 	}
 	function editExamInfor() {
-		document.getElementById("examName").readOnly=false;
-		document.getElementById("subjectName").disabled=false;
-		document.getElementById("examType").readOnly=false;
-		document.getElementById("examTime").readOnly=false;
-		document.getElementById("examRequest").readOnly=false;
+		document.getElementById("examName").readOnly = false;
+		document.getElementById("subjectName").disabled = false;
+		document.getElementById("examType").readOnly = false;
+		document.getElementById("examTime").readOnly = false;
+		document.getElementById("examRequest").readOnly = false;
 	}
 	function saveExamInfor(examId) {
-	document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=editExaminationInfor&examinationId="+examId;
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=editExaminationInfor&examinationId="
+				+ examId;
 
 		document.getElementById("fom").submit();
 	}
@@ -59,12 +61,17 @@
 		}
 
 	}
-	function back() {
-
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showExamList";
+	function editSectionInfor(sectionId) {
+		document.getElementById("request" + sectionId).readOnly = false;
+		document.getElementById("score" + sectionId).readOnly = false;
+	}
+	function saveSectionInfor(sectionId, examinationId) {
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=editExamSectionInfor&examSectionId="
+				+ sectionId + "&examinationId=" + examinationId;
 
 		document.getElementById("fom").submit();
 	}
+	
 </script>
 </head>
 
@@ -89,11 +96,12 @@
 					<TD width="100%">
 						<fieldset style="height:100%;">
 							<legend>试卷信息</legend>
-							<table >
+							<table>
 								<tr>
 									<td>试卷名称：</td>
-									<td><input type="text" name="examName" id="examName" readonly="readonly"
-										value="${examination.examName}" style="width: 244px; " /></td>
+									<td><input type="text" name="examName" id="examName"
+										readonly="readonly" value="${examination.examName}"
+										style="width: 244px; " /></td>
 								</tr>
 								<tr align="left">
 									<td>科目名称：</td>
@@ -108,12 +116,14 @@
 								<tr>
 									<td>试卷类型：</td>
 									<td><input type="text" name="examType" id="examType"
-										value="${examination.examType}" style="width: 246px; " readonly="readonly"/></td>
+										value="${examination.examType}" style="width: 246px; "
+										readonly="readonly" /></td>
 								</tr>
 								<tr>
 									<td>考试时间：</td>
-									<td><input id="examTime" name="examTime" type="text" readonly="readonly"
-										value="${examination.examTime}" style="width: 248px; " /></td>
+									<td><input id="examTime" name="examTime" type="text"
+										readonly="readonly" value="${examination.examTime}"
+										style="width: 248px; " /></td>
 								</tr>
 								<tr>
 									<td>考试要求：</td>
@@ -126,8 +136,8 @@
 									<TD colspan="2" align="center" height="50px"><input
 										type="button" value="编辑" class="button" style="width: 83px; "
 										onclick="editExamInfor();" /> <input type="button" value="保存"
-										type="submit" style="width: 77px;" onclick="saveExamInfor('${examination.id}');"
-										class="button" /></TD>
+										type="submit" style="width: 77px;"
+										onclick="saveExamInfor('${examination.id}');" class="button" /></TD>
 								</TR>
 							</table>
 							<br />
@@ -151,9 +161,10 @@
 										<td><table id="table${examSection.id}"
 												style="display:none;">
 												<tr>
-													<td >题目要求：</td>
+													<td>题目要求：</td>
 													<td><textarea rows="" cols=""
-															id="request${examSection.questiontype.id}"
+															id="request${examSection.id}"
+															name="request${examSection.id}"
 															style="width: 299px; height: 65px" readonly="readonly">${examSection.request}</textarea>
 
 													</td>
@@ -163,14 +174,19 @@
 													<td>题目分值：</td>
 													<td><input type="text"
 														value="${examSection.questionScore}"
-														id="score${examSection.questiontype.id}" readonly="readonly"/></td>
+														name="score${examSection.id}" id="score${examSection.id}"
+														readonly="readonly" /></td>
 												</tr>
 												<tr>
 													<TD colspan="2" align="center" height="50px"><input
 														type="button" value="编辑" class="button"
-														style="width: 83px; " onclick="edit();" /> <input
-														type="button" value="保存" type="submit"
-														style="width: 77px;" onclick="save();" class="button" /></TD>
+														style="width: 83px; "
+														onclick="editSectionInfor('${examSection.id}');" /> <input
+														type="button" value="保存"
+														"
+														style="width: 77px;"
+														onclick="saveSectionInfor('${examSection.id}','${examination.id}');"
+														class="button" /></TD>
 												</tr>
 											</table></td>
 									</tr>
@@ -190,7 +206,9 @@
 										<fieldset>
 											<legend>单项选择题</legend>
 											<table>
-
+												<tr>
+													<td><input type="button" class="button" value="添加单选选择题" onclick="addSingleChoice();"/></td>
+												</tr>
 												<tr>
 													<td>
 														<table>

@@ -110,6 +110,9 @@ public class ExamService {
 		return (Examination) iExaminationDao.showExam(examinationId);
 	}
 
+	public Examsection getExamsection(int examSectionId){
+		return (Examsection)iExamSectionDao.showExamsection(examSectionId);
+	}
 	/**
 	 * 通过试卷章节返回该章节下的所有题目集合
 	 * 
@@ -179,10 +182,5 @@ public class ExamService {
 		}
 		return null;
 	}
-	/**更新examination对象
-	 * @param examination
-	 */
-	public void updateExamination(Examination examination){
-		iExaminationDao.update(examination);
-	}
+
 }
