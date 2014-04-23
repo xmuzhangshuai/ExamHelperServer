@@ -10,6 +10,7 @@
   <StrutsActivity path="/materialAnalysis.do" location="50,1750" dimension="294,104" />
   <StrutsActivity path="/examination.do" location="2150,1750" dimension="270,104" />
   <StrutsActivity path="/user.do" location="950,1950" dimension="227,104" />
+  <StrutsActivity path="/query.do" location="1250,2050" dimension="235,104" />
   <StrutsActivity path="success;6" location="506,604" dimension="170,87" />
   <StrutsActivity path="fail;6" location="0,906" dimension="144,87" />
   <StrutsActivity path="/Login.jsp" location="15,1185" dimension="150,100" />
@@ -39,6 +40,7 @@
   <StrutsActivity path="/ShowExamination.jsp" location="2150,1950" dimension="158,53" />
   <StrutsActivity path="/ShowExamList.jsp" location="1550,1250" dimension="138,53" />
   <StrutsActivity path="/UserInfo.jsp" location="1850,1950" dimension="107,53" />
+  <StrutsActivity path="/QuerySquare.jsp" location="1550,2050" dimension="133,53" />
   <StrutsActivity path="/Success.jsp" location="650,1550" dimension="102,53" />
   <StrutsActivity path="/Fail.jsp" location="60,1050" dimension="150,100" />
   <StrutsActivity path="/ShowExam.jsp" location="650,1950" dimension="119,53" />
@@ -71,8 +73,7 @@
   <StrutsActivity path="./Success.jsp" location="650,1150" dimension="105,53" />
   <StrutsActivity path="./Fail.jsp" location="950,1150" dimension="79,53" />
   <StrutsActivity path="/EditQuestionOfMaterial.jsp" location="2150,1150" dimension="193,53" />
-  <StrutsActivity path="/query.do" location="1250,2050" dimension="235,104" />
-  <StrutsActivity path="/QuerySquare.jsp" />
+  <StrutsActivity path="/ShowQuestionOfMaterial.jsp" location="50,2150" dimension="202,53" />
   <StrutsTransition id="/query.do,querySquare,/QuerySquare.jsp,1" routingType="0">
     <AutomaticBendpoints>
       <AbsolutePoint location="1367,2102" />
@@ -124,6 +125,12 @@
       <AbsolutePoint location="1850,988" />
       <AbsolutePoint location="1707,988" />
       <AbsolutePoint location="1707,1450" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/materialAnalysis.do,showQuestionOfMaterial,/ShowQuestionOfMaterial.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="197,1854" />
+      <AbsolutePoint location="197,2150" />
     </AutomaticBendpoints>
   </StrutsTransition>
   <StrutsTransition id="/question.do,showSingleChoiceList,/ShowSingleChoiceList.jsp,1" routingType="0">

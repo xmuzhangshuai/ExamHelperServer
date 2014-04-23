@@ -143,7 +143,6 @@ public class ExamService {
 				int multiChoiceId = examquestions.get(i).getQuestionId();
 				multichoice = iMultiChoiceDao.showMultichoice(multiChoiceId);
 				if (multichoice != null){
-					System.out.println(multichoice.getId());
 					multichoiceList.add(multichoice);
 				}
 			}
@@ -157,7 +156,7 @@ public class ExamService {
 				int trueOrFalseId = examquestions.get(i).getQuestionId();
 				trueorfalse = iTrueOrFalseDao.showTrueorfalse(trueOrFalseId);
 				if (trueorfalse != null){
-				
+			
 					trueorfalseList.add(trueorfalse);
 				}
 			}
@@ -172,7 +171,6 @@ public class ExamService {
 				materialanalysis = iMaterialAnalysisDao
 						.showMaterialAnalysis(materialAnalysisId);
 				if (materialanalysis != null){
-					
 					materialanalysisList.add(materialanalysis);
 				}
 					
