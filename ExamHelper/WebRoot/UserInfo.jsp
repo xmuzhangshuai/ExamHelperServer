@@ -12,6 +12,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>用户信息查看</title>
 <link href="./css/css.css" rel="stylesheet" type="text/css" />
 <link href="./css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.lightbox-0.5.js"></script>
+<link rel="stylesheet" type="text/css" href="css/jquery.lightbox-0.5.css" media="screen" />
 <script type="text/javascript" language="javascript">
 function selectAll() {
 	var obj = document.fom.elements;
@@ -63,6 +66,10 @@ function endPage(){
 	alert("末页");
 }
 
+$(function() {
+	$('#gallery a').lightBox();
+});
+
 function link() {
 	document.getElementById("fom").action = "${pageContext.request.contextPath}/user.do?flag=addSubjectUI";
 	document.getElementById("fom").submit();
@@ -107,7 +114,7 @@ function link() {
 		<table id="subtree1" style="DISPLAY: " width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
 			<td>
-			<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+			<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" id="gallery">
 				<tr>
 					<td height="35">
 						<span class="newfont07">全选：
@@ -144,7 +151,7 @@ function link() {
 							<tr id="listbg">
 								<td height="20" align="center" ><input  type="checkbox" name="delid${user.id}" /></td>
 								<td height="20" align="center" ><label>${user.id}</label></td>
-								<td height="30" align="center" ><img id ="headImage" height="80px" src="${user.avatar}" alt="" /></td>
+								<td height="30" align="center" ><a href="${user.avatar}" title="${user.nickname}"><img id ="headImage" height="80px" src="${user.avatar}" alt="" /></a></td>
 								<td height="20" ><label>${user.mail}</label></td>
 								<td height="20" ><label>${user.nickname}</label></td>
 								<td height="20" ><label>${user.realname}</label></td>
@@ -154,9 +161,9 @@ function link() {
 								<td height="20" ><label>${user.area}</label></td>
 								<td height="20" align="center" ><label>${user.integral}</label></td>
 								<td height="20" ><label>${user.userState}</label></td>
-								<td height="20" ><a href="${pageContext.request.contextPath}/subject.do?flag=updateSubjectUI&subjectId=${subject.id}">编辑|</a>
-								    <a href="${pageContext.request.contextPath}/section.do?flag=chooseType&subjectId=${subject.id}">查看|</a>
-									<a href="#" onclick="deleteSubject('${subject.id}');" id="deleteSingleSubject${subject.id}">删除</a>
+								<td height="20" ><a href="">编辑|</a>
+								    <a href="">查看|</a>
+									<a href="#" onclick="" id="deleteSingleSubject${subject.id}">删除</a>
 								</td>
 							</tr>
 						</c:forEach>

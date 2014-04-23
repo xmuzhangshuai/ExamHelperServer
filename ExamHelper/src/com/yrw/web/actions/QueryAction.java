@@ -4,6 +4,7 @@
  */
 package com.yrw.web.actions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,15 +15,12 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DispatchAction;
 
+import com.yrw.domains.Answerquery;
 import com.yrw.domains.Query;
-import com.yrw.domains.User;
 import com.yrw.service.QueryService;
 
 /**
- * 类名称：QueryAction 
- * 类描述： 
- * 创建人： 张帅 
- * 创建时间：2014年4月22日 下午11:09:08
+ * 类名称：QueryAction 类描述： 创建人： 张帅 创建时间：2014年4月22日 下午11:09:08
  */
 public class QueryAction extends DispatchAction {
 	private QueryService queryService;
@@ -32,7 +30,7 @@ public class QueryAction extends DispatchAction {
 	}
 
 	/**
-	 * Method execute
+	 * Method execute 展示疑问列表
 	 * 
 	 * @param mapping
 	 * @param form
@@ -54,10 +52,27 @@ public class QueryAction extends DispatchAction {
 				pageNow = pageCount;
 		}
 
-		List<Query> querieList = queryService.getJQueryListByPage(pageNow-1);
+		List<Query> querieList = queryService.getJQueryListByPage(pageNow - 1);
 		request.setAttribute("queryList", querieList);
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("pageNow", pageNow);
 		return mapping.findForward("querySquare");
+	}
+
+	/**
+	 * 根据点击的疑问显示回答详情
+	 */
+	public ActionForward showQueryDetail(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		// TODO Auto-generated method stub
+		int queryId = Integer.parseInt(request.getParameter("id"));
+		Query query = queryService.getQueryByID(queryId);
+		List<Answerquery> answerqueryList = null;
+		if (query != null) {
+			request.setAttribute("query", query);
+			answerqueryList = new ArrayList<Answerquery>(query.getAnswerqueries()); 
+			request.setAttribute("answerqueryList", answerqueryList);
+		}
+		return null;
 	}
 }

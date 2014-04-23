@@ -120,6 +120,7 @@
       type="com.yrw.web.actions.QueryAction"
       cancellable="true" >
       <forward name="querySquare" path="/QuerySquare.jsp"/>
+      <forward name="queryDetail" path="/QueryDetail.jsp"/>
       </action>
 
 
