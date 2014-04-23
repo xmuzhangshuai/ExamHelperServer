@@ -179,4 +179,10 @@ public class ExamService {
 		}
 		return null;
 	}
+	/**更新examination对象
+	 * @param examination
+	 */
+	public void updateExamination(Examination examination){
+		iExaminationDao.update(examination);
+	}
 }

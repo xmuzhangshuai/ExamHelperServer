@@ -167,7 +167,7 @@ public class MaterialAnalysisAction extends DispatchAction {
 	}
 
 	
-	/**
+	/**显示材料题下的小题
 	 * @param mapping
 	 * @param form
 	 * @param request

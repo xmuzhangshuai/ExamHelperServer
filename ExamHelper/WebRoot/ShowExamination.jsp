@@ -70,7 +70,7 @@
 
 <body class="ContentBody">
 	<form
-		action="${pageContext.request.contextPath}/question.do?flag=editSingleChoice&singleChoiceId=${singleChoice.id}"
+		action="${pageContext.request.contextPath}/examination.do?flag=editExaminationInfor&examinationId=${examination.id}"
 		method="post" enctype="multipart/form-data" name="fom" id="fom"
 		target="mainFrame">
 		<div class="MainDiv">

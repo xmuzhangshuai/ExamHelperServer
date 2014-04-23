@@ -153,13 +153,19 @@ public class ExaminationAction extends DispatchAction {
 		// 获取jsp页面上的数据
 		int examinationId = Integer.parseInt(request
 				.getParameter("examinationId"));
+		
 		String examName = request.getParameter("examName");
 		String subjectName = request.getParameter("subjectName");
 		String examType = request.getParameter("examType");
 		String examTime = request.getParameter("examTime");
 		String examRequest = request.getParameter("examRequest");
+		
+		System.out.println("examName  "+examName);
+		
+		
 		// 获取examination对象
 		Examination examination = examService.getExamination(examinationId);
+		//更新examination对象属性
 		if (examName != null)
 			examination.setExamName(examName);
 		if (subjectName != null)
@@ -171,6 +177,7 @@ public class ExaminationAction extends DispatchAction {
 			examination.setExamTime(Integer.parseInt(examTime));
 		if (examRequest != null)
 			examination.setExamRequest(examRequest);
-		return mapping.findForward("showExamination");
+		examService.updateExamination(examination);
+		return showExamination(mapping, form, request, response);
 	}
 }
