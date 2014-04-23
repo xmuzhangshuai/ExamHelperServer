@@ -34,7 +34,7 @@
         <property name="queryImage" type="java.lang.String">
             <column name="query_image" length="258" />
         </property>
-        <set name="answerqueries" inverse="true">
+        <set name="answerqueries" inverse="true" order-by="answerTime DESC">
             <key>
                 <column name="query_id" not-null="true" />
             </key>

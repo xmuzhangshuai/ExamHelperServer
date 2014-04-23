@@ -8,14 +8,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-   <base href="<%=basePath%>">
-   <title>My JSP 'QuerySquare.jsp' starting page</title>
+<base href="<%=basePath%>">
+<title>答疑广场</title>
 <link href="./css/css.css" rel="stylesheet" type="text/css" />
 <link href="./css/style.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="../style-projects-jquery.css" />    
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery.lightbox-0.5.js"></script>
 <link rel="stylesheet" type="text/css" href="css/jquery.lightbox-0.5.css" media="screen" />
+
 <script type="text/javascript" language="javascript">
 function selectAll() {
 	var obj = document.fom.elements;
@@ -71,10 +71,12 @@ $(function() {
 	$('#gallery a').lightBox();
 });
 
-function link() {
-	document.getElementById("fom").action = "${pageContext.request.contextPath}/user.do?flag=addSubjectUI";
+//点击列表进入疑问详情
+function goQueryDetail(id){
+	document.getElementById("fom").action = "${pageContext.request.contextPath}/query.do?flag=showQueryDetail&id="+id;
 	document.getElementById("fom").submit();
 }
+
 </script>
 </head>
   
@@ -111,10 +113,10 @@ function link() {
 		
 		<tr>
 		<td>
-		<table id="subtree1" style="DISPLAY: " width="100%" border="0" cellspacing="0" cellpadding="0">
+		<table id="subtree1" style="DISPLAY: " width="100%" border="0" cellspacing="0" cellpadding="0" >
 			<tr>
 			<td>
-			<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+			<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" id="gallery">
 				<tr>
 					<td height="35">
 						<span class="newfont07">全选：
@@ -143,20 +145,21 @@ function link() {
 							<td width="8%" align="center" height="30">操作</td>
 						</tr>
 						<c:forEach items="${queryList}" var="query">
-							<tr id="listbg">
+							<tr id="listbg" onclick="goQueryDetail(${query.id});">
 								<td height="20" align="center" ><input  type="checkbox" name="delid${query.id}" /></td>
 								<td height="20" align="center" ><label>${query.id}</label></td>
-								<td height="30" align="center" id="gallery"><a href="${query.user.avatar}" title="${query.user.nickname}">
+								<td height="30" align="center" ><a href="${query.user.avatar}" title="${query.user.nickname}">
 												<img id ="headImage" height="80px" src="${query.user.avatar}" alt="" /></a></td>
 								<td height="20" ><label>${query.user.nickname}</label></td>
 								<td height="20" ><label>${query.questiontype.typeName}</label></td>
 								<td height="20" ><label>${query.queryStem}</label></td>
 								<td height="20" align="center" ><label>${query.queryTime}</label></td>
-								<td height="20" id="gallery"><a href="${query.queryImage}" title="${query.queryStem}">
+								<td height="20" align="center"><a href="${query.queryImage}" title="${query.queryStem}">
 												<img id ="headImage" height="100px" src="${query.queryImage}" alt="" /></a></td>
-								<td height="20" ><a href="${pageContext.request.contextPath}/subject.do?flag=updateSubjectUI&subjectId=${subject.id}">编辑|</a>
-								    <a href="${pageContext.request.contextPath}/section.do?flag=chooseType&subjectId=${subject.id}">查看|</a>
-									<a href="#" onclick="deleteSubject('${subject.id}');" id="deleteSingleSubject${subject.id}">删除</a>
+								<td height="20" >
+									<a href="">编辑|</a>
+								    <a href="">查看|</a>
+									<a href="#" onclick="" id="deleteSingleSubject${query.id}">删除</a>
 								</td>
 							</tr>
 						</c:forEach>

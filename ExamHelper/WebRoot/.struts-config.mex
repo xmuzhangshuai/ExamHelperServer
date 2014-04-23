@@ -74,6 +74,7 @@
   <StrutsActivity path="./Fail.jsp" location="950,1150" dimension="79,53" />
   <StrutsActivity path="/EditQuestionOfMaterial.jsp" location="2150,1150" dimension="193,53" />
   <StrutsActivity path="/ShowQuestionOfMaterial.jsp" location="50,2150" dimension="202,53" />
+  <StrutsActivity path="/QueryDetail.jsp" />
   <StrutsTransition id="/query.do,querySquare,/QuerySquare.jsp,1" routingType="0">
     <AutomaticBendpoints>
       <AbsolutePoint location="1367,2102" />
