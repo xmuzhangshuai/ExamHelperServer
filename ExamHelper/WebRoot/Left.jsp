@@ -11,13 +11,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>后台管理系统</title>
+
 <style type="text/css">
 body {
 	margin-left: 0px;
 	margin-top: 0px;
 	margin-right: 0px;
 	margin-bottom: 0px;
-	background-image: url('./images/left.gif');
+	background-image: url("./images/left.gif");
 }
 </style>
 

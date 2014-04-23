@@ -45,7 +45,7 @@ a:active,a:hover{color:#FF4e00;text-decoration:underline}
 #headV2{margin:7px}
 #headMain{width:760px;text-align:right;height:66px;overflow:hidden;position:relative;margin:0 auto}
 #headLogo{position:absolute;top:0;left:0}
-#headLink{background:url(http://pics.paipai.com/common/menu/line.gif) right bottom no-repeat;height:18px;font-family:Verdana}
+#headLink{background:url("http://pics.paipai.com/common/menu/line.gif") right bottom no-repeat;height:18px;font-family:Verdana}
 #headInfo{padding:4px 40px 0 0;color:#545454;height:20px;text-align:right;font-family:Verdana}
 #headMenu{padding-left:240px}
 #headMenuSimple{margin-left:400px;background:#f0f0f0 url(http://pics.paipai.com/common/menu/menu_left.gif) left no-repeat;height:21px}
