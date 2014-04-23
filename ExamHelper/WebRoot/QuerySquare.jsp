@@ -8,13 +8,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-   <base href="<%=basePath%>">
-   <title>答疑广场</title>
+<base href="<%=basePath%>">
+<title>答疑广场</title>
 <link href="./css/css.css" rel="stylesheet" type="text/css" />
 <link href="./css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery.lightbox-0.5.js"></script>
 <link rel="stylesheet" type="text/css" href="css/jquery.lightbox-0.5.css" media="screen" />
+
 <script type="text/javascript" language="javascript">
 function selectAll() {
 	var obj = document.fom.elements;
@@ -153,7 +154,7 @@ function goQueryDetail(id){
 								<td height="20" ><label>${query.questiontype.typeName}</label></td>
 								<td height="20" ><label>${query.queryStem}</label></td>
 								<td height="20" align="center" ><label>${query.queryTime}</label></td>
-								<td height="20" ><a href="${query.queryImage}" title="${query.queryStem}">
+								<td height="20" align="center"><a href="${query.queryImage}" title="${query.queryStem}">
 												<img id ="headImage" height="100px" src="${query.queryImage}" alt="" /></a></td>
 								<td height="20" >
 									<a href="">编辑|</a>

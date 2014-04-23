@@ -150,6 +150,15 @@ public class QueryService {
 	}
 
 	/**
+	 * 根据疑问ID返回回答页码
+	 * @param queryId
+	 * @return
+	 */
+	public int getAnswerQueryPageCount(int queryId){
+		return iAnswerQueryDao.getPageCountByQueryId(queryId);
+	}
+	
+	/**
 	 * 罗列所有疑问
 	 * 
 	 * @param pageNowString

@@ -65,14 +65,30 @@ public class QueryAction extends DispatchAction {
 	public ActionForward showQueryDetail(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
+
+		int aPageNow = 1;
+
 		int queryId = Integer.parseInt(request.getParameter("id"));
+		int aPageCount = queryService.getAnswerQueryPageCount(queryId);
+		String pageNowString = request.getParameter("aPageNow");
+		if (pageNowString != null) {
+			aPageNow = Integer.parseInt(pageNowString);
+			if (aPageNow < 1)
+				aPageNow = 1;
+			else if (aPageNow > aPageCount)
+				aPageNow = aPageCount;
+		}
+		
+		
 		Query query = queryService.getQueryByID(queryId);
-		List<Answerquery> answerqueryList = null;
 		if (query != null) {
 			request.setAttribute("query", query);
-			answerqueryList = new ArrayList<Answerquery>(query.getAnswerqueries()); 
-			request.setAttribute("answerqueryList", answerqueryList);
+			request.setAttribute("id", queryId);
+			request.setAttribute("answerqueryList", query.getAnswerqueries());
+			request.setAttribute("aPageCount", aPageCount);
+			request.setAttribute("aPageNow", aPageNow);
 		}
-		return null;
+		return mapping.findForward("queryDetail");
 	}
+
 }
