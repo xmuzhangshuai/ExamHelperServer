@@ -17,7 +17,7 @@ body {
 	margin-top: 0px;
 	margin-right: 0px;
 	margin-bottom: 0px;
-	background-image: url(./images/left.gif);
+	background-image: url('./images/left.gif');
 }
 </style>
 
@@ -78,7 +78,7 @@ body {
 				<table width="100%" border="0" cellpadding="0" cellspacing="0">
 					<tr>
 						<td width="207" height="55"
-							style="background-image:url(./images/nav01.gif)">
+							style="background-image:url('./images/nav01.gif');">
 							<table width="90%" border="0" align="center" cellpadding="0"
 								cellspacing="0">
 								<tr>
