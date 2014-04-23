@@ -69,15 +69,11 @@ $(function(){
         				<input type="text" id="date_1" readonly />
         			</li>
         			<li>
-           				<label for="website">网站:</label>
-            			<input type="url" name="website" placeholder="http://down.admin5.com" required pattern="(http|https)://.+"/>
-        			</li>
-        			<li>
             			<label for="message">留言:</label>
-            			<textarea name="message" cols="40" rows="6" placeholder="jquery素材下载" required ></textarea>
+            			<textarea name="message" cols="40" rows="6" placeholder="内容" required ></textarea>
         			</li>
         			<li>
-        				<button class="submit" type="submit">Submit Form</button>
+        				<button class="submit" type="submit">添    加</button>
         			</li>
     			</ul>
 			</form>
