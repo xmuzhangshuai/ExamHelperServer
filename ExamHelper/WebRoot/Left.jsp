@@ -155,32 +155,13 @@ body {
 						<td width="9%" height="20"><img id="xiaotu1"
 							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="sendxiaoxi.htm" target="mainFrame"
-							class="left-font03" onclick="tupian('1');">管理考试政策文档</a></td>
+							class="left-font03" onclick="tupian('1');">查看文档</a></td>
 					</tr>
 					<tr>
 						<td width="9%" height="20"><img id="xiaotu2"
 							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="listtakexiaoxi.htm"
-							target="mainFrame" class="left-font03" onclick="tupian('2');">管理考试指南文档</a></td>
-					</tr>
-					<tr>
-						<td width="9%" height="20"><img id="xiaotu3"
-							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="listsendxiaoxi.htm"
-							target="mainFrame" class="left-font03" onclick="tupian('3');">管理考试经验文档
-						</a></td>
-					</tr>
-					<tr>
-						<td width="9%" height="20"><img id="xiaotu4"
-							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="listxiaoxi.htm" target="mainFrame"
-							class="left-font03" onclick="tupian('4');">管理报考大纲文档 </a></td>
-					</tr>
-					<tr>
-						<td width="9%" height="20"><img id="xiaotu5"
-							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="listxiaoxi.htm" target="mainFrame"
-							class="left-font03" onclick="tupian('5');">管理考试动态文档 </a></td>
+						<td width="91%"><a href="AddExamGuide.jsp"
+							target="mainFrame" class="left-font03" onclick="tupian('2');">添加文档</a></td>
 					</tr>
 				</table> <!--  管理文档系统结束    --> <!--  发布信息系统开始    -->
 				<table width="100%" border="0" cellpadding="0" cellspacing="0"
