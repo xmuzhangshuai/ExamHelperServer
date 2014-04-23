@@ -28,13 +28,13 @@ body {
 <body>
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
 		<tr>
-			<td height="59" style="background-image:url(./images/top.gif)" >
+			<td height="59" style="background-image:url('./images/top.gif');" >
 				<table width="99%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
 						<td width="1%"><a target="_blank"> <img
 								src="./images/logo.gif" width="557" height="59" border="0" />
 						</a></td>
-						
+						 
 					</tr>
 				</table>
 			</td>

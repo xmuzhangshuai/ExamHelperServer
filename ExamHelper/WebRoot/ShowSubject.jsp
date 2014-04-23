@@ -14,7 +14,40 @@
 
 
 <title>科目管理</title>
+<style type="text/css">
 
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.tabfont01 {	
+	font-family: "宋体";
+	font-size: 9px;
+	color: #555555;
+	text-decoration: none;
+	text-align: center;
+}
+.font051 {font-family: "宋体";
+	font-size: 12px;
+	color: #333333;
+	text-decoration: none;
+	line-height: 20px;
+}
+.font201 {font-family: "宋体";
+	font-size: 12px;
+	color: #FF0000;
+	text-decoration: none;
+}
+.button {
+	font-family: "宋体";
+	font-size: 14px;
+	height: 37px;
+}
+html { overflow-x: auto; overflow-y: auto; border:0;} 
+
+</style>
 <link href="./css/css.css" rel="stylesheet" type="text/css" />
 <link href="./css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" language="javascript">
@@ -202,7 +235,7 @@
 				<td height="30">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
 						<tr>
-							<td height="62" style="background-image:./images/nav04.gif ">
+							<td height="62" style="background-image:url('./images/nav04.gif'); ">
 
 								<table width="98%" border="0" align="center" cellpadding="0"
 									cellspacing="0">
