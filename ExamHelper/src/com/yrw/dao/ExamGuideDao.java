@@ -70,4 +70,18 @@ public class ExamGuideDao extends BasicDao implements IExamGuideDao{
 		this.deletById(Examguidetype.class, examguidetypeId);
 	}
 
+	@Override
+	public int getPageCount() {
+		// TODO Auto-generated method stub
+		String hql = "select count(*) from Examguide";
+		return this.queryPageCount(hql, null);
+	}
+
+	@Override
+	public List<Examguide> getExamguideListByPage(int pageNow) {
+		// TODO Auto-generated method stub
+		String hql = "from Examguide order by time desc";
+		return this.executeQueryByPage(hql, null, pageNow);
+	}
+
 }

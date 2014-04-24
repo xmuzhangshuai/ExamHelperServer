@@ -1,6 +1,11 @@
 package com.yrw.service;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.jsonobjects.JExamGuide;
@@ -54,5 +59,43 @@ public class ExamGuideService {
 		}
 
 		return jExamGuides;
+	}
+
+	/**
+	 * 返回考试指南文章页码
+	 * 
+	 * @return
+	 */
+	public int getExamGuidePageCount() {
+		return iExamGuideDao.getPageCount();
+	}
+
+	/**
+	 * 根据页码返回列表
+	 */
+	public List<Examguide> getExamguideListByPage(int pageNow){
+		return iExamGuideDao.getExamguideListByPage(pageNow);
+	}
+	
+	/**
+	 * 添加考试指南
+	 * 
+	 * @param typeID
+	 * @param title
+	 * @param url
+	 * @param date
+	 */
+	public void addExamGuide(int typeID, String title, String url, String strDate) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = null;
+		try {
+			date = sdf.parse(strDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Examguidetype examguidetype = iExamGuideDao.getExamguidetypeById(typeID);
+		Examguide examguide = new Examguide(examguidetype, title, url, new Timestamp(date.getTime()));
+		iExamGuideDao.addExamguide(examguide);
 	}
 }

@@ -4,6 +4,7 @@
  */
 package com.yrw.web.actions;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DispatchAction;
 
+import com.yrw.domains.Examguide;
 import com.yrw.domains.Examguidetype;
 import com.yrw.domains.Subject;
 import com.yrw.service.ExamGuideService;
@@ -49,7 +51,41 @@ public class ExamGuideAction extends DispatchAction {
 	public ActionForward addExamGuide(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
 		// TODO Auto-generated method stub
-		return null;
+		String title = request.getParameter("title");
+		String url = request.getParameter("url");
+		String date = request.getParameter("date");
+		int typeID = Integer.parseInt(request.getParameter("type"));
+		examGuideService.addExamGuide(typeID, title, url, date);
+		return showExamGuideList(mapping, form, request, response);
+	}
+	
+	/**
+	 * 展示考试指南文章列表
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward showExamGuideList(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		int pageNow = 1;
+		int pageCount = examGuideService.getExamGuidePageCount();
+		String pageNowString = request.getParameter("pageNow");
+		if (pageNowString != null) {
+			pageNow = Integer.parseInt(pageNowString);
+			if (pageNow < 1)
+				pageNow = 1;
+			else if (pageNow > pageCount)
+				pageNow = pageCount;
+		}
+		
+		List<Examguide> examguideList = examGuideService.getExamguideListByPage(pageNow);
+		request.setAttribute("examGuideList", examguideList);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("pageNow", pageNow);
+		return mapping.findForward("showExamGuide");
 	}
 	
 	/**

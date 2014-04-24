@@ -90,9 +90,9 @@ function link() {
 								<td width="21"><img src="./images/ico07.gif" width="20" height="18" /></td>
 								<td width="80">
 									<select>
-										<option>按邮箱</option>
-										<option>按昵称</option>
-										<option>按地区</option>
+										<option>按科目</option>
+										<option>按类型</option>
+										<option>按题目</option>
 									</select>
 								</td>
 								<td width="300" align="left">
@@ -120,9 +120,8 @@ function link() {
 						<span class="newfont07">全选：
 							<input type="checkbox" id="selectOrNot" onchange="selectOrUnSelect()"/>
 						</span>
-						<input name="Submit" type="button" class="right-button08" value="删除所选用户" onclick="delSelected();" /> 
+						<input name="Submit" type="button" class="right-button08" value="删除所选文章" onclick="delSelected();" /> 
 						<input type="hidden" name="paramsHidden" id="paramsHidden" /> 
-						<input name="Submit2" type="button" class="right-button08" value="冻结所选用户" onclick="link();" />
 					</td>
 				</tr>
 				
@@ -130,37 +129,27 @@ function link() {
 				<td height="40" class="font42">
 					<table width="100%" border="0" cellpadding="4" cellspacing="1" bgcolor="#464646" class="newfont03">
 						<tr class="CTitle">
-							<td height="22" colspan="13" align="center" style="font-size:16px">用户列表</td>
+							<td height="22" colspan="13" align="center" style="font-size:16px">考试指南列表</td>
 						</tr>
 						<tr bgcolor="#EEEEEE">
-							<td width="4%" align="center" height="30">选择</td>
-							<td width="6%" align="center" height="30">唯一编号</td>
-							<td width="10%" align="center" height="30">头像</td>
-							<td width="10%" align="center" height="30">邮箱</td>
-							<td width="6%" align="center" height="30">昵称</td>
-							<td width="6%" align="center" height="30">真实姓名</td>
-							<td width="4%" align="center" height="30">年龄</td>
-							<td width="8%" align="center" height="30">手机</td>
-							<td width="8%" align="center" height="30">职业</td>
-							<td width="10%" align="center" height="30">区域</td>
-							<td width="6%" align="center" height="30">积分</td>
-							<td width="12%" align="center" height="30">个性签名</td>
+							<td width="6%" align="center" height="30">选择</td>
+							<td width="8%" align="center" height="30">唯一编号</td>
+							<td width="10%" align="center" height="30">科目</td>
+							<td width="10%" align="center" height="30">类型</td>
+							<td width="24%" align="center" height="30">题目</td>
+							<td width="24%" align="center" height="30">链接</td>
+							<td width="10%" align="center" height="30">时间</td>
 							<td width="10%" align="center" height="30">操作</td>
 						</tr>
-						<c:forEach items="${userList}" var="user">
+						<c:forEach items="${examGuideList}" var="examGuide">
 							<tr id="listbg">
-								<td height="20" align="center" ><input  type="checkbox" name="delid${user.id}" /></td>
-								<td height="20" align="center" ><label>${user.id}</label></td>
-								<td height="30" align="center" ><a href="${user.avatar}" title="${user.nickname}"><img id ="headImage" height="80px" src="${user.avatar}" alt="" /></a></td>
-								<td height="20" ><label>${user.mail}</label></td>
-								<td height="20" ><label>${user.nickname}</label></td>
-								<td height="20" ><label>${user.realname}</label></td>
-								<td height="20" align="center" ><label>${user.age}</label></td>
-								<td height="20" ><label>${user.phone}</label></td>
-								<td height="20" ><label>${user.profession}</label></td>
-								<td height="20" ><label>${user.area}</label></td>
-								<td height="20" align="center" ><label>${user.integral}</label></td>
-								<td height="20" ><label>${user.userState}</label></td>
+								<td height="20" align="center" ><input  type="checkbox" name="delid${examGuide.id}" /></td>
+								<td height="20" align="center" ><label>${examGuide.id}</label></td>
+								<td height="30" ><label>${examGuide.examguidetype.subject.subName}</label></td>
+								<td height="20" ><label>${examGuide.examguidetype.typeName}</label></td>
+								<td height="20" ><label>${examGuide.title}</label></td>
+								<td height="20" ><label>${examGuide.url}</label></td>
+								<td height="20" ><label>${examGuide.time}</label></td>
 								<td height="20" ><a href="">编辑|</a>
 								    <a href="">查看|</a>
 									<a href="#" onclick="" id="deleteSingleSubject${subject.id}">删除</a>
@@ -184,12 +173,12 @@ function link() {
 								<td width="50%">共 <span class="right-text09" id="pageCount">${pageCount}</span>
 									页 | 第 <span class="right-text09" id="pageNowId">${pageNow}</span> 页
 								</td>
-								<td width="49%" align="right">[<a href="${pageContext.request.contextPath}/user.do?flag=showUserList&pageNow=1" class="right-font08">首页</a> | 
-															   <a href="${pageContext.request.contextPath}/user.do?flag=showUserList&pageNow=${pageNow-1}" 
+								<td width="49%" align="right">[<a href="${pageContext.request.contextPath}/examGuide.do?flag=showExamGuideList&pageNow=1" class="right-font08">首页</a> | 
+															   <a href="${pageContext.request.contextPath}/examGuide.do?flag=showExamGuideList&pageNow=${pageNow-1}" 
 															      onclick="lastPage(${pageNow-1});"  class="right-font08">上一页</a> |
-														       <a href="${pageContext.request.contextPath}/user.do?flag=showUserList&pageNow=${pageNow+1}" 
+														       <a href="${pageContext.request.contextPath}/examGuide.do?flag=showExamGuideList&pageNow=${pageNow+1}" 
 														          onclick="nextPage(${pageNow+1},${pageCount});" class="right-font08">下一页</a>| 
-														       <a href="${pageContext.request.contextPath}/user.do?flag=showUserList&pageNow=${pageCount}" class="right-font08">末页</a>] 转至：
+														       <a href="${pageContext.request.contextPath}/examGuide.do?flag=showExamGuideList&pageNow=${pageCount}" class="right-font08">末页</a>] 转至：
 								</td>
 								<td width="1%">
 									<table width="20" border="0" cellspacing="0" cellpadding="0">
