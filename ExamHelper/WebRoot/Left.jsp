@@ -160,7 +160,7 @@ body {
 					<tr>
 						<td width="9%" height="20"><img id="xiaotu2"
 							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="AddExamGuide.jsp"
+						<td width="91%"><a href="${pageContext.request.contextPath}/examGuide.do?flag=examGuideType"
 							target="mainFrame" class="left-font03" onclick="tupian('2');">添加文档</a></td>
 					</tr>
 				</table> <!--  管理文档系统结束    --> <!--  发布信息系统开始    -->

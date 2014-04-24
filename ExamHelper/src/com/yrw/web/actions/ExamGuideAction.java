@@ -63,6 +63,7 @@ public class ExamGuideAction extends DispatchAction {
 	public ActionForward examGuideType(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response){
 		List<Subject> subjectList = subjectService.getSubjects();
-		return null;
+		request.setAttribute("subjectList", subjectList);
+		return mapping.findForward("addExamGuide");
 	}
 }
