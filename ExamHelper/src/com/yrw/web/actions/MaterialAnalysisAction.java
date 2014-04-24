@@ -345,8 +345,7 @@ public class MaterialAnalysisAction extends DispatchAction {
 		}
 
 		// 设置跳转到showMaterialAnalysis的参数
-		request.setAttribute("materialAnalysisId", questionsofmaterial
-				.getMaterialanalysis().getId());
+		request.setAttribute("materialAnalysisId", questionsofmaterial.getMaterialanalysis().getId());
 		request.setAttribute("source", "moveQuestionOfMaterial");
 		return showMaterialAnalysis(mapping, form, request, response);
 

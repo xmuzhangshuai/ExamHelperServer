@@ -4,6 +4,7 @@
  */
 package com.yrw.web.actions;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -200,13 +201,30 @@ public class ExaminationAction extends DispatchAction {
 		String examSectionRequest = request.getParameter("request"
 				+ examSectionId);
 		String examSectionScore = request.getParameter("score" + examSectionId);
-		System.out.println("ExamSectionRequest "+examSectionRequest);
-		System.out.println("ExamSectionScore "+examSectionScore);
+		
 		// 更新examSection对象
 		if (examSectionRequest != null)
 			examsection.setRequest(examSectionRequest);
 		if (examSectionScore != null)
 			examsection.setQuestionScore(Integer.parseInt(examSectionScore));
+		return showExamination(mapping, form, request, response);
+	}
+	/**使题目顺序上移或下移
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws UnsupportedEncodingException 
+	 */
+	public ActionForward moveSingleChoice(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws UnsupportedEncodingException{
+		//获得操作类型、单选题Id、试卷Id
+		String type=request.getParameter("type");
+		int singleChoiceId=Integer.parseInt(request.getParameter("singleChoiceId"));
+		int examId=Integer.parseInt(request.getParameter("examinationId"));
+		examService.moveSingleChoice(singleChoiceId, type, examId);		
 		return showExamination(mapping, form, request, response);
 	}
 }
