@@ -18,7 +18,7 @@ public class ErrorQuestionService {
 	 * @param errorquestions
 	 */
 	public void addErrorQuestion(Errorquestions errorquestions) {
-		iErrorQuestionDao.add(errorquestions);
+		iErrorQuestionDao.addErrorQuestion(errorquestions);
 	}
 
 	/**
