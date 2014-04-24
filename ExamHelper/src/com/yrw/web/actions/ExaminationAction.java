@@ -95,12 +95,11 @@ public class ExaminationAction extends DispatchAction {
 			HttpServletResponse response) {
 		// 得到examination对象
 		int examinationId;
-		if((request	.getParameter("examinationId")!=null)
-				examinationId = Integer.parseInt(request
-				.getParameter("examinationId"));
-		else {
+		if((request	.getParameter("examinationId")!=null))
+		examinationId = Integer.parseInt(request.getParameter("examinationId"));
+		else 
 			examinationId=(Integer) request.getAttribute("examinationId");
-		}
+	
 		
 		Examination examination = examService.getExamination(examinationId);
 		// 设置examination在jsp上的对象
@@ -233,7 +232,7 @@ public class ExaminationAction extends DispatchAction {
 		examService.moveSingleChoice(singleChoiceId, type, examId);		
 		//重新设置examinationId
 		request.setAttribute("examinationId", examId);
-		mapping.findForward("showExamination");
+		return mapping.findForward("showExamination");
 		
 	}
 }
