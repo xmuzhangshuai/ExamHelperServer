@@ -6,10 +6,11 @@ package com.yrw.web.actions;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.struts.action.Action;
+
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.actions.DispatchAction;
 
 /** 
  * MyEclipse Struts
@@ -18,7 +19,7 @@ import org.apache.struts.action.ActionMapping;
  * XDoclet definition:
  * @struts.action parameter="flag" validate="true"
  */
-public class ErrorAction extends Action {
+public class ErrorAction extends DispatchAction {
 	/*
 	 * Generated Methods
 	 */
