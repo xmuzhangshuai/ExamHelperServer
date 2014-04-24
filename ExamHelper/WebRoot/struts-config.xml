@@ -126,6 +126,11 @@
       <forward name="querySquare" path="/QuerySquare.jsp"/>
       <forward name="queryDetail" path="/QueryDetail.jsp"/>
       </action>
+    <action
+      parameter="flag"
+      path="/examGuide"
+      type="com.yrw.web.actions.ExamGuideAction"
+      cancellable="true" />
 
 
 

@@ -203,6 +203,10 @@
 	<bean name="/query" class="com.yrw.web.actions.QueryAction">
 		<property name="queryService" ref="queryService" />
 	</bean>
+	<bean name="/examGuide" class="com.yrw.web.actions.ExamGuideAction">
+		<property name="examGuideService" ref="examGuideService" />
+		<property name="subjectService" ref="subjectService" />
+	</bean>
 
 	<!-- 事务管理器 -->
 	<bean id="transactionManager"

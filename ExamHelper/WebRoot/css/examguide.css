@@ -3,12 +3,6 @@
 	outline: none;
 }
 
-/* === Form Typography === */
-body {
-	font: 14px/21px "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode",
-		sans-serif;
-}
-
 .contact_form h2,.contact_form label {
 	font-family: Georgia, Times, "Times New Roman", serif;
 }
@@ -17,9 +11,10 @@ body {
 	font-size: 11px;
 }
 
+
 /* === List Styles === */
 .contact_form ul {
-	width: 750px;
+	width: 100%;
 	list-style-type: none;
 	list-style-position: outside;
 	margin: 0px;
@@ -34,28 +29,6 @@ body {
 
 .contact_form li:first-child,.contact_form li:last-child {
 	border-bottom: 1px solid #777;
-}
-
-.contact_form {
-	padding-top: 40px;
-}
-
-.title {
-	background-color: rgba(0, 0, 0, 0.56);
-	text-align: center;
-	width: 100%;
-	position: fixed;
-	top: 0;
-	left: 0;
-	padding: 5px 0;
-}
-
-.title a {
-	color: #FFF;
-	text-decoration: none;
-	font-size: 16px;
-	font-weight: bolder;
-	line-height: 24px;
 }
 
 /* === Form Header === */
@@ -88,8 +61,8 @@ body {
 
 
 .contact_form select {
-	height: 30px;
-	width: 300px;
+	height: 42px;
+	width: 340px;
 	padding: 5px 8px;
 }
 
@@ -173,7 +146,7 @@ body {
 }
 
 /* === Button Style === */
-button.submit {
+button.add {
 	background-color: #68b12f;
 	background: -webkit-gradient(linear, left top, left bottom, from(#68b12f),
 		to(#50911e));
@@ -201,12 +174,12 @@ button.submit {
 	text-shadow: 0 -1px 0 #396715;
 }
 
-button.submit:hover {
+button.add:hover {
 	opacity: .85;
 	cursor: pointer;
 }
 
-button.submit:active {
+button.add:active {
 	border: 1px solid #20911e;
 	box-shadow: 0 0 10px 5px #356b0b inset;
 	-webkit-box-shadow: 0 0 10px 5px #356b0b inset;
