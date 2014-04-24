@@ -225,7 +225,7 @@
 																			%>${singleChoice.questionStem}</a></td>
 																</tr>
 																<tr>
-																	<td>
+																	<td style="width: 688px; ">
 																		<table>
 																			<tr>
 																				<td>A:${singleChoice.optionA}</td>
@@ -236,7 +236,10 @@
 																			</tr>
 																		</table>
 																	</td>
-																	<td><a href="${pageContext.request.contextPath}/examination.do?flag=moveSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}&type=decrease">上移</a>|<a href="#">下移|</a><a href="#">查看</a><a href="">删除</a></td>
+																	<td><a
+																		href="${pageContext.request.contextPath}/examination.do?flag=moveSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}&type=decrease">上移</a>|<a
+																		href="${pageContext.request.contextPath}/examination.do?flag=moveSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}&type=increase">下移|</a><a
+																		href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">查看</a><a href="${pageContext.request.contextPath}/examination.do?flag=deleteSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}">删除</a></td>
 																</tr>
 															</c:forEach>
 														</table>

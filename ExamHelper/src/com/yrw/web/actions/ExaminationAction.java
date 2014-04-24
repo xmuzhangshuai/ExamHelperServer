@@ -229,11 +229,27 @@ public class ExaminationAction extends DispatchAction {
 		String type=request.getParameter("type");
 		int singleChoiceId=Integer.parseInt(request.getParameter("singleChoiceId"));
 		int examId=Integer.parseInt(request.getParameter("examinationId"));
+	
 		examService.moveSingleChoice(singleChoiceId, type, examId);		
 		//重新设置examinationId
 		request.setAttribute("examinationId", examId);
-		System.out.println(examId);
 		return showExamination(mapping, form, request, response);
 		
+	}
+	/**删除单项选择题
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward deleteSingleChoice(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response){
+		//获得操作类型、单选题Id、试卷Id
+				int singleChoiceId=Integer.parseInt(request.getParameter("singleChoiceId"));
+				int examId=Integer.parseInt(request.getParameter("examinationId"));
+				examService.deleteSingleChoice(examId, singleChoiceId);
+				return showExamination(mapping, form, request, response);
 	}
 }

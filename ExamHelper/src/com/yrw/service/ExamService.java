@@ -195,7 +195,7 @@ public class ExamService {
 		Examination examination = iExaminationDao.showExam(examId);
 		Examsection examsection = null;
 		Examquestion examquestion = null;
-		Examquestion repalcedExamquestion=null;
+		Examquestion repalcedExamquestion = null;
 		Iterator<Examsection> Iterator = examination.getExamsections()
 				.iterator();
 		while (Iterator.hasNext()) {
@@ -208,25 +208,63 @@ public class ExamService {
 					if (examquestions.get(i).getQuestionId() == singleChoiceId) {
 						if (type.equals("decrease")) {
 							examquestion = examquestions.get(i);
-							repalcedExamquestion=examquestions.get(i-1);
-							System.out.println("moveSingleChoice "
-									+ examquestion.getQuestionNumber() +"  "+repalcedExamquestion.getQuestionNumber());
-							repalcedExamquestion.setQuestionNumber(
-									examquestion.getQuestionNumber());
+							repalcedExamquestion = examquestions.get(i - 1);
+
+							repalcedExamquestion.setQuestionNumber(examquestion
+									.getQuestionNumber());
 							examquestion.setQuestionNumber(examquestion
 									.getQuestionNumber() - 1);
+							examquestions.set(i, examquestion);
+							examquestions.set(i - 1, repalcedExamquestion);
 						} else {
 							examquestion = examquestions.get(i);
-							repalcedExamquestion=examquestions.get(i+1);
-							repalcedExamquestion.setQuestionNumber(
-									examquestion.getQuestionNumber());
+							repalcedExamquestion = examquestions.get(i + 1);
+							System.out.println("increase moveSingleChoice "
+									+ examquestion.getQuestionNumber() + "  "
+									+ repalcedExamquestion.getQuestionNumber());
+
+							repalcedExamquestion.setQuestionNumber(examquestion
+									.getQuestionNumber());
 							examquestion.setQuestionNumber(examquestion
 									.getQuestionNumber() + 1);
-							
+
+							examquestions.set(i, examquestion);
+							examquestions.set(i + 1, repalcedExamquestion);
 						}
 						iExamQuestionDao.update(examquestion);
 						iExamQuestionDao.update(repalcedExamquestion);
+						iExaminationDao.update(examination);
 					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * 从试卷中剔除某个单选题
+	 * 
+	 * @param examId
+	 * @param singleChoiceId
+	 */
+	public void deleteSingleChoice(int examId, int singleChoiceId) {
+		// 获得examSection对象
+		Examination examination = iExaminationDao.showExam(examId);
+		Examsection examsection = null;
+		Examquestion examquestion = null;
+
+		Iterator<Examsection> examSectionIterator = examination
+				.getExamsections().iterator();
+		while (examSectionIterator.hasNext()) {
+			examsection = examSectionIterator.next();
+			if (examsection.getQuestiontype().getTypeName()
+					.equals(DefaultValue.SINGLE_CHOICE)) {
+				Iterator<Examquestion> examQuestionIterator = examsection
+						.getExamquestions().iterator();
+				while (examQuestionIterator.hasNext()) {
+					examquestion = examQuestionIterator.next();
+					if (examquestion.getQuestionId() == singleChoiceId)
+						examQuestionIterator.remove();
+
 				}
 			}
 		}
