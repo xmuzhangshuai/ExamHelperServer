@@ -15,6 +15,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DispatchAction;
 
 import com.yrw.domains.Examguidetype;
+import com.yrw.domains.Subject;
 import com.yrw.service.ExamGuideService;
 import com.yrw.service.SubjectService;
 
@@ -61,6 +62,7 @@ public class ExamGuideAction extends DispatchAction {
 	 */
 	public ActionForward examGuideType(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response){
+		List<Subject> subjectList = subjectService.getSubjects();
 		return null;
 	}
 }
