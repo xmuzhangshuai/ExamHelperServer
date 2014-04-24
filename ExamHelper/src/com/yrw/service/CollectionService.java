@@ -1,11 +1,9 @@
 package com.yrw.service;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.yrw.domains.Collection;
-import com.yrw.domains.satatics.Scollection;
 import com.yrw.idao.ICollectionDao;
 
 /**
@@ -70,20 +68,5 @@ public class CollectionService {
 		return icollectionDao.getCollectionList();
 	}
 
-	/**
-	 * 获取Scollection统计列表
-	 * 
-	 * @return
-	 */
-	public List<Scollection> getScollections() {
-		List<Scollection> scollectionList = new ArrayList<Scollection>();
-		List<Collection> collectionList = getCollections();
-		if (collectionList != null) {
-			for (Collection collection : collectionList) {
-				
-			}
-		}
-		return scollectionList;
-	}
 
 }
