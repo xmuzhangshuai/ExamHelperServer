@@ -238,8 +238,8 @@ body {
 					<tr>
 						<td width="9%" height="20"><img id="xiaotu9"
 							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="sendxiaoxi.htm" target="mainFrame"
-							class="left-font03" onclick="tupian('9');">用户统计</a></td>
+						<td width="91%"><a href="http://www.umeng.com/apps" target="mainFrame"
+							class="left-font03" onclick="tupian('9');">用户行为分析</a></td>
 					</tr>
 					<tr>
 						<td width="9%" height="20"><img id="xiaotu10"
@@ -250,27 +250,21 @@ body {
 					<tr>
 						<td width="9%" height="20"><img id="xiaotu11"
 							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="listsendxiaoxi.htm"
+						<td width="91%"><a href="${pageContext.request.contextPath}/collection.do?flag=showCollectionList"
 							target="mainFrame" class="left-font03" onclick="tupian('11');">收藏统计
 						</a></td>
 					</tr>
 					<tr>
 						<td width="9%" height="20"><img id="xiaotu12"
 							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="listxiaoxi.htm" target="mainFrame"
+						<td width="91%"><a href="${pageContext.request.contextPath}/note.do?flag=showNoteList" target="mainFrame"
 							class="left-font03" onclick="tupian('12');">笔记统计 </a></td>
 					</tr>
 					<tr>
-						<td width="9%" height="20"><img id="xiaotu13"
+						<td width="9%" height="20"><img id="xiaotu12"
 							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="listxiaoxi.htm" target="mainFrame"
-							class="left-font03" onclick="tupian('13');">分享统计 </a></td>
-					</tr>
-					<tr>
-						<td width="9%" height="20"><img id="xiaotu14"
-							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="listxiaoxi.htm" target="mainFrame"
-							class="left-font03" onclick="tupian('14');">学习记录统计 </a></td>
+						<td width="91%"><a href="${pageContext.request.contextPath}/error.do?flag=showErrorList" target="mainFrame"
+							class="left-font03" onclick="tupian('12');">错题统计 </a></td>
 					</tr>
 				</table> <!--  统计分析系统结束    -->
 				

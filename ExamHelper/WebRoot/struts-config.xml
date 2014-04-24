@@ -136,6 +136,24 @@
        <forward name="addExamGuideType" path="/AddExamGuideType.jsp"/>
        <forward name="showExamGuideType" path="/ShowExamGuideType.jsp"/>
       </action>
+    <action
+      parameter="flag"
+      path="/collection"
+      type="com.yrw.web.actions.CollectionAction"
+      cancellable="true" >
+      <forward name="showCollection" path="/ShowCollection.jsp"/>
+      </action>
+      
+    <action
+      parameter="flag"
+      path="/note"
+      type="com.yrw.web.actions.NoteAction"
+      cancellable="true" />
+    <action
+      parameter="flag"
+      path="/error"
+      type="com.yrw.web.actions.ErrorAction"
+      cancellable="true" />
 
 
 
