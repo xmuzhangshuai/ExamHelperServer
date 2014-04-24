@@ -42,6 +42,9 @@
 		<mapping resource="com/yrw/domains/Test.hbm.xml" />
 		<mapping resource="com/yrw/domains/Examguidetype.hbm.xml" />
 		<mapping resource="com/yrw/domains/Examguide.hbm.xml" />
+		<mapping resource="com/yrw/domains/Snote.hbm.xml" />
+		<mapping resource="com/yrw/domains/Scollection.hbm.xml" />
+		<mapping resource="com/yrw/domains/Serrorquestions.hbm.xml" />
 
 	</session-factory>
 
