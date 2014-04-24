@@ -2,6 +2,7 @@ package com.yrw.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -110,9 +111,10 @@ public class ExamService {
 		return (Examination) iExaminationDao.showExam(examinationId);
 	}
 
-	public Examsection getExamsection(int examSectionId){
-		return (Examsection)iExamSectionDao.showExamsection(examSectionId);
+	public Examsection getExamsection(int examSectionId) {
+		return (Examsection) iExamSectionDao.showExamsection(examSectionId);
 	}
+
 	/**
 	 * 通过试卷章节返回该章节下的所有题目集合
 	 * 
@@ -126,13 +128,13 @@ public class ExamService {
 				.equals(DefaultValue.SINGLE_CHOICE)) {
 			List<Singlechoice> singlechoiceList = new ArrayList<Singlechoice>();
 			Singlechoice singlechoice = null;
-			
-			for (int i = 0; i < examquestions.size(); i++) {				
+
+			for (int i = 0; i < examquestions.size(); i++) {
 				int singleChoiceId = examquestions.get(i).getQuestionId();
 				singlechoice = iSingleChoiceDao
 						.showSinglechoice(singleChoiceId);
 				if (singlechoice != null) {
-				
+
 					singlechoiceList.add(singlechoice);
 				}
 			}
@@ -141,11 +143,11 @@ public class ExamService {
 				.equals(DefaultValue.MULTI_CHOICE)) {
 			List<Multichoice> multichoiceList = new ArrayList<Multichoice>();
 			Multichoice multichoice = null;
-			
+
 			for (int i = 0; i < examquestions.size(); i++) {
 				int multiChoiceId = examquestions.get(i).getQuestionId();
 				multichoice = iMultiChoiceDao.showMultichoice(multiChoiceId);
-				if (multichoice != null){
+				if (multichoice != null) {
 					multichoiceList.add(multichoice);
 				}
 			}
@@ -154,12 +156,12 @@ public class ExamService {
 				.equals(DefaultValue.TRUE_OR_FALSE)) {
 			List<Trueorfalse> trueorfalseList = new ArrayList<Trueorfalse>();
 			Trueorfalse trueorfalse = null;
-			
+
 			for (int i = 0; i < examquestions.size(); i++) {
 				int trueOrFalseId = examquestions.get(i).getQuestionId();
 				trueorfalse = iTrueOrFalseDao.showTrueorfalse(trueOrFalseId);
-				if (trueorfalse != null){
-			
+				if (trueorfalse != null) {
+
 					trueorfalseList.add(trueorfalse);
 				}
 			}
@@ -168,19 +170,64 @@ public class ExamService {
 				.equals(DefaultValue.MATERIAL_ANALYSIS)) {
 			List<Materialanalysis> materialanalysisList = new ArrayList<Materialanalysis>();
 			Materialanalysis materialanalysis = null;
-		
+
 			for (int i = 0; i < examquestions.size(); i++) {
 				int materialAnalysisId = examquestions.get(i).getQuestionId();
 				materialanalysis = iMaterialAnalysisDao
 						.showMaterialAnalysis(materialAnalysisId);
-				if (materialanalysis != null){
+				if (materialanalysis != null) {
 					materialanalysisList.add(materialanalysis);
 				}
-					
+
 			}
 			return materialanalysisList;
 		}
 		return null;
 	}
 
+	/**
+	 * 上移singleChoice在试卷中的位置
+	 * 
+	 * @param singleChoiceId
+	 */
+	public void moveSingleChoice(int singleChoiceId, String type, int examId) {
+		// 获得examSection对象
+		Examination examination = iExaminationDao.showExam(examId);
+		Examsection examsection = null;
+		Examquestion examquestion = null;
+		Examquestion repalcedExamquestion=null;
+		Iterator<Examsection> Iterator = examination.getExamsections()
+				.iterator();
+		while (Iterator.hasNext()) {
+			examsection = Iterator.next();
+			if (examsection.getQuestiontype().getTypeName()
+					.equals(DefaultValue.SINGLE_CHOICE)) {
+				List<Examquestion> examquestions = new ArrayList<Examquestion>(
+						examsection.getExamquestions());
+				for (int i = 0; i < examquestions.size(); i++) {
+					if (examquestions.get(i).getQuestionId() == singleChoiceId) {
+						if (type.equals("decrease")) {
+							examquestion = examquestions.get(i);
+							repalcedExamquestion=examquestions.get(i-1);
+							System.out.println("moveSingleChoice "
+									+ examquestion.getQuestionId());
+							repalcedExamquestion.setQuestionNumber(
+									examquestion.getQuestionNumber());
+							examquestion.setQuestionNumber(examquestion
+									.getQuestionNumber() - 1);
+						} else {
+							examquestion = examquestions.get(i);
+							repalcedExamquestion=examquestions.get(i+1);
+							repalcedExamquestion.setQuestionNumber(
+									examquestion.getQuestionNumber());
+							examquestion.setQuestionNumber(examquestion
+									.getQuestionNumber() + 1);
+						}
+						iExamQuestionDao.update(examquestion);
+						iExamQuestionDao.update(repalcedExamquestion);
+					}
+				}
+			}
+		}
+	}
 }

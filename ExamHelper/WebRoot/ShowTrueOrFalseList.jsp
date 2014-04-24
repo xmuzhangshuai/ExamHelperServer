@@ -41,7 +41,6 @@
 		else if (questionType == multiChoice) {
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoiceList&sectionName="
 					+ sectionName;
-			alert(document.getElementById("fom").action);
 		} else if (questionType == trueOrFalse)
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&sectionName="
 					+ sectionName;
@@ -115,7 +114,6 @@
 		{
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&pageNow="
 					+ page+"&sectionName="+sectionName;
-					alert(document.getElementById("fom").action);
 			document.getElementById("fom").submit();
 		} else {
 
@@ -140,7 +138,6 @@
 			{
 				document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&pageNow="
 						+ (pageNow - 1) + "&sectionName=" + sectionName;
-				alert(document.getElementById("fom").action);
 				document.getElementById("fom").submit();
 			} else {
 
@@ -157,26 +154,26 @@
 	function nextPage(pageNow, pageCount) {
 		pageCount=parseInt(pageCount);
 		pageNow=parseInt(pageNow);
-		if (pageNow + 1 > pageCount)
-			alert(当前为最后一页)
+		
+		if (pageNow+1> pageCount)
+			alert(当前为最后一页);
 		else {
 		var sectionName=document.getElementById("hiddenValue").value;
 		<%String keywordNP = (String) request.getAttribute("keyword");%>
 		var keyword="<%=keywordNP%>"
-			var nonContent = "null";		
-		pageNow=parseInt(pageNow)+1;
-			if (keyword == nonContent)
+			var nonContent = "null";
+			pageNow=parseInt(pageNow)+1;
+				if (keyword == nonContent)
 
 			{
 				document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&pageNow="
 						+ pageNow + "&sectionName=" + sectionName;
-				alert(document.getElementById("fom").action);
 				document.getElementById("fom").submit();
 			} else {
 
 				document.getElementById("textfield").value = keyword;
 				document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=searchSubjectByKeyWord&pageNow="
-				+ pageNow + "&sectionName=" + sectionName;
+				+pageNow+ "&sectionName=" + sectionName;
 				document.getElementById("fom").submit();
 			}
 		}
@@ -191,7 +188,6 @@
 			{
 				document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&pageNow=1"
 						 + "&sectionName=" + sectionName;
-				alert(document.getElementById("fom").action);
 				document.getElementById("fom").submit();
 			} else {
 
@@ -205,7 +201,7 @@
 	
 		var sectionName=document.getElementById("hiddenValue").value;
 		<%String keywordEP = (String) request.getAttribute("keyword");%>
-		var keyword="<%=keywordEP%>"
+		var keyword="<%=keywordEP%>";
 
 		var nonContent = "null";
 		if (keyword == nonContent)
@@ -213,7 +209,6 @@
 		{
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&pageNow="
 					+ pageCount + "&sectionName=" + sectionName;
-			alert(document.getElementById("fom").action);
 			document.getElementById("fom").submit();
 		} else {
 
@@ -235,13 +230,13 @@
 				<td height="30">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
 						<tr>
-							<td height="62" style="background-image:url('./images/nav04.gif');">
-
+							<td height="62"
+								style="background-image:url('./images/nav04.gif');">
 								<table width="98%" border="0" align="center" cellpadding="0"
 									cellspacing="0">
 									<tr>
-										<td align="left">
-											<table style="height: 126px; width: 439px; ">
+										<td align="left" style="width: 163px; ">
+											<table style="width: 277px; ">
 												<tr>
 													<td width="538" style="width: 154px; height: 48px">题型选择：
 														<select id="chooseQT" onchange="chooseQuestionType();">
@@ -350,7 +345,7 @@
 													<td width="50%">共 <span class="right-text09">${pageCount}</span>
 														页 | 第 <span class="right-text09">${pageNow}</span> 页
 													</td>
-													<td width="49%" align="right">[<a class="right-font08"
+												<td width="49%" align="right">[<a class="right-font08"
 														onclick="firstPage();">首页</a> | <a class="right-font08"
 														onclick="lastPage('${pageNow}');">上一页</a> | <a
 														class="right-font08"

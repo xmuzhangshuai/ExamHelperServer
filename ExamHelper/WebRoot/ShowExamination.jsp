@@ -71,7 +71,6 @@
 
 		document.getElementById("fom").submit();
 	}
-	
 </script>
 </head>
 
@@ -207,7 +206,8 @@
 											<legend>单项选择题</legend>
 											<table>
 												<tr>
-													<td><input type="button" class="button" value="添加单选选择题" onclick="addSingleChoice();"/></td>
+													<td><input type="button" class="button"
+														value="添加单项选择题" onclick="addSingleChoice();" /></td>
 												</tr>
 												<tr>
 													<td>
@@ -236,6 +236,7 @@
 																			</tr>
 																		</table>
 																	</td>
+																	<td><a href="${pageContext.request.contextPath}/examination.do?flag=moveSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}&type=decrease">上移</a>|<a href="#">下移|</a><a href="#">查看</a><a href="">删除</a></td>
 																</tr>
 															</c:forEach>
 														</table>
