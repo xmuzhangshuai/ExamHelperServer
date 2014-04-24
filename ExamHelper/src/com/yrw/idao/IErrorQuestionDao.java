@@ -56,6 +56,7 @@ public interface IErrorQuestionDao extends IBasicDao {
 	 */
 	public void addErrorQuestionList(List<Errorquestions> errorquestionsList);
 
+	
 	/**
 	 * Method delErrorQuestion
 	 * 

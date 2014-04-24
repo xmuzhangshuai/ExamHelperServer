@@ -65,6 +65,9 @@
 				<value>com/yrw/domains/User.hbm.xml</value>
 				<value>com/yrw/domains/Examguide.hbm.xml</value>
 				<value>com/yrw/domains/Examguidetype.hbm.xml</value>
+				<value>com/yrw/domains/Scollection.hbm.xml</value>
+				<value>com/yrw/domains/Serrorquestions.hbm.xml</value>
+				<value>com/yrw/domains/Snote.hbm.xml</value>
 			</list>
 		</property>
 
@@ -81,6 +84,9 @@
 
 
 	<!-- 使用属性注入方式 -->
+	<bean id="snoteDao" class="com.yrw.dao.SNoteDao" />
+	<bean id="serrorQuestionDao" class="com.yrw.dao.SErrorQuestionDao" />
+	<bean id="scollectionDao" class="com.yrw.dao.SCollectionDao" />
 	<bean id="managerDao" class="com.yrw.dao.ManagerDao" />
 	<bean id="subjectDao" class="com.yrw.dao.SubjectDao" />
 	<bean id="questionTypeDao" class="com.yrw.dao.QuestionTypeDao" />
@@ -96,9 +102,15 @@
 	<bean id="singleChoiceDao" class="com.yrw.dao.SingleChoiceDao" />
 	<bean id="trueOrFalseDao" class="com.yrw.dao.TrueOrFalseDao" />
 	<bean id="userDao" class="com.yrw.dao.UserDao" />
-	<bean id="collectionDao" class="com.yrw.dao.CollectionDao" />
-	<bean id="noteDao" class="com.yrw.dao.NoteDao" />
-	<bean id="errorQuestionDao" class="com.yrw.dao.ErrorQuestionDao" />
+	<bean id="collectionDao" class="com.yrw.dao.CollectionDao">
+		<property name="iScollectionDao" ref="scollectionDao" />
+	</bean>
+	<bean id="noteDao" class="com.yrw.dao.NoteDao">
+		<property name="iSnoteDao" ref="snoteDao" />
+	</bean>
+	<bean id="errorQuestionDao" class="com.yrw.dao.ErrorQuestionDao">
+		<property name="iSerrorQuestionDao" ref="serrorQuestionDao" />
+	</bean>
 	<bean id="examGuideDao" class="com.yrw.dao.ExamGuideDao" />
 
 
@@ -196,7 +208,7 @@
 	</bean>
 	<bean name="/examination" class="com.yrw.web.actions.ExaminationAction">
 		<property name="examService" ref="examService" />
-		<property name="subjectService" ref="subjectService"/>
+		<property name="subjectService" ref="subjectService" />
 	</bean>
 	<bean name="/user" class="com.yrw.web.actions.UserAction">
 		<property name="userService" ref="userService" />

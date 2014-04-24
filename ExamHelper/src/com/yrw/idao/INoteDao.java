@@ -17,13 +17,13 @@ public interface INoteDao extends IBasicDao {
 	 * @param questionId
 	 * @return
 	 */
-	public List getNoteByQuestion(int questiontypeId,int questionId);
+	public List<Note> getNoteByQuestion(int questiontypeId,int questionId);
 
 	/**
 	 * @param userId
 	 * @return
 	 */
-	public List getNoteByUserId(int userId);
+	public List<Note> getNoteByUserId(int userId);
 
 	
 
@@ -32,7 +32,7 @@ public interface INoteDao extends IBasicDao {
 	 * @return
 	 */
 	
-	public List showNote(int noteId);
+	public Note showNote(int noteId);
 	/**
 	 * @param note
 	 */
