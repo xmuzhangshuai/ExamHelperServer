@@ -23,14 +23,7 @@ public class CollectionService {
 	 * @param collection
 	 */
 	public void addCollection(Collection collection) {
-		String hql = "from Collection as c where c.user.id=" + collection.getUser().getId() + " and c.questiontype.id="
-				+ collection.getQuestiontype().getId() + " and c.questionId=" + collection.getQuestionId();
-		Collection collection2 = (Collection) icollectionDao.uniqueQuery(hql, null);
-		if (collection2 != null) {
-			collection2.setCollectTime(new Timestamp(System.currentTimeMillis()));
-			icollectionDao.update(collection2);
-		} else
-			icollectionDao.add(collection);
+	icollectionDao.addCollection(collection);
 
 	}
 
@@ -40,13 +33,7 @@ public class CollectionService {
 	 * @param collection
 	 */
 	public void delCollection(Collection collection) {
-
-		String hql = "from Collection as c where c.user.id=" + collection.getUser().getId() + " and c.questiontype.id="
-				+ collection.getQuestiontype().getId() + " and c.questionId=" + collection.getQuestionId();
-		Collection collection2 = (Collection) icollectionDao.uniqueQuery(hql, null);
-		if (collection2 != null) {
-			icollectionDao.deletById(Collection.class, collection2.getId());
-		}
+		icollectionDao.delCollection(collection);
 	}
 
 	/**

@@ -5,9 +5,18 @@ import java.util.Date;
 import java.util.List;
 
 import com.yrw.domains.Errorquestions;
+import com.yrw.domains.Serrorquestions;
 import com.yrw.idao.IErrorQuestionDao;
+import com.yrw.idao.ISerrorQuestionDao;
 
 public class ErrorQuestionDao extends BasicDao implements IErrorQuestionDao {
+
+	private ISerrorQuestionDao iSerrorQuestionDao;
+	
+
+	public void setiSerrorQuestionDao(ISerrorQuestionDao iSerrorQuestionDao) {
+		this.iSerrorQuestionDao = iSerrorQuestionDao;
+	}
 
 	@Override
 	public int getErrorQuestionCountByUser(int userId) {
@@ -24,17 +33,32 @@ public class ErrorQuestionDao extends BasicDao implements IErrorQuestionDao {
 	@Override
 	public void addErrorQuestion(Errorquestions errorquestions) {
 		// TODO Auto-generated method stub
-		String hql = "from Errorquestions as e where e.questiontype.id=" + errorquestions.getQuestiontype().getId()
-				+ " and e.questionId=" + errorquestions.getQuestionId() + " and e.user.id="
+		int questionId= errorquestions.getQuestionId();
+		int questionTypeId=errorquestions.getQuestiontype().getId();
+		Serrorquestions serrorquestions=null;
+		
+		String hql = "from Errorquestions as e where e.questiontype.id=" + questionTypeId
+				+ " and e.questionId=" + questionId + " and e.user.id="
 				+ errorquestions.getUser().getId();
 		Errorquestions errorQuestion = (Errorquestions) this.uniqueQuery(hql, null);
 		if (errorQuestion != null) {
 			errorQuestion.setErrorNum(errorQuestion.getErrorNum() + 1);
 			errorQuestion.setErrorTime(new Timestamp(System.currentTimeMillis()));
 			this.update(errorQuestion);
-		} else
+			
+			serrorquestions=iSerrorQuestionDao.getSerrorquestions(questionTypeId, questionId);
+			serrorquestions.setErrorNum(serrorquestions.getErrorNum()+1);
+			iSerrorQuestionDao.update(serrorquestions);
+		} else{
 			this.add(errorquestions);
-
+			
+			serrorquestions=new Serrorquestions();
+			serrorquestions.setErrorNum(1);
+			serrorquestions.setQuestionId(questionId);
+			serrorquestions.setQuestiontype(errorquestions.getQuestiontype());
+			serrorquestions.setSection(errorquestions.getSection());
+			iSerrorQuestionDao.add(serrorquestions);
+		}
 	}
 
 	@Override

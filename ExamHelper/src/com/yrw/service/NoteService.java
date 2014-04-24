@@ -23,18 +23,7 @@ public class NoteService {
 	 * @param note
 	 */
 	public void addNote(Note note) {
-		String hql = "from Note as n where n.user.id=" + note.getUser().getId() + " and n.questiontype.id="
-				+ note.getQuestiontype().getId() + " and n.questionId=" + note.getQuestionId();
-		Note existNote = (Note) iNoteDao.uniqueQuery(hql, null);
-		if (existNote != null) {
-			existNote.setNoteTime(new Timestamp(System.currentTimeMillis()));
-			existNote.setNoteContent(note.getNoteContent());
-			existNote.setQuestionId(note.getQuestionId());
-			existNote.setQuestiontype(note.getQuestiontype());
-			existNote.setUser(note.getUser());
-			iNoteDao.update(existNote);
-		} else
-			iNoteDao.add(note);
+		iNoteDao.addNote(note);
 	}
 
 	/**
@@ -43,12 +32,7 @@ public class NoteService {
 	 * @param note
 	 */
 	public void delNote(Note note) {
-		String hql = "from Note as n where n.user.id=" + note.getUser().getId() + " and n.questiontype.id="
-				+ note.getQuestiontype().getId() + " and n.questionId=" + note.getQuestionId();
-		Note existNote = (Note) iNoteDao.uniqueQuery(hql, null);
-		if (existNote != null) {
-			iNoteDao.deletById(Note.class, existNote.getId());
-		}
+		this.delNote(note);
 	}
 
 	/**
