@@ -294,6 +294,12 @@ body {
 						<td width="91%"><a href="${pageContext.request.contextPath}/user.do?flag=showUserList" target="mainFrame"
 							class="left-font03" onclick="tupian('15');">用户信息查看</a></td>
 					</tr>
+					<tr>
+						<td width="9%" height="20"><img id="xiaotu16"
+							src="./images/ico06.gif" width="8" height="12" /></td>
+						<td width="91%"><a href="http://www.umeng.com/apps/3179f02950b04265b7ae8335/reports/feedbacks" target="mainFrame"
+							class="left-font03" onclick="tupian('16');">用户反馈</a></td>
+					</tr>
 				</table> <!--  用户留言系统结束    -->
 				
 				 <!--  答疑广场系统开始    -->
@@ -323,6 +329,32 @@ body {
 					</tr>
 				</table> <!--  答疑广场系统结束    -->
 				
+				 <!--  终端系统开始    -->
+				<table width="100%" border="0" cellpadding="0" cellspacing="0"
+					class="left-table03">
+					<tr>
+						<td height="29">
+							<table width="85%" border="0" align="center" cellpadding="0"
+								cellspacing="0">
+								<tr>
+									<td width="8%"><img name="img7" id="img7"
+										src="./images/ico04.gif" width="8" height="11" /></td>
+									<td width="92%"><a href="javascript:" target="mainFrame"
+										class="left-font03" onclick="list('7');">终端管理</a></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+				<table id="subtree7" style="DISPLAY: none" width="80%" border="0"
+					align="center" cellpadding="0" cellspacing="0" class="left-table02">
+					<tr>
+						<td width="9%" height="20"><img id="xiaotu17"
+							src="./images/ico06.gif" width="8" height="12" /></td>
+						<td width="91%"><a href="http://www.umeng.com/apps/3179f02950b04265b7ae8335/upload" target="mainFrame"
+							class="left-font03" onclick="tupian('17');">自动更新</a></td>
+					</tr>
+				</table> <!--  终端系统开始    -->
 			</td>
 		</tr>
 	</table>
