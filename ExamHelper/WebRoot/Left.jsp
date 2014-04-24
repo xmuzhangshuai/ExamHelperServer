@@ -164,16 +164,16 @@ body {
 							target="mainFrame" class="left-font03" onclick="tupian('2');">添加文档类型</a></td>
 					</tr>
 					<tr>
-						<td width="9%" height="20"><img id="xiaotu1"
+						<td width="9%" height="20"><img id="xiaotu3"
 							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="${pageContext.request.contextPath}/examGuide.do?flag=showExamGuideList" target="mainFrame"
-							class="left-font03" onclick="tupian('1');">查看文档</a></td>
+							class="left-font03" onclick="tupian('3');">查看文档</a></td>
 					</tr>
 					<tr>
-						<td width="9%" height="20"><img id="xiaotu2"
+						<td width="9%" height="20"><img id="xiaotu4"
 							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="${pageContext.request.contextPath}/examGuide.do?flag=examGuideType"
-							target="mainFrame" class="left-font03" onclick="tupian('2');">添加文档</a></td>
+							target="mainFrame" class="left-font03" onclick="tupian('4');">添加文档</a></td>
 					</tr>
 				</table> <!--  管理文档系统结束    --> <!--  发布信息系统开始    -->
 				<table width="100%" border="0" cellpadding="0" cellspacing="0"
@@ -209,7 +209,7 @@ body {
 					<tr>
 						<td width="9%" height="20"><img id="xiaotu8"
 							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="listsendxiaoxi.htm"
+						<td width="91%"><a href="http://message.umeng.com/5338ea7b56240b05920f9713/dashboard"
 							target="mainFrame" class="left-font03" onclick="tupian('8');">发布用户通知
 						</a></td>
 					</tr>
