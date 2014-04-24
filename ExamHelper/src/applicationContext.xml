@@ -153,6 +153,7 @@
 	</bean>
 	<bean id="examGuideService" class="com.yrw.service.ExamGuideService">
 		<property name="iExamGuideDao" ref="examGuideDao" />
+		<property name="iSubjectDao" ref="subjectDao" />
 	</bean>
 
 

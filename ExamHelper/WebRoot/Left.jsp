@@ -154,6 +154,18 @@ body {
 					<tr>
 						<td width="9%" height="20"><img id="xiaotu1"
 							src="./images/ico06.gif" width="8" height="12" /></td>
+						<td width="91%"><a href="${pageContext.request.contextPath}/examGuide.do?flag=showExamGuideTypeList" target="mainFrame"
+							class="left-font03" onclick="tupian('1');">查看文档类型</a></td>
+					</tr>
+					<tr>
+						<td width="9%" height="20"><img id="xiaotu2"
+							src="./images/ico06.gif" width="8" height="12" /></td>
+						<td width="91%"><a href="${pageContext.request.contextPath}/examGuide.do?flag=getSubjectList"
+							target="mainFrame" class="left-font03" onclick="tupian('2');">添加文档类型</a></td>
+					</tr>
+					<tr>
+						<td width="9%" height="20"><img id="xiaotu1"
+							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="${pageContext.request.contextPath}/examGuide.do?flag=showExamGuideList" target="mainFrame"
 							class="left-font03" onclick="tupian('1');">查看文档</a></td>
 					</tr>

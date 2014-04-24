@@ -45,6 +45,7 @@
   <StrutsActivity path="/QueryDetail.jsp" location="350,2150" dimension="125,53" />
   <StrutsActivity path="/QuerySquare.jsp" location="1550,2050" dimension="133,53" />
   <StrutsActivity path="/AddExamGuide.jsp" location="1850,2150" dimension="146,53" />
+  <StrutsActivity path="/ShowExamGuide.jsp" location="2150,2150" dimension="153,53" />
   <StrutsActivity path="/Success.jsp" location="650,1550" dimension="102,53" />
   <StrutsActivity path="/Fail.jsp" location="60,1050" dimension="150,100" />
   <StrutsActivity path="/ShowExam.jsp" location="650,1950" dimension="119,53" />
@@ -77,7 +78,8 @@
   <StrutsActivity path="./Success.jsp" location="650,1150" dimension="105,53" />
   <StrutsActivity path="./Fail.jsp" location="950,1150" dimension="79,53" />
   <StrutsActivity path="/EditQuestionOfMaterial.jsp" location="2150,1150" dimension="193,53" />
-  <StrutsActivity path="/ShowExamGuide.jsp" />
+  <StrutsActivity path="/AddExamGuideType.jsp" />
+  <StrutsActivity path="/ShowExamGuideType.jsp" />
   <StrutsTransition id="/examGuide.do,addExamGuide,/AddExamGuide.jsp,1" routingType="0">
     <AutomaticBendpoints>
       <AbsolutePoint location="782,2202" />
@@ -96,6 +98,12 @@
       <AbsolutePoint location="631,218" />
       <AbsolutePoint location="1950,218" />
       <AbsolutePoint location="1950,250" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/examGuide.do,addExamGuideType,/AddExamGuideType.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="782,2202" />
+      <AbsolutePoint location="0,0" />
     </AutomaticBendpoints>
   </StrutsTransition>
   <StrutsTransition id="/examGuide.do,showExamGuide,/ShowExamGuide.jsp,1" routingType="0">
@@ -119,6 +127,12 @@
       <AbsolutePoint location="-75,656" />
       <AbsolutePoint location="-75,1976" />
       <AbsolutePoint location="50,1976" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/examGuide.do,showExamGuideType,/ShowExamGuideType.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="782,2202" />
+      <AbsolutePoint location="0,0" />
     </AutomaticBendpoints>
   </StrutsTransition>
   <StrutsTransition id="fail;6,null,/Fail.jsp,1" routingType="0">

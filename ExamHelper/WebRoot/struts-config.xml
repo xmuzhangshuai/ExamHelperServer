@@ -131,8 +131,10 @@
       path="/examGuide"
       type="com.yrw.web.actions.ExamGuideAction"
       cancellable="true" >
-      <forward name="addExamGuide" path="/AddExamGuide.jsp"/>
+       <forward name="addExamGuide" path="/AddExamGuide.jsp"/>
        <forward name="showExamGuide" path="/ShowExamGuide.jsp"/>
+       <forward name="addExamGuideType" path="/AddExamGuideType.jsp"/>
+       <forward name="showExamGuideType" path="/ShowExamGuideType.jsp"/>
       </action>
 
 
