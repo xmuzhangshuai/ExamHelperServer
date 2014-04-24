@@ -19,5 +19,11 @@
             </key>
             <one-to-many class="com.yrw.domains.Examination" />
         </set>
+        <set name="examguidetypes" inverse="true">
+            <key>
+                <column name="subject_id" not-null="true" />
+            </key>
+            <one-to-many class="com.yrw.domains.Examguidetype" />
+        </set>
     </class>
 </hibernate-mapping>

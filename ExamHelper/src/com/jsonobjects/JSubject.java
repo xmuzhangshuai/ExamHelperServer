@@ -1,5 +1,7 @@
 package com.jsonobjects;
 
+import com.yrw.domains.Subject;
+
 /**
  * Entity mapped to table SUBJECT.
  */
@@ -21,9 +23,9 @@ public class JSubject {
 	 * 
 	 * @return
 	 */
-	public com.yrw.domains.Subject NetToLocal() {
+	public Subject NetToLocal() {
 
-		com.yrw.domains.Subject local = new com.yrw.domains.Subject(subject_name, null);
+		Subject local = new Subject(subject_name, null,null);
 		local.setId(id.intValue());
 		return local;
 	}
