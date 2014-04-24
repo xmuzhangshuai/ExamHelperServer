@@ -232,7 +232,8 @@ public class ExaminationAction extends DispatchAction {
 		examService.moveSingleChoice(singleChoiceId, type, examId);		
 		//÷ÿ–¬…Ë÷√examinationId
 		request.setAttribute("examinationId", examId);
-		return mapping.findForward("showExamination");
+		System.out.println(examId);
+		return showExamination(mapping, form, request, response);
 		
 	}
 }
