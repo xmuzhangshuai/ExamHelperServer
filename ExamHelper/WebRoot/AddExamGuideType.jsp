@@ -9,9 +9,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <html>
 <head>
-<title>添加考试指南</title>
-<link rel="stylesheet" type="text/css" href="./css/examguide.css"/>
+<title>添加考试指南类型</title>
+
 <link rel="stylesheet" type="text/css" href="./css/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="./css/examguide.css"/>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-datepicker.js"></script>
 <script type="text/javascript" language="javascript">
@@ -41,35 +42,23 @@ $(function(){
 		
 		<tr>
 			<td style="border-style: none; border-width: medium;">
-				<form class="contact_form" action="${pageContext.request.contextPath}/examGuide.do?flag=addExamGuide" method="post" name="contact_form">
+				<form class="contact_form" action="${pageContext.request.contextPath}/examGuide.do?flag=addExamGuideType" method="post" name="contact_form">
 					<ul>
 						<li>
-             				<h2>添加文章</h2>
+             				<h2>添加类型</h2>
         				</li>
         				<li>
              				<label for="name">题目:</label>
-             				<input type="text" name="title"  placeholder="文章题目" required />
+             				<input type="text" name="title"  placeholder="类型题目" required />
         				</li>
         				<li>
-             				<label for="website">文章URL:</label>
-            				<input type="text" name="url" placeholder="url" required />
-        				</li>
-        				<li>
-             				<label>文章类型:</label>
-        					<select name="type" required>
+             				<label>所属科目:</label>
+        					<select name="subject" required>
         						<option></option>
         						<c:forEach items="${subjectList}" var="subject">
-        							<optgroup label="${subject.subName}">
-        								<c:forEach items="${subject.examguidetypes}" var="examGuideType">
-        									<option value="${examGuideType.id}">${examGuideType.typeName}</option>
-        								</c:forEach>
-        							</optgroup>
+        							<option value="${subject.id}">${subject.subName}</option>
         						</c:forEach>
         					</select>
-        				</li>
-        				<li>
-             				<label>日期:</label>
-        					<input type="text" name="date" id="date_1" required />
         				</li>
         				<li>
         					<button type="submit" class="submit">添     加</button>

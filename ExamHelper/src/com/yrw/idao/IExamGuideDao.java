@@ -27,6 +27,17 @@ public interface IExamGuideDao extends IBasicDao {
 	 */
 	public Examguidetype getExamguidetypeById(int examGuideTypeId);
 	
+	public int getPageCount();
+	
+	public int getPageCount(int typeID);
+	
+	public int getTypePageCount();
+	
+	public List<Examguide> getExamguideListByPage(int pageNow);
+	
+	public List<Examguide> getExamguideListByPage(int pageNow,int typeID);
+	
+	public List<Examguidetype> getExamguidetypeListByPage(int pageNow);
 	
 	/**增加考试指南
 	 * @param examguide

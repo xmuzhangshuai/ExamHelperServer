@@ -41,4 +41,11 @@ public class CollectionDao extends BasicDao implements ICollectionDao {
 		return this.executeQuery(hql, null);
 	}
 
+	@Override
+	public List<Collection> getCollectionList() {
+		// TODO Auto-generated method stub
+		String hql = "select collection from Collection collection order by collection.collectTime desc";
+		return this.executeQuery(hql, null);
+	}
+
 }

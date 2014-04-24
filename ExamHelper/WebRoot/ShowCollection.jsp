@@ -5,16 +5,17 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
 <head>
-<title>考试指南信息查看</title>
+<base href="<%=basePath%>">
+<title>收藏统计</title>
 <link href="./css/css.css" rel="stylesheet" type="text/css" />
 <link href="./css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery.lightbox-0.5.js"></script>
 <link rel="stylesheet" type="text/css" href="css/jquery.lightbox-0.5.css" media="screen" />
+
 <script type="text/javascript" language="javascript">
 function selectAll() {
 	var obj = document.fom.elements;
@@ -70,10 +71,12 @@ $(function() {
 	$('#gallery a').lightBox();
 });
 
-function link() {
-	document.getElementById("fom").action = "${pageContext.request.contextPath}/user.do?flag=addSubjectUI";
+//点击列表进入疑问详情
+function goQueryDetail(id){
+	document.getElementById("fom").action = "${pageContext.request.contextPath}/query.do?flag=showQueryDetail&id="+id;
 	document.getElementById("fom").submit();
 }
+
 </script>
 </head>
   
@@ -90,9 +93,8 @@ function link() {
 								<td width="21"><img src="./images/ico07.gif" width="20" height="18" /></td>
 								<td width="80">
 									<select>
-										<option>按科目</option>
-										<option>按类型</option>
-										<option>按题目</option>
+										<option>按时间</option>
+										<option>按用户昵称</option>
 									</select>
 								</td>
 								<td width="300" align="left">
@@ -111,16 +113,16 @@ function link() {
 		
 		<tr>
 		<td>
-		<table id="subtree1" style="DISPLAY: " width="100%" border="0" cellspacing="0" cellpadding="0">
+		<table id="subtree1" style="DISPLAY: " width="100%" border="0" cellspacing="0" cellpadding="0" >
 			<tr>
 			<td>
-			<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+			<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" id="gallery">
 				<tr>
 					<td height="35">
 						<span class="newfont07">全选：
 							<input type="checkbox" id="selectOrNot" onchange="selectOrUnSelect()"/>
 						</span>
-						<input name="Submit" type="button" class="right-button08" value="删除所选文章" onclick="delSelected();" /> 
+						<input name="Submit" type="button" class="right-button08" value="删除所选疑问" onclick="delSelected();" /> 
 						<input type="hidden" name="paramsHidden" id="paramsHidden" /> 
 					</td>
 				</tr>
@@ -129,30 +131,35 @@ function link() {
 				<td height="40" class="font42">
 					<table width="100%" border="0" cellpadding="4" cellspacing="1" bgcolor="#464646" class="newfont03">
 						<tr class="CTitle">
-							<td height="22" colspan="13" align="center" style="font-size:16px">考试指南列表</td>
+							<td height="22" colspan="13" align="center" style="font-size:16px">疑问列表</td>
 						</tr>
 						<tr bgcolor="#EEEEEE">
-							<td width="6%" align="center" height="30">选择</td>
-							<td width="8%" align="center" height="30">唯一编号</td>
-							<td width="10%" align="center" height="30">科目</td>
-							<td width="10%" align="center" height="30">类型</td>
-							<td width="24%" align="center" height="30">题目</td>
-							<td width="24%" align="center" height="30">链接</td>
-							<td width="10%" align="center" height="30">时间</td>
-							<td width="10%" align="center" height="30">操作</td>
+							<td width="4%" align="center" height="30">选择</td>
+							<td width="6%" align="center" height="30">唯一编号</td>
+							<td width="8%" align="center" height="30">用户头像</td>
+							<td width="8%" align="center" height="30">用户昵称</td>
+							<td width="8%" align="center" height="30">疑问题型</td>
+							<td width="38%" align="center" height="30">疑问内容</td>
+							<td width="8%" align="center" height="30">疑问时间</td>
+							<td width="12%" align="center" height="30">疑问图片</td>
+							<td width="8%" align="center" height="30">操作</td>
 						</tr>
-						<c:forEach items="${examGuideList}" var="examGuide">
-							<tr id="listbg">
-								<td height="20" align="center" ><input  type="checkbox" name="delid${examGuide.id}" /></td>
-								<td height="20" align="center" ><label>${examGuide.id}</label></td>
-								<td height="30" ><label>${examGuide.examguidetype.subject.subName}</label></td>
-								<td height="20" ><label>${examGuide.examguidetype.typeName}</label></td>
-								<td height="20" ><label>${examGuide.title}</label></td>
-								<td height="20" ><a href="${examGuide.url}" target="mainFrame">${examGuide.url}</a></td>
-								<td height="20" ><label>${examGuide.time}</label></td>
-								<td height="20" ><a href="">编辑|</a>
+						<c:forEach items="${queryList}" var="query">
+							<tr id="listbg" onclick="goQueryDetail(${query.id});">
+								<td height="20" align="center" ><input  type="checkbox" name="delid${query.id}" /></td>
+								<td height="20" align="center" ><label>${query.id}</label></td>
+								<td height="30" align="center" ><a href="${query.user.avatar}" title="${query.user.nickname}">
+												<img id ="headImage" height="80px" src="${query.user.avatar}" alt="" /></a></td>
+								<td height="20" ><label>${query.user.nickname}</label></td>
+								<td height="20" ><label>${query.questiontype.typeName}</label></td>
+								<td height="20" ><label>${query.queryStem}</label></td>
+								<td height="20" align="center" ><label>${query.queryTime}</label></td>
+								<td height="20" align="center"><a href="${query.queryImage}" title="${query.queryStem}">
+												<img id ="headImage" height="100px" src="${query.queryImage}" alt="" /></a></td>
+								<td height="20" >
+									<a href="">编辑|</a>
 								    <a href="">查看|</a>
-									<a href="#" onclick="" id="deleteSingleSubject${subject.id}">删除</a>
+									<a href="#" onclick="" id="deleteSingleSubject${query.id}">删除</a>
 								</td>
 							</tr>
 						</c:forEach>
@@ -173,12 +180,12 @@ function link() {
 								<td width="50%">共 <span class="right-text09" id="pageCount">${pageCount}</span>
 									页 | 第 <span class="right-text09" id="pageNowId">${pageNow}</span> 页
 								</td>
-								<td width="49%" align="right">[<a href="${pageContext.request.contextPath}/examGuide.do?flag=showExamGuideList&pageNow=1&id=${id}" class="right-font08">首页</a> | 
-															   <a href="${pageContext.request.contextPath}/examGuide.do?flag=showExamGuideList&pageNow=${pageNow-1}&id=${id}" 
+								<td width="49%" align="right">[<a href="${pageContext.request.contextPath}/query.do?flag=showQueryList&pageNow=1" class="right-font08">首页</a> | 
+															   <a href="${pageContext.request.contextPath}/query.do?flag=showQueryList&pageNow=${pageNow-1}" 
 															      onclick="lastPage(${pageNow-1});"  class="right-font08">上一页</a> |
-														       <a href="${pageContext.request.contextPath}/examGuide.do?flag=showExamGuideList&pageNow=${pageNow+1}&id=${id}" 
+														       <a href="${pageContext.request.contextPath}/query.do?flag=showQueryList&pageNow=${pageNow+1}" 
 														          onclick="nextPage(${pageNow+1},${pageCount});" class="right-font08">下一页</a>| 
-														       <a href="${pageContext.request.contextPath}/examGuide.do?flag=showExamGuideList&pageNow=${pageCount}&id=${id}" class="right-font08">末页</a>] 转至：
+														       <a href="${pageContext.request.contextPath}/query.do?flag=showQueryList&pageNow=${pageCount}" class="right-font08">末页</a>] 转至：
 								</td>
 								<td width="1%">
 									<table width="20" border="0" cellspacing="0" cellpadding="0">

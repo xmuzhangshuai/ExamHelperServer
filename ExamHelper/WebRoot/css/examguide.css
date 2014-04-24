@@ -97,18 +97,18 @@
 
 /* === HTML5 validation styles === */
 .contact_form input:required,.contact_form textarea,.contact_form select:required {
-	background: #fff url(images/red_asterisk.png) no-repeat 98% center;
+	background: #fff url(../images/red_asterisk.png) no-repeat 98% center;
 }
 
 .contact_form input:required:valid,.contact_form textarea,.contact_form select:required:valid
 	{
-	background: #fff url(images/valid.png) no-repeat 98% center;
+	background: #fff url(../images/valid.png) no-repeat 98% center;
 	box-shadow: 0 0 5px #5cd053;
 	border-color: #28921f;
 }
 
 .contact_form input:focus:invalid,.contact_form textarea,.contact_form select:focus:invalid {
-	background: #fff url(images/invalid.png) no-repeat 98% center;
+	background: #fff url(../images/invalid.png) no-repeat 98% center;
 	box-shadow: 0 0 5px #d45252;
 	border-color: #b03535
 }
@@ -146,7 +146,7 @@
 }
 
 /* === Button Style === */
-button.add {
+button.submit{
 	background-color: #68b12f;
 	background: -webkit-gradient(linear, left top, left bottom, from(#68b12f),
 		to(#50911e));
@@ -174,12 +174,12 @@ button.add {
 	text-shadow: 0 -1px 0 #396715;
 }
 
-button.add:hover {
+button.submit:hover {
 	opacity: .85;
 	cursor: pointer;
 }
 
-button.add:active {
+button.submit:active {
 	border: 1px solid #20911e;
 	box-shadow: 0 0 10px 5px #356b0b inset;
 	-webkit-box-shadow: 0 0 10px 5px #356b0b inset;

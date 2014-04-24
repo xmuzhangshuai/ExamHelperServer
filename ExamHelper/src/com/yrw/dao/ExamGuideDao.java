@@ -43,7 +43,7 @@ public class ExamGuideDao extends BasicDao implements IExamGuideDao{
 	@Override
 	public void addExamguidetype(Examguidetype examguidetype) {
 		// TODO Auto-generated method stub
-		this.addExamguidetype(examguidetype);
+		this.add(examguidetype);
 	}
 
 	@Override
@@ -68,6 +68,49 @@ public class ExamGuideDao extends BasicDao implements IExamGuideDao{
 	public void deletExamguideType(int examguidetypeId) {
 		// TODO Auto-generated method stub
 		this.deletById(Examguidetype.class, examguidetypeId);
+	}
+
+	@Override
+	public int getPageCount() {
+		// TODO Auto-generated method stub
+		String hql = "select count(*) from Examguide";
+		return this.queryPageCount(hql, null);
+	}
+
+	@Override
+	public List<Examguide> getExamguideListByPage(int pageNow) {
+		// TODO Auto-generated method stub
+		String hql = "from Examguide order by time desc";
+		return this.executeQueryByPage(hql, null, pageNow);
+	}
+
+	@Override
+	public int getTypePageCount() {
+		// TODO Auto-generated method stub
+		String hql = "select count(*) from Examguidetype";
+		return this.queryPageCount(hql, null);
+	}
+
+	@Override
+	public List<Examguidetype> getExamguidetypeListByPage(int pageNow) {
+		// TODO Auto-generated method stub
+		String hql = "from Examguidetype order by id desc";
+		return this.executeQueryByPage(hql, null, pageNow);
+	}
+
+	@Override
+	public int getPageCount(int typeID) {
+		// TODO Auto-generated method stub
+		String hql = "select count(*) from Examguide as e where e.examguidetype.id="+typeID;
+		return this.queryPageCount(hql, null);
+	}
+
+	@Override
+	public List<Examguide> getExamguideListByPage(int pageNow, int typeID) {
+		// TODO Auto-generated method stub
+		String hql = "from Examguide as e where e.examguidetype.id="+typeID
+				+ "order by time desc";
+		return this.executeQueryByPage(hql, null, pageNow);
 	}
 
 }

@@ -70,6 +70,11 @@ $(function() {
 	$('#gallery a').lightBox();
 });
 
+function goExamGuideList(id){
+	document.getElementById("fom").action = "${pageContext.request.contextPath}/examGuide.do?flag=showExamGuideList&id="+id;
+	document.getElementById("fom").submit();
+}
+
 function link() {
 	document.getElementById("fom").action = "${pageContext.request.contextPath}/user.do?flag=addSubjectUI";
 	document.getElementById("fom").submit();
@@ -91,8 +96,6 @@ function link() {
 								<td width="80">
 									<select>
 										<option>按科目</option>
-										<option>按类型</option>
-										<option>按题目</option>
 									</select>
 								</td>
 								<td width="300" align="left">
@@ -114,13 +117,13 @@ function link() {
 		<table id="subtree1" style="DISPLAY: " width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
 			<td>
-			<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+			<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" id="gallery">
 				<tr>
 					<td height="35">
 						<span class="newfont07">全选：
 							<input type="checkbox" id="selectOrNot" onchange="selectOrUnSelect()"/>
 						</span>
-						<input name="Submit" type="button" class="right-button08" value="删除所选文章" onclick="delSelected();" /> 
+						<input name="Submit" type="button" class="right-button08" value="删除所选类型" onclick="delSelected();" /> 
 						<input type="hidden" name="paramsHidden" id="paramsHidden" /> 
 					</td>
 				</tr>
@@ -129,30 +132,24 @@ function link() {
 				<td height="40" class="font42">
 					<table width="100%" border="0" cellpadding="4" cellspacing="1" bgcolor="#464646" class="newfont03">
 						<tr class="CTitle">
-							<td height="22" colspan="13" align="center" style="font-size:16px">考试指南列表</td>
+							<td height="22" colspan="13" align="center" style="font-size:16px">考试指南目录列表</td>
 						</tr>
 						<tr bgcolor="#EEEEEE">
-							<td width="6%" align="center" height="30">选择</td>
-							<td width="8%" align="center" height="30">唯一编号</td>
+							<td width="10%" align="center" height="30">选择</td>
+							<td width="10%" align="center" height="30">唯一编号</td>
 							<td width="10%" align="center" height="30">科目</td>
-							<td width="10%" align="center" height="30">类型</td>
-							<td width="24%" align="center" height="30">题目</td>
-							<td width="24%" align="center" height="30">链接</td>
-							<td width="10%" align="center" height="30">时间</td>
-							<td width="10%" align="center" height="30">操作</td>
+							<td width="40%" align="center" height="30">类型名称</td>
+							<td width="30%" align="center" height="30">操作</td>
 						</tr>
-						<c:forEach items="${examGuideList}" var="examGuide">
-							<tr id="listbg">
-								<td height="20" align="center" ><input  type="checkbox" name="delid${examGuide.id}" /></td>
-								<td height="20" align="center" ><label>${examGuide.id}</label></td>
-								<td height="30" ><label>${examGuide.examguidetype.subject.subName}</label></td>
-								<td height="20" ><label>${examGuide.examguidetype.typeName}</label></td>
-								<td height="20" ><label>${examGuide.title}</label></td>
-								<td height="20" ><a href="${examGuide.url}" target="mainFrame">${examGuide.url}</a></td>
-								<td height="20" ><label>${examGuide.time}</label></td>
+						<c:forEach items="${examguidetypeList}" var="examGuideType">
+							<tr id="listbg" onclick="goExamGuideList(${examGuideType.id});">
+								<td height="20" align="center" ><input  type="checkbox" name="delid${examGuideType.id}" /></td>
+								<td height="20" align="center" ><label>${examGuideType.id}</label></td>
+								<td height="30" ><label>${examGuideType.subject.subName}</label></td>
+								<td height="20" ><label>${examGuideType.typeName}</label></td>
 								<td height="20" ><a href="">编辑|</a>
 								    <a href="">查看|</a>
-									<a href="#" onclick="" id="deleteSingleSubject${subject.id}">删除</a>
+									<a href="#" onclick="" id="deleteSingleSubject${examGuideType.id}">删除</a>
 								</td>
 							</tr>
 						</c:forEach>
@@ -173,12 +170,12 @@ function link() {
 								<td width="50%">共 <span class="right-text09" id="pageCount">${pageCount}</span>
 									页 | 第 <span class="right-text09" id="pageNowId">${pageNow}</span> 页
 								</td>
-								<td width="49%" align="right">[<a href="${pageContext.request.contextPath}/examGuide.do?flag=showExamGuideList&pageNow=1&id=${id}" class="right-font08">首页</a> | 
-															   <a href="${pageContext.request.contextPath}/examGuide.do?flag=showExamGuideList&pageNow=${pageNow-1}&id=${id}" 
+								<td width="49%" align="right">[<a href="${pageContext.request.contextPath}/examGuide.do?flag=showExamGuideTypeList&pageNow=1" class="right-font08">首页</a> | 
+															   <a href="${pageContext.request.contextPath}/examGuide.do?flag=showExamGuideTypeList&pageNow=${pageNow-1}" 
 															      onclick="lastPage(${pageNow-1});"  class="right-font08">上一页</a> |
-														       <a href="${pageContext.request.contextPath}/examGuide.do?flag=showExamGuideList&pageNow=${pageNow+1}&id=${id}" 
+														       <a href="${pageContext.request.contextPath}/examGuide.do?flag=showExamGuideTypeList&pageNow=${pageNow+1}" 
 														          onclick="nextPage(${pageNow+1},${pageCount});" class="right-font08">下一页</a>| 
-														       <a href="${pageContext.request.contextPath}/examGuide.do?flag=showExamGuideList&pageNow=${pageCount}&id=${id}" class="right-font08">末页</a>] 转至：
+														       <a href="${pageContext.request.contextPath}/examGuide.do?flag=showExamGuideTypeList&pageNow=${pageCount}" class="right-font08">末页</a>] 转至：
 								</td>
 								<td width="1%">
 									<table width="20" border="0" cellspacing="0" cellpadding="0">

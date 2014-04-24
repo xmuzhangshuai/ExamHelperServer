@@ -14,32 +14,34 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DispatchAction;
 
+import com.yrw.domains.Examguide;
 import com.yrw.domains.Examguidetype;
 import com.yrw.domains.Subject;
 import com.yrw.service.ExamGuideService;
 import com.yrw.service.SubjectService;
 
-/** 
- * MyEclipse Struts
- * Creation date: 04-24-2014
+/**
+ * MyEclipse Struts Creation date: 04-24-2014
  * 
  * XDoclet definition:
+ * 
  * @struts.action parameter="flag" validate="true"
  */
 public class ExamGuideAction extends DispatchAction {
 	private ExamGuideService examGuideService;
 	private SubjectService subjectService;
-	
+
 	public void setExamGuideService(ExamGuideService examGuideService) {
 		this.examGuideService = examGuideService;
 	}
-	
+
 	public void setSubjectService(SubjectService subjectService) {
 		this.subjectService = subjectService;
 	}
 
-	/** 
+	/**
 	 * Method execute
+	 * 
 	 * @param mapping
 	 * @param form
 	 * @param request
@@ -49,11 +51,114 @@ public class ExamGuideAction extends DispatchAction {
 	public ActionForward addExamGuide(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
 		// TODO Auto-generated method stub
-		return null;
+		String title = request.getParameter("title");
+		String url = request.getParameter("url");
+		String date = request.getParameter("date");
+		int typeID = Integer.parseInt(request.getParameter("type"));
+		examGuideService.addExamGuide(typeID, title, url, date);
+		return showExamGuideList(mapping, form, request, response);
 	}
-	
+
+	/**
+	 * 添加类型
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward addExamGuideType(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		String title = request.getParameter("title");
+		String subject = request.getParameter("subject");
+		int subjectID = Integer.parseInt(subject);
+		examGuideService.addExamType(subjectID, title);
+		return showExamGuideTypeList(mapping, form, request, response);
+	}
+
+	/**
+	 * 展示考试指南文章列表
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward showExamGuideList(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		int pageNow = 1;
+		List<Examguide> examguideList = null;
+		int pageCount = 0;
+		String pageNowString = request.getParameter("pageNow");
+
+		String typeId = request.getParameter("id");
+		if (typeId == null || (typeId != null && typeId.length() == 0)) {
+			pageCount = examGuideService.getExamGuidePageCount();
+			if (pageNowString != null) {
+				pageNow = Integer.parseInt(pageNowString);
+				if (pageNow < 1)
+					pageNow = 1;
+				else if (pageNow > pageCount)
+					pageNow = pageCount;
+			}
+			examguideList = examGuideService.getExamguideListByPage(pageNow);
+		} else {
+			int typeID = Integer.parseInt(typeId);
+			pageCount = examGuideService.getExamGuidePageCount(typeID);
+			if (pageNowString != null) {
+				pageNow = Integer.parseInt(pageNowString);
+				if (pageNow < 1)
+					pageNow = 1;
+				else if (pageNow > pageCount)
+					pageNow = pageCount;
+			}
+			examguideList = examGuideService.getExamguideListByPage(pageNow, typeID);
+			request.setAttribute("id", typeId);
+		}
+
+		request.setAttribute("examGuideList", examguideList);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("pageNow", pageNow);
+		return mapping.findForward("showExamGuide");
+	}
+
+	/**
+	 * 展示考试指南目录列表
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward showExamGuideTypeList(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		int pageNow = 1;
+		int pageCount = examGuideService.getExamGuideTypePageCount();
+		String pageNowString = request.getParameter("pageNow");
+		if (pageNowString != null) {
+			pageNow = Integer.parseInt(pageNowString);
+			if (pageNow < 1)
+				pageNow = 1;
+			else if (pageNow > pageCount)
+				pageNow = pageCount;
+		}
+
+		List<Examguidetype> examguidetypeList = examGuideService.getExamguideTypeListByPage(pageNow);
+		request.setAttribute("examguidetypeList", examguidetypeList);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("pageNow", pageNow);
+		return mapping.findForward("showExamGuideType");
+	}
+
 	/**
 	 * 返回带有考试指南目录的页面
+	 * 
 	 * @param mapping
 	 * @param form
 	 * @param request
@@ -61,9 +166,25 @@ public class ExamGuideAction extends DispatchAction {
 	 * @return
 	 */
 	public ActionForward examGuideType(ActionMapping mapping, ActionForm form, HttpServletRequest request,
-			HttpServletResponse response){
+			HttpServletResponse response) {
 		List<Subject> subjectList = subjectService.getSubjects();
 		request.setAttribute("subjectList", subjectList);
 		return mapping.findForward("addExamGuide");
+	}
+
+	/**
+	 * 返回带有科目的页面
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward getSubjectList(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		List<Subject> subjectList = subjectService.getSubjects();
+		request.setAttribute("subjectList", subjectList);
+		return mapping.findForward("addExamGuideType");
 	}
 }

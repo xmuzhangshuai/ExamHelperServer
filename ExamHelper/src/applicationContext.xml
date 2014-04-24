@@ -153,6 +153,7 @@
 	</bean>
 	<bean id="examGuideService" class="com.yrw.service.ExamGuideService">
 		<property name="iExamGuideDao" ref="examGuideDao" />
+		<property name="iSubjectDao" ref="subjectDao" />
 	</bean>
 
 
@@ -205,6 +206,10 @@
 	</bean>
 	<bean name="/examGuide" class="com.yrw.web.actions.ExamGuideAction">
 		<property name="examGuideService" ref="examGuideService" />
+		<property name="subjectService" ref="subjectService" />
+	</bean>
+	<bean name="/collection" class="com.yrw.web.actions.CollectionAction">
+		<property name="collectionService" ref="collectionService" />
 		<property name="subjectService" ref="subjectService" />
 	</bean>
 
