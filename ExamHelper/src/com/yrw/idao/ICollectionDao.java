@@ -58,4 +58,5 @@ public interface ICollectionDao extends IBasicDao {
 	 */
 	public void delCollection(Collection collection);
 
+	public List<Collection> getCollectionList();
 }
