@@ -210,7 +210,7 @@ public class ExamService {
 							examquestion = examquestions.get(i);
 							repalcedExamquestion=examquestions.get(i-1);
 							System.out.println("moveSingleChoice "
-									+ examquestion.getQuestionId());
+									+ examquestion.getQuestionNumber() +"  "+repalcedExamquestion.getQuestionNumber());
 							repalcedExamquestion.setQuestionNumber(
 									examquestion.getQuestionNumber());
 							examquestion.setQuestionNumber(examquestion
@@ -222,6 +222,7 @@ public class ExamService {
 									examquestion.getQuestionNumber());
 							examquestion.setQuestionNumber(examquestion
 									.getQuestionNumber() + 1);
+							
 						}
 						iExamQuestionDao.update(examquestion);
 						iExamQuestionDao.update(repalcedExamquestion);
