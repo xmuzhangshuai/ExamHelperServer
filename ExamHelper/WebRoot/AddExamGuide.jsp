@@ -73,26 +73,13 @@ $(function(){
         				<li>
              				<label>文章类型:</label>
         					<select>
-        						<optgroup label="北海道">
-	    							<option value="01">北海道</option>
-	    						</optgroup>
-	    						<optgroup label="東北">
-	    							<option value="02">青森県</option>
-	    							<option value="03">岩手県</option>	
-	    							<option value="04">宮城県</option>
-	    							<option value="05">秋田県</option>
-	    							<option value="06">山形県</option>
-	    							<option value="07">福島県</option>
-	    						</optgroup>
-	    						<optgroup label="関東">
-	    							<option value="08">東京都</option>
-	    							<option value="09">茨城県</option>
-	    							<option value="10">栃木県</option>
-	    							<option value="11">群馬県</option>
-	    							<option value="12">埼玉県</option>
-	    							<option value="13">千葉県</option>
-	    							<option value="14">神奈川県</option>
-	    						</optgroup>
+        						<c:forEach items="${subjectList}" var="subject">
+        							<optgroup label="${subject.subName}">
+        								<c:forEach items="${subject.examguidetypes}" var="examGuideType">
+        									<option value="01">${examGuideType.typeName}</option>
+        								</c:forEach>
+        							</optgroup>
+        						</c:forEach>
         					</select>
         				</li>
         				<li>

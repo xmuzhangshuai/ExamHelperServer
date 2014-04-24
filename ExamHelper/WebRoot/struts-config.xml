@@ -130,7 +130,9 @@
       parameter="flag"
       path="/examGuide"
       type="com.yrw.web.actions.ExamGuideAction"
-      cancellable="true" />
+      cancellable="true" >
+      <forward name="addExamGuide" path="/AddExamGuide.jsp"/>
+      </action>
 
 
 
