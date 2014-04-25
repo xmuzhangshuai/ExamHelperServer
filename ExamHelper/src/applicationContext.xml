@@ -223,6 +223,7 @@
 	<bean name="/collection" class="com.yrw.web.actions.CollectionAction">
 		<property name="collectionService" ref="collectionService" />
 		<property name="questionService" ref="questionService" />
+		<property name="subjectService" ref="subjectService" />
 	</bean>
 
 	<!-- 事务管理器 -->
