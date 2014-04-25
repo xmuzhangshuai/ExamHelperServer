@@ -3,10 +3,17 @@ package com.yrw.service;
 import java.util.List;
 
 import com.yrw.domains.Errorquestions;
+import com.yrw.domains.Serrorquestions;
 import com.yrw.idao.IErrorQuestionDao;
+import com.yrw.idao.ISerrorQuestionDao;
 
 public class ErrorQuestionService {
 	private IErrorQuestionDao iErrorQuestionDao;
+	private ISerrorQuestionDao iSerrorQuestionDao;
+
+	public void setiSerrorQuestionDao(ISerrorQuestionDao iSerrorQuestionDao) {
+		this.iSerrorQuestionDao = iSerrorQuestionDao;
+	}
 
 	public void setiErrorQuestionDao(IErrorQuestionDao iErrorQuestionDao) {
 		this.iErrorQuestionDao = iErrorQuestionDao;
@@ -37,7 +44,8 @@ public class ErrorQuestionService {
 	 * @param userId
 	 */
 	public void delErrorQuestion(int userId) {
-		List<Errorquestions> errorquestions = iErrorQuestionDao.getErrorQuestionByUser(userId);
+		List<Errorquestions> errorquestions = iErrorQuestionDao
+				.getErrorQuestionByUser(userId);
 		iErrorQuestionDao.delErrorQuestions(errorquestions);
 	}
 
@@ -64,7 +72,7 @@ public class ErrorQuestionService {
 	 * 
 	 * @return
 	 */
-	public List<Errorquestions> getErrorquestionListByPageNow(int pageNow) {
+	public List<Serrorquestions> getSerrorquestionListByPageNow(int pageNow) {
 		return null;
 	}
 

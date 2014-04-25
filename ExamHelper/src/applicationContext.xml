@@ -145,12 +145,15 @@
 	</bean>
 	<bean id="collectionService" class="com.yrw.service.CollectionService">
 		<property name="icollectionDao" ref="collectionDao" />
+		<property name="iScollectionDao" ref="scollectionDao"/>
 	</bean>
 	<bean id="noteService" class="com.yrw.service.NoteService">
 		<property name="iNoteDao" ref="noteDao" />
+		<property name="iSnoteDao" ref="snoteDao"/>
 	</bean>
 	<bean id="errorQuestionService" class="com.yrw.service.ErrorQuestionService">
 		<property name="iErrorQuestionDao" ref="errorQuestionDao" />
+		<property name="iSerrorQuestionDao" ref="serrorQuestionDao"/>
 	</bean>
 	<bean id="examService" class="com.yrw.service.ExamService">
 		<property name="iExaminationDao" ref="examinationDao" />

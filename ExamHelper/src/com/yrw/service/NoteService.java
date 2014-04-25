@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.yrw.domains.Note;
 import com.yrw.idao.INoteDao;
+import com.yrw.idao.ISnoteDao;
 
 /**
  * @author Administrator
@@ -12,6 +13,11 @@ import com.yrw.idao.INoteDao;
  */
 public class NoteService {
 	private INoteDao iNoteDao;
+	private ISnoteDao iSnoteDao;
+
+	public void setiSnoteDao(ISnoteDao iSnoteDao) {
+		this.iSnoteDao = iSnoteDao;
+	}
 
 	public void setiNoteDao(INoteDao iNoteDao) {
 		this.iNoteDao = iNoteDao;

@@ -38,6 +38,17 @@ public interface IScollectionDao extends IBasicDao {
 	 * @return
 	 */
 	public int getPageCountByQuestionType(int questionType);
+	/**分页返回根据科目得到收藏情况列表
+	 * @param subjectId
+	 * @param pageNow
+	 * @return
+	 */
+	public List<Scollection> getScollectionBySubject(int subjectId,int pageNow);
+	/**返回根据科目查询得到的收藏情况列表页数
+	 * @param subjectId
+	 * @return
+	 */
+	public int getPageCountBySubject(int subjectId);
 	
 	/**分页返回收藏情况
 	 * @param pageNow
