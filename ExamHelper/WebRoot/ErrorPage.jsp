@@ -8,21 +8,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <base href="<%=basePath%>">
-    
-    <title>My JSP 'ErrorPage.jsp' starting page</title>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-
+    <title>404 Not Found</title>
   </head>
   
-  <body>
-    该功能尚未完成. <br>
+  <body  style="margin: 0px;padding: 0px;babackground-position: center;background-color: #f7f7f7;text-align: center;">
+  		<img alt="" src="./images/404.png" >
   </body>
 </html>

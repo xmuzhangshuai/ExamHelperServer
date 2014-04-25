@@ -49,13 +49,32 @@ public class ErrorQuestionService {
 	public List<Errorquestions> getErrorQuestion() {
 		return iErrorQuestionDao.getErrorQuestions();
 	}
-	
+
+	/**
+	 * 获取错题页码
+	 * 
+	 * @return
+	 */
+	public int getSErrorQuestionPageCount() {
+		return 0;
+	}
+
+	/**
+	 * 根据页码返回List
+	 * 
+	 * @return
+	 */
+	public List<Errorquestions> getErrorquestionListByPageNow(int pageNow) {
+		return null;
+	}
+
 	/**
 	 * 根据用户ID返回错题列表
+	 * 
 	 * @param UserId
 	 * @return
 	 */
-	public List<Errorquestions> getErrorquestionsByUser(int userId){
+	public List<Errorquestions> getErrorquestionsByUser(int userId) {
 		return iErrorQuestionDao.getErrorQuestionByUser(userId);
 	}
 }

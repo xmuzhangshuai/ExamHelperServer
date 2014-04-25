@@ -12,20 +12,19 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DispatchAction;
 
-/** 
- * MyEclipse Struts
- * Creation date: 04-24-2014
- * 
- * XDoclet definition:
- * @struts.action parameter="flag" validate="true"
- */
-public class ErrorAction extends DispatchAction {
-	/*
-	 * Generated Methods
-	 */
+import com.yrw.service.CollectionService;
+import com.yrw.service.ErrorQuestionService;
 
-	/** 
+public class ErrorAction extends DispatchAction {
+	private ErrorQuestionService errorQuestionService;
+
+	public void setErrorQuestionService(ErrorQuestionService errorQuestionService) {
+		this.errorQuestionService = errorQuestionService;
+	}
+
+	/**
 	 * Method execute
+	 * 
 	 * @param mapping
 	 * @param form
 	 * @param request
@@ -35,6 +34,16 @@ public class ErrorAction extends DispatchAction {
 	public ActionForward showErrorList(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
 		// TODO Auto-generated method stub
+		int pageNow = 1;
+//		int pageCount = errorQuestionService.
+//		String pageNowString = request.getParameter("pageNow");
+//		if (pageNowString != null) {
+//			pageNow = Integer.parseInt(pageNowString);
+//			if (pageNow < 1)
+//				pageNow = 1;
+//			else if (pageNow > pageCount)
+//				pageNow = pageCount;
+//		}
 		return null;
 	}
 }
