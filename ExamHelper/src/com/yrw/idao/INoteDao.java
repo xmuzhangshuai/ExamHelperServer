@@ -25,7 +25,11 @@ public interface INoteDao extends IBasicDao {
 	 */
 	public List<Note> getNoteByUserId(int userId);
 
-	
+	/**根据用户Id及问题类型及问题id获得唯一笔记对象
+	 * @param note
+	 * @return
+	 */
+	public Note getNoteByUserAndQustion(Note note);
 
 	/**
 	 * @param noteId

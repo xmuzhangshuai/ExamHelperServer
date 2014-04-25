@@ -15,17 +15,7 @@ public interface ISnoteDao extends IBasicDao{
 	 * @return
 	 */
 	public Snote getSnote(int questionTypeId,int questionId);
-	/**通过章节id分页返回笔记统计
-	 * @param sectionId
-	 * @param pageNow
-	 * @return
-	 */
-	public List<Snote> getSnotesBySectionId(int sectionId,int pageNow);
-	/**通过章节id得到的笔记统计共有多少页
-	 * @param sectionId
-	 * @return
-	 */
-	public int getPageCountBySectionId(int sectionId);
+
 	/**通过问题类型id分页返回笔记统计
 	 * @param questionTypeId
 	 * @param pageNow

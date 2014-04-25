@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.yrw.domains.Note;
+import com.yrw.domains.Snote;
 import com.yrw.idao.INoteDao;
 import com.yrw.idao.ISnoteDao;
 
@@ -47,17 +48,7 @@ public class NoteService {
 	 * @param note
 	 */
 	public void updateNote(Note note) {
-		String hql = "from Note as n where n.user.id=" + note.getUser().getId() + " and n.questiontype.id="
-				+ note.getQuestiontype().getId() + " and n.questionId=" + note.getQuestionId();
-		Note existNote = (Note) iNoteDao.uniqueQuery(hql, null);
-		if (existNote != null) {
-			existNote.setNoteTime(new Timestamp(System.currentTimeMillis()));
-			existNote.setNoteContent(note.getNoteContent());
-			existNote.setQuestionId(note.getQuestionId());
-			existNote.setQuestiontype(note.getQuestiontype());
-			existNote.setUser(note.getUser());
-			iNoteDao.update(existNote);
-		}
+		iNoteDao.modifyNote(note);
 	}
 
 	/**
@@ -67,13 +58,7 @@ public class NoteService {
 	 * @return
 	 */
 	public Note getNote(Note note) {
-		String hql = "from Note as n where n.user.id=" + note.getUser().getId() + " and n.questiontype.id="
-				+ note.getQuestiontype().getId() + " and n.questionId=" + note.getQuestionId();
-		Note existNote = (Note) iNoteDao.uniqueQuery(hql, null);
-		if (existNote != null)
-			return existNote;
-		else
-			return null;
+	return iNoteDao.getNoteByUserAndQustion(note);
 	}
 
 	/**
@@ -98,4 +83,17 @@ public class NoteService {
 		return noteList;
 	}
 
+	
+	public List<Snote> getSnoteListByQuestionType(int questionTypeId,int pageNow){
+		return iSnoteDao.getSnotesByQuestionTypeId(questionTypeId, pageNow);
+	}
+	public int getSnotePageCountByQuestionType(int questionTypeId){
+		return iSnoteDao.getPageCountByQuestionTypeId(questionTypeId);
+	}
+	public List<Snote> getSnoteListByPage(int pageNow){
+		return iSnoteDao.getSnotes(pageNow);
+	}
+	public int getSnotePageCount(){
+		return iSnoteDao.getPageCount();
+	}
 }

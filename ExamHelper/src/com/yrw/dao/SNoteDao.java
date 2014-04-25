@@ -27,25 +27,14 @@ public class SNoteDao extends BasicDao implements ISnoteDao {
 		return (Snote) this.uniqueQuery(hql, null);
 	}
 
-	@Override
-	public List<Snote> getSnotesBySectionId(int sectionId, int pageNow) {
-		// TODO Auto-generated method stub
-		String hql="from Snote as s where s.";
-		return null;
-	}
-
-	@Override
-	public int getPageCountBySectionId(int sectionId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 
 	@Override
 	public List<Snote> getSnotesByQuestionTypeId(int questionTypeId, int pageNow) {
 		// TODO Auto-generated method stub
 		String hql = "from Snote as s where s.questiontype.id="
 				+ questionTypeId + " order by s.noteNum desc";
-		return this.executeQuery(hql, null);
+		return this.executeQueryByPage(hql, null, pageNow);
 	}
 
 	@Override
@@ -61,7 +50,7 @@ public class SNoteDao extends BasicDao implements ISnoteDao {
 	public List<Snote> getSnotes(int pageNow) {
 		// TODO Auto-generated method stub
 		String hql="from Snote as s order by s.noteNum desc";
-		return this.executeQuery(hql, null);
+		return this.executeQueryByPage(hql, null, pageNow);
 	}
 
 	@Override

@@ -84,7 +84,17 @@ public class NoteDao extends BasicDao implements INoteDao {
 	@Override
 	public void modifyNote(Note note) {
 		// TODO Auto-generated method stub
-
+		String hql = "from Note as n where n.user.id=" + note.getUser().getId() + " and n.questiontype.id="
+				+ note.getQuestiontype().getId() + " and n.questionId=" + note.getQuestionId();
+		Note existNote = (Note) this.uniqueQuery(hql, null);
+		if (existNote != null) {
+			existNote.setNoteTime(new Timestamp(System.currentTimeMillis()));
+			existNote.setNoteContent(note.getNoteContent());
+			existNote.setQuestionId(note.getQuestionId());
+			existNote.setQuestiontype(note.getQuestiontype());
+			existNote.setUser(note.getUser());
+			this.update(existNote);
+		}
 	}
 
 	@Override
@@ -95,6 +105,18 @@ public class NoteDao extends BasicDao implements INoteDao {
 		List<Note> noteList = this.executeQuery(hql, null);
 		return noteList;
 
+	}
+
+	@Override
+	public Note getNoteByUserAndQustion(Note note) {
+		// TODO Auto-generated method stub
+		String hql = "from Note as n where n.user.id=" + note.getUser().getId() + " and n.questiontype.id="
+				+ note.getQuestiontype().getId() + " and n.questionId=" + note.getQuestionId();
+		Note existNote = (Note) this.uniqueQuery(hql, null);
+		if (existNote != null)
+			return existNote;
+		else
+			return null;
 	}
 	
 
