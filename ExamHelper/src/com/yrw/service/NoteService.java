@@ -78,11 +78,7 @@ public class NoteService {
 	 * @return
 	 */
 	public List<Note> getNoteList(int questionTypeId, int questionId) {
-		String hql = "from Note as n where n.questiontype.id=" + questionTypeId + " and n.questionId=" + questionId
-				+ "order by n.noteTime desc";
-		List<Note> noteList = iNoteDao.executeQuery(hql, null);
-		return noteList;
-
+		return iNoteDao.getNoteByQuestion(questionTypeId,questionId);
 	}
 
 	/**

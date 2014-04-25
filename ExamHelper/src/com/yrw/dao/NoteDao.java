@@ -90,9 +90,12 @@ public class NoteDao extends BasicDao implements INoteDao {
 	@Override
 	public List<Note> getNoteByQuestion(int questiontypeId, int questionId) {
 		// TODO Auto-generated method stub
-		String hql = "from Note as n where n.questiontype.id=" + questiontypeId
-				+ " and n.questionId=" + questionId;
-		return this.executeQuery(hql, null);
+		String hql = "from Note as n where n.questiontype.id=" + questiontypeId + " and n.questionId=" + questionId
+				+ "order by n.noteTime desc";
+		List<Note> noteList = this.executeQuery(hql, null);
+		return noteList;
+
 	}
+	
 
 }
