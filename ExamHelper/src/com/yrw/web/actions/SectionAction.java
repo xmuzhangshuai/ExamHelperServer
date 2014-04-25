@@ -15,11 +15,8 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DispatchAction;
 
-import com.yrw.domains.Examination;
 import com.yrw.domains.Section;
 import com.yrw.domains.Subject;
-import com.yrw.service.ExamService;
-import com.yrw.service.QuestionService;
 import com.yrw.service.SectionService;
 import com.yrw.service.SubjectService;
 import com.yrw.web.forms.SectionForm;
@@ -118,7 +115,7 @@ public class SectionAction extends DispatchAction {
 		int sectionId = Integer.parseInt(request.getParameter("sectionId"));
 		Section section = sectionService.showSection(sectionId);
 		List<Subject> subjectList = subjectService.getSubjectList(section
-				.getSubjectId());
+				.getSubject().getId());
 
 		request.setAttribute("section", section);
 		request.setAttribute("subject", subjectList.get(0));

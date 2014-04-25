@@ -1,11 +1,9 @@
 package com.yrw.dao;
 
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import com.yrw.idao.ISectionDao;
 import com.yrw.domains.Collection;
 import com.yrw.domains.Errorquestions;
 import com.yrw.domains.Group;
@@ -14,13 +12,14 @@ import com.yrw.domains.Multichoice;
 import com.yrw.domains.Section;
 import com.yrw.domains.Singlechoice;
 import com.yrw.domains.Trueorfalse;
+import com.yrw.idao.ISectionDao;
 
 public class SectionDao extends BasicDao implements ISectionDao {
 
 	@Override
 	public List getSectionBySubject(int pageNow, int subjectId) {
 		// TODO Auto-generated method stub
-		String hql = "from Section where subjectId=?";
+		String hql = "from Section where subject.id=?";
 		String parameter[] = { subjectId + "" };
 
 		List list = this.executeQueryByPage(hql, parameter, pageNow);
@@ -31,7 +30,7 @@ public class SectionDao extends BasicDao implements ISectionDao {
 	@Override
 	public int getPageCountBySubject(int subjectId) {
 		// TODO Auto-generated method stub
-		String hql = "select count(*) from Section where subjectId="
+		String hql = "select count(*) from Section where subject.id="
 				+ subjectId;
 		return this.queryPageCount(hql, null);
 	}
@@ -184,7 +183,7 @@ public class SectionDao extends BasicDao implements ISectionDao {
 	public Section getSectionByNameAndSubId(String sectionName, int subjectId) {
 		// TODO Auto-generated method stub
 		String hql = "from Section as s  where s.sectionName='" + sectionName
-				+ "' and s.subjectId=" + subjectId;
+				+ "' and s.subject.id=" + subjectId;
 		System.out.println(hql);
 		return (Section) this.uniqueQuery(hql, null);
 	}
@@ -192,7 +191,7 @@ public class SectionDao extends BasicDao implements ISectionDao {
 	@Override
 	public List getSectionBySubjectId(int subjectId) {
 		// TODO Auto-generated method stub
-		String hql="from Section as s where s.subjectId="+subjectId;
+		String hql="from Section as s where s.subject.id="+subjectId;
 		return this.executeQuery(hql, null);
 		 
 	}

@@ -41,8 +41,7 @@ public class SectionService {
 	 * @return
 	 */
 	public List<Section> listSectionBySubIdAndSecId(int subjectId, int sectionId) {
-		List<Section> sectionList = iSectionDao
-				.getSectionBySubjectId(subjectId);
+		List<Section> sectionList = iSectionDao.getSectionBySubjectId(subjectId);
 		Section section = null;
 		int i = 0;
 		for (; i < sectionList.size(); i++) {
@@ -52,7 +51,7 @@ public class SectionService {
 			}
 		}
 		if (i == sectionList.size()) {
-		System.out.println("SectionService sectionListÎª¿Õ");
+			System.out.println("SectionService sectionListÎª¿Õ");
 			return null;
 		} else {
 			sectionList.set(i, sectionList.get(0));
@@ -61,11 +60,12 @@ public class SectionService {
 		}
 
 	}
+
 	/**
 	 * @param subjectId
 	 * @return
 	 */
-	public List<Section> listSection(int subjectId){
+	public List<Section> listSection(int subjectId) {
 		return iSectionDao.getSectionBySubjectId(subjectId);
 	}
 
@@ -117,14 +117,16 @@ public class SectionService {
 	 * @param newSubject
 	 * @param sectionId
 	 */
-	public void updateSection(String sectionNewName, String newSubject,
-			int sectionId) {
+	public void updateSection(String sectionNewName, String newSubject, int sectionId) {
 
 		Section section = iSectionDao.getSectionById(sectionId);
 		section.setSectionName(sectionNewName);
 
-		int subjectId = iSubjectDao.getSubjectIdByName(newSubject);
-		section.setSubjectId(subjectId);
+		Subject subject = null;
+		subject = iSubjectDao.getSubjectByName(newSubject);
+		if (subject != null) {
+			section.setSubject(subject);
+		}
 
 		iSectionDao.updateSection(section);
 	}
@@ -138,12 +140,15 @@ public class SectionService {
 	 */
 	public boolean addSection(String sectionName, String subjectName) {
 		int subjectId = iSubjectDao.getSubjectIdByName(subjectName);
-		Section existSection = iSectionDao.getSectionByNameAndSubId(
-				sectionName, subjectId);
+		Section existSection = iSectionDao.getSectionByNameAndSubId(sectionName, subjectId);
 		if (existSection == null) {
 			Section section = new Section();
 			section.setSectionName(sectionName);
-			section.setSubjectId(subjectId);
+			Subject subject = null;
+			subject = iSubjectDao.getSubjectByName(subjectName);
+			if (subject != null) {
+				section.setSubject(subject);
+			}
 
 			iSectionDao.add(section);
 			return true;
@@ -152,8 +157,7 @@ public class SectionService {
 	}
 
 	public void deleteSection(int sectionId) {
-		Section existSection = (Section) iSectionDao.findById(Section.class,
-				sectionId);
+		Section existSection = (Section) iSectionDao.findById(Section.class, sectionId);
 		if (existSection != null) {
 			System.out.println("SectionService:deleteSection" + "´æÔÚ");
 			iSectionDao.delSection(existSection);

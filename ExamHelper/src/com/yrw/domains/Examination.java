@@ -31,8 +31,8 @@ public class Examination implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Examination(Subject subject, String examType, String examName,
-			String examRequest, Integer examTime, Set examsections) {
+	public Examination(Subject subject, String examType, String examName, String examRequest, Integer examTime,
+			Set examsections) {
 		this.subject = subject;
 		this.examType = examType;
 		this.examName = examName;

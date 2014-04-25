@@ -176,7 +176,7 @@ public class SubjectAction extends DispatchAction {
 			Section existsection=sectionService.showSection(sectionId);
 			existsection.setSectionName(sectionName);
 	
-			List<Subject> subjectList=subjectService.getSubjectList(existsection.getSubjectId());
+			List<Subject> subjectList=subjectService.getSubjectList(existsection.getSubject().getId());
 			
 			request.setAttribute("section", existsection);
 			request.setAttribute("subject", subjectList.get(0));

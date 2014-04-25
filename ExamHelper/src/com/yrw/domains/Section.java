@@ -12,8 +12,9 @@ public class Section implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
+	private Subject subject;
 	private String sectionName;
-	private Integer subjectId;
+	private Set scollections = new HashSet(0);
 	private Set groups = new HashSet(0);
 	private Set singlechoices = new HashSet(0);
 	private Set trueorfalses = new HashSet(0);
@@ -21,6 +22,7 @@ public class Section implements java.io.Serializable {
 	private Set collections = new HashSet(0);
 	private Set materialanalysises = new HashSet(0);
 	private Set errorquestionses = new HashSet(0);
+	private Set serrorquestionses = new HashSet(0);
 
 	// Constructors
 
@@ -29,17 +31,18 @@ public class Section implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Section(String sectionName, Integer subjectId) {
+	public Section(Subject subject, String sectionName) {
+		this.subject = subject;
 		this.sectionName = sectionName;
-		this.subjectId = subjectId;
 	}
 
 	/** full constructor */
-	public Section(String sectionName, Integer subjectId, Set groups,
-			Set singlechoices, Set trueorfalses, Set multichoices,
-			Set collections, Set materialanalysises, Set errorquestionses) {
+	public Section(Subject subject, String sectionName, Set scollections, Set groups, Set singlechoices,
+			Set trueorfalses, Set multichoices, Set collections, Set materialanalysises, Set errorquestionses,
+			Set serrorquestionses) {
+		this.subject = subject;
 		this.sectionName = sectionName;
-		this.subjectId = subjectId;
+		this.scollections = scollections;
 		this.groups = groups;
 		this.singlechoices = singlechoices;
 		this.trueorfalses = trueorfalses;
@@ -47,6 +50,7 @@ public class Section implements java.io.Serializable {
 		this.collections = collections;
 		this.materialanalysises = materialanalysises;
 		this.errorquestionses = errorquestionses;
+		this.serrorquestionses = serrorquestionses;
 	}
 
 	// Property accessors
@@ -59,6 +63,14 @@ public class Section implements java.io.Serializable {
 		this.id = id;
 	}
 
+	public Subject getSubject() {
+		return this.subject;
+	}
+
+	public void setSubject(Subject subject) {
+		this.subject = subject;
+	}
+
 	public String getSectionName() {
 		return this.sectionName;
 	}
@@ -67,12 +79,12 @@ public class Section implements java.io.Serializable {
 		this.sectionName = sectionName;
 	}
 
-	public Integer getSubjectId() {
-		return this.subjectId;
+	public Set getScollections() {
+		return this.scollections;
 	}
 
-	public void setSubjectId(Integer subjectId) {
-		this.subjectId = subjectId;
+	public void setScollections(Set scollections) {
+		this.scollections = scollections;
 	}
 
 	public Set getGroups() {
@@ -129,6 +141,14 @@ public class Section implements java.io.Serializable {
 
 	public void setErrorquestionses(Set errorquestionses) {
 		this.errorquestionses = errorquestionses;
+	}
+
+	public Set getSerrorquestionses() {
+		return this.serrorquestionses;
+	}
+
+	public void setSerrorquestionses(Set serrorquestionses) {
+		this.serrorquestionses = serrorquestionses;
 	}
 
 }

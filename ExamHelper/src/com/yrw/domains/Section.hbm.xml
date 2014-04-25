@@ -10,12 +10,18 @@
             <column name="id" />
             <generator class="native" />
         </id>
+        <many-to-one name="subject" class="com.yrw.domains.Subject" fetch="select">
+            <column name="subject_id" not-null="true" />
+        </many-to-one>
         <property name="sectionName" type="java.lang.String">
             <column name="section_name" length="128" not-null="true" />
         </property>
-        <property name="subjectId" type="java.lang.Integer">
-            <column name="subject_id" not-null="true" />
-        </property>
+        <set name="scollections" inverse="true">
+            <key>
+                <column name="section_id" not-null="true" />
+            </key>
+            <one-to-many class="com.yrw.domains.Scollection" />
+        </set>
         <set name="groups" inverse="true">
             <key>
                 <column name="section_id" not-null="true" />
@@ -57,6 +63,12 @@
                 <column name="section_id" not-null="true" />
             </key>
             <one-to-many class="com.yrw.domains.Errorquestions" />
+        </set>
+        <set name="serrorquestionses" inverse="true">
+            <key>
+                <column name="section_id" not-null="true" />
+            </key>
+            <one-to-many class="com.yrw.domains.Serrorquestions" />
         </set>
     </class>
 </hibernate-mapping>

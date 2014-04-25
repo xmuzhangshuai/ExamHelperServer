@@ -1,6 +1,5 @@
 package com.jsonobjects;
 
-import com.yrw.domains.Subject;
 
 /**
  * Entity mapped to table SUBJECT.
@@ -23,12 +22,12 @@ public class JSubject {
 	 * 
 	 * @return
 	 */
-	public Subject NetToLocal() {
-
-		Subject local = new Subject(subject_name, null,null);
-		local.setId(id.intValue());
-		return local;
-	}
+//	public Subject NetToLocal() {
+//
+//		Subject local = new Subject(subject_name, null,null);
+//		local.setId(id.intValue());
+//		return local;
+//	}
 
 	/**
 	 * 本地变为网络

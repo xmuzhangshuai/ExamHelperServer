@@ -14,6 +14,7 @@ public class Subject implements java.io.Serializable {
 	private Integer id;
 	private String subName;
 	private Set examinations = new HashSet(0);
+	private Set sections = new HashSet(0);
 	private Set examguidetypes = new HashSet(0);
 
 	// Constructors
@@ -28,9 +29,10 @@ public class Subject implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Subject(String subName, Set examinations, Set examguidetypes) {
+	public Subject(String subName, Set examinations, Set sections, Set examguidetypes) {
 		this.subName = subName;
 		this.examinations = examinations;
+		this.sections = sections;
 		this.examguidetypes = examguidetypes;
 	}
 
@@ -58,6 +60,14 @@ public class Subject implements java.io.Serializable {
 
 	public void setExaminations(Set examinations) {
 		this.examinations = examinations;
+	}
+
+	public Set getSections() {
+		return this.sections;
+	}
+
+	public void setSections(Set sections) {
+		this.sections = sections;
 	}
 
 	public Set getExamguidetypes() {

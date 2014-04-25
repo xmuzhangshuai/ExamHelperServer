@@ -222,7 +222,7 @@
 	</bean>
 	<bean name="/collection" class="com.yrw.web.actions.CollectionAction">
 		<property name="collectionService" ref="collectionService" />
-		<property name="subjectService" ref="subjectService" />
+		<property name="questionService" ref="questionService" />
 	</bean>
 
 	<!-- 事务管理器 -->

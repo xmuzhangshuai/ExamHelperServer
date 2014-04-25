@@ -1,5 +1,6 @@
 package com.jsonobjects;
 
+
 /**
  * Entity mapped to table SECTION.
  */
@@ -28,23 +29,23 @@ public class JSection {
 	 * 
 	 * @return
 	 */
-	public com.yrw.domains.Section NetToLocal() {
-
-		com.yrw.domains.Section local = new com.yrw.domains.Section(section_name, new Long(subject_id).intValue(),
-				null, null, null, null, null, null, null);
-		local.setId(id.intValue());
-		return local;
-	}
+//	public Section NetToLocal() {
+//
+//		Section local = new Section(section_name, new Long(subject_id).intValue(),
+//				null, null, null, null, null, null, null);
+//		local.setId(id.intValue());
+//		return local;
+//	}
 
 	/**
 	 * 本地变为网络
 	 * 
 	 * @return
 	 */
-	public static JSection LocalToNet(com.yrw.domains.Section local) {
-		JSection net = new JSection((long) local.getId(), local.getSectionName(), local.getSubjectId());
-		return net;
-	}
+//	public static JSection LocalToNet(com.yrw.domains.Section local) {
+//		JSection net = new JSection((long) local.getId(), local.getSectionName(), local.getSubjectId());
+//		return net;
+//	}
 
 	public Long getId() {
 		return id;
