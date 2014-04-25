@@ -225,6 +225,16 @@
 		<property name="questionService" ref="questionService" />
 		<property name="subjectService" ref="subjectService" />
 	</bean>
+	<bean name="/error" class="com.yrw.web.actions.ErrorAction">
+		<property name="errorQuestionService" ref="errorQuestionService" />
+		<property name="questionService" ref="questionService" />
+		<property name="subjectService" ref="subjectService" />
+	</bean>
+	<bean name="/note" class="com.yrw.web.actions.NoteAction">
+		<property name="noteService" ref="noteService" />
+		<property name="questionService" ref="questionService" />
+		<property name="subjectService" ref="subjectService" />
+	</bean>
 
 	<!-- 事务管理器 -->
 	<bean id="transactionManager"

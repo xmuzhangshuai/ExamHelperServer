@@ -1,4 +1,3 @@
-<%@page import="com.yrw.domains.Scollection"%>
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%
@@ -143,7 +142,7 @@ function goCollectionDetail(id){
 							<td width="10%" align="center" height="30">操作</td>
 						</tr>
 						<c:forEach items="${scollectionList}" var="scollection" varStatus="loop">
-							<tr id="listbg" class="${loop.count%2==0?'odd':'even'}" onclick="goCollectionDetail(${scollection.id});" >
+							<tr id="listbg" onclick="goCollectionDetail(${scollection.id});" >
 								<td height="20" align="center" ><input  type="checkbox" name="delid${scollection.id}" /></td>
 								<td height="20" align="center" ><label>${scollection.id}</label></td>
 								<td height="30" align="center" ><a>${scollection.section.subject.subName}</a></td>

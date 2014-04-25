@@ -4,36 +4,103 @@
  */
 package com.yrw.web.actions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DispatchAction;
 
-/** 
- * MyEclipse Struts
- * Creation date: 04-24-2014
- * 
- * XDoclet definition:
- * @struts.action parameter="flag" validate="true"
- */
-public class NoteAction extends DispatchAction {
-	/*
-	 * Generated Methods
-	 */
+import com.yrw.domains.Materialanalysis;
+import com.yrw.domains.Multichoice;
+import com.yrw.domains.Scollection;
+import com.yrw.domains.Singlechoice;
+import com.yrw.domains.Snote;
+import com.yrw.domains.Subject;
+import com.yrw.service.NoteService;
+import com.yrw.service.QuestionService;
+import com.yrw.service.SubjectService;
 
-	/** 
+public class NoteAction extends DispatchAction {
+	private NoteService noteService;
+	private QuestionService questionService;
+	private SubjectService subjectService;
+
+	public void setNoteService(NoteService noteService) {
+		this.noteService = noteService;
+	}
+
+	public void setQuestionService(QuestionService questionService) {
+		this.questionService = questionService;
+	}
+
+	public void setSubjectService(SubjectService subjectService) {
+		this.subjectService = subjectService;
+	}
+
+	/**
 	 * Method execute
+	 * 
 	 * @param mapping
 	 * @param form
 	 * @param request
 	 * @param response
 	 * @return ActionForward
 	 */
-	public ActionForward showNoteList(ActionMapping mapping, ActionForm form, HttpServletRequest request,
-			HttpServletResponse response) {
-		// TODO Auto-generated method stub
+//	public ActionForward showNoteList(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+//			HttpServletResponse response) {
+//		// TODO Auto-generated method stub
+//		int pageNow = 1;
+//		int pageCount = noteService.get
+//		String pageNowString = request.getParameter("pageNow");
+//		if (pageNowString != null) {
+//			pageNow = Integer.parseInt(pageNowString);
+//			if (pageNow < 1)
+//				pageNow = 1;
+//			else if (pageNow > pageCount)
+//				pageNow = pageCount;
+//		}
+//		List<String> questionStemList = new ArrayList<String>();
+//		List<Snote> snoteList = noteService.
+//		for (Snote snote : snoteList) {
+//			questionStemList.add(getQuestionName(snote.getQuestionId(), snote.getQuestiontype()
+//					.getTypeName()));
+//		}
+//		List<Subject> subjectList = subjectService.getSubjects();
+//
+//		request.setAttribute("snoteList", snoteList);
+//		request.setAttribute("questionStemList", questionStemList);
+//		request.setAttribute("subjectList", subjectList);
+//		request.setAttribute("pageCount", pageCount);
+//		request.setAttribute("pageNow", pageNow);
+//		return mapping.findForward("showNoteList");
+//	}
+
+	/**
+	 * ¸ù¾ÝID·µ»Øquestion
+	 * 
+	 * @return
+	 */
+	public String getQuestionName(int questionID, String questionType) {
+		Object object = questionService.getQuestion(questionID, questionType);
+		if (object.getClass().equals(Singlechoice.class)) {
+			Singlechoice singlechoice = (Singlechoice) object;
+			return singlechoice.getQuestionStem();
+		} else if (object.getClass().equals(Multichoice.class)) {
+			Multichoice multichoice = (Multichoice) object;
+			return multichoice.getQuestionStem();
+		} else if (object.getClass().equals(Materialanalysis.class)) {
+			Materialanalysis materialanalysis = (Materialanalysis) object;
+			if (materialanalysis.getMaterial().length() >= 100) {
+				return materialanalysis.getMaterial().substring(0, 100) + "...";
+			} else {
+				return materialanalysis.getMaterial();
+			}
+		}
 		return null;
 	}
 }
