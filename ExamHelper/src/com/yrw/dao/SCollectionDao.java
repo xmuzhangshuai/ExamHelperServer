@@ -64,15 +64,31 @@ public class SCollectionDao extends BasicDao implements IScollectionDao {
 	@Override
 	public List<Scollection> getScollections(int pageNow) {
 		// TODO Auto-generated method stub
-		String hql="from Scollection as s order by s.collectionNum desc";
+		String hql = "from Scollection as s order by s.collectionNum desc";
 		return this.executeQueryByPage(hql, null, pageNow);
 	}
 
 	@Override
 	public int getPageCount() {
 		// TODO Auto-generated method stub
-		String hql="select count(*) from Scollection";
-		return this.queryPageCount(hql,null);
+		String hql = "select count(*) from Scollection";
+		return this.queryPageCount(hql, null);
+	}
+
+	@Override
+	public List<Scollection> getScollectionBySubject(int subjectId, int pageNow) {
+		// TODO Auto-generated method stub
+		String hql = "from Scollection as s where s.section.subject.id="
+				+ subjectId + " order by s.collectionNum desc";
+		return this.executeQuery(hql, null);
+	}
+
+	@Override
+	public int getPageCountBySubject(int subjectId) {
+		// TODO Auto-generated method stub
+		String hql = "select count(s) from Scollection as s where s.section.subject.id="
+				+ subjectId ;
+		return queryPageCount(hql, null);
 	}
 
 }

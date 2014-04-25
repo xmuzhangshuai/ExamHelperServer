@@ -61,7 +61,5 @@ public interface ICollectionDao extends IBasicDao {
 
 	public List<Collection> getCollectionList();
 	
-	public int getSCollectionListPageCount();
 	
-	public List<Scollection> getScollectionListByPage(int pageNow);
 }
