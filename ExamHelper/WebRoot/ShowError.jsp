@@ -1,4 +1,3 @@
-<%@page import="com.yrw.domains.Scollection"%>
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%
@@ -121,7 +120,7 @@ function goCollectionDetail(id){
 						<span class="newfont07">全选：
 							<input type="checkbox" id="selectOrNot" onchange="selectOrUnSelect()"/>
 						</span>
-						<input name="Submit" type="button" class="right-button08" value="删除所选收藏" onclick="delSelected();" /> 
+						<input name="Submit" type="button" class="right-button08" value="删除所选错题记录" onclick="delSelected();" /> 
 						<input type="hidden" name="paramsHidden" id="paramsHidden" /> 
 					</td>
 				</tr>
@@ -130,7 +129,7 @@ function goCollectionDetail(id){
 				<td height="40" class="font42">
 					<table width="100%" border="0" cellpadding="4" cellspacing="1" bgcolor="#464646" class="newfont03">
 						<tr class="CTitle">
-							<td height="22" colspan="13" align="center" style="font-size:18px">收藏列表</td>
+							<td height="22" colspan="13" align="center" style="font-size:18px">错题记录列表</td>
 						</tr>
 						<tr bgcolor="#EEEEEE">
 							<td width="6%" align="center" height="30">选择</td>
@@ -139,18 +138,18 @@ function goCollectionDetail(id){
 							<td width="14%" align="center" height="30">章节</td>
 							<td width="10%" align="center" height="30">题型</td>
 							<td width="34%" align="center" height="30">题目内容</td>
-							<td width="8%" align="center" height="30">收藏热度</td>
+							<td width="8%" align="center" height="30">错误数量</td>
 							<td width="10%" align="center" height="30">操作</td>
 						</tr>
-						<c:forEach items="${scollectionList}" var="scollection" varStatus="loop">
-							<tr id="listbg" class="${loop.count%2==0?'odd':'even'}" onclick="goCollectionDetail(${scollection.id});" >
-								<td height="20" align="center" ><input  type="checkbox" name="delid${scollection.id}" /></td>
-								<td height="20" align="center" ><label>${scollection.id}</label></td>
-								<td height="30" align="center" ><a>${scollection.section.subject.subName}</a></td>
-								<td height="20" ><a>${scollection.section.sectionName}</a></td>
-								<td height="20" ><a>${scollection.questiontype.typeName}</a></td>
+						<c:forEach items="${serrorquestionList}" var="serrorquestion" varStatus="loop">
+							<tr id="listbg" onclick="goCollectionDetail(${serrorquestion.id});" >
+								<td height="20" align="center" ><input  type="checkbox" name="delid${serrorquestion.id}" /></td>
+								<td height="20" align="center" ><label>${serrorquestion.id}</label></td>
+								<td height="30" align="center" ><a>${serrorquestion.section.subject.subName}</a></td>
+								<td height="20" ><a>${serrorquestion.section.sectionName}</a></td>
+								<td height="20" ><a>${serrorquestion.questiontype.typeName}</a></td>
 								<td style="padding: 5px;"><a>${questionStemList[loop.count-1]}</a></td>
-								<td height="20" align="center" ><label>${scollection.collectionNum}</label></td>
+								<td height="20" align="center" ><label>${serrorquestion.errorNum}</label></td>
 								<td height="20" >
 									<a href="">编辑|</a>
 								    <a href="">查看|</a>
@@ -175,12 +174,12 @@ function goCollectionDetail(id){
 								<td width="50%">共 <span class="right-text09" id="pageCount">${pageCount}</span>
 									页 | 第 <span class="right-text09" id="pageNowId">${pageNow}</span> 页
 								</td>
-								<td width="49%" align="right">[<a href="${pageContext.request.contextPath}/collection.do?flag=showCollectionList&pageNow=1" class="right-font08">首页</a> | 
-															   <a href="${pageContext.request.contextPath}/collection.do?flag=showCollectionList&pageNow=${pageNow-1}" 
+								<td width="49%" align="right">[<a href="${pageContext.request.contextPath}/error.do?flag=showErrorList&pageNow=1" class="right-font08">首页</a> | 
+															   <a href="${pageContext.request.contextPath}/error.do?flag=showErrorList&pageNow=${pageNow-1}" 
 															      onclick="lastPage(${pageNow-1});"  class="right-font08">上一页</a> |
-														       <a href="${pageContext.request.contextPath}/collection.do?flag=showCollectionList&pageNow=${pageNow+1}" 
+														       <a href="${pageContext.request.contextPath}/error.do?flag=showErrorList&pageNow=${pageNow+1}" 
 														          onclick="nextPage(${pageNow+1},${pageCount});" class="right-font08">下一页</a>| 
-														       <a href="${pageContext.request.contextPath}/collection.do?flag=showCollectionList&pageNow=${pageCount}" class="right-font08">末页</a>] 转至：
+														       <a href="${pageContext.request.contextPath}/error.do?flag=showErrorList&pageNow=${pageCount}" class="right-font08">末页</a>] 转至：
 								</td>
 								<td width="1%">
 									<table width="20" border="0" cellspacing="0" cellpadding="0">

@@ -38,6 +38,15 @@ public class CollectionAction extends DispatchAction {
 		this.subjectService = subjectService;
 	}
 
+	/**
+	 * 显示收藏列表
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	public ActionForward showCollectionList(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
@@ -52,7 +61,7 @@ public class CollectionAction extends DispatchAction {
 				pageNow = pageCount;
 		}
 		List<String> questionStemList = new ArrayList<String>();
-		List<Scollection> scollectionList = collectionService.getScollectionListByPageNow(pageNow);
+		List<Scollection> scollectionList = collectionService.getSCollectionListByPageNow(pageNow);
 		for (Scollection scollection : scollectionList) {
 			questionStemList.add(getQuestionName(scollection.getQuestionId(), scollection.getQuestiontype()
 					.getTypeName()));

@@ -148,13 +148,16 @@
       parameter="flag"
       path="/note"
       type="com.yrw.web.actions.NoteAction"
-      cancellable="true" />
+      cancellable="true" >
+      <forward name="showNote" path="/ShowNote.jsp"/>
+      </action>
     <action
       parameter="flag"
       path="/error"
       type="com.yrw.web.actions.ErrorAction"
-      cancellable="true" />
-
+      cancellable="true" >
+      <forward name="showError" path="/ShowError.jsp"/>
+ 	</action>
 
 
 
