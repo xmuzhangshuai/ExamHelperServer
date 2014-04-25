@@ -46,16 +46,16 @@ public class JErrorQuestions {
 	 * 
 	 * @return
 	 */
-	public com.yrw.domains.Errorquestions NetToLocal() {
+	public Errorquestions NetToLocal() {
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 		IUserDao iUserDao = (IUserDao) applicationContext.getBean("userDao");
 		IQuestionTypeDao iQuestionTypeDao = (IQuestionTypeDao) applicationContext.getBean("questionTypeDao");
 		ISectionDao iSectionDao = (ISectionDao) applicationContext.getBean("sectionDao");
 
-		com.yrw.domains.Errorquestions localErrorquestions = new com.yrw.domains.Errorquestions(
-				iUserDao.getUserById(new Long(user_id).intValue()), iQuestionTypeDao.getQuestiontypeById(new Long(
-						questionType_id).intValue()), iSectionDao.getSectionById(new Long(section_id).intValue()),
-				new Long(question_id).intValue(), new Timestamp(error_time.getTime()), error_num);
+		Errorquestions localErrorquestions = new Errorquestions(iUserDao.getUserById(new Long(user_id).intValue()),
+				iQuestionTypeDao.getQuestiontypeById(new Long(questionType_id).intValue()),
+				iSectionDao.getSectionById(new Long(section_id).intValue()), new Long(question_id).intValue(),
+				new Timestamp(error_time.getTime()), error_num);
 
 		if (id != null) {
 			localErrorquestions.setId(id.intValue());

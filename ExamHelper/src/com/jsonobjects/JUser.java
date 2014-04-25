@@ -74,12 +74,10 @@ public class JUser {
 	 * @param localAnswerquery
 	 * @return
 	 */
-	public static JUser LocalToNet(User netUser) {
-
-		return new JUser((long) netUser.getId(), netUser.getMail(), netUser.getPassword(), netUser.getNickname(),
-				netUser.getRealname(), netUser.getAge(), netUser.getPhone(), netUser.getGender(),
-				netUser.getUserState(), netUser.getProfession(), netUser.getArea(), netUser.getIntegral(),
-				netUser.getAvatar());
+	public static JUser LocalToNet(User local) {
+		return new JUser((long)local.getId(), local.getMail(), local.getPassword(), local.getNickname(), local.getRealname(),
+				local.getAge(), local.getPhone(), local.getGender(), local.getUserState(), local.getProfession(),
+				local.getArea(), local.getIntegral(), local.getAvatar());
 	}
 
 	public Long getId() {

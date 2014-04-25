@@ -32,7 +32,7 @@ public class NoteService {
 	 * @param note
 	 */
 	public void delNote(Note note) {
-		this.delNote(note);
+		iNoteDao.delNote(note);
 	}
 
 	/**

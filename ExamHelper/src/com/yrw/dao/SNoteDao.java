@@ -22,9 +22,8 @@ public class SNoteDao extends BasicDao implements ISnoteDao {
 	@Override
 	public Snote getSnote(int questionTypeId, int questionId) {
 		// TODO Auto-generated method stub
-		String hql = "from Snote as s where s.questiontype.id=" + questionId
-				+ " and s.questionId=" + questionId
-				+ " order by s.noteNum desc";
+		String hql = "from Snote as s where s.questiontype.id=" + questionTypeId
+				+ " and s.questionId=" + questionId;
 		return (Snote) this.uniqueQuery(hql, null);
 	}
 
