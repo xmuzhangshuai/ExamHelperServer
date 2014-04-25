@@ -61,7 +61,7 @@ public class CollectionAction extends DispatchAction {
 				pageNow = pageCount;
 		}
 		List<String> questionStemList = new ArrayList<String>();
-		List<Scollection> scollectionList = collectionService.getScollectionListByPageNow(pageNow);
+		List<Scollection> scollectionList = collectionService.getSCollectionListByPageNow(pageNow);
 		for (Scollection scollection : scollectionList) {
 			questionStemList.add(getQuestionName(scollection.getQuestionId(), scollection.getQuestiontype()
 					.getTypeName()));

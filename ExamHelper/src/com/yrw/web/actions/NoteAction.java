@@ -77,7 +77,7 @@ public class NoteAction extends DispatchAction {
 //		request.setAttribute("subjectList", subjectList);
 //		request.setAttribute("pageCount", pageCount);
 //		request.setAttribute("pageNow", pageNow);
-//		return mapping.findForward("showNoteList");
+//		return mapping.findForward("showNote");
 //	}
 
 	/**

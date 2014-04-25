@@ -80,7 +80,7 @@ public class ErrorAction extends DispatchAction {
 		request.setAttribute("subjectList", subjectList);
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("pageNow", pageNow);
-		return mapping.findForward("showErrorList");
+		return mapping.findForward("showError");
 	}
 
 	/**
