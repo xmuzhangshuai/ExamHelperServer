@@ -3,6 +3,7 @@ package com.yrw.idao;
 import java.util.List;
 
 import com.yrw.domains.Collection;
+import com.yrw.domains.Scollection;
 
 import net.sf.cglib.transform.impl.AddDelegateTransformer;
 
@@ -59,4 +60,8 @@ public interface ICollectionDao extends IBasicDao {
 	public void delCollection(Collection collection);
 
 	public List<Collection> getCollectionList();
+	
+	public int getSCollectionListPageCount();
+	
+	public List<Scollection> getScollectionListByPage(int pageNow);
 }

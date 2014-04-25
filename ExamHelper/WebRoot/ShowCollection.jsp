@@ -134,22 +134,20 @@ function goQueryDetail(id){
 							<td height="22" colspan="13" align="center" style="font-size:16px">疑问列表</td>
 						</tr>
 						<tr bgcolor="#EEEEEE">
-							<td width="4%" align="center" height="30">选择</td>
-							<td width="6%" align="center" height="30">唯一编号</td>
-							<td width="8%" align="center" height="30">用户头像</td>
-							<td width="8%" align="center" height="30">用户昵称</td>
-							<td width="8%" align="center" height="30">疑问题型</td>
-							<td width="38%" align="center" height="30">疑问内容</td>
-							<td width="8%" align="center" height="30">疑问时间</td>
-							<td width="12%" align="center" height="30">疑问图片</td>
-							<td width="8%" align="center" height="30">操作</td>
+							<td width="6%" align="center" height="30">选择</td>
+							<td width="8%" align="center" height="30">唯一编号</td>
+							<td width="10%" align="center" height="30">科目</td>
+							<td width="10%" align="center" height="30">章节</td>
+							<td width="10%" align="center" height="30">题型</td>
+							<td width="36%" align="center" height="30">题目内容</td>
+							<td width="10%" align="center" height="30">收藏热度</td>
+							<td width="10%" align="center" height="30">操作</td>
 						</tr>
-						<c:forEach items="${queryList}" var="query">
-							<tr id="listbg" onclick="goQueryDetail(${query.id});">
-								<td height="20" align="center" ><input  type="checkbox" name="delid${query.id}" /></td>
-								<td height="20" align="center" ><label>${query.id}</label></td>
-								<td height="30" align="center" ><a href="${query.user.avatar}" title="${query.user.nickname}">
-												<img id ="headImage" height="80px" src="${query.user.avatar}" alt="" /></a></td>
+						<c:forEach items="${scollectionList}" var="scollection">
+							<tr id="listbg" onclick="goQueryDetail(${scollection.id});">
+								<td height="20" align="center" ><input  type="checkbox" name="delid${scollection.id}" /></td>
+								<td height="20" align="center" ><label>${scollection.id}</label></td>
+								<td height="30" align="center" ><a>${scollection.}</a></td>
 								<td height="20" ><label>${query.user.nickname}</label></td>
 								<td height="20" ><label>${query.questiontype.typeName}</label></td>
 								<td height="20" ><label>${query.queryStem}</label></td>

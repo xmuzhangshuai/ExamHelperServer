@@ -96,4 +96,18 @@ public class CollectionDao extends BasicDao implements ICollectionDao {
 		return this.executeQuery(hql, null);
 	}
 
+	@Override
+	public int getSCollectionListPageCount() {
+		// TODO Auto-generated method stub
+		String hql = "select count(*) from Scollection";
+		return this.queryPageCount(hql, null);
+	}
+
+	@Override
+	public List<Scollection> getScollectionListByPage(int pageNow) {
+		// TODO Auto-generated method stub
+		String hql = "from Scollection order by collectionNum desc";
+		return this.executeQueryByPage(hql, null, pageNow);
+	}
+
 }
