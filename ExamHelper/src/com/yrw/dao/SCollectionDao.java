@@ -80,7 +80,7 @@ public class SCollectionDao extends BasicDao implements IScollectionDao {
 		// TODO Auto-generated method stub
 		String hql = "from Scollection as s where s.section.subject.id="
 				+ subjectId + " order by s.collectionNum desc";
-		return this.executeQuery(hql, null);
+		return this.executeQueryByPage(hql, null, pageNow);
 	}
 
 	@Override

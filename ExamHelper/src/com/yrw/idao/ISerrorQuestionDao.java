@@ -25,7 +25,7 @@ public interface ISerrorQuestionDao extends IBasicDao {
 	 * 
 	 * @return
 	 */
-	public List<Serrorquestions> getSerrorquestions();
+	public List<Serrorquestions> getSerrorquestions(int pageNow);
 
 	/**
 	 * 错题统计情况共有多少页
@@ -33,7 +33,7 @@ public interface ISerrorQuestionDao extends IBasicDao {
 	 * @param pageNow
 	 * @return
 	 */
-	public int getPageCount(int pageNow);
+	public int getPageCount();
 
 	/**
 	 * 分页返回通过章节Id查找到错题信息统计
@@ -70,4 +70,15 @@ public interface ISerrorQuestionDao extends IBasicDao {
 	 * @return
 	 */
 	public int getPageCountByQuestionTypeId(int questionTypeId);
+	/**通过科目得到错题情况统计，并分页返回
+	 * @param subjectId
+	 * @param pageNow
+	 * @return
+	 */
+	public List<Serrorquestions> getSerrorquestionsBySubjectId(int subjectId,int pageNow);
+	/**通过科目查询得到的错题信息统计共有页数
+	 * @param subjectId
+	 * @return
+	 */
+	public int getPageCountBySubejectId(int subjectId);
 }

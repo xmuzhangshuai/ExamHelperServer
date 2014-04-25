@@ -30,14 +30,14 @@ public class SErrorQuestionDao extends BasicDao implements ISerrorQuestionDao {
 	}
 
 	@Override
-	public List<Serrorquestions> getSerrorquestions() {
+	public List<Serrorquestions> getSerrorquestions(int pageNow) {
 		// TODO Auto-generated method stub
 		String hql = "from Serrorquestions as s order by s.errorNum desc";
-		return this.executeQuery(hql, null);
+		return this.executeQueryByPage(hql, null, pageNow);
 	}
 
 	@Override
-	public int getPageCount(int pageNow) {
+	public int getPageCount() {
 		// TODO Auto-generated method stub
 		String hql = "select count(s) from Serrorquestions";
 		return this.queryPageCount(hql, null);
@@ -73,7 +73,24 @@ public class SErrorQuestionDao extends BasicDao implements ISerrorQuestionDao {
 	public int getPageCountByQuestionTypeId(int questionTypeId) {
 		// TODO Auto-generated method stub
 		String hql = "select count(s) from Serrorquestions as s where s.questiontype.id="
-				+ questionTypeId ;
+				+ questionTypeId;
+		return this.queryPageCount(hql, null);
+	}
+
+	@Override
+	public List<Serrorquestions> getSerrorquestionsBySubjectId(int subjectId,
+			int pageNow) {
+		// TODO Auto-generated method stub
+		String hql = "from Serrorquestions as s where s.section.subject.id="
+				+ subjectId + " order by s.errorNum desc";
+		return this.executeQueryByPage(hql, null, pageNow);
+	}
+
+	@Override
+	public int getPageCountBySubejectId(int subjectId) {
+		// TODO Auto-generated method stub
+		String hql = "select count(s) from Serrorquestions as s where s.section.subject.id="
+				+ subjectId;
 		return this.queryPageCount(hql, null);
 	}
 

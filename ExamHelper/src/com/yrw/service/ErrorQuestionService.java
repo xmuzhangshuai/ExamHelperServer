@@ -20,6 +20,16 @@ public class ErrorQuestionService {
 	}
 
 	/**
+	 * 根据用户ID返回错题列表
+	 * 
+	 * @param UserId
+	 * @return
+	 */
+	public List<Errorquestions> getErrorquestionsByUser(int userId) {
+		return iErrorQuestionDao.getErrorQuestionByUser(userId);
+	}
+
+	/**
 	 * 添加一条错误信息
 	 * 
 	 * @param errorquestions
@@ -64,7 +74,7 @@ public class ErrorQuestionService {
 	 * @return
 	 */
 	public int getSErrorQuestionPageCount() {
-		return 0;
+		return iSerrorQuestionDao.getPageCount();
 	}
 
 	/**
@@ -72,17 +82,38 @@ public class ErrorQuestionService {
 	 * 
 	 * @return
 	 */
-	public List<Serrorquestions> getSerrorquestionListByPageNow(int pageNow) {
-		return null;
+	public List<Serrorquestions> getSErrorQuestionListByPageNow(int pageNow) {
+		return iSerrorQuestionDao.getSerrorquestions(pageNow);
 	}
 
-	/**
-	 * 根据用户ID返回错题列表
-	 * 
-	 * @param UserId
-	 * @return
-	 */
-	public List<Errorquestions> getErrorquestionsByUser(int userId) {
-		return iErrorQuestionDao.getErrorQuestionByUser(userId);
+	public int getSErrorQuestionPageCountBySubject(int subjectId) {
+		return iSerrorQuestionDao.getPageCountBySubejectId(subjectId);
 	}
+
+	public List<Serrorquestions> getSErrorQuestionListBySubject(int subjectId,
+			int pageNow) {
+		return iSerrorQuestionDao.getSerrorquestionsBySubjectId(subjectId,
+				pageNow);
+	}
+
+	public int getSErrorQuestionPageCountBySection(int sectionId) {
+		return iSerrorQuestionDao.getPageCountBySectionId(sectionId);
+	}
+
+	public List<Serrorquestions> getSErrorListBySection(int sectionId,
+			int pageNow) {
+		return iSerrorQuestionDao.getSerrorquestionsBySectionId(sectionId,
+				pageNow);
+	}
+
+	public int getSErrorQuestionPageCountByQuestionType(int questionTypeId) {
+		return iSerrorQuestionDao.getPageCountByQuestionTypeId(questionTypeId);
+	}
+
+	public List<Serrorquestions> getSErrorQuestionListByQuestionType(
+			int questionTypeId, int pageNow) {
+		return iSerrorQuestionDao.getSerrorquestionsByQuestionTypeId(
+				questionTypeId, pageNow);
+	}
+
 }
