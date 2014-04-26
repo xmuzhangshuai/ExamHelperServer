@@ -29,7 +29,7 @@ body {
 		var tp = document.getElementById(nametu);
 		tp.src = "./images/ico05.gif";//图片ico04为白色的正方形
 
-		for (var i = 1; i < 30; i++) {
+		for (var i = 1; i < 50; i++) {
 
 			if (i != idt * 1) {
 				var tp2 = document.getElementById('xiaotu' + i);
@@ -121,12 +121,12 @@ body {
 					<c:forEach  items="${subjects}" var="subject">
 						<tr>
 
-							<td width="9%" height="20"><img id="xiaotu${subject.id+16}"
+							<td width="9%" height="20"><img id="xiaotu${subject.id+20}"
 								src="./images/ico06.gif" width="8" height="12" /></td>
 							<td width="91%"><a
 								href="${pageContext.request.contextPath}/section.do?flag=chooseType&subjectId=${subject.id}"
 								target="mainFrame" class="left-font03"
-								onclick="tupian('${subject.id+16}');">${subject.subName}</a></td>
+								onclick="tupian('${subject.id+20}');">${subject.subName}</a></td>
 						</tr>
 
 					</c:forEach>
@@ -261,10 +261,10 @@ body {
 							class="left-font03" onclick="tupian('12');">笔记统计 </a></td>
 					</tr>
 					<tr>
-						<td width="9%" height="20"><img id="xiaotu12"
+						<td width="9%" height="20"><img id="xiaotu13"
 							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="${pageContext.request.contextPath}/error.do?flag=showErrorList" target="mainFrame"
-							class="left-font03" onclick="tupian('12');">错题统计 </a></td>
+							class="left-font03" onclick="tupian('13');">错题统计 </a></td>
 					</tr>
 				</table> <!--  统计分析系统结束    -->
 				
@@ -322,10 +322,10 @@ body {
 				<table id="subtree5" style="DISPLAY: none" width="80%" border="0"
 					align="center" cellpadding="0" cellspacing="0" class="left-table02">
 					<tr>
-						<td width="9%" height="20"><img id="xiaotu16"
+						<td width="9%" height="20"><img id="xiaotu17"
 							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="${pageContext.request.contextPath}/query.do?flag=showQueryList" target="mainFrame"
-							class="left-font03" onclick="tupian('16');">答疑问题列表</a></td>
+							class="left-font03" onclick="tupian('17');">答疑问题列表</a></td>
 					</tr>
 				</table> <!--  答疑广场系统结束    -->
 				
@@ -349,16 +349,16 @@ body {
 				<table id="subtree7" style="DISPLAY: none" width="80%" border="0"
 					align="center" cellpadding="0" cellspacing="0" class="left-table02">
 					<tr>
-						<td width="9%" height="20"><img id="xiaotu17"
-							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="http://www.umeng.com/apps/3179f02950b04265b7ae8335/upload" target="mainFrame"
-							class="left-font03" onclick="tupian('17');">自动更新</a></td>
-					</tr>
-					<tr>
 						<td width="9%" height="20"><img id="xiaotu18"
 							src="./images/ico06.gif" width="8" height="12" /></td>
+						<td width="91%"><a href="http://www.umeng.com/apps/3179f02950b04265b7ae8335/upload" target="mainFrame"
+							class="left-font03" onclick="tupian('18');">自动更新</a></td>
+					</tr>
+					<tr>
+						<td width="9%" height="20"><img id="xiaotu19"
+							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="http://www.umeng.com/" target="new"
-							class="left-font03" onclick="tupian('17');">友盟平台登录</a></td>
+							class="left-font03" onclick="tupian('19');">友盟平台登录</a></td>
 					</tr>
 				</table> <!--  终端系统开始    -->
 			</td>
