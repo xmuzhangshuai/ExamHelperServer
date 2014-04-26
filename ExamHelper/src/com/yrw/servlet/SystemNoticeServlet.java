@@ -43,9 +43,6 @@ public class SystemNoticeServlet extends BaseServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		super.service(arg0, arg1);
-		SystemNoticeService noticeService = (SystemNoticeService) getApplicationContext().getBean("systemNoticeService");
 	
-			Systemnotice systemnotice = noticeService.getSystemnoticeByMaxTime();
-		System.out.println(systemnotice);
 	}
 }

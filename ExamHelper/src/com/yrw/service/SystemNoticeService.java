@@ -34,7 +34,5 @@ public class SystemNoticeService {
 	public int getSystemnoticePageCountByPage(){
 		return iSystemNoticeDao.getSystemnotciePageCount();
 	}
-	public Systemnotice getSystemnoticeByMaxTime(){
-		return iSystemNoticeDao.getSystemnoticeByMaxTime();
-	}
+	
 }

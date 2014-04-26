@@ -29,7 +29,7 @@ public class SystemNoticeDao extends BasicDao implements ISystemNoticeDao {
 	public void deleteSystemnotice(Systemnotice systemnotice) {
 		// TODO Auto-generated method stub
 		
-		
+		this.deletById(Systemnotice.class, systemnotice.getId());
 	}
 
 	@Override
@@ -46,15 +46,5 @@ public class SystemNoticeDao extends BasicDao implements ISystemNoticeDao {
 		return this.queryPageCount(hql, null);
 	}
 
-	@Override
-	public Systemnotice getSystemnoticeByMaxTime() {
-		// TODO Auto-generated method stub
-		String hql="select max(m.time) from Systemnotice as m";
-		Timestamp mxTime=(Timestamp) this.uniqueQuery(hql, null);
-		String timeString=mxTime.toString().split(".")[0];
-		System.out.println(timeString);
-		 hql="from Systemnotice as s where s.time="+timeString;
-		return (Systemnotice) this.uniqueQuery(hql, null);
-	}
 
 }
