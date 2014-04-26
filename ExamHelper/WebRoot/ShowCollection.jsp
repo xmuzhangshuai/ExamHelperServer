@@ -1,3 +1,4 @@
+<%@page import="com.yrw.domains.Subject"%>
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%
@@ -70,6 +71,24 @@ function goCollectionDetail(id){
 	//document.getElementById("fom").submit();
 }
 
+//选择查看类型级联变化
+function typeChange(current){
+	 var currentChoice = current;
+	 var subject = "按科目";
+	 var i,j,k;
+     //清空二级菜单下拉选单
+     document.all.list.length = 0 ;
+     if(currentChoice == subject){
+		var subjectList= "${subjectList}";
+		var subjectArray = subjectList.toArray(new Subject[subjectList.size()]);
+		alert(subjectArray.length);
+		for (j = 0; j < subjectArray.length; j++) {
+			//填充 二级下拉选单
+       		document.all.list.options[document.all.list.length] = new Option(subjectArray[j].subName,subjectArray[j].subName);
+		}
+     }
+}
+
 </script>
 </head>
   
@@ -85,17 +104,19 @@ function goCollectionDetail(id){
 							<tr>
 								<td width="21"><img src="./images/ico07.gif" width="20" height="18" /></td>
 								<td width="80">
-									<select>
-										<option>按章节</option>
-										<option>按科目</option>
-										<option>按题型</option>
+									<select id="type" onchange="typeChange(this.options[this.selectedIndex].value)">
+									 	<option value="">-请选择-</option>
+										<option value="按章节">按章节</option>
+										<option value="按科目">按科目</option>
+										<option value="按题型">按题型</option>
 									</select>
 								</td>
 								<td width="300" align="left">
-									<select>
-									<c:forEach items="${subjectList}" var="subject">
-										<option>${subject.subName}</option>
-									</c:forEach>
+									<select id="list">
+										<option></option>
+										<c:forEach items="${subjectList}" var="subject">
+											<option>${subject.subName}</option>
+										</c:forEach>
 									</select>
 									<input name="Submit4" type="button" class="right-button02"
 									       value="查 询" onclick="keywordSearch();" />

@@ -102,6 +102,7 @@
 	<bean id="singleChoiceDao" class="com.yrw.dao.SingleChoiceDao" />
 	<bean id="trueOrFalseDao" class="com.yrw.dao.TrueOrFalseDao" />
 	<bean id="userDao" class="com.yrw.dao.UserDao" />
+	<bean id="systemNoticeDao" class="com.yrw.dao.SystemNoticeDao" />
 	<bean id="collectionDao" class="com.yrw.dao.CollectionDao">
 		<property name="iScollectionDao" ref="scollectionDao" />
 	</bean>
@@ -169,6 +170,9 @@
 	<bean id="examGuideService" class="com.yrw.service.ExamGuideService">
 		<property name="iExamGuideDao" ref="examGuideDao" />
 		<property name="iSubjectDao" ref="subjectDao" />
+	</bean>
+	<bean id="systemNoticeService" class="com.yrw.service.SystemNoticeService">
+		<property name="iSystemNoticeDao" ref="systemNoticeDao" />
 	</bean>
 
 

@@ -67,10 +67,12 @@ public class CollectionAction extends DispatchAction {
 					.getTypeName()));
 		}
 		List<Subject> subjectList = subjectService.getSubjects();
-
+//		Subject[] subjectArray = subjectList.toArray(new Subject[subjectList.size()]);
+		
 		request.setAttribute("scollectionList", scollectionList);
 		request.setAttribute("questionStemList", questionStemList);
 		request.setAttribute("subjectList", subjectList);
+//		request.setAttribute("subjectArray", subjectArray);
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("pageNow", pageNow);
 		return mapping.findForward("showCollection");
