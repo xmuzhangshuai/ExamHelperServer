@@ -225,6 +225,8 @@ public class ExaminationAction extends DispatchAction {
 	public ActionForward moveSingleChoice(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws UnsupportedEncodingException{
+		 System.out.println(" 进入moveSingleChoice Action");
+		
 		//获得操作类型、单选题Id、试卷Id
 		String type=request.getParameter("type");
 		int singleChoiceId=Integer.parseInt(request.getParameter("singleChoiceId"));

@@ -2,9 +2,11 @@ package com.yrw.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.yrw.config.DefaultValue;
 import com.yrw.domains.Examination;
@@ -12,6 +14,7 @@ import com.yrw.domains.Examquestion;
 import com.yrw.domains.Examsection;
 import com.yrw.domains.Materialanalysis;
 import com.yrw.domains.Multichoice;
+import com.yrw.domains.Questiontype;
 import com.yrw.domains.Section;
 import com.yrw.domains.Singlechoice;
 import com.yrw.domains.Trueorfalse;
@@ -194,50 +197,114 @@ public class ExamService {
 		// 获得examSection对象
 		Examination examination = iExaminationDao.showExam(examId);
 		Examsection examsection = null;
+
 		Examquestion examquestion = null;
-		Examquestion repalcedExamquestion = null;
-		Iterator<Examsection> Iterator = examination.getExamsections()
-				.iterator();
-		while (Iterator.hasNext()) {
-			examsection = Iterator.next();
+		Examquestion targetExamquestion = null;
+		Iterator<Examsection> examSectionIterator = examination
+				.getExamsections().iterator();
+		System.out.println("进入moveSingleChoice service" + " " + singleChoiceId);
+		while (examSectionIterator.hasNext()) {
+			examsection = examSectionIterator.next();
 			if (examsection.getQuestiontype().getTypeName()
 					.equals(DefaultValue.SINGLE_CHOICE)) {
-				List<Examquestion> examquestions = new ArrayList<Examquestion>(
+				List<Examquestion> examquestionList = new ArrayList<Examquestion>(
 						examsection.getExamquestions());
-				for (int i = 0; i < examquestions.size(); i++) {
-					if (examquestions.get(i).getQuestionId() == singleChoiceId) {
-						if (type.equals("decrease")) {
-							examquestion = examquestions.get(i);
-							repalcedExamquestion = examquestions.get(i - 1);
+				for (int j = 0; j < examquestionList.size(); j++) {
 
-							repalcedExamquestion.setQuestionNumber(examquestion
-									.getQuestionNumber());
-							examquestion.setQuestionNumber(examquestion
-									.getQuestionNumber() - 1);
-							examquestions.set(i, examquestion);
-							examquestions.set(i - 1, repalcedExamquestion);
-						} else {
-							examquestion = examquestions.get(i);
-							repalcedExamquestion = examquestions.get(i + 1);
+					examquestion = examquestionList.get(j);
+					if (examquestion.getQuestionId() == singleChoiceId) {
+						if (type.equals("decrease")) {
+							
+								targetExamquestion = examquestionList
+										.get(j - 1);
+								System.out.println("decrease: "
+										+ examquestion.getQuestionNumber()
+										+ " "
+										+ targetExamquestion
+												.getQuestionNumber());
+
+								targetExamquestion
+										.setQuestionNumber(examquestion
+												.getQuestionNumber());
+								examquestion.setQuestionNumber(examquestion
+										.getQuestionNumber() - 1);
+								examquestionList.set(j, examquestion);
+								examquestionList.set(j - 1, targetExamquestion);
+							
+						}
+
+						else {
+
+							targetExamquestion = examquestionList.get(j + 1);
 							System.out.println("increase moveSingleChoice "
 									+ examquestion.getQuestionNumber() + "  "
-									+ repalcedExamquestion.getQuestionNumber());
-
-							repalcedExamquestion.setQuestionNumber(examquestion
+									+ targetExamquestion.getQuestionNumber());
+							System.out.println("increase "
+									+ examquestion.getQuestionId() + " "
+									+ targetExamquestion.getQuestionId());
+							targetExamquestion.setQuestionNumber(examquestion
 									.getQuestionNumber());
 							examquestion.setQuestionNumber(examquestion
 									.getQuestionNumber() + 1);
 
-							examquestions.set(i, examquestion);
-							examquestions.set(i + 1, repalcedExamquestion);
+							examquestionList.set(j, examquestion);
+							examquestionList.set(j + 1, targetExamquestion);
 						}
-						iExamQuestionDao.update(examquestion);
-						iExamQuestionDao.update(repalcedExamquestion);
-						iExaminationDao.update(examination);
+
+						Set<Examquestion> examquestionSet = new HashSet<Examquestion>(
+								examquestionList);
+						examsection.setExamquestions(examquestionSet);
+						iExamSectionDao.update(examsection);
+						break;
 					}
+
 				}
 			}
 		}
+
+		// while (examSectionIterator.hasNext()) {
+		// examsection = examSectionIterator.next();
+		// if (examsection.getQuestiontype().getTypeName()
+		// .equals(DefaultValue.SINGLE_CHOICE)) {
+		// List<Examquestion> examquestions = new ArrayList<Examquestion>(
+		// examsection.getExamquestions());
+		// for (int i = 0; i < examquestions.size(); i++) {
+		// if (examquestions.get(i).getQuestionId() == singleChoiceId) {
+		// if (type.equals("decrease")) {
+		// examquestion = examquestions.get(i);
+		// repalcedExamquestion = examquestions.get(i - 1);
+		//
+		// repalcedExamquestion.setQuestionNumber(examquestion
+		// .getQuestionNumber());
+		// examquestion.setQuestionNumber(examquestion
+		// .getQuestionNumber() - 1);
+		// examquestions.set(i, examquestion);
+		// examquestions.set(i - 1, repalcedExamquestion);
+		//
+		// } else {
+		// examquestion = examquestions.get(i);
+		// repalcedExamquestion = examquestions.get(i + 1);
+		// System.out.println("increase moveSingleChoice "
+		// + examquestion.getQuestionNumber() + "  "
+		// + repalcedExamquestion.getQuestionNumber());
+		//
+		// repalcedExamquestion.setQuestionNumber(examquestion
+		// .getQuestionNumber());
+		// examquestion.setQuestionNumber(examquestion
+		// .getQuestionNumber() + 1);
+		//
+		// examquestions.set(i, examquestion);
+		// examquestions.set(i + 1, repalcedExamquestion);
+		//
+		// }
+		// iExamQuestionDao.update(examquestion);
+		// iExamQuestionDao.update(repalcedExamquestion);
+		// iExamSectionDao.update(examsection);
+		// iExaminationDao.update(examination);
+		// }
+		// }
+		// }
+		// }
 	}
 
 	/**
