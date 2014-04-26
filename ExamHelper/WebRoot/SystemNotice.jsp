@@ -157,12 +157,13 @@ function endPage(){
 								<td height="20" align="center" ><input  type="checkbox" name="delid${systemNotice.id}" /></td>
 								<td height="20" align="center" ><label>${systemNotice.id}</label></td>
 								<td height="30" align="center" ><a>${systemNotice.noticeContent}</a></td>
-								<td height="20" >${systemNotice.time}</td>
-								<td height="20" ><c:choose><c:when test="${systemNotice.haveDetail}">跳转</c:when>
+								<td height="20" align="center">${systemNotice.time}</td>
+								<td height="20" align="center"><c:choose><c:when test="${systemNotice.haveDetail}">跳转</c:when>
 												 <c:otherwise>不跳转</c:otherwise></c:choose></td>
 								<td style="padding: 5px;">${systemNotice.url}</td>
-								<td height="20" ><c:choose><c:when test="${systemNotice.valid}">正在执行</c:when>
-												 <c:otherwise>已过时</c:otherwise></c:choose></td>
+								<td height="20" align="center"><c:choose><c:when test="${systemNotice.valid}">
+												 <label style="font-weight:bolder; ">正在执行</label></c:when>
+												 <c:otherwise> <label style="font-style:italic;color:#8F8F8F ; ">已过时</label></c:otherwise></c:choose></td>
 								<td height="20" >
 									<a href="">编辑|</a>
 								    <a href="">查看|</a>
