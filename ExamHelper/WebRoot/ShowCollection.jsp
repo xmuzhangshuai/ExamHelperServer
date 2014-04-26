@@ -78,21 +78,14 @@ function typeChange(current){
 	 var i,j,k;
      //清空二级菜单下拉选单
      document.all.list.length = 0 ;
-     content = new Array();
      if(currentChoice == subject){
-     	<%List<Subject> subjects = (List<Subject>) request.getAttribute("subjectList");
-     	  Subject[] subjectArray = new Subject[subjects.size()];
-     	  for(int i=0;i<subjects.size();i++){
-     	  	subjectArray[i] = subjects.get(i);
-     	  }
-     	%>
-		var subjectArray = "<%=subjectArray%>"
+		var subjectList= "${subjectList}";
+		var subjectArray = subjectList.toArray(new Subject[subjectList.size()]);
 		alert(subjectArray.length);
-		for (j = 0; j < subjectList.length; j++) {
+		for (j = 0; j < subjectArray.length; j++) {
 			//填充 二级下拉选单
-         	document.all.list.options[document.all.list.length] = new Option(subjectList[j].subName,subjectList[j].subName);
+       		document.all.list.options[document.all.list.length] = new Option(subjectArray[j].subName,subjectArray[j].subName);
 		}
-     	
      }
 }
 
@@ -120,7 +113,10 @@ function typeChange(current){
 								</td>
 								<td width="300" align="left">
 									<select id="list">
-									
+										<option></option>
+										<c:forEach items="${subjectList}" var="subject">
+											<option>${subject.subName}</option>
+										</c:forEach>
 									</select>
 									<input name="Submit4" type="button" class="right-button02"
 									       value="查 询" onclick="keywordSearch();" />

@@ -82,6 +82,11 @@
     <servlet-name>TestServlet</servlet-name>
     <servlet-class>com.yrw.servlet.TestServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>SystemNoticeServlet</servlet-name>
+    <servlet-class>com.yrw.servlet.SystemNoticeServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -156,6 +161,10 @@
   <servlet-mapping>
     <servlet-name>TestServlet</servlet-name>
     <url-pattern>/TestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SystemNoticeServlet</servlet-name>
+    <url-pattern>/SystemNoticeServlet</url-pattern>
   </servlet-mapping>
 
 
