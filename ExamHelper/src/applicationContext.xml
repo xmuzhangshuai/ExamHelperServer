@@ -64,6 +64,7 @@
 				<value>com/yrw/domains/Scollection.hbm.xml</value>
 				<value>com/yrw/domains/Serrorquestions.hbm.xml</value>
 				<value>com/yrw/domains/Snote.hbm.xml</value>
+				<value>com/yrw/domains/Systemnotice.hbm.xml</value>
 			</list>
 		</property>
 
