@@ -67,7 +67,7 @@ public class ErrorAction extends DispatchAction {
 		}
 
 		List<String> questionStemList = new ArrayList<String>();
-		List<Serrorquestions> serrorquestionList = new ArrayList<Serrorquestions>();
+		List<Serrorquestions> serrorquestionList = errorQuestionService.getSErrorQuestionListByPageNow(pageNow);
 		for (Serrorquestions serrorquestions : serrorquestionList) {
 			questionStemList.add(getQuestionName(serrorquestions.getQuestionId(), serrorquestions.getQuestiontype()
 					.getTypeName()));

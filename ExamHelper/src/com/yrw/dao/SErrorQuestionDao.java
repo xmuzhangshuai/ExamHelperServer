@@ -39,7 +39,7 @@ public class SErrorQuestionDao extends BasicDao implements ISerrorQuestionDao {
 	@Override
 	public int getPageCount() {
 		// TODO Auto-generated method stub
-		String hql = "select count(s) from Serrorquestions";
+		String hql = "select count(s) from Serrorquestions as s";
 		return this.queryPageCount(hql, null);
 	}
 

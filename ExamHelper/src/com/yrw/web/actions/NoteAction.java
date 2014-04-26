@@ -17,7 +17,6 @@ import org.apache.struts.actions.DispatchAction;
 
 import com.yrw.domains.Materialanalysis;
 import com.yrw.domains.Multichoice;
-import com.yrw.domains.Scollection;
 import com.yrw.domains.Singlechoice;
 import com.yrw.domains.Snote;
 import com.yrw.domains.Subject;
@@ -51,34 +50,33 @@ public class NoteAction extends DispatchAction {
 	 * @param response
 	 * @return ActionForward
 	 */
-//	public ActionForward showNoteList(ActionMapping mapping, ActionForm form, HttpServletRequest request,
-//			HttpServletResponse response) {
-//		// TODO Auto-generated method stub
-//		int pageNow = 1;
-//		int pageCount = noteService.get
-//		String pageNowString = request.getParameter("pageNow");
-//		if (pageNowString != null) {
-//			pageNow = Integer.parseInt(pageNowString);
-//			if (pageNow < 1)
-//				pageNow = 1;
-//			else if (pageNow > pageCount)
-//				pageNow = pageCount;
-//		}
-//		List<String> questionStemList = new ArrayList<String>();
-//		List<Snote> snoteList = noteService.
-//		for (Snote snote : snoteList) {
-//			questionStemList.add(getQuestionName(snote.getQuestionId(), snote.getQuestiontype()
-//					.getTypeName()));
-//		}
-//		List<Subject> subjectList = subjectService.getSubjects();
-//
-//		request.setAttribute("snoteList", snoteList);
-//		request.setAttribute("questionStemList", questionStemList);
-//		request.setAttribute("subjectList", subjectList);
-//		request.setAttribute("pageCount", pageCount);
-//		request.setAttribute("pageNow", pageNow);
-//		return mapping.findForward("showNote");
-//	}
+	public ActionForward showNoteList(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		int pageNow = 1;
+		int pageCount = noteService.getSnotePageCount();
+		String pageNowString = request.getParameter("pageNow");
+		if (pageNowString != null) {
+			pageNow = Integer.parseInt(pageNowString);
+			if (pageNow < 1)
+				pageNow = 1;
+			else if (pageNow > pageCount)
+				pageNow = pageCount;
+		}
+		List<String> questionStemList = new ArrayList<String>();
+		List<Snote> snoteList = noteService.getSnoteListByPage(pageNow);
+		for (Snote snote : snoteList) {
+			questionStemList.add(getQuestionName(snote.getQuestionId(), snote.getQuestiontype().getTypeName()));
+		}
+		List<Subject> subjectList = subjectService.getSubjects();
+
+		request.setAttribute("snoteList", snoteList);
+		request.setAttribute("questionStemList", questionStemList);
+		request.setAttribute("subjectList", subjectList);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("pageNow", pageNow);
+		return mapping.findForward("showNote");
+	}
 
 	/**
 	 * ¸ù¾ÝID·µ»Øquestion
