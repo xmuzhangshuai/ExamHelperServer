@@ -10,5 +10,5 @@ public interface ISystemNoticeDao extends IBasicDao {
 	public void deleteSystemnotice(Systemnotice systemnotice);
 	public List<Systemnotice> getSystemnoticeByPage(int pageNow);
 	public int getSystemnotciePageCount();
-	public Systemnotice getSystemnoticeByMaxTime();
+
 }
