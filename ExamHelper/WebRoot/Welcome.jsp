@@ -15,7 +15,8 @@ body {
 	margin-top: 1px;
 	margin-right: 0px;
 	margin-bottom: 0px;
-	background-color: #4AA3D8;
+	background-color: #80B9D7;
+	text-align: center;
 }
 html { overflow-x: ; overflow-y: ; border:0;} 
 -->
@@ -23,17 +24,14 @@ html { overflow-x: ; overflow-y: ; border:0;}
 </head>
   
   <body>
-   <table style="width: 100%;"  border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td style="background-color:#4AA3D8 "></td>
-  </tr>
-  <tr>
+   <table style="width: 100%;"  border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr style="height: 100%;">
     <td><table width="100%" border="0" cellpadding="0" cellspacing="0">
       <tr>
-        <td valign="top"><img  src="./images/welcome.gif" width="800" height="536" /></td>
+        <td valign="top"><img src="./images/welcome.png" width="800" height="536" /></td>
       </tr>
     </table></td>
   </tr>
-</table>
+	</table>
   </body>
 </html>
