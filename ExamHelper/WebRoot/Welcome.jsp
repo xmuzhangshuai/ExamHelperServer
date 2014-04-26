@@ -11,12 +11,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <style type="text/css">
 <!--
 body {
-	margin-left: 0px;
-	margin-top: 1px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-	background-color: #80B9D7;
+	background-color: #ffffff;
 	text-align: center;
+	border: 0px;
+	margin: 0px;
 }
 html { overflow-x: ; overflow-y: ; border:0;} 
 -->
@@ -25,12 +23,17 @@ html { overflow-x: ; overflow-y: ; border:0;}
   
   <body>
    <table style="width: 100%;"  border="0" cellspacing="0" cellpadding="0" align="center">
-  <tr style="height: 100%;">
-    <td><table width="100%" border="0" cellpadding="0" cellspacing="0">
-      <tr>
-        <td valign="top"><img src="./images/welcome.png" width="800" height="536" /></td>
-      </tr>
-    </table></td>
+  	<tr style="height: 100%;">
+    	<td>
+    	<table width="100%" border="0" cellpadding="0" cellspacing="0">
+    		<tr>
+				<td height="62" background="./images/nav04.gif"/>
+			</tr>
+      		<tr>
+        		<td valign="top"><img src="./images/welcome.png" width="800" height="536" /></td>
+      		</tr>
+    	</table>
+    	</td>
   </tr>
 	</table>
   </body>
