@@ -89,33 +89,30 @@ function endPage(){
 		
 		<tr>
 			<td style="border-style: none; border-width: medium;">
-				<form class="contact_form" action="${pageContext.request.contextPath}/examGuide.do?flag=addExamGuide" method="post" name="contact_form">
+				<form class="contact_form" action="${pageContext.request.contextPath}/systemNotice.do?flag=addSystemNotice" method="post" name="contact_form">
 					<ul>
 						<li>
              				<h2>发布系统通知</h2>
-        				</li>
-        				<li>
-             				<label for="name">题目:</label>
-             				<input type="text" name="title"  placeholder="文章题目" required />
-        				</li>
-        				<li>
-             				<label for="website">是否立即发布：</label>
-            				<input type="checkbox" title="用户点击是否跳转"/>
-        				</li>
-        				<li>
-             				<label for="website">点击跳转：</label>
-            				<input type="checkbox" title="用户点击是否跳转"/>
-        				</li>
-        				<li>
-             				<label for="website">跳转URL:</label>
-            				<input type="text" name="url" placeholder="url" />
         				</li>
         				<li>
              				<label for="">公告内容</label>
         					<textarea rows="8" cols="40" name="content" placeholder="系统公告内容" required></textarea>
         				</li>
         				<li>
-        					<!--  <button type="submit" class="submit">添     加</button>-->
+             				<label for="website">跳转URL:</label>
+            				<input type="text" name="url" placeholder="url" />
+        				</li>
+        				<li>
+             				<label for="website">是否立即发布：</label>
+            				<input type="checkbox" name="valided" title="用户点击是否跳转"/>
+        				</li>
+        				<li>
+             				<label for="website">点击跳转：</label>
+            				<input type="checkbox" name="haveDetail" title="用户点击是否跳转"/>
+        				</li>
+        				
+        				<li>
+        					<!--  <button type="submit" class="submit">发         布</button>-->
         				</li>
 					</ul>
 				</form>
@@ -143,27 +140,29 @@ function endPage(){
 				<td height="40" class="font42">
 					<table width="100%" border="0" cellpadding="4" cellspacing="1" bgcolor="#464646" class="newfont03">
 						<tr class="CTitle">
-							<td height="22" colspan="13" align="center" style="font-size:18px">错题记录列表</td>
+							<td height="22" colspan="13" align="center" style="font-size:18px">历史公告</td>
 						</tr>
 						<tr bgcolor="#EEEEEE">
 							<td width="6%" align="center" height="30">选择</td>
 							<td width="8%" align="center" height="30">唯一编号</td>
-							<td width="10%" align="center" height="30">科目</td>
-							<td width="14%" align="center" height="30">章节</td>
-							<td width="10%" align="center" height="30">题型</td>
-							<td width="34%" align="center" height="30">题目内容</td>
-							<td width="8%" align="center" height="30">错误数量</td>
+							<td width="32%" align="center" height="30">公告内容</td>
+							<td width="10%" align="center" height="30">添加时间</td>
+							<td width="6%" align="center" height="30">是否跳转</td>
+							<td width="20%" align="center" height="30">跳转路径</td>
+							<td width="8%" align="center" height="30">是否过时</td>
 							<td width="10%" align="center" height="30">操作</td>
 						</tr>
-						<c:forEach items="${serrorquestionList}" var="serrorquestion" varStatus="loop">
-							<tr id="listbg" onclick="goCollectionDetail(${serrorquestion.id});" >
-								<td height="20" align="center" ><input  type="checkbox" name="delid${serrorquestion.id}" /></td>
-								<td height="20" align="center" ><label>${serrorquestion.id}</label></td>
-								<td height="30" align="center" ><a>${serrorquestion.section.subject.subName}</a></td>
-								<td height="20" ><a>${serrorquestion.section.sectionName}</a></td>
-								<td height="20" ><a>${serrorquestion.questiontype.typeName}</a></td>
-								<td style="padding: 5px;"><a>${questionStemList[loop.count-1]}</a></td>
-								<td height="20" align="center" ><label>${serrorquestion.errorNum}</label></td>
+						<c:forEach items="${systemnoticeList}" var="systemNotice" varStatus="loop">
+							<tr id="listbg" onclick="goCollectionDetail(${systemNotice.id});" >
+								<td height="20" align="center" ><input  type="checkbox" name="delid${systemNotice.id}" /></td>
+								<td height="20" align="center" ><label>${systemNotice.id}</label></td>
+								<td height="30" align="center" ><a>${systemNotice.noticeContent}</a></td>
+								<td height="20" >${systemNotice.time}</td>
+								<td height="20" ><c:choose><c:when test="${systemNotice.haveDetail}">跳转</c:when>
+												 <c:otherwise>不跳转</c:otherwise></c:choose></td>
+								<td style="padding: 5px;">${systemNotice.url}</td>
+								<td height="20" ><c:choose><c:when test="${systemNotice.valid}">正在执行</c:when>
+												 <c:otherwise>已过时</c:otherwise></c:choose></td>
 								<td height="20" >
 									<a href="">编辑|</a>
 								    <a href="">查看|</a>
@@ -188,12 +187,12 @@ function endPage(){
 								<td width="50%">共 <span class="right-text09" id="pageCount">${pageCount}</span>
 									页 | 第 <span class="right-text09" id="pageNowId">${pageNow}</span> 页
 								</td>
-								<td width="49%" align="right">[<a href="${pageContext.request.contextPath}/error.do?flag=showErrorList&pageNow=1" class="right-font08">首页</a> | 
-															   <a href="${pageContext.request.contextPath}/error.do?flag=showErrorList&pageNow=${pageNow-1}" 
+								<td width="49%" align="right">[<a href="${pageContext.request.contextPath}/systemNotice.do?flag=showNoticeList&pageNow=1" class="right-font08">首页</a> | 
+															   <a href="${pageContext.request.contextPath}/systemNotice.do?flag=showNoticeList&pageNow=${pageNow-1}" 
 															      onclick="lastPage(${pageNow-1});"  class="right-font08">上一页</a> |
-														       <a href="${pageContext.request.contextPath}/error.do?flag=showErrorList&pageNow=${pageNow+1}" 
+														       <a href="${pageContext.request.contextPath}/systemNotice.do?flag=showNoticeList&pageNow=${pageNow+1}" 
 														          onclick="nextPage(${pageNow+1},${pageCount});" class="right-font08">下一页</a>| 
-														       <a href="${pageContext.request.contextPath}/error.do?flag=showErrorList&pageNow=${pageCount}" class="right-font08">末页</a>] 转至：
+														       <a href="${pageContext.request.contextPath}/systemNotice.do?flag=showNoticeList&pageNow=${pageCount}" class="right-font08">末页</a>] 转至：
 								</td>
 								<td width="1%">
 									<table width="20" border="0" cellspacing="0" cellpadding="0">
