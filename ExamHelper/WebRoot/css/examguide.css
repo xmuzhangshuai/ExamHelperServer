@@ -53,7 +53,7 @@
 	padding: 3px;
 }
 
-.contact_form input {
+.contact_form input{
 	height: 30px;
 	width: 300px;
 	padding: 5px 8px;
@@ -187,3 +187,4 @@ button.submit:active {
 	-ms-box-shadow: 0 0 10px 5px #356b0b inset;
 	-o-box-shadow: 0 0 10px 5px #356b0b inset;
 }
+
