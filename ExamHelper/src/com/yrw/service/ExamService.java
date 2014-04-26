@@ -214,16 +214,7 @@ public class ExamService {
 					examquestion = examquestionList.get(j);
 					if (examquestion.getQuestionId() == singleChoiceId) {
 						if (type.equals("decrease")) {
-							if (j == 0) {
-								targetExamquestion = examquestionList
-										.get(examquestionList.size() - 1);
-								targetExamquestion
-								.setQuestionNumber(examquestion
-										.getQuestionNumber());
-						examquestion.setQuestionNumber(examquestionList.size());
-						examquestionList.set(examquestionList.size()-1, examquestion);
-						examquestionList.set(j - 1, targetExamquestion);
-							} else {
+							
 								targetExamquestion = examquestionList
 										.get(j - 1);
 								System.out.println("decrease: "
@@ -239,7 +230,7 @@ public class ExamService {
 										.getQuestionNumber() - 1);
 								examquestionList.set(j, examquestion);
 								examquestionList.set(j - 1, targetExamquestion);
-							}
+							
 						}
 
 						else {

@@ -212,17 +212,13 @@
 												<tr>
 													<td>
 														<table>
-															<%
-																int singleChoiceNumber = 1;
-															%>
+															
 
-															<c:forEach items="${singleChoices}" var="singleChoice">
+															<c:forEach items="${singleChoices}" var="singleChoice" varStatus="singleChoiceCounter">
 																<tr>
 																	<td><a
 																		href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">
-																			<%
-																				out.print((singleChoiceNumber++) + ":  ");
-																			%>${singleChoice.questionStem}</a></td>
+																			${singleChoiceCounter.count}: ${singleChoice.questionStem}</a></td>
 																</tr>
 																<tr>
 																	<td style="width: 688px; ">
@@ -239,7 +235,7 @@
 																	<td><a
 																		href="${pageContext.request.contextPath}/examination.do?flag=moveSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}&type=decrease">上移</a>|<a
 																		href="${pageContext.request.contextPath}/examination.do?flag=moveSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}&type=increase">下移|</a><a
-																		href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">查看</a><a href="${pageContext.request.contextPath}/examination.do?flag=deleteSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}">删除</a></td>
+																		href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">查看|</a><a href="${pageContext.request.contextPath}/examination.do?flag=deleteSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}">删除</a></td>
 																</tr>
 															</c:forEach>
 														</table>
@@ -261,16 +257,12 @@
 												<tr>
 													<td>
 														<table>
-															<%
-																int multiChoiceNumber = 1;
-															%>
-															<c:forEach items="${multiChoices}" var="mulitChoice">
+															
+															<c:forEach items="${multiChoices}" var="mulitChoice" varStatus="multiChoiceCounter">
 																<tr>
 																	<td><a
 																		href="${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoice&multiChoiceId=${multiChoice.id}">
-																			<%
-																				out.print((multiChoiceNumber++) + ":  ");
-																			%>${mulitChoice.questionStem}</a></td>
+																			${multiChoiceCounter.count}: ${mulitChoice.questionStem}</a></td>
 																</tr>
 																<tr>
 																	<td>
@@ -306,16 +298,12 @@
 												<tr>
 													<td>
 														<table>
-															<%
-																int trueOrFalseNumber = 1;
-															%>
-															<c:forEach items="${trueOrFalses}" var="trueOrFalse">
+														
+															<c:forEach items="${trueOrFalses}" var="trueOrFalse" varStatus="trueOrFalseCounter">
 																<tr>
 																	<td><a
 																		href="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalse&trueOrFalseId=${trueOrFalse.id}">
-																			<%
-																				out.print((trueOrFalseNumber++) + ":  ");
-																			%>${trueOrFalse.questionStem}</a></td>
+																			${trueOrFalseCounter.count}: ${trueOrFalse.questionStem}</a></td>
 																</tr>
 
 															</c:forEach>
@@ -337,34 +325,26 @@
 												<tr>
 													<td>
 														<table>
-															<%
-																int materialAnalysisNumber = 1;
-															%>
+															
 															<c:forEach items="${materialAnalysises}"
-																var="materialAnalysis">
-																<%
-																	int questionOfMaterialNumber = 1;
-																%>
+																var="materialAnalysis" varStatus="materialAnalysisCounter">
+																
 																<tr>
 																	<td><a
 																		href="${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysis&materialAnalysisId=${materialAnalysis.id}">
-																			<%
-																				out.print((materialAnalysisNumber++) + ":  ");
-																			%>${materialAnalysis.material}</a></td>
+																			${materialAnalysisCounter.count}: ${materialAnalysis.material}</a></td>
 																</tr>
 																<tr>
 																	<td><img src="${materialAnalysis.materialImage}"></img></td>
 																</tr>
 																<c:forEach
 																	items="${materialAnalysis.questionsofmaterials}"
-																	var="questionOfMaterial">
+																	var="questionOfMaterial" varStatus="questionOfMaterialCounter">
 																	<tr>
 
 																		<td><a
 																			href="${pageContext.request.contextPath}/materialAnalysis.do?flag=showQuestionOfMaterial&questionOfMaterialId=${questionOfMaterial.id}">
-																				<%
-																					out.print("(" + (questionOfMaterialNumber++) + ")  ");
-																				%> ${questionOfMaterial.questionStem}
+																				(${questionOfMaterialCounter.count}): ${questionOfMaterial.questionStem}
 																		</a></td>
 																	</tr>
 																</c:forEach>
