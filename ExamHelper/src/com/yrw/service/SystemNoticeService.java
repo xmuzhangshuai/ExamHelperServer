@@ -1,7 +1,5 @@
 package com.yrw.service;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 import com.yrw.domains.Systemnotice;

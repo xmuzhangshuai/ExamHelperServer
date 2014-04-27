@@ -33,79 +33,82 @@
 		</init-param>
 		<load-on-startup>0</load-on-startup>
 	</servlet>
-	
-  <servlet>
-    <servlet-name>BaseServlet</servlet-name>
-    <servlet-class>com.yrw.servlet.BaseServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>LoginServlet</servlet-name>
-    <servlet-class>com.yrw.servlet.LoginServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>ManageUserServlet</servlet-name>
-    <servlet-class>com.yrw.servlet.ManageUserServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>UploadServlet</servlet-name>
-    <servlet-class>com.yrw.servlet.UploadServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>RegistServlet</servlet-name>
-    <servlet-class>com.yrw.servlet.RegistServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>ErrorQuestionServlet</servlet-name>
-    <servlet-class>com.yrw.servlet.ErrorQuestionServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>NoteServlet</servlet-name>
-    <servlet-class>com.yrw.servlet.NoteServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>CollectionServlet</servlet-name>
-    <servlet-class>com.yrw.servlet.CollectionServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>QueryServlet</servlet-name>
-    <servlet-class>com.yrw.servlet.QueryServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>ImageUploadServlet</servlet-name>
-    <servlet-class>com.yrw.servlet.ImageUploadServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>ExamGuideServlet</servlet-name>
-    <servlet-class>com.yrw.servlet.ExamGuideServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>TestServlet</servlet-name>
-    <servlet-class>com.yrw.servlet.TestServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>SystemNoticeServlet</servlet-name>
-    <servlet-class>com.yrw.servlet.SystemNoticeServlet</servlet-class>
-  </servlet>
+
+	<servlet>
+		<servlet-name>BaseServlet</servlet-name>
+		<servlet-class>com.yrw.servlet.BaseServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>LoginServlet</servlet-name>
+		<servlet-class>com.yrw.servlet.LoginServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ManageUserServlet</servlet-name>
+		<servlet-class>com.yrw.servlet.ManageUserServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>UploadServlet</servlet-name>
+		<servlet-class>com.yrw.servlet.UploadServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>RegistServlet</servlet-name>
+		<servlet-class>com.yrw.servlet.RegistServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ErrorQuestionServlet</servlet-name>
+		<servlet-class>com.yrw.servlet.ErrorQuestionServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>NoteServlet</servlet-name>
+		<servlet-class>com.yrw.servlet.NoteServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>CollectionServlet</servlet-name>
+		<servlet-class>com.yrw.servlet.CollectionServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>QueryServlet</servlet-name>
+		<servlet-class>com.yrw.servlet.QueryServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ImageUploadServlet</servlet-name>
+		<servlet-class>com.yrw.servlet.ImageUploadServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ExamGuideServlet</servlet-name>
+		<servlet-class>com.yrw.servlet.ExamGuideServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SystemNoticeServlet</servlet-name>
+		<servlet-class>com.yrw.servlet.SystemNoticeServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SquareAdImageUpload</servlet-name>
+		<servlet-class>com.yrw.servlet.SquareAdImageUpload</servlet-class>
+	</servlet>
 
 
 
 
 
 
-<error-page> 
 
-<error-code>404</error-code> 
 
-<location>/ErrorPage.jsp</location> 
 
-</error-page> 
-<error-page> 
+	<error-page>
 
-<error-code>500</error-code> 
+		<error-code>404</error-code>
 
-<location>/ErrorPage.jsp</location> 
+		<location>/ErrorPage.jsp</location>
 
-</error-page>
+	</error-page>
+	<error-page>
+
+		<error-code>500</error-code>
+
+		<location>/ErrorPage.jsp</location>
+
+	</error-page>
 
 
 
@@ -114,58 +117,59 @@
 		<servlet-name>action</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>BaseServlet</servlet-name>
-    <url-pattern>/BaseServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>LoginServlet</servlet-name>
-    <url-pattern>/LoginServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>ManageUserServlet</servlet-name>
-    <url-pattern>/ManageUserServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>UploadServlet</servlet-name>
-    <url-pattern>/UploadServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>RegistServlet</servlet-name>
-    <url-pattern>/RegistServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>ErrorQuestionServlet</servlet-name>
-    <url-pattern>/ErrorQuestionServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>NoteServlet</servlet-name>
-    <url-pattern>/NoteServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>CollectionServlet</servlet-name>
-    <url-pattern>/CollectionServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>QueryServlet</servlet-name>
-    <url-pattern>/QueryServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>ImageUploadServlet</servlet-name>
-    <url-pattern>/ImageUploadServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>ExamGuideServlet</servlet-name>
-    <url-pattern>/ExamGuideServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>TestServlet</servlet-name>
-    <url-pattern>/TestServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>SystemNoticeServlet</servlet-name>
-    <url-pattern>/SystemNoticeServlet</url-pattern>
-  </servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BaseServlet</servlet-name>
+		<url-pattern>/BaseServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>LoginServlet</servlet-name>
+		<url-pattern>/LoginServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ManageUserServlet</servlet-name>
+		<url-pattern>/ManageUserServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UploadServlet</servlet-name>
+		<url-pattern>/UploadServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RegistServlet</servlet-name>
+		<url-pattern>/RegistServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ErrorQuestionServlet</servlet-name>
+		<url-pattern>/ErrorQuestionServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>NoteServlet</servlet-name>
+		<url-pattern>/NoteServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CollectionServlet</servlet-name>
+		<url-pattern>/CollectionServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>QueryServlet</servlet-name>
+		<url-pattern>/QueryServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ImageUploadServlet</servlet-name>
+		<url-pattern>/ImageUploadServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ExamGuideServlet</servlet-name>
+		<url-pattern>/ExamGuideServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SystemNoticeServlet</servlet-name>
+		<url-pattern>/SystemNoticeServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SquareAdImageUpload</servlet-name>
+		<url-pattern>/SquareAdImageUpload</url-pattern>
+	</servlet-mapping>
+
 
 
 	<!-- 获取Spring容器 -->
