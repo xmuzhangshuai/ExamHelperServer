@@ -15,58 +15,67 @@
 
 <title>科目管理</title>
 <style type="text/css">
-
 body {
 	margin-left: 0px;
 	margin-top: 0px;
 	margin-right: 0px;
 	margin-bottom: 0px;
 }
-.tabfont01 {	
+
+.tabfont01 {
 	font-family: "宋体";
 	font-size: 9px;
 	color: #555555;
 	text-decoration: none;
 	text-align: center;
 }
-.font051 {font-family: "宋体";
+
+.font051 {
+	font-family: "宋体";
 	font-size: 12px;
 	color: #333333;
 	text-decoration: none;
 	line-height: 20px;
 }
-.font201 {font-family: "宋体";
+
+.font201 {
+	font-family: "宋体";
 	font-size: 12px;
 	color: #FF0000;
 	text-decoration: none;
 }
+
 .button {
 	font-family: "宋体";
 	font-size: 14px;
 	height: 37px;
 }
-html { overflow-x: auto; overflow-y: auto; border:0;} 
 
+html {
+	overflow-x: auto;
+	overflow-y: auto;
+	border: 0;
+}
 </style>
 <link href="./css/css.css" rel="stylesheet" type="text/css" />
 <link href="./css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" language="javascript">
-
 	function deleteSubject(subjectId) {
-   
-   var id="deleteSingleSubject"+subjectId
-   document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=deleteSubject&subjectId="+subjectId;
-   document.getElementById("fom").submit();	
+
+		var id = "deleteSingleSubject" + subjectId
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=deleteSubject&subjectId="
+				+ subjectId;
+		document.getElementById("fom").submit();
 		alert("删除成功");
 		window.parent.frames["leftFrame"].location.reload();
 		//document.getElementById(id).href = "${pageContext.request.contextPath}/subject.do?flag=deleteSubject&subjectId="
-				//+ subjectId
-		
-	//	var a = document.getElementById(id)
-	//	a[0].click();
-    //    alert("删除成功");
-	//	window.parent.frames["leftFrame"].href="${pageContext.request.contextPath}/login.do?flag=loadLeft";
-		
+		//+ subjectId
+
+		//	var a = document.getElementById(id)
+		//	a[0].click();
+		//    alert("删除成功");
+		//	window.parent.frames["leftFrame"].href="${pageContext.request.contextPath}/login.do?flag=loadLeft";
+
 	}
 
 	function sousuo() {
@@ -107,30 +116,6 @@ html { overflow-x: auto; overflow-y: auto; border:0;}
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=addSubjectUI";
 		document.getElementById("fom").submit();
 	}
-	function goByPage() {
-		int
-		page = document.getElementById("page").value;
-<%String keyword = (String) request.getAttribute("keyword");%>
-	var keyword="<%=keyword%>"
-	var nonContent="null";
-	
-	
-		if (keyword==nonContent)
-
- {
-			
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=listSubject&pageNow=${page}";
-			document.getElementById("fom").submit();
-		} else {
-			
-			document.getElementById("textfield").value=keyword;
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=searchSubjectByKeyWord&pageNow=${page}";
-			document.getElementById("fom").submit();
-			
-			
-		}
-		
-	}
 
 	function delSelected() {
 		var obj = document.fom.elements;
@@ -145,82 +130,44 @@ html { overflow-x: auto; overflow-y: auto; border:0;}
 		document.getElementById("paramsHidden").value = list;
 
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=delSubjectByList&pageNow=${pageNow}";
-		document.getElementById("fom").submit();	
+		document.getElementById("fom").submit();
 		alert("删除成功");
 		window.parent.frames["leftFrame"].location.reload();
-		
-	}
-	function keywordSearch() {
 
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=searchSubjectByKeyWord";
+	}
+	function goByPage() {
+		int
+		page = document.getElementById("page").value;
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=listSubject&pageNow="
+				+ page;
 		document.getElementById("fom").submit();
 	}
+
 	function firstPageClick() {
-	
-
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=listSubject&pageNow=" + 1;
+		document.getElementById("fom").submit();
 	}
-	function lastPageClick(){
-	<%String keyword2 = (String) request.getAttribute("keyword");%>
-	var keyword="<%=keyword2%>"
-	var nonContent="null";
-	
-	
-		if (keyword==nonContent)
-
- {
-			
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=listSubject&pageNow=${pageNow-1}";
+	function lastPageClick(pageNow) {
+		if (pageNow != 1) {
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=listSubject&pageNow="
+					+ (pageNow - 1);
 			document.getElementById("fom").submit();
-		} else {
-			
-			document.getElementById("textfield").value=keyword;
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=searchSubjectByKeyWord&pageNow=${pageNow-1}";
-			document.getElementById("fom").submit();
-			
-			
 		}
-	
 	}
-	function nextPageClick(){
-	<%String keyword3 = (String) request.getAttribute("keyword");%>
-	var keyword="<%=keyword3%>"
-	var nonContent="null";
-	
-	
-		if (keyword==nonContent)
-
- {
-			
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=listSubject&pageNow=${pageNow+1}";
+	function nextPageClick(pageNow, pageCount) {
+		pageNow = parseInt(pageNow) + 1;
+		pageCount = parseInt(pageCount);
+		if (pageNow <= pageCount) {
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=listSubject&pageNow="
+					+ pageNow;
+					alert(document.getElementById("fom").action)
 			document.getElementById("fom").submit();
-		} else {
-			
-			document.getElementById("textfield").value=keyword;
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=searchSubjectByKeyWord&pageNow=${pageNow+1}";
-			document.getElementById("fom").submit();
-			
-			
 		}
-	
 	}
-	function endPageClick(){
-	<%String keyword4 = (String) request.getAttribute("keyword");%>
-	
-	var keyword="<%=keyword4%>"
-		var nonContent = "null";
-		if (keyword == nonContent)
-
-		{
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=listSubject&pageNow=${pageCount}";
-			document.getElementById("fom").submit();
-		} else {
-
-			document.getElementById("textfield").value = keyword;
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=searchSubjectByKeyWord&pageNow=${pageCount}";
-			document.getElementById("fom").submit();
-
-		}
-
+	function endPageClick(pageCount) {
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=listSubject&pageNow="
+				+ pageCount;
+		document.getElementById("fom").submit();
 	}
 </script>
 
@@ -235,17 +182,13 @@ html { overflow-x: auto; overflow-y: auto; border:0;}
 				<td height="30">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
 						<tr>
-							<td height="62" style="background-image:url('./images/nav04.gif'); ">
+							<td height="62"
+								style="background-image:url('./images/nav04.gif'); ">
 
 								<table width="98%" border="0" align="center" cellpadding="0"
 									cellspacing="0">
 									<tr>
-										<td width="21"><img src="./images/ico07.gif" width="20"
-											height="18" /></td>
-										<td width="538">查看内容：按关键字： <input name="textfield"
-											id="textfield" type="text" size="12" /> <input
-											name="Submit4" type="button" class="right-button02"
-											value="查 询" onclick="keywordSearch();" /></td>
+										<td></td>
 									</tr>
 								</table>
 							</td>
@@ -287,11 +230,11 @@ html { overflow-x: auto; overflow-y: auto; border:0;}
 														<td height="20"><input type="checkbox"
 															name="delid${subject.id}" /></td>
 														<td><a
-															href="${pageContext.request.contextPath}/section.do?flag=chooseType&subjectId=${subject.id}"
+															href="${pageContext.request.contextPath}/section.do?flag=chooseSubject&subjectId=${subject.id}"
 															onclick="" target="mainFrame">${subject.subName}</a></td>
 														<td><a
 															href="${pageContext.request.contextPath}/subject.do?flag=updateSubjectUI&subjectId=${subject.id}">编辑|</a><a
-															href="${pageContext.request.contextPath}/section.do?flag=chooseType&subjectId=${subject.id}">查看|</a>
+															href="${pageContext.request.contextPath}/section.do?flag=chooseSubjecte&subjectId=${subject.id}">查看|</a>
 															<a onclick="deleteSubject('${subject.id}');"
 															id="deleteSingleSubject${subject.id}">删除</a></td>
 													</tr>
@@ -316,10 +259,12 @@ html { overflow-x: auto; overflow-y: auto; border:0;}
 													</td>
 													<td width="49%" align="right">[<a class="right-font08"
 														onclick="firstPageClick();">首页</a> | <a
-														class="right-font08" onclick="lastPageClick();">上一页</a> |
-														<a class="right-font08" onclick="nextPageClick();">下一页</a>
-														| <a class="right-font08" onclick="endPageClick();">末页</a>]
-														转至：
+														class="right-font08"
+														onclick="lastPageClick('${pageNow}');">上一页</a> | <a
+														class="right-font08"
+														onclick="nextPageClick('${pageNow}','${pageCount}');">下一页</a>
+														| <a class="right-font08"
+														onclick="endPageClick('${pageCount}');">末页</a>] 转至：
 													</td>
 													<td width="1%"><table width="20" border="0"
 															cellspacing="0" cellpadding="0">
