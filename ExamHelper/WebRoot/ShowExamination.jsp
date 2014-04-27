@@ -212,13 +212,15 @@
 												<tr>
 													<td>
 														<table>
-															
 
-															<c:forEach items="${singleChoices}" var="singleChoice" varStatus="singleChoiceCounter">
+
+															<c:forEach items="${singleChoices}" var="singleChoice"
+																varStatus="singleChoiceCounter">
 																<tr>
 																	<td><a
 																		href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">
-																			${singleChoiceCounter.count}: ${singleChoice.questionStem}</a></td>
+																			${singleChoiceCounter.count}:
+																			${singleChoice.questionStem}</a></td>
 																</tr>
 																<tr>
 																	<td style="width: 688px; ">
@@ -232,10 +234,22 @@
 																			</tr>
 																		</table>
 																	</td>
-																	<td><a
-																		href="${pageContext.request.contextPath}/examination.do?flag=moveSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}&type=decrease">上移</a>|<a
+																	<td><c:choose>
+																			<c:when test="${singleChoiceCounter.first}">
+																				<a
+																					href="javascript:alert("已为第一个");"
+																					>上移</a>|
+																	</c:when>
+																	<c:otherwise>
+																	<a
+																		href="${pageContext.request.contextPath}/examination.do?flag=moveSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}&type=decrease"
+																		>上移</a>|
+																	</c:otherwise>
+
+																		</c:choose> <a
 																		href="${pageContext.request.contextPath}/examination.do?flag=moveSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}&type=increase">下移|</a><a
-																		href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">查看|</a><a href="${pageContext.request.contextPath}/examination.do?flag=deleteSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}">删除</a></td>
+																		href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">查看|</a><a
+																		href="${pageContext.request.contextPath}/examination.do?flag=deleteSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}">删除</a></td>
 																</tr>
 															</c:forEach>
 														</table>
@@ -257,12 +271,14 @@
 												<tr>
 													<td>
 														<table>
-															
-															<c:forEach items="${multiChoices}" var="mulitChoice" varStatus="multiChoiceCounter">
+
+															<c:forEach items="${multiChoices}" var="mulitChoice"
+																varStatus="multiChoiceCounter">
 																<tr>
 																	<td><a
 																		href="${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoice&multiChoiceId=${multiChoice.id}">
-																			${multiChoiceCounter.count}: ${mulitChoice.questionStem}</a></td>
+																			${multiChoiceCounter.count}:
+																			${mulitChoice.questionStem}</a></td>
 																</tr>
 																<tr>
 																	<td>
@@ -298,12 +314,14 @@
 												<tr>
 													<td>
 														<table>
-														
-															<c:forEach items="${trueOrFalses}" var="trueOrFalse" varStatus="trueOrFalseCounter">
+
+															<c:forEach items="${trueOrFalses}" var="trueOrFalse"
+																varStatus="trueOrFalseCounter">
 																<tr>
 																	<td><a
 																		href="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalse&trueOrFalseId=${trueOrFalse.id}">
-																			${trueOrFalseCounter.count}: ${trueOrFalse.questionStem}</a></td>
+																			${trueOrFalseCounter.count}:
+																			${trueOrFalse.questionStem}</a></td>
 																</tr>
 
 															</c:forEach>
@@ -325,27 +343,30 @@
 												<tr>
 													<td>
 														<table>
-															
+
 															<c:forEach items="${materialAnalysises}"
-																var="materialAnalysis" varStatus="materialAnalysisCounter">
-																
+																var="materialAnalysis"
+																varStatus="materialAnalysisCounter">
+
 																<tr>
 																	<td><a
 																		href="${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysis&materialAnalysisId=${materialAnalysis.id}">
-																			${materialAnalysisCounter.count}: ${materialAnalysis.material}</a></td>
+																			${materialAnalysisCounter.count}:
+																			${materialAnalysis.material}</a></td>
 																</tr>
 																<tr>
 																	<td><img src="${materialAnalysis.materialImage}"></img></td>
 																</tr>
 																<c:forEach
 																	items="${materialAnalysis.questionsofmaterials}"
-																	var="questionOfMaterial" varStatus="questionOfMaterialCounter">
+																	var="questionOfMaterial"
+																	varStatus="questionOfMaterialCounter">
 																	<tr>
 
 																		<td><a
 																			href="${pageContext.request.contextPath}/materialAnalysis.do?flag=showQuestionOfMaterial&questionOfMaterialId=${questionOfMaterial.id}">
-																				(${questionOfMaterialCounter.count}): ${questionOfMaterial.questionStem}
-																		</a></td>
+																				(${questionOfMaterialCounter.count}):
+																				${questionOfMaterial.questionStem} </a></td>
 																	</tr>
 																</c:forEach>
 															</c:forEach>
