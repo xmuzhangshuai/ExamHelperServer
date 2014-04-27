@@ -74,57 +74,19 @@
 	}
 	function changeSubject(){
  		var subjectId=document.getElementById("subjectChoose").value
- 		if(subjectId!=== undefined)
+ 		if(subjectId!= undefined)
  		{
  		document.getElementById("fom").action ="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId="+subjectId;
  		document.getElementById("fom").submit();
  		}
 	}
 function goByPage(){
+	var page=document.getElementById("page").value;
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=showSection&pageNow="
 					+ page;
 			document.getElementById("fom").submit();
 	}
-	function lastPage(pageNow){
-	if(pageNow==1)
-	alert("当前页为第一页")
-	else{
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=showSection&pageNow="
-						+ (pageNow - 1) ;
-				alert(document.getElementById("fom").action);
-				document.getElementById("fom").submit();
-		}
-
-	}
-	function nextPage(pageNow, pageCount) {
-		pageCount=parseInt(pageCount);
-		pageNow=parseInt(pageNow)+1;
-		
-		if (pageNow> pageCount)
-			alert(当前为最后一页);
-		else {
 	
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=showSection&pageNow="
-						+ pageNow;
-				alert(document.getElementById("fom").action);
-				document.getElementById("fom").submit();
-			}
-		}
-	}
-	function firstPage() {
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=showSection&pageNow=1"
-						;
-				alert(document.getElementById("fom").action);
-				document.getElementById("fom").submit();
-	}
-	function endPage(pageCount) {
-	
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=showSection&pageNow="
-					+ pageCount;
-			alert(document.getElementById("fom").action);
-			document.getElementById("fom").submit();
-		
-	}
 </script>
 
 </head>
@@ -160,7 +122,7 @@ function goByPage(){
 																<c:otherwise>
 																	<c:forEach items="${subjects}" var="item">
 																		<c:choose>
-																			<c:when test="${item.id==${subjectId}}">
+																			<c:when test="${item.id==subjectId}">
 																				<option value="${item.id}" selected="selected">${item.subName}</option>
 																			</c:when>
 																			<c:otherwise>
@@ -254,11 +216,11 @@ function goByPage(){
 														页 | 第 <span class="right-text09">${pageNow}</span> 页
 													</td>
 													<td width="49%" align="right">[<a class="right-font08"
-														onclick="firstPage();">首页</a> | <a class="right-font08"
-														onclick="lastPage('${pageNow}');">上一页</a> | <a
+														href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subjectId}&pageNow=1" >首页</a> | <a class="right-font08"
+														href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subjectId}&pageNow=${pageNow-1}">上一页</a> | <a
 														class="right-font08"
-														onclick="nextPage('${pageNow}','${pageCount}');">下一页</a> |
-														<a class="right-font08" onclick="endPage('${pageCount}');">末页</a>]
+														href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subjectId}&pageNow=${pageNow+1}">下一页</a> |
+														<a class="right-font08" href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subjectId}&pageNow=${pageCount}">末页</a>]
 														转至：
 													</td>
 													<td width="1%"><table width="20" border="0"
