@@ -17,14 +17,11 @@ import com.yrw.idao.ISectionDao;
 public class SectionDao extends BasicDao implements ISectionDao {
 
 	@Override
-	public List getSectionBySubject(int pageNow, int subjectId) {
+	public List<Section> getSectionListBySubject(int pageNow, int subjectId) {
 		// TODO Auto-generated method stub
-		String hql = "from Section where subject.id=?";
-		String parameter[] = { subjectId + "" };
+		String hql = "from Section where subject.id="+subjectId;	
 
-		List list = this.executeQueryByPage(hql, parameter, pageNow);
-
-		return list;
+		return  this.executeQueryByPage(hql, null, pageNow);
 	}
 
 	@Override
@@ -38,14 +35,7 @@ public class SectionDao extends BasicDao implements ISectionDao {
 	@Override
 	public void delSection(Section section) {
 		// TODO Auto-generated method stub
-		setCollection(section.getCollections());
-		setErrorQuestions(section.getErrorquestionses());
-		setGroups(section.getGroups());
-		setMaterialanalysises(section.getMaterialanalysises());
-		setMultichoice(section.getMultichoices());
-		setSinglechoice(section.getSinglechoices());
-		setTrueoffalse(section.getTrueorfalses());
-		
+
 		this.deletById(Section.class, section.getId());
 	}
 
@@ -71,7 +61,7 @@ public class SectionDao extends BasicDao implements ISectionDao {
 	 * @param singlechoices
 	 */
 	public void setSinglechoice(Set<Singlechoice> singlechoices) {
-		Iterator iterator = singlechoices.iterator();
+		Iterator<Singlechoice> iterator = singlechoices.iterator();
 		Singlechoice singlechoice = null;
 		while (iterator.hasNext()) {
 			singlechoice = (Singlechoice) iterator.next();
@@ -88,7 +78,7 @@ public class SectionDao extends BasicDao implements ISectionDao {
 	 */
 	public void setMultichoice(Set<Multichoice> multichoices) {
 		// TODO Auto-generated method stub
-		Iterator iterator = multichoices.iterator();
+		Iterator<Multichoice> iterator = multichoices.iterator();
 		Multichoice multichoice = null;
 		while (iterator.hasNext()) {
 			multichoice = (Multichoice) iterator.next();
@@ -104,7 +94,7 @@ public class SectionDao extends BasicDao implements ISectionDao {
 	 * @param materialanalysises
 	 */
 	public void setMaterialanalysises(Set<Materialanalysis> materialanalysises) {
-		Iterator iterator = materialanalysises.iterator();
+		Iterator<Materialanalysis> iterator = materialanalysises.iterator();
 		Materialanalysis materialanalysis = null;
 		while (iterator.hasNext()) {
 			materialanalysis = (Materialanalysis) iterator.next();
@@ -121,7 +111,7 @@ public class SectionDao extends BasicDao implements ISectionDao {
 	 */
 	public void setCollection(Set<Collection> collections) {
 
-		Iterator iterator = collections.iterator();
+		Iterator<Collection> iterator = collections.iterator();
 		Collection collection = null;
 		while (iterator.hasNext()) {
 			collection = (Collection) iterator.next();
@@ -164,7 +154,7 @@ public class SectionDao extends BasicDao implements ISectionDao {
 	@Override
 	public void addSection(Section section) {
 		// TODO Auto-generated method stub
-
+		this.add(section);
 	}
 
 	@Override
@@ -189,18 +179,32 @@ public class SectionDao extends BasicDao implements ISectionDao {
 	}
 
 	@Override
-	public List getSectionBySubjectId(int subjectId) {
+	public Section getSectoinByName(String sectionName) {
 		// TODO Auto-generated method stub
-		String hql="from Section as s where s.subject.id="+subjectId;
-		return this.executeQuery(hql, null);
-		 
+		String hql = "from Section as s where s.sectionName='" + sectionName
+				+ "'";
+		return (Section) this.uniqueQuery(hql, null);
 	}
 
 	@Override
-	public Section getSectoinByName(String sectionName) {
+	public List<Section> getSectionList(int pageNow) {
 		// TODO Auto-generated method stub
-		String hql="from Section as s where s.sectionName='"+sectionName+"'";
-		return (Section)this.uniqueQuery(hql, null);
+		String hql="from Section";
+		return this.executeQueryByPage(hql, null, pageNow);
+	}
+
+	@Override
+	public int getPageCount() {
+		// TODO Auto-generated method stub
+		String hql="select count(*) from Section";
+		return this.queryPageCount(hql,null);
+	}
+
+	@Override
+	public List<Section> getSectionListBySubject(int subjectId) {
+		// TODO Auto-generated method stub
+		String hql = "from Section where subject.id="+subjectId;	
+		return  this.executeQuery(hql, null);
 	}
 
 }

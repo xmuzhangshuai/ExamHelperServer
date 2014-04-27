@@ -29,7 +29,7 @@ body {
 		var tp = document.getElementById(nametu);
 		tp.src = "./images/ico05.gif";//图片ico04为白色的正方形
 
-		for (var i = 1; i < 50; i++) {
+		for (var i = 1; i < 30; i++) {
 
 			if (i != idt * 1) {
 				var tp2 = document.getElementById('xiaotu' + i);
@@ -109,8 +109,8 @@ body {
 									<td width="8%"><img name="img6" id="img6"
 										src="./images/ico04.gif" width="8" height="11" /></td>
 									<td width="92%"><a 
-										href="${pageContext.request.contextPath}/subject.do?flag=listSubject&pageNow=1"
-										target="mainFrame" class="left-font03" onclick="list('6');">管理题库</a></td>
+										href="#"
+										class="left-font03" onclick="list('6');">管理题库</a></td>
 								</tr>
 							</table>
 						</td>
@@ -118,18 +118,30 @@ body {
 				</table>
 				<table id="subtree6" style="DISPLAY: none" width="80%" border="0"
 					align="center" cellpadding="0" cellspacing="0" class="left-table02">
-					<c:forEach  items="${subjects}" var="subject">
-						<tr>
-
-							<td width="9%" height="20"><img id="xiaotu${subject.id+20}"
-								src="./images/ico06.gif" width="8" height="12" /></td>
-							<td width="91%"><a
-								href="${pageContext.request.contextPath}/section.do?flag=chooseType&subjectId=${subject.id}"
-								target="mainFrame" class="left-font03"
-								onclick="tupian('${subject.id+20}');">${subject.subName}</a></td>
-						</tr>
-
-					</c:forEach>
+				<tr>
+						<td width="9%" height="20"><img id="xiaotu18"
+							src="./images/ico06.gif" width="8" height="12" /></td>
+						<td width="91%"><a href="${pageContext.request.contextPath}/subject.do?flag=listSubject" target="mainFrame"
+							class="left-font03" onclick="tupian('18');">科目管理</a></td>
+					</tr>
+					<tr>
+						<td width="9%" height="20"><img id="xiaotu19"
+							src="./images/ico06.gif" width="8" height="12" /></td>
+						<td width="91%"><a href=${pageContext.request.contextPath}/section.do?flag=" target="mainFrame"
+							class="left-font03" onclick="tupian('19');">章节管理</a></td>
+					</tr>
+					<tr>
+						<td width="9%" height="20"><img id="xiaotu20"
+							src="./images/ico06.gif" width="8" height="12" /></td>
+						<td width="91%"><a href="#" target="mainFrame"
+							class="left-font03" onclick="tupian('20');">试卷管理</a></td>
+					</tr>
+					<tr>
+						<td width="9%" height="20"><img id="xiaotu21"
+							src="./images/ico06.gif" width="8" height="12" /></td>
+						<td width="91%"><a href="#" target="mainFrame"
+							class="left-font03" onclick="tupian('21');">题目管理</a></td>
+					</tr>
 				</table> <!--  管理题库系统结束    -->
 				
 				 <!--  文档管理系统开始    -->
@@ -175,7 +187,8 @@ body {
 						<td width="91%"><a href="${pageContext.request.contextPath}/examGuide.do?flag=examGuideType"
 							target="mainFrame" class="left-font03" onclick="tupian('4');">添加文档</a></td>
 					</tr>
-				</table> <!--  管理文档系统结束    --> <!--  发布信息系统开始    -->
+				</table> <!--  管理文档系统结束    --> 
+				<!--  发布信息系统开始    -->
 				<table width="100%" border="0" cellpadding="0" cellspacing="0"
 					class="left-table03">
 					<tr>
@@ -195,22 +208,22 @@ body {
 				<table id="subtree2" style="DISPLAY: none" width="80%" border="0"
 					align="center" cellpadding="0" cellspacing="0" class="left-table02">
 					<tr>
-						<td width="9%" height="20"><img id="xiaotu6"
+						<td width="9%" height="20"><img id="xiaotu5"
 							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="${pageContext.request.contextPath}/systemNotice.do?flag=showNoticeList" target="mainFrame"
-							class="left-font03" onclick="tupian('6');">发布客户端系统信息</a></td>
+							class="left-font03" onclick="tupian('5');">发布客户端系统信息</a></td>
+					</tr>
+					<tr>
+						<td width="9%" height="20"><img id="xiaotu6"
+							src="./images/ico06.gif" width="8" height="12" /></td>
+						<td width="91%"><a href="listtakexiaoxi.htm"
+							target="mainFrame" class="left-font03" onclick="tupian('6');">发布答疑广场公告</a></td>
 					</tr>
 					<tr>
 						<td width="9%" height="20"><img id="xiaotu7"
 							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="listtakexiaoxi.htm"
-							target="mainFrame" class="left-font03" onclick="tupian('7');">发布答疑广场公告</a></td>
-					</tr>
-					<tr>
-						<td width="9%" height="20"><img id="xiaotu8"
-							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="http://message.umeng.com/5338ea7b56240b05920f9713/dashboard"
-							target="mainFrame" class="left-font03" onclick="tupian('8');">发布用户通知
+							target="mainFrame" class="left-font03" onclick="tupian('7');">发布用户通知
 						</a></td>
 					</tr>
 
@@ -236,35 +249,35 @@ body {
 				<table id="subtree3" style="DISPLAY: none" width="80%" border="0"
 					align="center" cellpadding="0" cellspacing="0" class="left-table02">
 					<tr>
-						<td width="9%" height="20"><img id="xiaotu9"
+						<td width="9%" height="20"><img id="xiaotu8"
 							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="http://www.umeng.com/apps" target="mainFrame"
-							class="left-font03" onclick="tupian('9');">用户行为分析</a></td>
+							class="left-font03" onclick="tupian('8');">用户行为分析</a></td>
+					</tr>
+					<tr>
+						<td width="9%" height="20"><img id="xiaotu9"
+							src="./images/ico06.gif" width="8" height="12" /></td>
+						<td width="91%"><a href="listtakexiaoxi.htm"
+							target="mainFrame" class="left-font03" onclick="tupian('9');">题库下载统计</a></td>
 					</tr>
 					<tr>
 						<td width="9%" height="20"><img id="xiaotu10"
 							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="listtakexiaoxi.htm"
-							target="mainFrame" class="left-font03" onclick="tupian('10');">题库下载统计</a></td>
+						<td width="91%"><a href="${pageContext.request.contextPath}/collection.do?flag=showCollectionList"
+							target="mainFrame" class="left-font03" onclick="tupian('10');">收藏统计
+						</a></td>
 					</tr>
 					<tr>
 						<td width="9%" height="20"><img id="xiaotu11"
 							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="${pageContext.request.contextPath}/collection.do?flag=showCollectionList"
-							target="mainFrame" class="left-font03" onclick="tupian('11');">收藏统计
-						</a></td>
+						<td width="91%"><a href="${pageContext.request.contextPath}/note.do?flag=showNoteList" target="mainFrame"
+							class="left-font03" onclick="tupian('11');">笔记统计 </a></td>
 					</tr>
 					<tr>
 						<td width="9%" height="20"><img id="xiaotu12"
 							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="${pageContext.request.contextPath}/note.do?flag=showNoteList" target="mainFrame"
-							class="left-font03" onclick="tupian('12');">笔记统计 </a></td>
-					</tr>
-					<tr>
-						<td width="9%" height="20"><img id="xiaotu13"
-							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="${pageContext.request.contextPath}/error.do?flag=showErrorList" target="mainFrame"
-							class="left-font03" onclick="tupian('13');">错题统计 </a></td>
+							class="left-font03" onclick="tupian('12');">错题统计 </a></td>
 					</tr>
 				</table> <!--  统计分析系统结束    -->
 				
@@ -289,16 +302,16 @@ body {
 				<table id="subtree4" style="DISPLAY: none" width="80%" border="0"
 					align="center" cellpadding="0" cellspacing="0" class="left-table02">
 					<tr>
-						<td width="9%" height="20"><img id="xiaotu15"
+						<td width="9%" height="20"><img id="xiaotu13"
 							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="${pageContext.request.contextPath}/user.do?flag=showUserList" target="mainFrame"
-							class="left-font03" onclick="tupian('15');">用户信息查看</a></td>
+							class="left-font03" onclick="tupian('13');">用户信息查看</a></td>
 					</tr>
 					<tr>
-						<td width="9%" height="20"><img id="xiaotu16"
+						<td width="9%" height="20"><img id="xiaotu14"
 							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="http://www.umeng.com/apps/3179f02950b04265b7ae8335/reports/feedbacks" target="mainFrame"
-							class="left-font03" onclick="tupian('16');">用户反馈</a></td>
+							class="left-font03" onclick="tupian('14');">用户反馈</a></td>
 					</tr>
 				</table> <!--  用户留言系统结束    -->
 				
@@ -322,10 +335,10 @@ body {
 				<table id="subtree5" style="DISPLAY: none" width="80%" border="0"
 					align="center" cellpadding="0" cellspacing="0" class="left-table02">
 					<tr>
-						<td width="9%" height="20"><img id="xiaotu17"
+						<td width="9%" height="20"><img id="xiaotu15"
 							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="${pageContext.request.contextPath}/query.do?flag=showQueryList" target="mainFrame"
-							class="left-font03" onclick="tupian('17');">答疑问题列表</a></td>
+							class="left-font03" onclick="tupian('15');">答疑问题列表</a></td>
 					</tr>
 				</table> <!--  答疑广场系统结束    -->
 				
@@ -349,16 +362,16 @@ body {
 				<table id="subtree7" style="DISPLAY: none" width="80%" border="0"
 					align="center" cellpadding="0" cellspacing="0" class="left-table02">
 					<tr>
-						<td width="9%" height="20"><img id="xiaotu18"
+						<td width="9%" height="20"><img id="xiaotu16"
 							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="http://www.umeng.com/apps/3179f02950b04265b7ae8335/upload" target="mainFrame"
-							class="left-font03" onclick="tupian('18');">自动更新</a></td>
+							class="left-font03" onclick="tupian('16');">自动更新</a></td>
 					</tr>
 					<tr>
-						<td width="9%" height="20"><img id="xiaotu19"
+						<td width="9%" height="20"><img id="xiaotu17"
 							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="http://www.umeng.com/" target="new"
-							class="left-font03" onclick="tupian('19');">友盟平台登录</a></td>
+							class="left-font03" onclick="tupian('17');">友盟平台登录</a></td>
 					</tr>
 				</table> <!--  终端系统开始    -->
 			</td>

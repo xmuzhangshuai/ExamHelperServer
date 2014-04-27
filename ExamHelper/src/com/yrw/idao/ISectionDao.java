@@ -20,25 +20,28 @@ public interface ISectionDao extends IBasicDao {
 	 */
 	public Section getSectoinByName(String sectionName);
 	
-	/**通过subjectId得到所有section
-	 * @param subjectId
-	 * @return
-	 */
-	public List getSectionBySubjectId(int subjectId);
+	
 	
 	/**获取某个section
 	 * @param sectionId
 	 * @return
 	 */
 	public Section getSectionById(int sectionId);
+	
+	
+	/**返回根据科目获得的章节
+	 * @param subjectId
+	 * @return
+	 */
+	public List<Section> getSectionListBySubject(int subjectId);
 	/**
-	 * Method getSectionBySubect根据科目名称显示章节
+	 * Method 分页返回根据科目获得的章节
 	 * 
 	 * @param pageNow
 	 * @param subjectId
 	 * @return List
 	 */
-	public List getSectionBySubject(int pageNow, int subjectId);
+	public List<Section> getSectionListBySubject(int pageNow, int subjectId);
 
 	/**
 	 * 根据科目名称获取共有多少页的section信息
@@ -48,6 +51,16 @@ public interface ISectionDao extends IBasicDao {
 	 */
 	public int getPageCountBySubject(int subjectId);
 
+	/**分页返回所有章节
+	 * @param pageNow
+	 * @return
+	 */
+	public List<Section> getSectionList(int pageNow);
+	
+	/**分页返回所有章节的共有页数
+	 * @return
+	 */
+	public int getPageCount();
 	
 	/**更新section
 	 * @param section

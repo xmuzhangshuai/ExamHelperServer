@@ -172,7 +172,7 @@ public class SingleChoiceAction extends DispatchAction {
 		int subjectId = (Integer) request.getSession()
 				.getAttribute("subjectId");
 
-		List<Section> sectionList = sectionService.listSection(subjectId);
+		List<Section> sectionList = sectionService.listSectionBySubject(subjectId);
 		List<Subject> subjectList = subjectService.getSubjects();
 		request.setAttribute("subjects", subjectList);
 		request.setAttribute("sections", sectionList);
