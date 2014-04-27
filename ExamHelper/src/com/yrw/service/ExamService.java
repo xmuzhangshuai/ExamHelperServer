@@ -74,6 +74,29 @@ public class ExamService {
 		this.iExamSectionDao = iExamSectionDao;
 	}
 
+	public List<Examination> listExaminations(String pageNowString) {
+		int pageNow = 1;
+		int pageCount = iExaminationDao.getPageCount();
+		if (pageNowString != null) {
+			pageNow = Integer.parseInt(pageNowString);
+			if (pageNow < 1)
+				pageNow = 1;
+			else if (pageNow > pageCount)
+				pageNow = pageCount;
+
+		}
+
+		Map<String, Integer> pageMap = new HashMap<String, Integer>();
+		pageMap.put("pageNow", pageNow);
+		pageMap.put("pageCount", pageCount);
+		List<Examination> examsList = iExaminationDao.getExam(pageNow);
+
+		List collection = new ArrayList();
+		collection.add(pageMap);
+		collection.add(examsList);
+		return collection;
+	}
+
 	/**
 	 * 显示某个科目下的所有大题
 	 * 
@@ -214,23 +237,19 @@ public class ExamService {
 					examquestion = examquestionList.get(j);
 					if (examquestion.getQuestionId() == singleChoiceId) {
 						if (type.equals("decrease")) {
-							
-								targetExamquestion = examquestionList
-										.get(j - 1);
-								System.out.println("decrease: "
-										+ examquestion.getQuestionNumber()
-										+ " "
-										+ targetExamquestion
-												.getQuestionNumber());
 
-								targetExamquestion
-										.setQuestionNumber(examquestion
-												.getQuestionNumber());
-								examquestion.setQuestionNumber(examquestion
-										.getQuestionNumber() - 1);
-								examquestionList.set(j, examquestion);
-								examquestionList.set(j - 1, targetExamquestion);
-							
+							targetExamquestion = examquestionList.get(j - 1);
+							System.out.println("decrease: "
+									+ examquestion.getQuestionNumber() + " "
+									+ targetExamquestion.getQuestionNumber());
+
+							targetExamquestion.setQuestionNumber(examquestion
+									.getQuestionNumber());
+							examquestion.setQuestionNumber(examquestion
+									.getQuestionNumber() - 1);
+							examquestionList.set(j, examquestion);
+							examquestionList.set(j - 1, targetExamquestion);
+
 						}
 
 						else {

@@ -8,15 +8,17 @@ import com.yrw.idao.IExaminationDao;
 public class ExaminationDao extends BasicDao implements IExaminationDao {
 
 	@Override
-	public List getExam(int pageNow) {
+	public List<Examination> getExam(int pageNow) {
 		// TODO Auto-generated method stub
-		return null;
+		String hql="from Examination";
+		return this.executeQueryByPage(hql, null, pageNow);
 	}
 
 	@Override
 	public int getPageCount() {
 		// TODO Auto-generated method stub
-		return 0;
+	String hql="select count(*) from Examination";
+	return this.queryPageCount(hql, null);
 	}
 
 	@Override
@@ -35,7 +37,6 @@ public class ExaminationDao extends BasicDao implements IExaminationDao {
 	public List getExamBySubject(int subjectId, int pageNow) {
 		// TODO Auto-generated method stub
 		String hql = "from Examination as e where e.subject.id=" + subjectId;
-		System.out.println("ExaminationDao getExamBySubject "+hql);
 		return this.executeQueryByPage(hql, null, pageNow);
 	}
 

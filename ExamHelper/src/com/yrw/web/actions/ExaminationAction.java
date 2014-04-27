@@ -50,6 +50,30 @@ public class ExaminationAction extends DispatchAction {
 		this.examService = examService;
 	}
 
+	/**显示所有试卷
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward showAllExamList(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		String pageNowString = request.getParameter("pageNow");
+		List collection = examService
+				.listExaminations(pageNowString);
+
+		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
+		request.setAttribute("pageNow", pageMap.get("pageNow"));
+		request.setAttribute("pageCount", pageMap.get("pageCount"));
+
+		List<Examination> exmaList = (List<Examination>) collection.get(1);
+		request.setAttribute("examinations", exmaList);
+		request.getSession().removeAttribute("subjectId");
+		return mapping.findForward("showExamList");
+	}
+
 	/**
 	 * 罗列某个科目下的所有试卷
 	 * 
@@ -59,11 +83,11 @@ public class ExaminationAction extends DispatchAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward showExamList(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response) {
-		int subjectId = (Integer) request.getSession()
-				.getAttribute("subjectId");
-		System.out.println("Action: showExam" + subjectId);
+	public ActionForward showExamListBySubject(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		int subjectId = Integer.parseInt( request.getParameter("subjectId"));
+		
 		String pageNowString = request.getParameter("pageNow");
 		List collection = examService
 				.listExaminations(pageNowString, subjectId);
@@ -74,9 +98,7 @@ public class ExaminationAction extends DispatchAction {
 
 		List<Examination> exmaList = (List<Examination>) collection.get(1);
 		request.setAttribute("examinations", exmaList);
-
 		request.getSession().setAttribute("subjectId", subjectId);
-
 		return mapping.findForward("showExamList");
 
 	}
@@ -95,12 +117,12 @@ public class ExaminationAction extends DispatchAction {
 			HttpServletResponse response) {
 		// 得到examination对象
 		int examinationId;
-		if((request	.getParameter("examinationId")!=null))
-		examinationId = Integer.parseInt(request.getParameter("examinationId"));
-		else 
-			examinationId=(Integer) request.getAttribute("examinationId");
-	
-		
+		if ((request.getParameter("examinationId") != null))
+			examinationId = Integer.parseInt(request
+					.getParameter("examinationId"));
+		else
+			examinationId = (Integer) request.getAttribute("examinationId");
+
 		Examination examination = examService.getExamination(examinationId);
 		// 设置examination在jsp上的对象
 		request.setAttribute("examination", examination);
@@ -206,7 +228,7 @@ public class ExaminationAction extends DispatchAction {
 		String examSectionRequest = request.getParameter("request"
 				+ examSectionId);
 		String examSectionScore = request.getParameter("score" + examSectionId);
-		
+
 		// 更新examSection对象
 		if (examSectionRequest != null)
 			examsection.setRequest(examSectionRequest);
@@ -214,31 +236,38 @@ public class ExaminationAction extends DispatchAction {
 			examsection.setQuestionScore(Integer.parseInt(examSectionScore));
 		return showExamination(mapping, form, request, response);
 	}
-	/**使题目顺序上移或下移
+
+	/**
+	 * 使题目顺序上移或下移
+	 * 
 	 * @param mapping
 	 * @param form
 	 * @param request
 	 * @param response
 	 * @return
-	 * @throws UnsupportedEncodingException 
+	 * @throws UnsupportedEncodingException
 	 */
 	public ActionForward moveSingleChoice(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
-			HttpServletResponse response) throws UnsupportedEncodingException{
-		 System.out.println(" 进入moveSingleChoice Action");
-		
-		//获得操作类型、单选题Id、试卷Id
-		String type=request.getParameter("type");
-		int singleChoiceId=Integer.parseInt(request.getParameter("singleChoiceId"));
-		int examId=Integer.parseInt(request.getParameter("examinationId"));
-	
-		examService.moveSingleChoice(singleChoiceId, type, examId);		
-		//重新设置examinationId
+			HttpServletResponse response) throws UnsupportedEncodingException {
+		System.out.println(" 进入moveSingleChoice Action");
+
+		// 获得操作类型、单选题Id、试卷Id
+		String type = request.getParameter("type");
+		int singleChoiceId = Integer.parseInt(request
+				.getParameter("singleChoiceId"));
+		int examId = Integer.parseInt(request.getParameter("examinationId"));
+
+		examService.moveSingleChoice(singleChoiceId, type, examId);
+		// 重新设置examinationId
 		request.setAttribute("examinationId", examId);
 		return showExamination(mapping, form, request, response);
-		
+
 	}
-	/**删除单项选择题
+
+	/**
+	 * 删除单项选择题
+	 * 
 	 * @param mapping
 	 * @param form
 	 * @param request
@@ -247,11 +276,12 @@ public class ExaminationAction extends DispatchAction {
 	 */
 	public ActionForward deleteSingleChoice(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
-			HttpServletResponse response){
-		//获得操作类型、单选题Id、试卷Id
-				int singleChoiceId=Integer.parseInt(request.getParameter("singleChoiceId"));
-				int examId=Integer.parseInt(request.getParameter("examinationId"));
-				examService.deleteSingleChoice(examId, singleChoiceId);
-				return showExamination(mapping, form, request, response);
+			HttpServletResponse response) {
+		// 获得操作类型、单选题Id、试卷Id
+		int singleChoiceId = Integer.parseInt(request
+				.getParameter("singleChoiceId"));
+		int examId = Integer.parseInt(request.getParameter("examinationId"));
+		examService.deleteSingleChoice(examId, singleChoiceId);
+		return showExamination(mapping, form, request, response);
 	}
 }

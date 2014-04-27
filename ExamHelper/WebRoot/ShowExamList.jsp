@@ -55,7 +55,14 @@
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExaminationUI";
 		document.getElementById("fom").submit();
 	}
-	
+	function changeSubject(){
+ 		var subjectId=document.getElementById("subjectChoose").value
+ 		if(subjectId!= undefined)
+ 		{
+ 		document.getElementById("fom").action ="${pageContext.request.contextPath}/examination.do?flag=showExamListBySubject&subjectId="+subjectId;
+ 		document.getElementById("fom").submit();
+ 		}
+	}
 
 	function delSelected() {
 		var obj = document.fom.elements;
@@ -72,130 +79,18 @@
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=delSubjectByList&pageNow=${pageNow}";
 		document.getElementById("fom").submit();
 	}
-	function keywordSearch() {
-
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=searchSubjectByKeyWord";
-		document.getElementById("fom").submit();
-	}
+	
 	
 function goByPage(){
 		
 		var page=document.getElementById("page").value;
-		<%String keyword = (String) request.getAttribute("keyword");%>
-	var keyword="<%=keyword%>"
-		var nonContent = "null";
-
-		if (keyword == nonContent)
-
-		{
+	
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showExamList&pageNow="
 					+ page;
-					
 			document.getElementById("fom").submit();
-		} else {
-
-			document.getElementById("textfield").value = keyword;
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=searchSubjectByKeyWord&pageNow="
-			+ page;
-			document.getElementById("fom").submit();
-
-		}
-
 	}
-	function lastPage(pageNow){
-	if(pageNow==1)
-	alert("当前页为第一页")
-	else{
-		<%String keywordLP = (String) request.getAttribute("keyword");%>
-	var keyword="<%=keywordLP%>"
-			var nonContent = "null";
-			if (keyword == nonContent)
-
-			{
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showExamList&pageNow="
-						+ (pageNow - 1) ;
-				
-				document.getElementById("fom").submit();
-			} else {
-
-				document.getElementById("textfield").value = keyword;
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=searchSubjectByKeyWord&pageNow="
-			+ (pageNow - 1);
-				document.getElementById("fom").submit();
-
-			}
-
-		}
-
-	}
-	function nextPage(pageNow, pageCount) {
-	pageCount=parseInt(pageCount);
-		pageNow=parseInt(pageNow);
-		if (pageNow+1 >pageCount)
-			alert(当前为最后一页)
-		else {
-		var sectionName=document.getElementById("hiddenValue").value;
-		<%String keywordNP = (String) request.getAttribute("keyword");%>
-		var keyword="<%=keywordNP%>"
-			var nonContent = "null";
-				pageNow=parseInt(pageNow)+1;
-			if (keyword == nonContent)
-
-			{
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showExamList&pageNow="
-						+ pageNow ;
-				
-				document.getElementById("fom").submit();
-			} else {
-
-				document.getElementById("textfield").value = keyword;
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=searchSubjectByKeyWord&pageNow="
-				+ page;
-				document.getElementById("fom").submit();
-			}
-		}
-	}
-	function firstPage() {
-	var sectionName=document.getElementById("hiddenValue").value;
-		<%String keywordFP = (String) request.getAttribute("keyword");%>
-		var keyword="<%=keywordFP%>"
-			var nonContent = "null";
-			if (keyword == nonContent)
-
-			{
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showExamList&pageNow=1"
-						 ;
-				alert(document.getElementById("fom").action);
-				document.getElementById("fom").submit();
-			} else {
-
-				document.getElementById("textfield").value = keyword;
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=searchSubjectByKeyWord&pageNow=1"
-				;
-				document.getElementById("fom").submit();
-			}
-	}
-	function endPage(pageCount) {
 	
-		var sectionName=document.getElementById("hiddenValue").value;
-		<%String keywordEP = (String) request.getAttribute("keyword");%>
-		var keyword="<%=keywordEP%>"
-		var nonContent = "null";
-		if (keyword == nonContent)
-
-		{
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showExamList&pageNow="
-					+ pageCount ;
-			alert(document.getElementById("fom").action);
-			document.getElementById("fom").submit();
-		} else {
-
-			document.getElementById("textfield").value = keyword;
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=searchSubjectByKeyWord&pageNow="
-					+ pageCount + "&sectionName=" + sectionName;
-			document.getElementById("fom").submit();
-		}
-	}
+	
 </script>
 
 </head>
@@ -218,11 +113,30 @@ function goByPage(){
 												<tr>
 													<td width="538" style="width: 44px; ">科目：</td>
 													<td style="width: 129px; ">
-													<select>
-													<option>${subject.subName}</option>
-													<c:forEach items="${subjects}" var="item">
-													<option>${item.subName}</option>
-													</c:forEach>
+													<select
+														name="subjectChoose" id="subjectChoose"
+														onchange="changeSubject();">
+															<c:choose>
+																<c:when test="${empty subjectId}">
+																	<option selected="selected">请选择科目</option>
+																	<c:forEach items="${subjects}" var="item">
+																		<option value="${item.id}">${item.subName}</option>
+																	</c:forEach>
+																</c:when>
+																<c:otherwise>
+																	<c:forEach items="${subjects}" var="item">
+																		<c:choose>
+																			<c:when test="${item.id==subjectId}">
+																				<option value="${item.id}" selected="selected">${item.subName}</option>
+																			</c:when>
+																			<c:otherwise>
+																				<option value="${item.id}">${item.subName}</option>
+																			</c:otherwise>
+																		</c:choose>
+																	</c:forEach>
+																</c:otherwise>
+															</c:choose>
+
 													</select>
 													</td>
 												</tr>
@@ -304,14 +218,28 @@ function goByPage(){
 													<td width="50%">共 <span class="right-text09">${pageCount}</span>
 														页 | 第 <span class="right-text09">${pageNow}</span> 页
 													</td>
+													<c:choose>
+													<c:when test="${!empty subjecId}">
 													<td width="49%" align="right">[<a class="right-font08"
-														onclick="firstPage();">首页</a> | <a class="right-font08"
-														onclick="lastPage('${pageNow}');">上一页</a> | <a
+														href="${pageContext.request.contextPath}/examination.do?flag=showExamListBySubject&subjectId=${subjectId}&pageNow=1">首页</a> | <a class="right-font08"
+														href="${pageContext.request.contextPath}/examination.do?flag=showExamListBySubject&subjectId=${subjectId}&pageNow=${pageNow-1}">上一页</a> | <a
 														class="right-font08"
-														onclick="nextPage('${pageNow}','${pageCount}');">下一页</a> |
-														<a class="right-font08" onclick="endPage('${pageCount}');">末页</a>]
+														href="${pageContext.request.contextPath}/examination.do?flag=showExamListBySubject&subjectId=${subjectId}&pageNow=${pageNow+1}">下一页</a> |
+														<a class="right-font08" href="${pageContext.request.contextPath}/examination.do?flag=showExamListBySubject&subjectId=${subjectId}&pageNow=${pageCount}">末页</a>]
 														转至：
 													</td>
+													</c:when>
+													<c:otherwise>
+													<td width="49%" align="right">[<a class="right-font08"
+														href="${pageContext.request.contextPath}/examination.do?flag=showAllExamList&pageNow=1">首页</a> | <a class="right-font08"
+														href="${pageContext.request.contextPath}/examination.do?flag=showAllExamList&pageNow=${pageNow-1}">上一页</a> | <a
+														class="right-font08"
+														href="${pageContext.request.contextPath}/examination.do?flag=showAllExamList&pageNow=${pageNow+1}">下一页</a> |
+														<a class="right-font08" href="${pageContext.request.contextPath}/examination.do?flag=showAllExamList&pageNow=${pageCount}">末页</a>]
+														转至：
+													</td>
+													</c:otherwise>
+													</c:choose>
 													<td width="1%"><table width="20" border="0"
 															cellspacing="0" cellpadding="0">
 															<tr>

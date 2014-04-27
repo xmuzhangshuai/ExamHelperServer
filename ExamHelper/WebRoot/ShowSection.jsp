@@ -55,7 +55,6 @@
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=addSectionUI";
 		document.getElementById("fom").submit();
 	}
-	
 
 	function delSelected() {
 		var obj = document.fom.elements;
@@ -72,21 +71,27 @@
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=delSubjectByList&pageNow=${pageNow}";
 		document.getElementById("fom").submit();
 	}
-	function changeSubject(){
- 		var subjectId=document.getElementById("subjectChoose").value
- 		if(subjectId!= undefined)
- 		{
- 		document.getElementById("fom").action ="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId="+subjectId;
- 		document.getElementById("fom").submit();
- 		}
+	function changeSubject() {
+		var subjectId = document.getElementById("subjectChoose").value
+		if (subjectId != undefined) {
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId="
+					+ subjectId;
+			document.getElementById("fom").submit();
+		}
 	}
-function goByPage(){
-	var page=document.getElementById("page").value;
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=showSection&pageNow="
+	function goByPage() {
+		var page = document.getElementById("page").value;
+		var subjectId = '${subjectId}';
+		if (subjectId != undefined) {
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&pageNow="
+					+ page+"&subjectId="+subjectId;
+			document.getElementById("fom").submit();
+		}else{
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=showAllSectionList&pageNow="
 					+ page;
 			document.getElementById("fom").submit();
+		}
 	}
-	
 </script>
 
 </head>
@@ -215,15 +220,35 @@ function goByPage(){
 													<td width="50%">共 <span class="right-text09">${pageCount}</span>
 														页 | 第 <span class="right-text09">${pageNow}</span> 页
 													</td>
+													<c:choose>
+													<c:when test="${!empty subjectId}">
 													<td width="49%" align="right">[<a class="right-font08"
-														href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subjectId}&pageNow=1" >首页</a> | <a class="right-font08"
-														href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subjectId}&pageNow=${pageNow-1}">上一页</a> | <a
-														class="right-font08"
-														href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subjectId}&pageNow=${pageNow+1}">下一页</a> |
-														<a class="right-font08" href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subjectId}&pageNow=${pageCount}">末页</a>]
+														href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subjectId}&pageNow=1">首页</a>
+														| <a class="right-font08"
+														href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subjectId}&pageNow=${pageNow-1}">上一页</a>
+														| <a class="right-font08"
+														href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subjectId}&pageNow=${pageNow+1}">下一页</a>
+														| <a class="right-font08"
+														href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subjectId}&pageNow=${pageCount}">末页</a>]
 														转至：
 													</td>
-													<td width="1%"><table width="20" border="0"
+													
+														</c:when>
+														<c:otherwise>
+															<td width="49%" align="right">[<a class="right-font08"
+														href="${pageContext.request.contextPath}/section.do?flag=showAllSectionList&pageNow=1">首页</a>
+														| <a class="right-font08"
+														href="${pageContext.request.contextPath}/section.do?flag=showAllSectionList&pageNow=${pageNow-1}">上一页</a>
+														| <a class="right-font08"
+														href="${pageContext.request.contextPath}/section.do?flag=showAllSectionList&pageNow=${pageNow+1}">下一页</a>
+														| <a class="right-font08"
+														href="${pageContext.request.contextPath}/section.do?flag=showAllSectionList&pageNow=${pageCount}">末页</a>]
+														转至：
+													</td>
+													
+														</c:otherwise>
+														</c:choose>
+														<td width="1%"><table width="20" border="0"
 															cellspacing="0" cellpadding="0">
 															<tr>
 																<td width="1%"><input id="page" name="textfield3"

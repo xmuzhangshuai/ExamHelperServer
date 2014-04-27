@@ -133,7 +133,7 @@ body {
 					<tr>
 						<td width="9%" height="20"><img id="xiaotu20"
 							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="#" target="mainFrame"
+						<td width="91%"><a href="${pageContext.request.contextPath}/examination.do?flag=showAllExamList" target="mainFrame"
 							class="left-font03" onclick="tupian('20');">试卷管理</a></td>
 					</tr>
 					<tr>
