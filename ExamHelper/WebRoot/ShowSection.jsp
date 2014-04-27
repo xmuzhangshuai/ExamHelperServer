@@ -72,130 +72,58 @@
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=delSubjectByList&pageNow=${pageNow}";
 		document.getElementById("fom").submit();
 	}
-	function keywordSearch() {
-
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=searchSubjectByKeyWord";
-		document.getElementById("fom").submit();
+	function changeSubject(){
+ 		var subjectId=document.getElementById("subjectChoose").value
+ 		if(subjectId!=== undefined)
+ 		{
+ 		document.getElementById("fom").action ="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId="+subjectId;
+ 		document.getElementById("fom").submit();
+ 		}
 	}
 function goByPage(){
-		var page=document.getElementById("page").value;
-		<%String keyword = (String) request.getAttribute("keyword");%>
-	var keyword="<%=keyword%>"
-		var nonContent = "null";
-
-		if (keyword == nonContent)
-
-		{
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=showSection&pageNow="
 					+ page;
-				
 			document.getElementById("fom").submit();
-		} else {
-
-			document.getElementById("textfield").value = keyword;
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=searchSubjectByKeyWord&pageNow="
-			+ page+"&sectionName="+sectionName;
-			document.getElementById("fom").submit();
-
-		}
-
 	}
 	function lastPage(pageNow){
 	if(pageNow==1)
 	alert("当前页为第一页")
 	else{
-		<%String keywordLP = (String) request.getAttribute("keyword");%>
-	var keyword="<%=keywordLP%>"
-			var nonContent = "null";
-			if (keyword == nonContent)
-
-			{
 				document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=showSection&pageNow="
 						+ (pageNow - 1) ;
 				alert(document.getElementById("fom").action);
 				document.getElementById("fom").submit();
-			} else {
-
-				document.getElementById("textfield").value = keyword;
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=searchSubjectByKeyWord&pageNow="
-			+ (pageNow - 1) + "&sectionName=" + sectionName;
-				document.getElementById("fom").submit();
-
-			}
-
 		}
 
 	}
 	function nextPage(pageNow, pageCount) {
 		pageCount=parseInt(pageCount);
-		pageNow=parseInt(pageNow);
+		pageNow=parseInt(pageNow)+1;
 		
-		if (pageNow+1> pageCount)
+		if (pageNow> pageCount)
 			alert(当前为最后一页);
 		else {
 	
-		<%String keywordNP = (String) request.getAttribute("keyword");%>
-		var keyword="<%=keywordNP%>"
-			var nonContent = "null";
-			pageNow=parseInt(pageNow)+1;
-				if (keyword == nonContent)
-
-			{
 				document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=showSection&pageNow="
 						+ pageNow;
 				alert(document.getElementById("fom").action);
-				document.getElementById("fom").submit();
-			} else {
-
-				document.getElementById("textfield").value = keyword;
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=searchSubjectByKeyWord&pageNow="
-				+pageNow;
 				document.getElementById("fom").submit();
 			}
 		}
 	}
 	function firstPage() {
-
-		<%String keywordFP = (String) request.getAttribute("keyword");%>
-		var keyword="<%=keywordFP%>"
-			var nonContent = "null";
-			if (keyword == nonContent)
-
-			{
 				document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=showSection&pageNow=1"
 						;
 				alert(document.getElementById("fom").action);
 				document.getElementById("fom").submit();
-			} else {
-
-				document.getElementById("textfield").value = keyword;
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=searchSubjectByKeyWord&pageNow=1"
-				+"&sectionName=" + sectionName;
-				document.getElementById("fom").submit();
-			}
 	}
 	function endPage(pageCount) {
 	
-
-		<%String keywordEP = (String) request.getAttribute("keyword");%>
-		var keyword="<%=keywordEP%>
-	";
-
-		var nonContent = "null";
-		if (keyword == nonContent)
-
-		{
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=showSection&pageNow="
 					+ pageCount;
 			alert(document.getElementById("fom").action);
 			document.getElementById("fom").submit();
-		} else {
-
-			document.getElementById("textfield").value = keyword;
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=searchSubjectByKeyWord&pageNow="
-					+ pageCount;
-			document.getElementById("fom").submit();
-		}
+		
 	}
 </script>
 
@@ -219,14 +147,31 @@ function goByPage(){
 											<table>
 												<tr>
 													<td width="538" style="width: 88px; ">科目：</td>
-													<td style="width: 129px; ">
-													<select>
-													<option>${subject.subName}</option>
-													<c:forEach items="${subjects}" var="item">
-													<option>${item.subName}</option>
-													</c:forEach>
-													</select>
-													</td>
+													<td style="width: 129px; "><select
+														name="subjectChoose" id="subjectChoose"
+														onchange="changeSubject();">
+															<c:choose>
+																<c:when test="${empty subjectId}">
+																	<option selected="selected">请选择科目</option>
+																	<c:forEach items="${subjects}" var="item">
+																		<option value="${item.id}">${item.subName}</option>
+																	</c:forEach>
+																</c:when>
+																<c:otherwise>
+																	<c:forEach items="${subjects}" var="item">
+																		<c:choose>
+																			<c:when test="${item.id==${subjectId}}">
+																				<option value="${item.id}" selected="selected">${item.subName}</option>
+																			</c:when>
+																			<c:otherwise>
+																				<option value="${item.id}">${item.subName}</option>
+																			</c:otherwise>
+																		</c:choose>
+																	</c:forEach>
+																</c:otherwise>
+															</c:choose>
+
+													</select></td>
 
 												</tr>
 											</table>

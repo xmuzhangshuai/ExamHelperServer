@@ -70,23 +70,7 @@ public class SectionAction extends DispatchAction {
 		return mapping.findForward("listSection");
 	}
 
-	/**
-	 * Method 为跳转到选择显示方式的action
-	 * 
-	 * @param mapping
-	 * @param form
-	 * @param request
-	 * @param response
-	 * @return ActionForward
-	 */
-	public ActionForward chooseSubject(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		int subjectId = Integer.parseInt(request.getParameter("subjectId"));
-		request.getSession().setAttribute("subjectId", subjectId);
-		System.out.println("chooseType");
-		return showSectionListBySubject(mapping, form, request, response);
-	}
+	
 
 	/**
 	 * Method 罗列某科目下的所有章节
@@ -100,8 +84,7 @@ public class SectionAction extends DispatchAction {
 	public ActionForward showSectionListBySubject(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
-		int subjectId = (Integer) request.getSession()
-				.getAttribute("subjectId");
+		int subjectId = Integer.parseInt(request.getParameter("subjectId"));
 		
 		String pageNowString = request.getParameter("pageNow");
 		List collection = sectionService.listSectionBySubject(pageNowString, subjectId);
