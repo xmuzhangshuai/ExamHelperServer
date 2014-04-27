@@ -160,7 +160,7 @@ html {
 		if (pageNow <= pageCount) {
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=listSubject&pageNow="
 					+ pageNow;
-					alert(document.getElementById("fom").action)
+				
 			document.getElementById("fom").submit();
 		}
 	}
@@ -258,12 +258,12 @@ html {
 														页 | 第 <span class="right-text09">${pageNow}</span> 页
 													</td>
 													<td width="49%" align="right">[<a class="right-font08"
-														onclick="firstPageClick();">首页</a> | <a
-														class="right-font08"
+														onclick="firstPageClick();" href="#">首页</a> | <a
+														class="right-font08" href="#"
 														onclick="lastPageClick('${pageNow}');">上一页</a> | <a
-														class="right-font08"
+														class="right-font08" href="#"
 														onclick="nextPageClick('${pageNow}','${pageCount}');">下一页</a>
-														| <a class="right-font08"
+														| <a class="right-font08" href="#"
 														onclick="endPageClick('${pageCount}');">末页</a>] 转至：
 													</td>
 													<td width="1%"><table width="20" border="0"
