@@ -14,6 +14,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DispatchAction;
+import org.hibernate.Session;
 
 import com.yrw.domains.Section;
 import com.yrw.domains.Subject;
@@ -45,19 +46,20 @@ public class SectionAction extends DispatchAction {
 		this.sectionService = sectionService;
 	}
 
-	
-	
-	/**为选择科目时显示所有section
+	/**
+	 * 为选择科目时显示所有section
+	 * 
 	 * @param mapping
 	 * @param form
 	 * @param request
 	 * @param response
 	 * @return
 	 */
-	public ActionForward showAllSectionList(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response) {
+	public ActionForward showAllSectionList(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
 		String pageNowString = request.getParameter("pageNow");
-		List collection=sectionService.listSection(pageNowString);
+		List collection = sectionService.listSection(pageNowString);
 
 		Map<String, Integer> map = (Map<String, Integer>) collection.get(0);
 		request.setAttribute("pageNow", map.get("pageNow"));
@@ -66,26 +68,9 @@ public class SectionAction extends DispatchAction {
 		List<Section> sectionList = (List<Section>) collection.get(1);
 		request.setAttribute("sections", sectionList);
 
+		request.getSession().removeAttribute("subjectId");
 
 		return mapping.findForward("listSection");
-	}
-
-	/**
-	 * Method 为跳转到选择显示方式的action
-	 * 
-	 * @param mapping
-	 * @param form
-	 * @param request
-	 * @param response
-	 * @return ActionForward
-	 */
-	public ActionForward chooseSubject(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		int subjectId = Integer.parseInt(request.getParameter("subjectId"));
-		request.getSession().setAttribute("subjectId", subjectId);
-		System.out.println("chooseType");
-		return showSectionListBySubject(mapping, form, request, response);
 	}
 
 	/**
@@ -97,14 +82,15 @@ public class SectionAction extends DispatchAction {
 	 * @param response
 	 * @return ActionForward
 	 */
-	public ActionForward showSectionListBySubject(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response) {
+	public ActionForward showSectionListBySubject(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
 		// TODO Auto-generated method stub
-		int subjectId = (Integer) request.getSession()
-				.getAttribute("subjectId");
-		
+		int subjectId = Integer.parseInt(request.getParameter("subjectId"));
+
 		String pageNowString = request.getParameter("pageNow");
-		List collection = sectionService.listSectionBySubject(pageNowString, subjectId);
+		List collection = sectionService.listSectionBySubject(pageNowString,
+				subjectId);
 
 		Map<String, Integer> map = (Map<String, Integer>) collection.get(0);
 		request.setAttribute("pageNow", map.get("pageNow"));
@@ -232,10 +218,11 @@ public class SectionAction extends DispatchAction {
 	public ActionForward deleteSection(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		int sectionId = Integer.parseInt(request.getParameter("sectionId"));
-		int subjectId=sectionService.showSection(sectionId).getSubject().getId();
-		
+		int subjectId = sectionService.showSection(sectionId).getSubject()
+				.getId();
+
 		sectionService.deleteSection(sectionId);
-		request.getSession().setAttribute("subjectId",subjectId);
+		request.getSession().setAttribute("subjectId", subjectId);
 
 		return showSectionListBySubject(mapping, null, request, response);
 	}

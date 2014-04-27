@@ -230,11 +230,11 @@ html {
 														<td height="20"><input type="checkbox"
 															name="delid${subject.id}" /></td>
 														<td><a
-															href="${pageContext.request.contextPath}/section.do?flag=chooseSubject&subjectId=${subject.id}"
+															href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subject.id}"
 															onclick="" target="mainFrame">${subject.subName}</a></td>
 														<td><a
 															href="${pageContext.request.contextPath}/subject.do?flag=updateSubjectUI&subjectId=${subject.id}">编辑|</a><a
-															href="${pageContext.request.contextPath}/section.do?flag=chooseSubjecte&subjectId=${subject.id}">查看|</a>
+															href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subject.id}">查看|</a>
 															<a onclick="deleteSubject('${subject.id}');"
 															id="deleteSingleSubject${subject.id}">删除</a></td>
 													</tr>

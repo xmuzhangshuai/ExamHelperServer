@@ -127,7 +127,7 @@ body {
 					<tr>
 						<td width="9%" height="20"><img id="xiaotu19"
 							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href=${pageContext.request.contextPath}/section.do?flag=" target="mainFrame"
+						<td width="91%"><a href="${pageContext.request.contextPath}/section.do?flag=showAllSectionList" target="mainFrame"
 							class="left-font03" onclick="tupian('19');">章节管理</a></td>
 					</tr>
 					<tr>
