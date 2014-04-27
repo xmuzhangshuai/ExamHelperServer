@@ -178,7 +178,8 @@ function goByPage(){
 	
 
 		<%String keywordEP = (String) request.getAttribute("keyword");%>
-		var keyword="<%=keywordEP%>";
+		var keyword="<%=keywordEP%>
+	";
 
 		var nonContent = "null";
 		if (keyword == nonContent)
@@ -208,7 +209,8 @@ function goByPage(){
 				<td height="30">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
 						<tr>
-							<td height="62" style="background-image:url('./images/nav04.gif'); ">
+							<td height="62"
+								style="background-image:url('./images/nav04.gif'); ">
 
 								<table width="98%" border="0" align="center" cellpadding="0"
 									cellspacing="0">
@@ -216,24 +218,23 @@ function goByPage(){
 										<td align="left">
 											<table>
 												<tr>
-													<td width="538" style="width: 88px; ">查看题目方式：</td>
-													<td style="width: 129px; "><a
-														href="${pageContext.request.contextPath}/section.do?flag=showSection"
-														target="mainFrame">按章节查看</a></td>
-													<td style="width: 79px; "><a
-														href="${pageContext.request.contextPath}/examination.do?flag=showExamList">按试卷查看</a></td>
+													<td width="538" style="width: 88px; ">科目：</td>
+													<td style="width: 129px; ">
+													<select>
+													<option>${subject.subName}</option>
+													<c:forEach items="${subjects}" var="item">
+													<option>${item.subName}</option>
+													</c:forEach>
+													</select>
+													</td>
+
 												</tr>
 											</table>
 										</td>
 										<td align="left">
 											<table>
 												<tr>
-													<td width="21" style="width: 13px; "><img
-														src="./images/ico07.gif" width="20" height="18" /></td>
-													<td style="width: 233px; ">按关键字： <input
-														name="textfield" id="textfield" type="text" size="12" />
-														<input name="Submit4" type="button" class="right-button02"
-														value="查 询" onclick="keywordSearch();" /></td>
+													<td></td>
 												</tr>
 											</table>
 										</td>
