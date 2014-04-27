@@ -10,12 +10,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <title>发布系统通知</title>
-<link rel="stylesheet" type="text/css" href="./css/examguide.css"/>
+<link rel="stylesheet" type="text/css" href="./css/examguide.css" media="screen"/>
 <link rel="stylesheet" type="text/css" href="./css/jquery-ui.css" />
 <link href="./css/css.css" rel="stylesheet" type="text/css" />
 <link href="./css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-datepicker.js"></script>
+
 <script type="text/javascript" language="javascript">
 function selectAll() {
 	var obj = document.fom.elements;
@@ -66,6 +65,14 @@ function nextPage(pageNow,pageCount){
 function endPage(){
 	alert("末页");
 }
+
+function IsGoDetail() {
+	if(document.getElementById("haveDetail").checked){
+    	document.getElementById("url").setAttribute("required", "true");
+    }else{
+    	document.getElementById("url").removeAttribute("required");
+    }
+}
 </script>
 </head>
   
@@ -77,8 +84,6 @@ function endPage(){
 				<tr>
 					<td height="62" background="./images/nav04.gif">
 						<table width="30%" border="0" align="left" cellpadding="0" cellspacing="0">
-							<tr>
-							</tr>
 						</table>
 					</td>
 				</tr>
@@ -95,24 +100,23 @@ function endPage(){
              				<h2>发布系统通知</h2>
         				</li>
         				<li>
-             				<label for="">公告内容</label>
+             				<label for="content">公告内容:</label>
         					<textarea rows="8" cols="40" name="content" placeholder="系统公告内容" required></textarea>
         				</li>
         				<li>
-             				<label for="website">跳转URL:</label>
-            				<input type="text" name="url" placeholder="url" />
+             				<label for="url">跳转URL:</label>
+            				<input type="text" name="url" placeholder="url" id="url"/>
         				</li>
         				<li>
-             				<label for="website">是否立即发布：</label>
-            				<input type="checkbox" name="valided" title="用户点击是否跳转"/>
+             				<label for="valided">是否立即发布：</label>
+            				<input type="checkbox" name="valided" id="valided"/>
         				</li>
         				<li>
-             				<label for="website">点击跳转：</label>
-            				<input type="checkbox" name="haveDetail" title="用户点击是否跳转"/>
+             				<label for="haveDetail">点击跳转：</label>
+            				<input type="checkbox" name="haveDetail" id="haveDetail" onchange="IsGoDetail();"/>
         				</li>
-        				
         				<li>
-        					<!--  <button type="submit" class="submit">发         布</button>-->
+        					 <button type="submit" class="submit">发         布</button>
         				</li>
 					</ul>
 				</form>
@@ -129,9 +133,9 @@ function endPage(){
 				<tr>
 					<td height="35">
 						<span class="newfont07">全选：
-							<input type="checkbox" id="selectOrNot" onchange="selectOrUnSelect()"/>
+							<input type="checkbox" id="selectOrNot" onchange="selectOrUnSelect();"/>
 						</span>
-						<input name="Submit" type="button" class="right-button08" value="删除所选错题记录" onclick="delSelected();" /> 
+						<input name="Submit" type="button" class="right-button08" value="删除所选公告记录" onclick="delSelected();" /> 
 						<input type="hidden" name="paramsHidden" id="paramsHidden" /> 
 					</td>
 				</tr>
@@ -157,12 +161,13 @@ function endPage(){
 								<td height="20" align="center" ><input  type="checkbox" name="delid${systemNotice.id}" /></td>
 								<td height="20" align="center" ><label>${systemNotice.id}</label></td>
 								<td height="30" align="center" ><a>${systemNotice.noticeContent}</a></td>
-								<td height="20" >${systemNotice.time}</td>
-								<td height="20" ><c:choose><c:when test="${systemNotice.haveDetail}">跳转</c:when>
+								<td height="20" align="center">${systemNotice.time}</td>
+								<td height="20" align="center"><c:choose><c:when test="${systemNotice.haveDetail}">跳转</c:when>
 												 <c:otherwise>不跳转</c:otherwise></c:choose></td>
 								<td style="padding: 5px;">${systemNotice.url}</td>
-								<td height="20" ><c:choose><c:when test="${systemNotice.valid}">正在执行</c:when>
-												 <c:otherwise>已过时</c:otherwise></c:choose></td>
+								<td height="20" align="center"><c:choose><c:when test="${systemNotice.valid}">
+												 <label style="font-weight:bolder; ">正在执行</label></c:when>
+												 <c:otherwise> <label style="font-style:italic;color:#8F8F8F ; ">已过时</label></c:otherwise></c:choose></td>
 								<td height="20" >
 									<a href="">编辑|</a>
 								    <a href="">查看|</a>

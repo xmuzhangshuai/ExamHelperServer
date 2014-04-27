@@ -32,7 +32,7 @@ body {
 				<table width="99%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
 						<td width="1%"><a target="_blank"> <img
-								src="./images/logo.gif" width="557" height="59" border="0" />
+								src="./images/logo.png" width="557" height="59" border="0" />
 						</a></td>
 						 
 					</tr>

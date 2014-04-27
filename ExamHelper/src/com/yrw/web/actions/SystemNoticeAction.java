@@ -34,14 +34,15 @@ public class SystemNoticeAction extends DispatchAction {
 
 	/**
 	 * 显示系统公告列表
+	 * 
 	 * @param mapping
 	 * @param form
 	 * @param request
 	 * @param response
 	 * @return
 	 */
-	public ActionForward showNoticeList(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response) {
+	public ActionForward showNoticeList(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		int pageNow = 1;
 		int pageCount = systemNoticeService.getSystemnoticePageCountByPage();
@@ -54,17 +55,17 @@ public class SystemNoticeAction extends DispatchAction {
 				pageNow = pageCount;
 		}
 
-
 		List<Systemnotice> systemnoticeList = systemNoticeService.getSystemnoticeListByPage(pageNow);
-		
+
 		request.setAttribute("systemnoticeList", systemnoticeList);
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("pageNow", pageNow);
 		return mapping.findForward("showNoticeList");
 	}
-	
+
 	/**
 	 * 添加系统公告
+	 * 
 	 * @param mapping
 	 * @param form
 	 * @param request
@@ -72,32 +73,26 @@ public class SystemNoticeAction extends DispatchAction {
 	 * @return
 	 * @throws Exception
 	 */
-	public ActionForward addSystemNotice(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionForward addSystemNotice(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		String noticeContent = request.getParameter("content");
 		String url = request.getParameter("url");
 		Timestamp time = new Timestamp(new Date().getTime());
-		boolean valid = ReqUtils.getBoolean(request, "valided");
-		boolean haveDetail =  ReqUtils.getBoolean(request, "haveDetail");
+		boolean valid = false;
+		boolean haveDetail = false;
+		if (request.getParameter("valided") != null) {
+			if (request.getParameter("valided").equals("on")) {
+				valid = true;
+			}
+		}
+		if (request.getParameter("haveDetail") != null) {
+			if (request.getParameter("haveDetail").equals("on")) {
+				haveDetail = true;
+			}
+		}
 		Systemnotice systemnotice = new Systemnotice(noticeContent, url, time, valid, haveDetail);
 		systemNoticeService.addNotice(systemnotice);
 		return showNoticeList(mapping, form, request, response);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
