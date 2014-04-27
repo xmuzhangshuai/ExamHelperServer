@@ -373,6 +373,12 @@ body {
 						<td width="91%"><a href="http://www.umeng.com/" target="new"
 							class="left-font03" onclick="tupian('17');">友盟平台登录</a></td>
 					</tr>
+					<tr>
+						<td width="9%" height="20"><img id="xiaotu18"
+							src="./images/ico06.gif" width="8" height="12" /></td>
+						<td width="91%"><a href="softwareIntroduce.html" target="mainFrame"
+							class="left-font03" onclick="tupian('18');">软件介绍</a></td>
+					</tr>
 				</table> <!--  终端系统开始    -->
 			</td>
 		</tr>
