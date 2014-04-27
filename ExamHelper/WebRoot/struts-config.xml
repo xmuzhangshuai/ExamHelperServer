@@ -118,6 +118,13 @@
 		<action parameter="flag" path="/systemNotice" type="com.yrw.web.actions.SystemNoticeAction" cancellable="true">
 			<forward name="showNoticeList" path="/SystemNotice.jsp" />
 		</action>
+    <action
+      parameter="flag"
+      path="/squareAd"
+      type="com.yrw.web.actions.SquareAdAction"
+      cancellable="true" >
+      	<forward name="squareAd" path="/SquareAd.jsp" />
+      </action>
 
 
 	</action-mappings>

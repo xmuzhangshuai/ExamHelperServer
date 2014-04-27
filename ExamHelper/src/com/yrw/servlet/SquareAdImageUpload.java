@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Random;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,7 +20,9 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.util.Streams;
 
-public class SquareAdImageUpload extends HttpServlet {
+import com.yrw.service.AdImagesService;
+
+public class SquareAdImageUpload extends BaseServlet {
 
 	private static final long serialVersionUID = 1L;
 
@@ -35,6 +36,8 @@ public class SquareAdImageUpload extends HttpServlet {
 		String fileRealPath = "";// 文件存放真实地址
 
 		String fileRealResistPath = "";// 文件存放真实相对路径
+		// 获取系统的业务逻辑组件
+		AdImagesService adImagesService = (AdImagesService) getApplicationContext().getBean("adImagesService");
 
 		// 名称 界面编码 必须 和request 保存一致..否则乱码
 		// String name = request.getParameter("name");
@@ -73,7 +76,8 @@ public class SquareAdImageUpload extends HttpServlet {
 					// 上传成功，则插入数据库
 					if (new File(fileRealPath).exists()) {
 						// 虚拟路径赋值
-						fileRealResistPath = fileRealPath.substring(fileRealPath.lastIndexOf("\\") + 1);
+						fileRealResistPath = "AdImages/"+fileRealPath.substring(fileRealPath.lastIndexOf("\\") + 1);
+						adImagesService.addAdImage(fileRealResistPath);
 					}
 				}
 			}

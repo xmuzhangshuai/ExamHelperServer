@@ -65,6 +65,7 @@
 				<value>com/yrw/domains/Serrorquestions.hbm.xml</value>
 				<value>com/yrw/domains/Snote.hbm.xml</value>
 				<value>com/yrw/domains/Systemnotice.hbm.xml</value>
+				<value>com/yrw/domains/Adimages.hbm.xml</value>
 			</list>
 		</property>
 
@@ -100,6 +101,7 @@
 	<bean id="trueOrFalseDao" class="com.yrw.dao.TrueOrFalseDao" />
 	<bean id="userDao" class="com.yrw.dao.UserDao" />
 	<bean id="systemNoticeDao" class="com.yrw.dao.SystemNoticeDao" />
+	<bean id="adImagesDao" class="com.yrw.dao.AdImagesDao" />
 	<bean id="collectionDao" class="com.yrw.dao.CollectionDao">
 		<property name="iScollectionDao" ref="scollectionDao" />
 	</bean>
@@ -171,6 +173,10 @@
 	<bean id="systemNoticeService" class="com.yrw.service.SystemNoticeService">
 		<property name="iSystemNoticeDao" ref="systemNoticeDao" />
 	</bean>
+    <bean id="adImagesService" class="com.yrw.service.AdImagesService">
+		<property name="iAdImagesDao" ref="adImagesDao" />
+	</bean>
+
 
 
 	<!-- 托管action -->
@@ -241,6 +247,9 @@
 	</bean>
 	<bean name="/systemNotice" class="com.yrw.web.actions.SystemNoticeAction">
 		<property name="systemNoticeService" ref="systemNoticeService" />
+	</bean>
+	<bean name="/squareAd" class="com.yrw.web.actions.SquareAdAction">
+		<property name="adImagesService" ref="adImagesService" />
 	</bean>
 
 	<!-- 事务管理器 -->

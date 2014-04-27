@@ -46,6 +46,7 @@
 		<mapping resource="com/yrw/domains/Scollection.hbm.xml" />
 		<mapping resource="com/yrw/domains/Serrorquestions.hbm.xml" />
 		<mapping resource="com/yrw/domains/Systemnotice.hbm.xml" />
+		<mapping resource="com/yrw/domains/Adimages.hbm.xml" />
 
 	</session-factory>
 

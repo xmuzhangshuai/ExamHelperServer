@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -29,7 +30,7 @@ var flag="true";
 		   'auto'           : false, //选定文件后是否自动上传，默认false
 		   'multi'          : true, //是否允许同时上传多文件，默认false
 		   'simUploadLimit' : 8, //一次同步上传的文件数目  
-		   'sizeLimit'      : 20480, //设置单个文件大小限制，单位为byte  
+		   'sizeLimit'      : 102400, //设置单个文件大小限制，单位为byte  
 		   'queueSizeLimit' : 8, //限制在一次队列中的次数（可选定几个文件）。默认值= 999，而一次可传几个文件有 simUploadLimit属性决定。
 		   'fileDesc'       : '支持格式:jpg或gif或png', //如果配置了以下的'fileExt'属性，那么这个属性是必须的  
 		   'fileExt'        : '*.jpg;*.gif;*.png',//允许的格式
@@ -92,17 +93,32 @@ $(document).ready(function () {
 		timer = setInterval(function() { $("#btn_next").click();}, 5000);
 	})
 });
+//刷新
+function refresh(){
+	window.location.reload(true);
+}
  </script>
 </head>
-<body>
+<body style="margin: 0px;">
+	<div style="height: 62px;background-image: url('./images/nav04.gif');"></div>
+	<fieldset>
+		<legend>上传广告图片</legend>
+		<div id="fileQueue"></div> 
+		<input type="file" name="uploadify" id="uploadify" />
+		<p>
+			<button type="button" onclick="javascript:uploasFile()">开始上传</button>&nbsp;
+			<button type="button" onclick="javascript:jQuery('#uploadify').uploadifyClearQueue()">取消所有上传</button>
+		</p>
+		<p class="yaoqiu">上传图片要求：</p>
+		<p class="commond">1.图片大小不得超过<font color="red" size="3">100</font>KB</p>
+		<p class="commond">2.图片尺寸宽比高约为<font color="red" size="3">3:1</font></p>
+		<p class="commond">3.图片宽度不得低于<font color="red" size="3">640</font>像素</p>
+	</fieldset>
+    
 	
-    <div id="fileQueue"></div> 
-	<input type="file" name="uploadify" id="uploadify" />
-	<p>
-		<a href="javascript:uploasFile()">开始上传</a>&nbsp;
-		<a href="javascript:jQuery('#uploadify').uploadifyClearQueue()">取消所有上传</a>
-	</p>
-	<div class="main_visual">
+	<fieldset>
+		<legend>客户端广告预览</legend>
+		<div class="main_visual" style="width: 50%;">
          <div class="flicking_con">
               <div class="flicking_inner">
                     <a href="">1</a>
@@ -110,19 +126,25 @@ $(document).ready(function () {
                     <a href="">3</a>
                     <a href="">4</a>
                     <a href="">5</a>
+                    <a href="">6</a>
+                    <a href="">7</a>
+                    <a href="">8</a>
               </div>
          </div>
 		<div class="main_image">
-			<ul>					
-				<li><span class="img_1" style="background: url('./images/img_main_1.jpg') center top no-repeat"></span></li>
-				<li><span class="img_2" style="background: url('./images/img_main_2.jpg') center top no-repeat"></span></li>
-				<li><span class="img_3" style="background: url('./images/img_main_3.jpg') center top no-repeat"></span></li>
-				<li><span class="img_4" style="background: url('./images/img_main_4.jpg') center top no-repeat"></span></li>
-				<li><span class="img_5" style="background: url('./images/img_main_5.jpg') center top no-repeat"></span></li>
+			<ul>
+			<c:forEach items="${adImageUrlList}" var="adImageUrl">
+				<li><span style="background: url('./${adImageUrl}') center top no-repeat"></span></li>
+			</c:forEach>
 			</ul>
 			<a href="javascript:;" id="btn_prev"></a>
 			<a href="javascript:;" id="btn_next"></a>
 		</div>
 	</div>
+	<div style="margin-left: 20px;">
+		<button type="button" onclick="refresh();">刷新预览</button>&nbsp;
+	</div>
+	</fieldset>
+	
 </body>
 </html>

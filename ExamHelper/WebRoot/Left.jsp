@@ -216,7 +216,7 @@ body {
 					<tr>
 						<td width="9%" height="20"><img id="xiaotu6"
 							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="listtakexiaoxi.htm"
+						<td width="91%"><a href="${pageContext.request.contextPath}/squareAd.do?flag=showNowAd"
 							target="mainFrame" class="left-font03" onclick="tupian('6');">发布答疑广场公告</a></td>
 					</tr>
 					<tr>

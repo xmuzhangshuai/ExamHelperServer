@@ -86,6 +86,11 @@
 		<servlet-name>SquareAdImageUpload</servlet-name>
 		<servlet-class>com.yrw.servlet.SquareAdImageUpload</servlet-class>
 	</servlet>
+  <servlet>
+    <servlet-name>SquareAdServlet</servlet-name>
+    <servlet-class>com.yrw.servlet.SquareAdServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -169,6 +174,10 @@
 		<servlet-name>SquareAdImageUpload</servlet-name>
 		<url-pattern>/SquareAdImageUpload</url-pattern>
 	</servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SquareAdServlet</servlet-name>
+    <url-pattern>/SquareAdServlet</url-pattern>
+  </servlet-mapping>
 
 
 
