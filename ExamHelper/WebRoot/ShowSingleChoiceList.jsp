@@ -155,16 +155,16 @@
 	}
 	function nextPage(pageNow, pageCount) {
 		pageCount=parseInt(pageCount);
-		pageNow=parseInt(pageNow);
+		pageNow=parseInt(pageNow)+1;
 		
-		if (pageNow+1> pageCount)
+		if (pageNow> pageCount)
 			alert(当前为最后一页);
 		else {
 		var sectionName=document.getElementById("hiddenValue").value;
 		<%String keywordNP = (String) request.getAttribute("keyword");%>
 		var keyword="<%=keywordNP%>"
 			var nonContent = "null";
-			pageNow=parseInt(pageNow)+1;
+			
 				if (keyword == nonContent)
 
 			{

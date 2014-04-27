@@ -41,7 +41,7 @@ public class SectionService {
 	 * @return
 	 */
 	public List<Section> listSectionBySubIdAndSecId(int subjectId, int sectionId) {
-		List<Section> sectionList = iSectionDao.getSectionBySubjectId(subjectId);
+		List<Section> sectionList = iSectionDao.getSectionListBySubject(subjectId);
 		Section section = null;
 		int i = 0;
 		for (; i < sectionList.size(); i++) {
@@ -60,23 +60,48 @@ public class SectionService {
 		}
 
 	}
-
+	
 	/**
-	 * @param subjectId
 	 * @return
 	 */
-	public List<Section> listSection(int subjectId) {
-		return iSectionDao.getSectionBySubjectId(subjectId);
+	public List<Section> listSectionBySubject(int subjectId){
+	 return	iSectionDao.getSectionListBySubject(subjectId);
+	}
+
+	/**分页显示所有章节
+	 * @param pageNow
+	 * @return
+	 */
+	public List listSection(String pageNowString) {
+		int pageNow = 1;
+		int pageCount = iSectionDao.getPageCount();
+		if (pageNowString != null) {
+			pageNow = Integer.parseInt(pageNowString);
+			if (pageNow < 1)
+				pageNow = 1;
+			else if (pageNow > pageCount)
+				pageNow = pageCount;
+
+		}
+		Map<String, Integer> pageMap = new HashMap<String, Integer>();
+		pageMap.put("pageNow", pageNow);
+		pageMap.put("pageCount", pageCount);
+		List<Section> sectionList = iSectionDao.getSectionList(pageNow);
+
+		List collection = new ArrayList();
+		collection.add(pageMap);
+		collection.add(sectionList);
+		return collection;
 	}
 
 	/**
-	 * 显示某个科目下的章节
+	 * 分页显示某个科目下的章节
 	 * 
 	 * @param pageNowString
 	 * @param subjectId
 	 * @return
 	 */
-	public List listSection(String pageNowString, int subjectId) {
+	public List listSectionBySubject(String pageNowString, int subjectId) {
 		int pageNow = 1;
 		int pageCount = iSectionDao.getPageCountBySubject(subjectId);
 		if (pageNowString != null) {
@@ -91,7 +116,7 @@ public class SectionService {
 		Map<String, Integer> pageMap = new HashMap<String, Integer>();
 		pageMap.put("pageNow", pageNow);
 		pageMap.put("pageCount", pageCount);
-		List sectionList = iSectionDao.getSectionBySubject(pageNow, subjectId);
+		List<Section> sectionList = iSectionDao.getSectionListBySubject(pageNow, subjectId);
 
 		List collection = new ArrayList();
 		collection.add(pageMap);
