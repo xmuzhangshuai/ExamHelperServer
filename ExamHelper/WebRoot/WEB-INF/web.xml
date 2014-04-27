@@ -90,6 +90,11 @@
     <servlet-name>SquareAdServlet</servlet-name>
     <servlet-class>com.yrw.servlet.SquareAdServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ExamRankingServlet</servlet-name>
+    <servlet-class>com.yrw.servlet.ExamRankingServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -177,6 +182,10 @@
   <servlet-mapping>
     <servlet-name>SquareAdServlet</servlet-name>
     <url-pattern>/SquareAdServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ExamRankingServlet</servlet-name>
+    <url-pattern>/ExamRankingServlet</url-pattern>
   </servlet-mapping>
 
 
