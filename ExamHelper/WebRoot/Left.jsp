@@ -139,7 +139,7 @@ body {
 					<tr>
 						<td width="9%" height="20"><img id="xiaotu21"
 							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="#" target="mainFrame"
+						<td width="91%"><a href="${pageContext.request.contextPath}/question.do?flag=showQuestionList" target="mainFrame"
 							class="left-font03" onclick="tupian('21');">题目管理</a></td>
 					</tr>
 				</table> <!--  管理题库系统结束    -->

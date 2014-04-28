@@ -195,7 +195,8 @@
 	<bean name="/question" class="com.yrw.web.actions.QuestionAction">
 		<property name="questionService" ref="questionService" />
 		<property name="sectionService" ref="sectionService" />
-	</bean>
+		<property name="subjectService" ref="subjectService"/>
+ 	</bean>
 	<bean name="/singleChoice" class="com.yrw.web.actions.SingleChoiceAction">
 		<property name="questionService" ref="questionService" />
 		<property name="sectionService" ref="sectionService" />

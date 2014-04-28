@@ -86,9 +86,8 @@ public class SingleChoiceAction extends DispatchAction {
 
 		// 加载问题类型
 		List<Questiontype> questiontypes = questionService
-				.showQuestiontypes(typeName);
-		request.setAttribute("questionType", questiontypes.get(0));
-		questiontypes.remove(0);
+				.showQuestiontypes();
+		request.setAttribute("questionTypeName", typeName);
 		request.setAttribute("questionTypes", questiontypes);
 
 		// 加载章节下的题目

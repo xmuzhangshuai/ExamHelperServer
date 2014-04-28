@@ -50,11 +50,12 @@
        
 			}
 	}
+	
 	function changeSubject(){
-	  var sections = document.getElementById("subjectChoose").value;
-	  
-	return sections
+	 int index = document.getElementById("subjectChoose").value;
+	 return index;
 	}
+	
 </script>
 
 </head>
@@ -83,18 +84,18 @@
 															<c:choose>
 																<c:when test="${empty subjectId}">
 																	<option selected="selected">请选择科目</option>
-																	<c:forEach items="${subjects}" var="item">
-																		<option value="${item.section}">${item.subName}</option>
+																	<c:forEach items="${subjects}" var="subject" varStatus="index">
+																		<option value="${index.index}">${subject.subName}</option>
 																	</c:forEach>
 																</c:when>
 																<c:otherwise>
-																	<c:forEach items="${subjects}" var="item">
+																	<c:forEach items="${subjects}" var="subject">
 																		<c:choose>
-																			<c:when test="${item.id==subjectId}">
-																				<option value="${item.section}" selected="selected">${item.subName}</option>
+																			<c:when test="${subject.id==subjectId}">
+																				<option value="${index.index}" selected="selected">${subject.subName}</option>
 																			</c:when>
 																			<c:otherwise>
-																				<option value="${item.section}">${item.subName}</option>
+																				<option value="${index.index}">${subject.subName}</option>
 																			</c:otherwise>
 																		</c:choose>
 																	</c:forEach>
@@ -102,21 +103,23 @@
 															</c:choose>
 
 													</select></td>
+													<td><input type="hidden" id="sectionIndex" value="changeSubject();"/></td>
 													<td>章节：</td>
 													<td><select id="sectionChoose"
-														onchange="changeSection();" >
+														onchange="changeSection();">
 															<c:choose>
 																<c:when test="${empty sectionName}">
 																	<option selected="selected">请选择题型</option>
-																	<c:forEach items="${sections}" var="section">
+																	<c:forEach items="" var="section">
 																		<option value="${section.sectionName}">${section.sectionName}</option>
 																	</c:forEach>
 																</c:when>
 																<c:otherwise>
-																	<c:forEach items="changeSubject();" var="section">
+																	<c:forEach items="${subjects[javascript:changeSubject();].sections }" var="section">
 																		<c:choose>
 																			<c:when test="${section.sectionName==sectionName}">
-																				<option value="${section.sectionName}" selected="selected">${section.sectionName}</option>
+																				<option value="${section.sectionName}"
+																					selected="selected">${section.sectionName}</option>
 																			</c:when>
 																			<c:otherwise>
 																				<option value="${section.sectionName}">${section.sectionName}</option>
@@ -164,7 +167,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td><img id="informImage" src="./images/404png" alt="" /></td>
+				<td><img id="informImage" src="./images/404.png" alt="" /></td>
 			</tr>
 
 		</table>

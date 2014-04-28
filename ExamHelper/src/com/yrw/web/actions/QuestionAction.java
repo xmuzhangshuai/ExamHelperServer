@@ -39,14 +39,18 @@ public class QuestionAction extends DispatchAction {
 	/*
 	 * Generated Methods
 	 */
-
-	QuestionService questionService;
+	private SubjectService subjectService;
+	private QuestionService questionService;
 	private SectionService sectionService;
+
+	
+	public void setSubjectService(SubjectService subjectService) {
+		this.subjectService = subjectService;
+	}
 
 	public void setSectionService(SectionService sectionService) {
 		this.sectionService = sectionService;
 	}
-
 
 	public void setQuestionService(QuestionService questionService) {
 		this.questionService = questionService;
@@ -117,7 +121,6 @@ public class QuestionAction extends DispatchAction {
 		String typeName = new String(request.getParameter("typeName").getBytes(
 				"ISO-8859-1"), "utf-8");
 
-		
 		request.getSession().setAttribute("typeName", typeName);
 		String pageNowString = request.getParameter("pageNow");
 
@@ -126,9 +129,8 @@ public class QuestionAction extends DispatchAction {
 
 		// 加载问题类型
 		List<Questiontype> questiontypes = questionService
-				.showQuestiontypes(typeName);
-		request.setAttribute("questionType", questiontypes.get(0));
-		questiontypes.remove(0);
+				.showQuestiontypes();
+		request.setAttribute("questionTypeName", typeName);
 		request.setAttribute("questionTypes", questiontypes);
 
 		// 加载章节下的题目
@@ -180,6 +182,27 @@ public class QuestionAction extends DispatchAction {
 		return showQuestionBySection(mapping, form, request, response);
 	}
 
+	/**
+	 * 显示问题列表
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward showQuestionList(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response){
 	
-	
+		request.getSession().removeAttribute("subjectId");
+		request.removeAttribute("sectionName");
+		request.removeAttribute("questionTypeName");
+		
+		List<Subject> subjects=subjectService.getSubjects();
+		List<Questiontype> questiontypes=questionService.showQuestiontypes();
+		request.setAttribute("subjects", subjects);
+		request.setAttribute("questionTypes", questiontypes);
+		return mapping.findForward("showQuestion");
+	}
+
 }

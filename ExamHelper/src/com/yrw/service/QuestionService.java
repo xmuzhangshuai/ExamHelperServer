@@ -349,19 +349,8 @@ public class QuestionService {
 	 * @param typeName
 	 * @return
 	 */
-	public List<Questiontype> showQuestiontypes(String typeName) {
+	public List<Questiontype> showQuestiontypes() {
 		List<Questiontype> questiontypes = iQuestionTypeDao.getQuestionTypes();
-		Questiontype questiontype = null;
-		int i = 0;
-		for (; i < questiontypes.size(); i++) {
-			if (questiontypes.get(i).getTypeName().equals(typeName)) {
-				questiontype = questiontypes.get(i);
-				break;
-			}
-		}
-
-		questiontypes.set(i, questiontypes.get(0));
-		questiontypes.set(0, questiontype);
 		return questiontypes;
 	}
 

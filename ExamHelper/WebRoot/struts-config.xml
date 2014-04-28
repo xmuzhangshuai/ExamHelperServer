@@ -53,6 +53,7 @@
 			<forward name="showTrueOrFalseList" path="/ShowTrueOrFalseList.jsp" />
 			<forward name="showMaterialAnalysisList" path="/ShowMaterialAnalysisList.jsp" />
 			<forward name="showMultiChoiceList" path="/ShowMultiChoiceList.jsp" />
+			<forward name="showQuestion" path="/ShowQuestion.jsp"/>
 		</action>
 		<action attribute="multiChoiceForm" name="multiChoiceForm" parameter="flag" path="/multiChoice" scope="request"
 			type="com.yrw.web.actions.MultiChoiceAction" cancellable="true">
