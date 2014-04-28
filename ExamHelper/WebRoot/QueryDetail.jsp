@@ -71,17 +71,17 @@ $(function() {
 });
 
 //点击列表进入疑问详情
-function goQueryDetail(id){
-	document.getElementById("fom").action = "${pageContext.request.contextPath}/query.do?flag=showQueryDetail&id="+id;
-	document.getElementById("fom").submit();
+function goback(pageNow){
+	document.getElementById("fom").action = "${pageContext.request.contextPath}/query.do?flag=showQueryList&pageNow="+pageNow;
+	document.getElementById("fom").submit;
 }
 
 </script>
 </head>
 <body>
-<form name="fom" id="fom" method="post" action="">
+<form name="fom" id="fom" method="post" action="" target="mainFrame">
 	<div  style="width: 100%;  height:62px; background-image: url('./images/nav04.gif');">
-		<button id="gobackButton" >返回</button>
+		<button id="gobackButton" onclick="goback('${pageNow}');">返回</button>
 	</div>
 	<table id="gallery" border="0" width="100%" bgcolor="#F0F8FF" class="newfont03" cellpadding="4" cellspacing="1" style="padding: 5px;" >
 		<tr>

@@ -254,12 +254,7 @@ body {
 						<td width="91%"><a href="http://www.umeng.com/apps" target="mainFrame"
 							class="left-font03" onclick="tupian('8');">用户行为分析</a></td>
 					</tr>
-					<tr>
-						<td width="9%" height="20"><img id="xiaotu9"
-							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="listtakexiaoxi.htm"
-							target="mainFrame" class="left-font03" onclick="tupian('9');">题库下载统计</a></td>
-					</tr>
+					
 					<tr>
 						<td width="9%" height="20"><img id="xiaotu10"
 							src="./images/ico06.gif" width="8" height="12" /></td>
@@ -370,7 +365,7 @@ body {
 					<tr>
 						<td width="9%" height="20"><img id="xiaotu17"
 							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="http://www.umeng.com/" target="new"
+						<td width="91%"><a href="http://www.umeng.com/" target="_blank"
 							class="left-font03" onclick="tupian('17');">友盟平台登录</a></td>
 					</tr>
 					<tr>

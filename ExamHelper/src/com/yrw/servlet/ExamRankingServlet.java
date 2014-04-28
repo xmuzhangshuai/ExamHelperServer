@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jsonobjects.JScollection;
+import com.jsonobjects.JSerrorQuestion;
 import com.yrw.domains.Scollection;
 import com.yrw.domains.Serrorquestions;
 import com.yrw.service.CollectionService;
 import com.yrw.service.ErrorQuestionService;
-import com.yrw.service.QueryService;
 import com.yrw.tools.FastJsonTools;
 
 public class ExamRankingServlet extends BaseServlet {
@@ -37,7 +37,7 @@ public class ExamRankingServlet extends BaseServlet {
 
 		if (type != null) {
 
-			// 如果是根据用户ID返回错题列表
+			// 如果是返回收藏列表
 			if (type.equals("getScollection")) {
 				// 获取页数
 				int pageNow = Integer.parseInt(request.getParameter("pageNow").trim());
@@ -53,8 +53,25 @@ public class ExamRankingServlet extends BaseServlet {
 					msg = FastJsonTools.createJsonString(jScollections);
 				}
 			}
-		}
 
+			// 如果是返回错题列表
+			if (type.equals("getSerrors")) {
+				// 获取页数
+				int pageNow = Integer.parseInt(request.getParameter("pageNow").trim());
+				List<JSerrorQuestion> jSerrorQuestionList = new ArrayList<JSerrorQuestion>();
+				List<Serrorquestions> serrorquestionList = errorQuestionService.getSErrorQuestionListByPageNow(pageNow);
+				if (serrorquestionList != null) {
+					for (Serrorquestions serrorquestion : serrorquestionList) {
+						JSerrorQuestion jSerrorQuestion = new JSerrorQuestion(serrorquestion.getId(), serrorquestion
+								.getQuestiontype().getId(), serrorquestion.getSection().getId(),
+								serrorquestion.getQuestionId(), serrorquestion.getErrorNum());
+						jSerrorQuestionList.add(jSerrorQuestion);
+					}
+					msg = FastJsonTools.createJsonString(jSerrorQuestionList);
+				}
+			}
+
+		}
 		out.write(msg);
 		out.flush();
 		out.close();
