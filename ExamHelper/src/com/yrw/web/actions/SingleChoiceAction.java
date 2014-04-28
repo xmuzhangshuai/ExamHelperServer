@@ -73,8 +73,9 @@ public class SingleChoiceAction extends DispatchAction {
 		if (request.getAttribute("source") != null)
 			sectionName = (String) request.getAttribute("sectionName");
 		else
-			sectionName = new String(request.getParameter("sectionName")
+			sectionName= new String(request.getParameter("sectionName")
 					.getBytes("ISO-8859-1"), "utf-8");
+		
 		String typeName = DefaultValue.SINGLE_CHOICE;
 
 		request.getSession().setAttribute("typeName", typeName);
@@ -91,8 +92,7 @@ public class SingleChoiceAction extends DispatchAction {
 		request.setAttribute("questionTypes", questiontypes);
 
 		// 加载章节下的题目
-		Section existSection = sectionService
-				.getSectionBySectionName(sectionName);
+		Section existSection=sectionService.getSectionBySectionName(sectionName);
 		List collection = questionService.listQuestionBySection(
 				existSection.getId(), pageNowString, typeName);
 
@@ -101,6 +101,7 @@ public class SingleChoiceAction extends DispatchAction {
 		request.setAttribute("pageNow", pageMap.get("pageNow"));
 		// 为jsp中的hidden设置值
 		request.setAttribute("sectionName", sectionName);
+		request.getSession().setAttribute("subjectId", existSection.getSubject().getId());
 		// 设置问题
 		if (typeName.equals(DefaultValue.SINGLE_CHOICE))
 
