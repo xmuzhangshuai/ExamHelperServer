@@ -67,6 +67,8 @@ public class QueryAction extends DispatchAction {
 		// TODO Auto-generated method stub
 
 		int aPageNow = 1;
+		int pageNow = 1;
+		pageNow = Integer.parseInt(request.getParameter("pageNow"));
 
 		int queryId = Integer.parseInt(request.getParameter("id"));
 		int aPageCount = queryService.getAnswerQueryPageCount(queryId);
@@ -78,8 +80,7 @@ public class QueryAction extends DispatchAction {
 			else if (aPageNow > aPageCount)
 				aPageNow = aPageCount;
 		}
-		
-		
+
 		Query query = queryService.getQueryByID(queryId);
 		if (query != null) {
 			request.setAttribute("query", query);
@@ -87,6 +88,7 @@ public class QueryAction extends DispatchAction {
 			request.setAttribute("answerqueryList", query.getAnswerqueries());
 			request.setAttribute("aPageCount", aPageCount);
 			request.setAttribute("aPageNow", aPageNow);
+			request.setAttribute("pageNow", pageNow);
 		}
 		return mapping.findForward("queryDetail");
 	}

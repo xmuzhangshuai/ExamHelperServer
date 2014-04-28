@@ -72,8 +72,8 @@ $(function() {
 });
 
 //点击列表进入疑问详情
-function goQueryDetail(id){
-	document.getElementById("fom").action = "${pageContext.request.contextPath}/query.do?flag=showQueryDetail&id="+id;
+function goQueryDetail(id,pageNow){
+	document.getElementById("fom").action = "${pageContext.request.contextPath}/query.do?flag=showQueryDetail&id="+id+"&pageNow="+pageNow;
 	document.getElementById("fom").submit();
 }
 
@@ -145,7 +145,7 @@ function goQueryDetail(id){
 							<td width="8%" align="center" height="30">操作</td>
 						</tr>
 						<c:forEach items="${queryList}" var="query">
-							<tr id="listbg" onclick="goQueryDetail(${query.id});">
+							<tr id="listbg" onclick="goQueryDetail('${query.id}','${pageNow}');">
 								<td height="20" align="center" ><input  type="checkbox" name="delid${query.id}" /></td>
 								<td height="20" align="center" ><label>${query.id}</label></td>
 								<td height="30" align="center" ><a href="${query.user.avatar}" title="${query.user.nickname}">
