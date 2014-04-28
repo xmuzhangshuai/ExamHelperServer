@@ -77,6 +77,11 @@
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId="
 					+ subjectId;
 			document.getElementById("fom").submit();
+		} else {
+			document.getElementById("sectionChoose").disabled = true;
+			document.getElementById("questionTypeChoose").disabled = true;
+			document.getElementById("informImage").style.display = "";
+			document.getElementBydId("subtree1").style.display = "none";
 		}
 	}
 	function goByPage() {
@@ -84,19 +89,28 @@
 		var subjectId = '${subjectId}';
 		if (subjectId != undefined) {
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&pageNow="
-					+ page+"&subjectId="+subjectId;
+					+ page + "&subjectId=" + subjectId;
 			document.getElementById("fom").submit();
-		}else{
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=showAllSectionList&pageNow="
+		} else {
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=showAllSectionList&pageNow="
 					+ page;
 			document.getElementById("fom").submit();
+		}
+	}
+	function load() {
+		var subjectId = "${subjectId}";
+		if (subjectId == undefined) {
+			document.getElementById("sectionChoose").disabled = true;
+			document.getElementById("questionTypeChoose").disabled = true;
+			document.getElementById("informImage").style.display = "";
+			document.getElementBydId("subtree1").style.display = "none";
 		}
 	}
 </script>
 
 </head>
 
-<body>
+<body onload="load();">
 	<form name="fom" id="fom" method="post" action="" target="mainFrame">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 
@@ -139,6 +153,54 @@
 															</c:choose>
 
 													</select></td>
+													<td>章节：</td>
+													<td><select id="sectionChoose"
+														onchange="changeSection();">
+															<c:choose>
+																<c:when test="${empty sectionId}">
+																	<option selected="selected">请选择题型</option>
+																	<c:forEach items="${sections}" var="section">
+																		<option value="${section.id}">${section.sectionName}</option>
+																	</c:forEach>
+																</c:when>
+																<c:otherwise>
+																	<c:forEach items="${sections}" var="section">
+																		<c:choose>
+																			<c:when test="${section.id==sectionId}">
+																				<option value="${section.id}" selected="selected">${section.sectionName}</option>
+																			</c:when>
+																			<c:otherwise>
+																				<option value="${section.id}">${section.sectionName}</option>
+																			</c:otherwise>
+																		</c:choose>
+																	</c:forEach>
+																</c:otherwise>
+															</c:choose>
+													</select></td>
+													<td>题型：</td>
+													<td><select id="questionTypeChoose"
+														onchange="changeQuestionType();">
+															<c:choose>
+																<c:when test="${empty questionTypeName}">
+																	<option selected="selected">请选择题型</option>
+																	<c:forEach items="${questionTypes}" var="type">
+																		<option value="${type.typeName}">${type.typeName}</option>
+																	</c:forEach>
+																</c:when>
+																<c:otherwise>
+																	<c:forEach items="${questionTypes}" var="type">
+																		<c:choose>
+																			<c:when test="${type.typeName==questionTypeName}">
+																				<option value="${type.typeName}" selected="selected">${type.typeName}</option>
+																			</c:when>
+																			<c:otherwise>
+																				<option value="${type.typeName}">${type.typeName}</option>
+																			</c:otherwise>
+																		</c:choose>
+																	</c:forEach>
+																</c:otherwise>
+															</c:choose>
+													</select></td>
 
 												</tr>
 											</table>
@@ -159,6 +221,8 @@
 				</td>
 			</tr>
 			<tr>
+				<td><img id="informImage" style="display: none;"
+					src="./images/404png" alt="" /></td>
 				<td><table id="subtree1" style="DISPLAY: " width="100%"
 						border="0" cellspacing="0" cellpadding="0">
 						<tr>
@@ -221,34 +285,36 @@
 														页 | 第 <span class="right-text09">${pageNow}</span> 页
 													</td>
 													<c:choose>
-													<c:when test="${!empty subjectId}">
-													<td width="49%" align="right">[<a class="right-font08"
-														href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subjectId}&pageNow=1">首页</a>
-														| <a class="right-font08"
-														href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subjectId}&pageNow=${pageNow-1}">上一页</a>
-														| <a class="right-font08"
-														href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subjectId}&pageNow=${pageNow+1}">下一页</a>
-														| <a class="right-font08"
-														href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subjectId}&pageNow=${pageCount}">末页</a>]
-														转至：
-													</td>
-													
+														<c:when test="${!empty subjectId}">
+															<td width="49%" align="right">[<a
+																class="right-font08"
+																href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subjectId}&pageNow=1">首页</a>
+																| <a class="right-font08"
+																href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subjectId}&pageNow=${pageNow-1}">上一页</a>
+																| <a class="right-font08"
+																href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subjectId}&pageNow=${pageNow+1}">下一页</a>
+																| <a class="right-font08"
+																href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subjectId}&pageNow=${pageCount}">末页</a>]
+																转至：
+															</td>
+
 														</c:when>
 														<c:otherwise>
-															<td width="49%" align="right">[<a class="right-font08"
-														href="${pageContext.request.contextPath}/section.do?flag=showAllSectionList&pageNow=1">首页</a>
-														| <a class="right-font08"
-														href="${pageContext.request.contextPath}/section.do?flag=showAllSectionList&pageNow=${pageNow-1}">上一页</a>
-														| <a class="right-font08"
-														href="${pageContext.request.contextPath}/section.do?flag=showAllSectionList&pageNow=${pageNow+1}">下一页</a>
-														| <a class="right-font08"
-														href="${pageContext.request.contextPath}/section.do?flag=showAllSectionList&pageNow=${pageCount}">末页</a>]
-														转至：
-													</td>
-													
+															<td width="49%" align="right">[<a
+																class="right-font08"
+																href="${pageContext.request.contextPath}/section.do?flag=showAllSectionList&pageNow=1">首页</a>
+																| <a class="right-font08"
+																href="${pageContext.request.contextPath}/section.do?flag=showAllSectionList&pageNow=${pageNow-1}">上一页</a>
+																| <a class="right-font08"
+																href="${pageContext.request.contextPath}/section.do?flag=showAllSectionList&pageNow=${pageNow+1}">下一页</a>
+																| <a class="right-font08"
+																href="${pageContext.request.contextPath}/section.do?flag=showAllSectionList&pageNow=${pageCount}">末页</a>]
+																转至：
+															</td>
+
 														</c:otherwise>
-														</c:choose>
-														<td width="1%"><table width="20" border="0"
+													</c:choose>
+													<td width="1%"><table width="20" border="0"
 															cellspacing="0" cellpadding="0">
 															<tr>
 																<td width="1%"><input id="page" name="textfield3"

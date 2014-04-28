@@ -26,7 +26,7 @@
 						"",
 						"depended=0,alwaysRaised=1,width=800,height=510,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
 	}
-	function chooseQuestionType(){
+	function changeQuestionType(){
 	
 	var questionType=document.getElementById("chooseQT").value;
 	var sectionName=document.getElementById("hiddenValue").value;
@@ -238,10 +238,16 @@
 											<table style="width: 277px; ">
 												<tr>
 													<td width="538" style="width: 154px; height: 48px">题型选择：
-														<select id="chooseQT" onchange="chooseQuestionType();">
-															<option>${questionType.typeName}</option>
+														<select id="questionTypeChoose" onchange="chooseQuestionType();">
 															<c:forEach items="${questionTypes}" var="type">
-																<option>${type.typeName}</option>
+																<c:choose>
+																<c:when test="${type.typeName==typeName}">
+																<option id="${type.typeName}" selected="selected">${type.typeName}</option>
+																</c:when>
+																<c:otherwise>
+																	<option value="${type.typeName}">${type.typeName}</option>
+																</c:otherwise>
+																</c:choose>
 															</c:forEach>
 													</select>
 													</td>
