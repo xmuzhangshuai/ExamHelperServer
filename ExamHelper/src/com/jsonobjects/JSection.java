@@ -1,5 +1,10 @@
 package com.jsonobjects;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.yrw.domains.Section;
+import com.yrw.idao.ISubjectDao;
 
 /**
  * Entity mapped to table SECTION.
@@ -29,23 +34,25 @@ public class JSection {
 	 * 
 	 * @return
 	 */
-//	public Section NetToLocal() {
-//
-//		Section local = new Section(section_name, new Long(subject_id).intValue(),
-//				null, null, null, null, null, null, null);
-//		local.setId(id.intValue());
-//		return local;
-//	}
+	public Section NetToLocal() {
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ISubjectDao iSubjectDao = (ISubjectDao) applicationContext.getBean("subjectDao");
+
+		Section local = new Section(iSubjectDao.getQuniqueSubject(new Long(subject_id).intValue()), section_name, null,
+				null, null, null, null, null, null, null, null);
+		local.setId(id.intValue());
+		return local;
+	}
 
 	/**
 	 * 本地变为网络
 	 * 
 	 * @return
 	 */
-//	public static JSection LocalToNet(com.yrw.domains.Section local) {
-//		JSection net = new JSection((long) local.getId(), local.getSectionName(), local.getSubjectId());
-//		return net;
-//	}
+	public static JSection LocalToNet(Section local) {
+		JSection net = new JSection((long) local.getId(), local.getSectionName(), local.getSubject().getId());
+		return net;
+	}
 
 	public Long getId() {
 		return id;

@@ -184,6 +184,7 @@
 		<property name="questionService" ref="questionService" />
 		<property name="subjectService" ref="subjectService" />
 		<property name="iQuestionTypeDao" ref="questionTypeDao" />
+		<property name="sectionService" ref="sectionService" />
 	</bean>
 
 

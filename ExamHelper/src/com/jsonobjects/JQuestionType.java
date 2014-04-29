@@ -1,5 +1,7 @@
 package com.jsonobjects;
 
+import com.yrw.domains.Questiontype;
+
 /**
  * Entity mapped to table QUESTION_TYPE.
  */
@@ -34,7 +36,7 @@ public class JQuestionType {
 	 * 
 	 * @return
 	 */
-	public static JQuestionType LocalToNet(com.yrw.domains.Questiontype local) {
+	public static JQuestionType LocalToNet(Questiontype local) {
 		JQuestionType net = new JQuestionType((long) local.getId(), local.getTypeName());
 		return net;
 	}
