@@ -78,8 +78,13 @@ public class TrueOrFalseAction extends DispatchAction {
 					.getBytes("ISO-8859-1"), "utf-8");
 		String typeName = DefaultValue.TRUE_OR_FALSE;
 		String pageNowString = request.getParameter("pageNow");
-		int subjectId = (Integer) request.getSession()
-				.getAttribute("subjectId");
+		
+		Section existSection = sectionService
+				.getSectionBySectionName(sectionName);
+		int subjectId = existSection.getSubject().getId();
+		request.getSession().setAttribute("subjectId",subjectId);
+		request.getSession().setAttribute("subjectId", subjectId);
+		request.setAttribute("subjects", subjectService.getSubjects());
 
 		// 加载问题类型
 		List<Questiontype> questiontypes = questionService
@@ -88,8 +93,7 @@ public class TrueOrFalseAction extends DispatchAction {
 		request.setAttribute("questionTypes", questiontypes);
 
 		// 加载章节下的题目
-		Section existSection = sectionService
-				.getSectionBySectionName(sectionName);
+		
 		List collection = questionService.listQuestionBySection(
 				existSection.getId(), pageNowString, typeName);
 

@@ -74,29 +74,31 @@ public class MaterialAnalysisAction extends DispatchAction {
 		String sectionName = new String(request.getParameter("sectionName")
 				.getBytes("ISO-8859-1"), "utf-8");
 		String typeName = DefaultValue.MATERIAL_ANALYSIS;
+		Section existSection = sectionService
+				.getSectionBySectionName(sectionName);
 
 		request.getSession().setAttribute("typeName", typeName);
 		String pageNowString = request.getParameter("pageNow");
-
-		int subjectId = (Integer) request.getSession()
-				.getAttribute("subjectId");
+		// 设置subjectId
+		int subjectId = existSection.getSubject().getId();
+		request.getSession().setAttribute("subjectId", subjectId);
+		request.getSession().setAttribute("subjectId", subjectId);
+		request.setAttribute("subjects", subjectService.getSubjects());
 
 		// 加载问题类型
-		List<Questiontype> questiontypes = questionService
-				.showQuestiontypes();
+		List<Questiontype> questiontypes = questionService.showQuestiontypes();
 		request.setAttribute("questionTypeName", typeName);
 		request.setAttribute("questionTypes", questiontypes);
 
 		// 加载章节下的题目
-		Section existSection = sectionService
-				.getSectionBySectionName(sectionName);
+
 		List collection = questionService.listQuestionBySection(
 				existSection.getId(), pageNowString, typeName);
 
 		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
 		request.setAttribute("pageCount", pageMap.get("pageCount"));
 		request.setAttribute("pageNow", pageMap.get("pageNow"));
-		// 为jsp中的hidden设置值
+		// 为jsp中的section设置值
 		request.setAttribute("sectionName", sectionName);
 		// 设置多选题问题
 		request.setAttribute("materialAnalysises", (List) collection.get(1));
@@ -165,8 +167,9 @@ public class MaterialAnalysisAction extends DispatchAction {
 			return mapping.findForward("showMaterialAnalysis");
 	}
 
-	
-	/**显示材料题下的小题
+	/**
+	 * 显示材料题下的小题
+	 * 
 	 * @param mapping
 	 * @param form
 	 * @param request
@@ -176,12 +179,15 @@ public class MaterialAnalysisAction extends DispatchAction {
 	public ActionForward showQuestionOfMaterial(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
-		int questionOfMaterialId=Integer.parseInt(request.getParameter("questionOfMaterialId"));
-		Questionsofmaterial questionsofmaterial=(Questionsofmaterial) questionService.getQuestion(questionOfMaterialId, DefaultValue.QUESTION_OF_MATERIAL);
+		int questionOfMaterialId = Integer.parseInt(request
+				.getParameter("questionOfMaterialId"));
+		Questionsofmaterial questionsofmaterial = (Questionsofmaterial) questionService
+				.getQuestion(questionOfMaterialId,
+						DefaultValue.QUESTION_OF_MATERIAL);
 		request.setAttribute("questionOfMaterial", questionsofmaterial);
 		return mapping.findForward("showQuestionOfMaterial");
 	}
-	
+
 	/**
 	 * 添加材料分析题小题的页面跳转
 	 * 
@@ -269,12 +275,14 @@ public class MaterialAnalysisAction extends DispatchAction {
 						DefaultValue.QUESTION_OF_MATERIAL);
 
 		// 更新QuesitonOfMaterial对象数据
-		questionsofmaterial.setAnalysis(request.getParameter("analysis"+questionOfMaterialId));
-		questionsofmaterial.setAnswer(request.getParameter("answer"+questionOfMaterialId));
-		questionsofmaterial.setQuestionStem(request
-				.getParameter("questionStem"+questionOfMaterialId));
+		questionsofmaterial.setAnalysis(request.getParameter("analysis"
+				+ questionOfMaterialId));
+		questionsofmaterial.setAnswer(request.getParameter("answer"
+				+ questionOfMaterialId));
+		questionsofmaterial.setQuestionStem(request.getParameter("questionStem"
+				+ questionOfMaterialId));
 		questionsofmaterial.setScore(Integer.parseInt(request
-				.getParameter("score"+questionOfMaterialId)));
+				.getParameter("score" + questionOfMaterialId)));
 
 		// 持久化materialAnalysi对象
 		questionService.updateQuestionofMaterial(questionsofmaterial);
@@ -344,7 +352,8 @@ public class MaterialAnalysisAction extends DispatchAction {
 		}
 
 		// 设置跳转到showMaterialAnalysis的参数
-		request.setAttribute("materialAnalysisId", questionsofmaterial.getMaterialanalysis().getId());
+		request.setAttribute("materialAnalysisId", questionsofmaterial
+				.getMaterialanalysis().getId());
 		request.setAttribute("source", "moveQuestionOfMaterial");
 		return showMaterialAnalysis(mapping, form, request, response);
 
@@ -365,7 +374,8 @@ public class MaterialAnalysisAction extends DispatchAction {
 		int subjectId = (Integer) request.getSession()
 				.getAttribute("subjectId");
 
-		List<Section> sectionList = sectionService.listSectionBySubject(subjectId);
+		List<Section> sectionList = sectionService
+				.listSectionBySubject(subjectId);
 		List<Subject> subjectList = subjectService.getSubjects();
 		request.setAttribute("subjects", subjectList);
 		request.setAttribute("sections", sectionList);

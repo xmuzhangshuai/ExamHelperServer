@@ -26,30 +26,39 @@
 						"",
 						"depended=0,alwaysRaised=1,width=800,height=510,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
 	}
-	function chooseQuestionType() {
+	function search() {
+		var singleChoice = "单项选择题"
+		var multiChoice = "多项选择题"
+		var trueOrFalse = "判断题"
+		var analysis = "简答题"
 
-		
-		var questionType = document.getElementById("chooseQT").value;
-		var sectionName = document.getElementById("hiddenValue").value;
-		var singleChoice = "单项选择题";
-		var multiChoice = "多项选择题";
-		var trueOrFalse = "判断题";
-	var analysis = "材料分析题";
-		if (questionType == singleChoice)
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&sectionName="
-					+ sectionName;
-		else if (questionType == multiChoice) {
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoiceList&sectionName="
-					+ sectionName;
-		} else if (questionType == trueOrFalse)
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&sectionName="
-					+ sectionName;
-		else if (questionType == analysis)
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&sectionName="
-					+ sectionName;
+		var subjectId = document.getElementById("subjectChoose").value;
+		var sectionName = document.getElementById("sectionChoose").value;
+		var questionType = document.getElementById("questionTypeChoose").value;
+		if (subjectId == "null" || sectionName == "null"
+				|| questionType == "null")
+			alert("请完整选择科目、章节、题型");
+		else {
+			if (questionType == singleChoice)
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&sectionName="
+						+ sectionName;
+			else if (questionType == multiChoice)
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoiceList&sectionName="
+						+ sectionName;
+			else if (questionType == trueOrFalse)
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&sectionName="
+						+ sectionName;
+			else if (questionType == analysis)
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&sectionName="
+						+ sectionName;
 
-
-		document.getElementById("fom").submit();
+			document.getElementById("fom").submit();
+		}
+	}
+	function loadSection() {
+	
+	 
+	
 	}
 	function selectAll() {
 
@@ -97,126 +106,56 @@
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=delSubjectByList&pageNow=${pageNow}";
 		document.getElementById("fom").submit();
 	}
-	function keywordSearch() {
-
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=searchSubjectByKeyWord";
-		document.getElementById("fom").submit();
-	}
+	
 	function goByPage(){
-		var sectionName=document.getElementById("hiddenValue").value;
+		var sectionName=document.getElementById("sectionChoose").value;
 		var page=document.getElementById("page").value;
-		<%String keyword = (String) request.getAttribute("keyword");%>
-	var keyword="<%=keyword%>"
-		var nonContent = "null";
-
-		if (keyword == nonContent)
-
-		{
+		
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&pageNow="
 					+ page+"&sectionName="+sectionName;
 			document.getElementById("fom").submit();
-		} else {
-
-			document.getElementById("textfield").value = keyword;
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=searchSubjectByKeyWord&pageNow="
-			+ page+"&sectionName="+sectionName;
-			document.getElementById("fom").submit();
-
-		}
-
 	}
 	function lastPage(pageNow){
-	if(pageNow==1)
-	alert("当前页为第一页")
-	else{
-	var sectionName=document.getElementById("hiddenValue").value;
-		<%String keywordLP = (String) request.getAttribute("keyword");%>
-	var keyword="<%=keywordLP%>"
-			var nonContent = "null";
-			if (keyword == nonContent)
-
-			{
+		if(pageNow==1)
+			alert("当前页为第一页")
+		else{
+				var sectionName=document.getElementById("sectionChoose").value;
+		
 				document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&pageNow="
 						+ (pageNow - 1) + "&sectionName=" + sectionName;
 				document.getElementById("fom").submit();
-			} else {
-
-				document.getElementById("textfield").value = keyword;
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=searchSubjectByKeyWord&pageNow="
-			+ (pageNow - 1) + "&sectionName=" + sectionName;
-				document.getElementById("fom").submit();
-
-			}
-
 		}
 
 	}
 	function nextPage(pageNow, pageCount) {
 		pageCount=parseInt(pageCount);
-		pageNow=parseInt(pageNow);
+		pageNow=parseInt(pageNow)+1;
 		
-		if (pageNow+1> pageCount)
+		if (pageNow> pageCount)
 			alert(当前为最后一页);
 		else {
-		var sectionName=document.getElementById("hiddenValue").value;
-		<%String keywordNP = (String) request.getAttribute("keyword");%>
-		var keyword="<%=keywordNP%>"
-			var nonContent = "null";
-			pageNow=parseInt(pageNow)+1;
-				if (keyword == nonContent)
-
-			{
+		var sectionName=document.getElementById("sectionChoose").value;
+		
 				document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&pageNow="
 						+ pageNow + "&sectionName=" + sectionName;
 				document.getElementById("fom").submit();
-			} else {
-
-				document.getElementById("textfield").value = keyword;
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=searchSubjectByKeyWord&pageNow="
-				+pageNow+ "&sectionName=" + sectionName;
-				document.getElementById("fom").submit();
-			}
 		}
 	}
 	function firstPage() {
-	var sectionName=document.getElementById("hiddenValue").value;
-		<%String keywordFP = (String) request.getAttribute("keyword");%>
-		var keyword="<%=keywordFP%>"
-			var nonContent = "null";
-			if (keyword == nonContent)
-
-			{
+	var sectionName=document.getElementById("sectionChoose").value;
+	
 				document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&pageNow=1"
 						 + "&sectionName=" + sectionName;
 				document.getElementById("fom").submit();
-			} else {
-
-				document.getElementById("textfield").value = keyword;
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=searchSubjectByKeyWord&pageNow=1"
-				+"&sectionName=" + sectionName;
-				document.getElementById("fom").submit();
-			}
 	}
 	function endPage(pageCount) {
 	
-		var sectionName=document.getElementById("hiddenValue").value;
-		<%String keywordEP = (String) request.getAttribute("keyword");%>
-		var keyword="<%=keywordEP%>";
-
-		var nonContent = "null";
-		if (keyword == nonContent)
-
-		{
+		var sectionName=document.getElementById("sectionChoose").value;
+	
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&pageNow="
 					+ pageCount + "&sectionName=" + sectionName;
 			document.getElementById("fom").submit();
-		} else {
-
-			document.getElementById("textfield").value = keyword;
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=searchSubjectByKeyWord&pageNow="
-					+ pageCount + "&sectionName=" + sectionName;
-			document.getElementById("fom").submit();
-		}
+		
 	}
 </script>
 
@@ -230,41 +169,83 @@
 				<td height="30">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
 						<tr>
-							<td height="62"
-								style="background-image:url('./images/nav04.gif');">
-								<table width="98%" border="0" align="center" cellpadding="0"
-									cellspacing="0">
-									<tr>
-										<td align="left" style="width: 163px; ">
-											<table style="width: 277px; ">
-												<tr>
-													<td width="538" style="width: 154px; height: 48px">题型选择：
-														<select id="chooseQT" onchange="chooseQuestionType();">
-															<option selected="selected">${questionType.typeName}</option>
-															<c:forEach items="${questionTypes}" var="type">
-																<option>${type.typeName}</option>
-															</c:forEach>
-													</select>
-													</td>
-												</tr>
-											</table>
-										</td>
-										<td align="left">
-											<table>
-												<tr>
-													<td width="21" style="width: 13px;"><img
-														src="./images/ico07.gif" width="20" height="18" /></td>
-													<td style="width: 233px; ">按关键字： <input
-														name="textfield" id="textfield" type="text" size="12" />
-														<input name="Submit4" type="button" class="right-button02"
-														value="查 询" onclick="keywordSearch();" /></td>
-												</tr>
-											</table>
-										</td>
-									</tr>
+							<td width="38">科目：</td>
+							<td style="width: 119px; "><select name="subjectChoose"
+								id="subjectChoose" onchange="loadSection();"
+								style="width: 101px; ">
+									<c:choose>
+										<c:when test="${empty subjectId}">
+											<option value="null" selected="selected">请选择科目</option>
+											<c:forEach items="${subjects}" var="subject">
+												<option value="${subject.sections}">${subject.subName}</option>
+											</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<c:forEach items="${subjects}" var="subject">
+												<c:choose>
+													<c:when test="${subject.id==subjectId}">
+														<option value="${subject.sections}" selected="selected">${subject.subName}</option>
+													</c:when>
+													<c:otherwise>
+														<option value="${subject.sections}">${subject.subName}</option>
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>
+							</select></td>
 
-								</table>
-							</td>
+
+							<td width="38">章节：</td>
+							<td><select id="sectionChoose">
+									<c:choose>
+										<c:when test="${empty sectionName}">
+											<option value="null" selected="selected">请选择章节</option>
+											<c:forEach items="${sections}" var="section">
+												<option value="${section.sectionName}">${section.sectionName}</option>
+											</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<c:forEach items="${sections}" var="section">
+												<c:choose>
+													<c:when test="${section.sectionName==sectionName}">
+														<option value="${section.sectionName}" selected="selected">${section.sectionName}</option>
+													</c:when>
+													<c:otherwise>
+														<option value="${section.sectionName}">${section.sectionName}</option>
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>
+							</select></td>
+
+
+							<td width="38">题型：</td>
+							<td><select id="questionTypeChoose">
+									<c:choose>
+										<c:when test="${empty questionTypeName}">
+											<option value="null" selected="selected">请选择题型</option>
+											<c:forEach items="${questionTypes}" var="type">
+												<option value="${type.typeName}">${type.typeName}</option>
+											</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<c:forEach items="${questionTypes}" var="type">
+												<c:choose>
+													<c:when test="${type.typeName==questionTypeName}">
+														<option value="${type.typeName}" selected="selected">${type.typeName}</option>
+													</c:when>
+													<c:otherwise>
+														<option value="${type.typeName}">${type.typeName}</option>
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>
+							</select></td>
+							<td><input type="button" value="查询" class="right-button02"
+								onclick="search();" /></td>
 						</tr>
 					</table>
 				</td>
@@ -327,8 +308,6 @@
 												</c:forEach>
 											</table>
 										</td>
-										<td><input id="hiddenValue" type="hidden"
-											value="${sectionName}" /></td>
 									</tr>
 								</table>
 								<table width="95%" border="0" align="center" cellpadding="0"
@@ -345,12 +324,12 @@
 													<td width="50%">共 <span class="right-text09">${pageCount}</span>
 														页 | 第 <span class="right-text09">${pageNow}</span> 页
 													</td>
-												<td width="49%" align="right">[<a class="right-font08"
-														onclick="firstPage();">首页</a> | <a class="right-font08"
-														onclick="lastPage('${pageNow}');">上一页</a> | <a
+													<td width="49%" align="right">[<a class="right-font08"
+														onclick="firstPage();" href="#">首页</a> | <a class="right-font08"
+														onclick="lastPage('${pageNow}');" href="#">上一页</a> | <a
 														class="right-font08"
-														onclick="nextPage('${pageNow}','${pageCount}');">下一页</a> |
-														<a class="right-font08" onclick="endPage('${pageCount}');">末页</a>]
+														onclick="nextPage('${pageNow}','${pageCount}');" href="#">下一页</a> |
+														<a class="right-font08" onclick="endPage('${pageCount}');" href="#">末页</a>]
 														转至：
 													</td>
 													<td width="1%"><table width="20" border="0"

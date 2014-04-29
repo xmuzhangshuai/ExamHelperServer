@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -34,28 +35,31 @@
 		var subjectId = document.getElementById("subjectChoose").value;
 		var sectionName = document.getElementById("sectionChoose").value;
 		var questionType = document.getElementById("questionTypeChoose").value;
-		if (subjectId == undefined || sectionName == undefined
-				|| questionType == undefined)
-			alert("请完整选择科目、章节、题型")
+		if (subjectId == "null" || sectionName == "null"
+				|| questionType == "null")
+			alert("请完整选择科目、章节、题型");
 		else {
-       		 if(questionType==singleChoice)
-       			 document.getElementById("fom").action="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&sectionName="sectionName;
-      		else if(questionType==multiChoice)
-				document.getElementById("fom").action="${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoiceList&sectionName="+sectionName;
-			else if(questionType==trueOrFalse)
-				document.getElementById("fom").action="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&sectionName="+sectionName;
-			else if(questionType==analysis)
-				document.getElementById("fom").action="${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&sectionName="+sectionName;
-		document.getElementById("fom").submit();
-       
-			}
+			if (questionType == singleChoice)
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&sectionName="
+						+ sectionName;
+			else if (questionType == multiChoice)
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoiceList&sectionName="
+						+ sectionName;
+			else if (questionType == trueOrFalse)
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&sectionName="
+						+ sectionName;
+			else if (questionType == analysis)
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&sectionName="
+						+ sectionName;
+
+			document.getElementById("fom").submit();
+		}
 	}
+	function loadSection() {
 	
-	function changeSubject(){
-	 int index = document.getElementById("subjectChoose").value;
-	 return index;
+	 
+	
 	}
-	
 </script>
 
 </head>
@@ -77,64 +81,45 @@
 										<td align="left">
 											<table>
 												<tr>
-													<td width="538" style="width: 88px; ">科目：</td>
-													<td style="width: 129px; "><select
+													<td width="38">科目：</td>
+													<td style="width: 119px; "><select
 														name="subjectChoose" id="subjectChoose"
-														onchange="changeSubject();">
+														onchange="loadSection();" style="width: 101px; ">
 															<c:choose>
 																<c:when test="${empty subjectId}">
-																	<option selected="selected">请选择科目</option>
-																	<c:forEach items="${subjects}" var="subject" varStatus="index">
-																		<option value="${index.index}">${subject.subName}</option>
+																	<option value="null" selected="selected">请选择科目</option>
+																	<c:forEach items="${subjects}" var="subject">
+																		<option value="${subject.sections}">${subject.subName}</option>
 																	</c:forEach>
 																</c:when>
 																<c:otherwise>
 																	<c:forEach items="${subjects}" var="subject">
 																		<c:choose>
 																			<c:when test="${subject.id==subjectId}">
-																				<option value="${index.index}" selected="selected">${subject.subName}</option>
+																				<option value="${subject.sections}"
+																					selected="selected">${subject.subName}</option>
 																			</c:when>
 																			<c:otherwise>
-																				<option value="${index.index}">${subject.subName}</option>
+																				<option value="${subject.sections}">${subject.subName}</option>
 																			</c:otherwise>
 																		</c:choose>
 																	</c:forEach>
 																</c:otherwise>
 															</c:choose>
+													</select></td>
 
-													</select></td>
-													<td><input type="hidden" id="sectionIndex" value="changeSubject();"/></td>
+
 													<td>章节：</td>
-													<td><select id="sectionChoose"
-														onchange="changeSection();">
-															<c:choose>
-																<c:when test="${empty sectionName}">
-																	<option selected="selected">请选择题型</option>
-																	<c:forEach items="" var="section">
-																		<option value="${section.sectionName}">${section.sectionName}</option>
-																	</c:forEach>
-																</c:when>
-																<c:otherwise>
-																	<c:forEach items="${subjects[javascript:changeSubject();].sections }" var="section">
-																		<c:choose>
-																			<c:when test="${section.sectionName==sectionName}">
-																				<option value="${section.sectionName}"
-																					selected="selected">${section.sectionName}</option>
-																			</c:when>
-																			<c:otherwise>
-																				<option value="${section.sectionName}">${section.sectionName}</option>
-																			</c:otherwise>
-																		</c:choose>
-																	</c:forEach>
-																</c:otherwise>
-															</c:choose>
+													<td><select id="sectionChoose">
+															<option value="null" selected="selected">请选择章节</option>
 													</select></td>
+
+
 													<td>题型：</td>
-													<td><select id="questionTypeChoose"
-														onchange="changeQuestionType();">
+													<td><select id="questionTypeChoose">
 															<c:choose>
 																<c:when test="${empty questionTypeName}">
-																	<option selected="selected">请选择题型</option>
+																	<option value="null" selected="selected">请选择题型</option>
 																	<c:forEach items="${questionTypes}" var="type">
 																		<option value="${type.typeName}">${type.typeName}</option>
 																	</c:forEach>
@@ -153,13 +138,13 @@
 																</c:otherwise>
 															</c:choose>
 													</select></td>
+													<td>
+													<input type="button" value="查询"
+											class="right-button02" onclick="search();" /></td>
 												</tr>
 											</table>
 										</td>
-										<td><input type="button" value="查询"
-											class="right-button02" onclick="search();" /></td>
 									</tr>
-
 								</table>
 							</td>
 						</tr>
