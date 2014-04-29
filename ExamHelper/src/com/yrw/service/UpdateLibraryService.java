@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.jsonobjects.JSection;
 import com.yrw.domains.Questiontype;
 import com.yrw.domains.Section;
 import com.yrw.domains.Subject;
@@ -14,6 +15,7 @@ public class UpdateLibraryService {
 	private QuestionService questionService;
 	private SubjectService subjectService;
 	private IQuestionTypeDao iQuestionTypeDao;
+	private SectionService sectionService;
 
 	public void setQuestionService(QuestionService questionService) {
 		this.questionService = questionService;
@@ -25,6 +27,10 @@ public class UpdateLibraryService {
 
 	public void setiQuestionTypeDao(IQuestionTypeDao iQuestionTypeDao) {
 		this.iQuestionTypeDao = iQuestionTypeDao;
+	}
+
+	public void setSectionService(SectionService sectionService) {
+		this.sectionService = sectionService;
 	}
 
 	/**
@@ -65,5 +71,23 @@ public class UpdateLibraryService {
 		}
 		return false;
 
+	}
+
+	/**
+	 * 返回用户所选科目的题目类型列表
+	 * 
+	 * @return
+	 */
+	public List<JSection> getJSections(int subjectId) {
+		Subject subject = subjectService.getSubjectById(subjectId);
+		List<Section> sections = sectionService.listSectionBySubject(subjectId);
+		List<JSection> jSectionList = new ArrayList<JSection>();
+		if (sections != null) {
+			for (Section section : sections) {
+				JSection jSection = JSection.LocalToNet(section);
+				jSectionList.add(jSection);
+			}
+		}
+		return jSectionList;
 	}
 }
