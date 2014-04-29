@@ -3,6 +3,7 @@ package com.jsonobjects;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.yrw.domains.Singlechoice;
 import com.yrw.idao.ISectionDao;
 
 /**
@@ -52,13 +53,12 @@ public class JSingleChoice extends JQuestion {
 	 * 
 	 * @return
 	 */
-	public com.yrw.domains.Singlechoice NetToLocal() {
+	public Singlechoice NetToLocal() {
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 		ISectionDao iSectionDao = (ISectionDao) applicationContext.getBean("sectionDao");
 
-		com.yrw.domains.Singlechoice local = new com.yrw.domains.Singlechoice(iSectionDao.getSectionById(new Long(
-				section_id).intValue()), question_stem, optionA, optionB, optionC, optionD, optionE, answer, analysis,
-				remark);
+		Singlechoice local = new Singlechoice(iSectionDao.getSectionById(new Long(section_id).intValue()),
+				question_stem, optionA, optionB, optionC, optionD, optionE, answer, analysis, remark);
 		local.setId(id.intValue());
 		return local;
 	}
@@ -68,7 +68,7 @@ public class JSingleChoice extends JQuestion {
 	 * 
 	 * @return
 	 */
-	public static JSingleChoice LocalToNet(com.yrw.domains.Singlechoice local) {
+	public static JSingleChoice LocalToNet(Singlechoice local) {
 		JSingleChoice net = new JSingleChoice((long) local.getId(), local.getQuestionStem(), local.getOptionA(),
 				local.getOptionB(), local.getOptionC(), local.getOptionD(), local.getOptionE(), local.getAnswer(),
 				local.getAnalysis(), local.getRemark(), false, local.getSection().getId());

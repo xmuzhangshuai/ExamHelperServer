@@ -3,6 +3,7 @@ package com.jsonobjects;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.yrw.domains.Multichoice;
 import com.yrw.idao.ISectionDao;
 
 /**
@@ -51,7 +52,7 @@ public class JMultiChoice extends JQuestion {
 	 * 
 	 * @return
 	 */
-	public static JMultiChoice LocalToNet(com.yrw.domains.Multichoice local) {
+	public static JMultiChoice LocalToNet(Multichoice local) {
 		JMultiChoice net = new JMultiChoice((long) local.getId(), local.getQuestionStem(), local.getOptionA(),
 				local.getOptionB(), local.getOptionC(), local.getOptionD(), local.getOptionE(), local.getOptionF(),
 				local.getAnswerA(), local.getAnswerB(), local.getAnswerC(), local.getAnswerD(), local.getAnswerE(),
