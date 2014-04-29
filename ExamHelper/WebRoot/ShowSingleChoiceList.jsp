@@ -371,11 +371,11 @@
 														页 | 第 <span class="right-text09">${pageNow}</span> 页
 													</td>
 													<td width="49%" align="right">[<a class="right-font08"
-														onclick="firstPage();">首页</a> | <a class="right-font08"
-														onclick="lastPage('${pageNow}');">上一页</a> | <a
+														onclick="firstPage();" href="#">首页</a> | <a class="right-font08"
+														onclick="lastPage('${pageNow}');" href="#">上一页</a> | <a
 														class="right-font08"
-														onclick="nextPage('${pageNow}','${pageCount}');">下一页</a> |
-														<a class="right-font08" onclick="endPage('${pageCount}');">末页</a>]
+														onclick="nextPage('${pageNow}','${pageCount}');" href="#">下一页</a> |
+														<a class="right-font08" onclick="endPage('${pageCount}');" href="#">末页</a>]
 														转至：
 													</td>
 													<td width="1%"><table width="20" border="0"

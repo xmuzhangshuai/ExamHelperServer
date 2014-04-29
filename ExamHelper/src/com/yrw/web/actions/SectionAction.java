@@ -45,6 +45,8 @@ public class SectionAction extends DispatchAction {
 	public void setSectionService(SectionService sectionService) {
 		this.sectionService = sectionService;
 	}
+	
+	
 
 	/**
 	 * 为选择科目时显示所有section
@@ -69,6 +71,7 @@ public class SectionAction extends DispatchAction {
 		request.setAttribute("sections", sectionList);
 
 		request.getSession().removeAttribute("subjectId");
+		
 
 		return mapping.findForward("listSection");
 	}

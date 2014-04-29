@@ -77,12 +77,16 @@ public class MultiChoiceAction extends DispatchAction {
 
 		
 		String typeName = DefaultValue.MULTI_CHOICE;
+		Section existSection = sectionService
+				.getSectionBySectionName(sectionName);
 
 		request.getSession().setAttribute("typeName", typeName);
 		String pageNowString = request.getParameter("pageNow");
 
-		int subjectId = (Integer) request.getSession()
-				.getAttribute("subjectId");
+		int subjectId = existSection.getSubject().getId();
+		request.getSession().setAttribute("subjectId", subjectId);
+		request.getSession().setAttribute("subjectId", subjectId);
+		request.setAttribute("subjects", subjectService.getSubjects());
 
 		// 加载问题类型
 		List<Questiontype> questiontypes = questionService
@@ -91,8 +95,7 @@ public class MultiChoiceAction extends DispatchAction {
 		request.setAttribute("questionTypes", questiontypes);
 
 		// 加载章节下的题目
-		Section existSection = sectionService
-				.getSectionBySectionName(sectionName);
+		
 
 		List collection = questionService.listQuestionBySection(
 				existSection.getId(), pageNowString, typeName);
@@ -100,7 +103,7 @@ public class MultiChoiceAction extends DispatchAction {
 		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
 		request.setAttribute("pageCount", pageMap.get("pageCount"));
 		request.setAttribute("pageNow", pageMap.get("pageNow"));
-		// 为jsp中的hidden设置值
+		// 为jsp中的section设置值
 		request.setAttribute("sectionName", sectionName);
 		// 设置问题
 

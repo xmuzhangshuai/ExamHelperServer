@@ -67,9 +67,9 @@ public class SingleChoiceAction extends DispatchAction {
 			HttpServletResponse response) throws UnsupportedEncodingException {
 		// TODO Auto-generated method stub
 
+		
 		// 加载章节类型
 		String sectionName;
-		// 加载章节类型
 		if (request.getAttribute("source") != null)
 			sectionName = (String) request.getAttribute("sectionName");
 		else
@@ -81,8 +81,11 @@ public class SingleChoiceAction extends DispatchAction {
 		request.getSession().setAttribute("typeName", typeName);
 		String pageNowString = request.getParameter("pageNow");
 
-		int subjectId = (Integer) request.getSession()
-				.getAttribute("subjectId");
+		Section existSection=sectionService.getSectionBySectionName(sectionName);
+		int subjectId = existSection.getSubject().getId();
+		request.getSession().setAttribute("subjectId", subjectId);
+		request.setAttribute("subjects", subjectService.getSubjects());
+		
 
 		// 加载问题类型
 		List<Questiontype> questiontypes = questionService
@@ -90,21 +93,20 @@ public class SingleChoiceAction extends DispatchAction {
 		request.setAttribute("questionTypeName", typeName);
 		request.setAttribute("questionTypes", questiontypes);
 
-		// 加载章节下的题目
-		Section existSection=sectionService.getSectionBySectionName(sectionName);
+		// 加载章节下的页码
+		
 		List collection = questionService.listQuestionBySection(
 				existSection.getId(), pageNowString, typeName);
 
 		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
 		request.setAttribute("pageCount", pageMap.get("pageCount"));
 		request.setAttribute("pageNow", pageMap.get("pageNow"));
-		// 为jsp中的hidden设置值
+	
+		// 为jsp中的section设置值
 		request.setAttribute("sectionName", sectionName);
-		request.getSession().setAttribute("subjectId", existSection.getSubject().getId());
-		// 设置问题
-		if (typeName.equals(DefaultValue.SINGLE_CHOICE))
-
-			request.setAttribute("singleChoices", (List) collection.get(1));
+		
+		// 设置题目
+			request.setAttribute("singleChoices", (List<Singlechoice>) collection.get(1));
 
 		return mapping.findForward((String) collection.get(2));
 	}
