@@ -10,20 +10,22 @@ public class AdImagesService {
 	public void setiAdImagesDao(IAdImagesDao iAdImagesDao) {
 		this.iAdImagesDao = iAdImagesDao;
 	}
-	
+
 	/**
 	 * 添加图片
+	 * 
 	 * @param url
 	 */
-	public void addAdImage(String url){
+	public void addAdImage(String url) {
 		iAdImagesDao.addAdImage(url);
 	}
-	
+
 	/**
 	 * 返回图片路径列表
+	 * 
 	 * @return
 	 */
-	public List<String> getAdImageUrlListByTime(){
+	public List<String> getAdImageUrlListByTime() {
 		return iAdImagesDao.getAdImageUrlListByTime();
 	}
 }

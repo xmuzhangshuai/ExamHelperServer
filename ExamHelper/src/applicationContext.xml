@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
                                                         http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
                                                         http://www.springframework.org/schema/context 
@@ -12,7 +13,8 @@
 	<context:annotation-config />
 
 	<!-- hibernate配置，使用读入资源的方式 -->
-	<bean id="placeHolder" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<bean id="placeHolder"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
 				<value>classpath:jdbc.properties</value>
@@ -20,7 +22,8 @@
 		</property>
 	</bean>
 
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
 		<property name="driverClassName" value="${jdbc.driverClassName}" />
 		<property name="url" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.username}" />
@@ -32,7 +35,8 @@
 
 
 	</bean>
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource">
 			<ref local="dataSource" />
 		</property>
@@ -173,8 +177,13 @@
 	<bean id="systemNoticeService" class="com.yrw.service.SystemNoticeService">
 		<property name="iSystemNoticeDao" ref="systemNoticeDao" />
 	</bean>
-    <bean id="adImagesService" class="com.yrw.service.AdImagesService">
+	<bean id="adImagesService" class="com.yrw.service.AdImagesService">
 		<property name="iAdImagesDao" ref="adImagesDao" />
+	</bean>
+	<bean id="updateLibraryService" class="com.yrw.service.UpdateLibraryService">
+		<property name="questionService" ref="questionService" />
+		<property name="subjectService" ref="subjectService" />
+		<property name="iQuestionTypeDao" ref="questionTypeDao" />
 	</bean>
 
 
@@ -195,8 +204,8 @@
 	<bean name="/question" class="com.yrw.web.actions.QuestionAction">
 		<property name="questionService" ref="questionService" />
 		<property name="sectionService" ref="sectionService" />
-		<property name="subjectService" ref="subjectService"/>
- 	</bean>
+		<property name="subjectService" ref="subjectService" />
+	</bean>
 	<bean name="/singleChoice" class="com.yrw.web.actions.SingleChoiceAction">
 		<property name="questionService" ref="questionService" />
 		<property name="sectionService" ref="sectionService" />
@@ -254,7 +263,8 @@
 	</bean>
 
 	<!-- 事务管理器 -->
-	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<tx:annotation-driven transaction-manager="transactionManager" />
