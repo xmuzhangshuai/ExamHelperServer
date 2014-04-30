@@ -23,7 +23,6 @@ public class SubjectService {
 	 */
 	public List getSubjectList() {
 
-		Subject subject = null;
 		List<Subject> subjectList = iSubjectDao.getSubject();
 		return subjectList;
 
@@ -67,42 +66,49 @@ public class SubjectService {
 	public void delSubjectByList(String params) {
 		iSubjectDao.delSubjects(params);
 	}
-	
-	/**得到所有subject
+
+	/**
+	 * 得到所有subject
+	 * 
 	 * @return
 	 */
-	public List<Subject> getSubjects(){
-	
+	public List<Subject> getSubjects() {
+
 		return iSubjectDao.getSubject();
 	}
 
 	public boolean addSubject(Subject subject) {
-		Subject existSubject=iSubjectDao.getSubjectByName(subject.getSubName());
-		if(existSubject==null)
-		{
+		Subject existSubject = iSubjectDao.getSubjectByName(subject.getSubName());
+		if (existSubject == null) {
 			iSubjectDao.addSubject(subject);
 			return true;
-		}
-		else 
+		} else
 			return false;
 	}
 
-	/**通过subject的名字得到对应Id
+	/**
+	 * 通过subject的名字得到对应Id
+	 * 
 	 * @param subjectName
 	 * @return
 	 */
-	public int getSubjectIdBySubjectName(String subjectName){
+	public int getSubjectIdBySubjectName(String subjectName) {
 		return iSubjectDao.getSubjectIdByName(subjectName);
 	}
-	
-	/**通过subjectName得到subject对象
+
+	/**
+	 * 通过subjectName得到subject对象
+	 * 
 	 * @param subjectName
 	 * @return
 	 */
-	public Subject getSubjectByName(String subjectName){
+	public Subject getSubjectByName(String subjectName) {
 		return iSubjectDao.getSubjectByName(subjectName);
 	}
-	/**根据Id得到subject	 * 
+
+	/**
+	 * 根据Id得到subject *
+	 * 
 	 * @param subjectId
 	 * @return
 	 */

@@ -98,6 +98,11 @@
     <servlet-name>UpdateLibraryServlet</servlet-name>
     <servlet-class>com.yrw.servlet.UpdateLibraryServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ChangeSubjectServlet</servlet-name>
+    <servlet-class>com.yrw.servlet.ChangeSubjectServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -195,6 +200,10 @@
   <servlet-mapping>
     <servlet-name>UpdateLibraryServlet</servlet-name>
     <url-pattern>/UpdateLibraryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ChangeSubjectServlet</servlet-name>
+    <url-pattern>/ChangeSubjectServlet</url-pattern>
   </servlet-mapping>
 
 
