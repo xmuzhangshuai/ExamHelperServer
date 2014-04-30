@@ -34,6 +34,17 @@
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showExamList";
 		document.getElementById("fom").submit();
 	}
+	function showExamInfor(){
+	var examInfor=document.getElementById("examInfor");
+	var examImage=document.getElementById("examImage");
+		if (examInfor.style.display == "none") {
+			examInfor.style.display = "";
+			examImage.src = "./images/ico03.gif";
+		} else {
+			examInfor.style.display = "none";
+			examImage.src = "./images/ico04.gif";
+		}
+	}
 	function editExamInfor() {
 		document.getElementById("examName").readOnly = false;
 		document.getElementById("subjectName").disabled = false;
@@ -97,47 +108,57 @@
 							<legend>试卷信息</legend>
 							<table>
 								<tr>
-									<td>试卷名称：</td>
-									<td><input type="text" name="examName" id="examName"
-										readonly="readonly" value="${examination.examName}"
-										style="width: 244px; " /></td>
-								</tr>
-								<tr align="left">
-									<td>科目名称：</td>
-									<td><select name="subjectName" id="subjectName"
-										style="width: 243px; " disabled="disabled">
-											<option>${subject.subName}</option>
-											<c:forEach items="${subjects}" var="item">
-												<option>${item.subName}</option>
-											</c:forEach>
-									</select></td>
+									<td><img name="image" id="examImage"
+										src="./images/ico04.gif" width="8" height="11" /><a href="#" onclick="showExamInfor();">试卷信息</a></td>
 								</tr>
 								<tr>
-									<td>试卷类型：</td>
-									<td><input type="text" name="examType" id="examType"
-										value="${examination.examType}" style="width: 246px; "
-										readonly="readonly" /></td>
-								</tr>
-								<tr>
-									<td>考试时间：</td>
-									<td><input id="examTime" name="examTime" type="text"
-										readonly="readonly" value="${examination.examTime}"
-										style="width: 248px; " /></td>
-								</tr>
-								<tr>
-									<td>考试要求：</td>
-									<td style="height: 67px; width: 236px"><textarea
-											id="examRequest" name="examRequest" readonly="readonly"
-											style="width: 245px; height: 56px">${examination.examRequest}</textarea></td>
-								</tr>
+									<td><table id="examInfor" style="display: none;">
+											<tr>
+												<td>试卷名称：</td>
+												<td><input type="text" name="examName" id="examName"
+													readonly="readonly" value="${examination.examName}"
+													style="width: 244px; " /></td>
+											</tr>
+											<tr align="left">
+												<td>科目名称：</td>
+												<td><select name="subjectName" id="subjectName"
+													style="width: 243px; " disabled="disabled">
+														<option>${subject.subName}</option>
+														<c:forEach items="${subjects}" var="item">
+															<option>${item.subName}</option>
+														</c:forEach>
+												</select></td>
+											</tr>
+											<tr>
+												<td>试卷类型：</td>
+												<td><input type="text" name="examType" id="examType"
+													value="${examination.examType}" style="width: 246px; "
+													readonly="readonly" /></td>
+											</tr>
+											<tr>
+												<td>考试时间：</td>
+												<td><input id="examTime" name="examTime" type="text"
+													readonly="readonly" value="${examination.examTime}"
+													style="width: 248px; " /></td>
+											</tr>
+											<tr>
+												<td>考试要求：</td>
+												<td style="height: 67px; width: 236px"><textarea
+														id="examRequest" name="examRequest" readonly="readonly"
+														style="width: 245px; height: 56px">${examination.examRequest}</textarea></td>
+											</tr>
 
-								<TR>
-									<TD colspan="2" align="center" height="50px"><input
-										type="button" value="编辑" class="button" style="width: 83px; "
-										onclick="editExamInfor();" /> <input type="button" value="保存"
-										type="submit" style="width: 77px;"
-										onclick="saveExamInfor('${examination.id}');" class="button" /></TD>
-								</TR>
+											<TR>
+												<TD colspan="2" align="center" height="50px"><input
+													type="button" value="编辑" class="button"
+													style="width: 83px; " onclick="editExamInfor();" /> <input
+													type="button" value="保存" type="submit" style="width: 77px;"
+													onclick="saveExamInfor('${examination.id}');"
+													class="button" /></TD>
+											</TR>
+										</table>
+										</td>
+								</tr>
 							</table>
 							<br />
 						</fieldset>
@@ -181,9 +202,7 @@
 														type="button" value="编辑" class="button"
 														style="width: 83px; "
 														onclick="editSectionInfor('${examSection.id}');" /> <input
-														type="button" value="保存"
-														"
-														style="width: 77px;"
+														type="button" value="保存" style="width: 77px;"
 														onclick="saveSectionInfor('${examSection.id}','${examination.id}');"
 														class="button" /></TD>
 												</tr>
@@ -206,18 +225,17 @@
 											<legend>单项选择题</legend>
 											<table>
 												<tr>
-													<td><input type="button" class="button"
-														value="添加单项选择题" onclick="addSingleChoice();" /></td>
+													<td align="left"><input type="button" class="button"
+														value="添加单项选择题" onclick="addExamSingleChoice();"/></td>
 												</tr>
-												<tr>
-													<td>
-														<table>
-
-
-															<c:forEach items="${singleChoices}" var="singleChoice"
-																varStatus="singleChoiceCounter">
+												<c:forEach items="${singleChoices}" var="singleChoice"
+													varStatus="singleChoiceCounter">
+													<tr>
+														<td>
+															<table
+																<c:if test="${singleChoiceCounter.count%2==0}">bgcolor="#B2DFEE"</c:if>>
 																<tr>
-																	<td><a
+																	<td style="width: 698px; "><a
 																		href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">
 																			${singleChoiceCounter.count}:
 																			${singleChoice.questionStem}</a></td>
@@ -227,23 +245,29 @@
 																		<table>
 																			<tr>
 																				<td>A:${singleChoice.optionA}</td>
+																			</tr>
+																			<tr>
 																				<td>B:${singleChoice.optionB}</td>
+																			</tr>
+																			<tr>
 																				<td>C:${singleChoice.optionC}</td>
+																			</tr>
+																			<tr>
 																				<td>D:${singleChoice.optionD}</td>
+																			</tr>
+																			<tr>
 																				<td>E:${singleChoice.optionE}</td>
 																			</tr>
+
 																		</table>
 																	</td>
 																	<td><c:choose>
 																			<c:when test="${singleChoiceCounter.first}">
-																				<a
-																					href="javascript:alert("已为第一个");"
-																					>上移</a>|
+																				<a href="#">上移</a>|
 																	</c:when>
-																	<c:otherwise>
-																	<a
-																		href="${pageContext.request.contextPath}/examination.do?flag=moveSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}&type=decrease"
-																		>上移</a>|
+																			<c:otherwise>
+																				<a
+																					href="${pageContext.request.contextPath}/examination.do?flag=moveSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}&type=decrease">上移</a>|
 																	</c:otherwise>
 
 																		</c:choose> <a
@@ -251,128 +275,10 @@
 																		href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">查看|</a><a
 																		href="${pageContext.request.contextPath}/examination.do?flag=deleteSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}">删除</a></td>
 																</tr>
-															</c:forEach>
-														</table>
-													</td>
-												</tr>
-
-											</table>
-										</fieldset>
-									</td>
-								</tr>
-
-
-								<tr>
-									<td>
-										<fieldset>
-											<legend>多项选择题</legend>
-											<table>
-
-												<tr>
-													<td>
-														<table>
-
-															<c:forEach items="${multiChoices}" var="mulitChoice"
-																varStatus="multiChoiceCounter">
-																<tr>
-																	<td><a
-																		href="${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoice&multiChoiceId=${multiChoice.id}">
-																			${multiChoiceCounter.count}:
-																			${mulitChoice.questionStem}</a></td>
-																</tr>
-																<tr>
-																	<td>
-																		<table>
-																			<tr>
-																				<td>A:${mulitChoice.optionA}</td>
-																				<td>B:${mulitChoice.optionB}</td>
-																				<td>C:${mulitChoice.optionC}</td>
-																				<td>D:${mulitChoice.optionD}</td>
-																				<td>E:${mulitChoice.optionE}</td>
-																				<td>F:${mulitChoice.optionF}</td>
-																			</tr>
-																		</table>
-																	</td>
-																</tr>
-															</c:forEach>
-														</table>
-													</td>
-												</tr>
-
-											</table>
-										</fieldset>
-									</td>
-								</tr>
-
-
-								<tr>
-									<td>
-										<fieldset>
-											<legend>判断题</legend>
-											<table>
-
-												<tr>
-													<td>
-														<table>
-
-															<c:forEach items="${trueOrFalses}" var="trueOrFalse"
-																varStatus="trueOrFalseCounter">
-																<tr>
-																	<td><a
-																		href="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalse&trueOrFalseId=${trueOrFalse.id}">
-																			${trueOrFalseCounter.count}:
-																			${trueOrFalse.questionStem}</a></td>
-																</tr>
-
-															</c:forEach>
-														</table>
-													</td>
-												</tr>
-											</table>
-										</fieldset>
-									</td>
-								</tr>
-
-
-								<tr>
-									<td>
-										<fieldset>
-											<legend>材料分析题</legend>
-											<table>
-
-												<tr>
-													<td>
-														<table>
-
-															<c:forEach items="${materialAnalysises}"
-																var="materialAnalysis"
-																varStatus="materialAnalysisCounter">
-
-																<tr>
-																	<td><a
-																		href="${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysis&materialAnalysisId=${materialAnalysis.id}">
-																			${materialAnalysisCounter.count}:
-																			${materialAnalysis.material}</a></td>
-																</tr>
-																<tr>
-																	<td><img src="${materialAnalysis.materialImage}"></img></td>
-																</tr>
-																<c:forEach
-																	items="${materialAnalysis.questionsofmaterials}"
-																	var="questionOfMaterial"
-																	varStatus="questionOfMaterialCounter">
-																	<tr>
-
-																		<td><a
-																			href="${pageContext.request.contextPath}/materialAnalysis.do?flag=showQuestionOfMaterial&questionOfMaterialId=${questionOfMaterial.id}">
-																				(${questionOfMaterialCounter.count}):
-																				${questionOfMaterial.questionStem} </a></td>
-																	</tr>
-																</c:forEach>
-															</c:forEach>
-														</table>
-													</td>
-												</tr>
+															</table>
+														</td>
+													</tr>
+												</c:forEach>
 											</table>
 										</fieldset>
 									</td>
@@ -382,8 +288,142 @@
 						</fieldset></td>
 				</tr>
 
-			</TABLE>
 
+				<tr>
+					<td>
+						<fieldset>
+							<legend>多项选择题</legend>
+							<table>
+								<tr>
+									<td></td>
+								</tr>
+
+
+
+
+								<c:forEach items="${multiChoices}" var="mulitChoice"
+									varStatus="multiChoiceCounter">
+									<tr>
+										<td><table
+												<c:if test="${singleChoiceCounter.count%2==0}">bgcolor="#B2DFEE"</c:if>>
+												<tr>
+													<td><a
+														href="${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoice&multiChoiceId=${multiChoice.id}">
+															${multiChoiceCounter.count}: ${mulitChoice.questionStem}</a></td>
+												</tr>
+												<tr>
+													<td>
+														<table>
+															<tr>
+																<td>A:${mulitChoice.optionA}</td>
+															</tr>
+															<tr>
+																<td>B:${mulitChoice.optionB}</td>
+															</tr>
+															<tr>
+																<td>C:${mulitChoice.optionC}</td>
+															</tr>
+															<tr>
+																<td>D:${mulitChoice.optionD}</td>
+															</tr>
+															<tr>
+																<td>E:${mulitChoice.optionE}</td>
+															</tr>
+															<tr>
+																<td>F:${mulitChoice.optionF}</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+											</table></td>
+									</tr>
+								</c:forEach>
+
+							</table>
+						</fieldset>
+					</td>
+				</tr>
+
+
+				<tr>
+					<td>
+						<fieldset>
+							<legend>判断题</legend>
+							<table>
+								<tr>
+									<td></td>
+								</tr>
+
+								<c:forEach items="${trueOrFalses}" var="trueOrFalse"
+									varStatus="trueOrFalseCounter">
+
+									<tr>
+										<td>
+											<table
+												<c:if test="${singleChoiceCounter.count%2==0}">bgcolor="#B2DFEE"</c:if>>
+												<tr>
+													<td><a
+														href="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalse&trueOrFalseId=${trueOrFalse.id}">
+															${trueOrFalseCounter.count}: ${trueOrFalse.questionStem}</a></td>
+												</tr>
+
+											</table>
+										</td>
+									</tr>
+								</c:forEach>
+							</table>
+						</fieldset>
+					</td>
+				</tr>
+
+
+
+				<tr>
+					<td>
+						<fieldset>
+							<legend>材料分析题</legend>
+							<table>
+								<tr>
+									<td></td>
+								</tr>
+
+
+
+								<c:forEach items="${materialAnalysises}" var="materialAnalysis"
+									varStatus="materialAnalysisCounter">
+									<tr>
+										<td>
+											<table
+												<c:if test="${singleChoiceCounter.count%2==0}">bgcolor="#B2DFEE"</c:if>>
+												<tr>
+													<td><a
+														href="${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysis&materialAnalysisId=${materialAnalysis.id}">
+															${materialAnalysisCounter.count}:
+															${materialAnalysis.material}</a></td>
+												</tr>
+												<tr>
+													<td><img src="${materialAnalysis.materialImage}"></img></td>
+												</tr>
+												<c:forEach items="${materialAnalysis.questionsofmaterials}"
+													var="questionOfMaterial"
+													varStatus="questionOfMaterialCounter">
+													<tr>
+
+														<td><a
+															href="${pageContext.request.contextPath}/materialAnalysis.do?flag=showQuestionOfMaterial&questionOfMaterialId=${questionOfMaterial.id}">
+																(${questionOfMaterialCounter.count}):
+																${questionOfMaterial.questionStem} </a></td>
+													</tr>
+												</c:forEach>
+											</table>
+										</td>
+									</tr>
+								</c:forEach>
+							</table>
+						</fieldset>
+					</td>
+				</tr>
+			</table>
 		</div>
 	</form>
 </body>

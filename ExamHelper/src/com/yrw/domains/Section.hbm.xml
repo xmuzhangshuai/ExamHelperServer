@@ -16,55 +16,55 @@
         <property name="sectionName" type="java.lang.String">
             <column name="section_name" length="128" not-null="true" />
         </property>
-        <set name="scollections" inverse="true">
+        <set name="scollections" inverse="true" cascade="all-delete-orphan">
             <key>
                 <column name="section_id" not-null="true" />
             </key>
             <one-to-many class="com.yrw.domains.Scollection" />
         </set>
-        <set name="groups" inverse="true">
+        <set name="groups" inverse="true" cascade="all-delete-orphan">
             <key>
                 <column name="section_id" not-null="true" />
             </key>
             <one-to-many class="com.yrw.domains.Group" />
         </set>
-        <set name="singlechoices" inverse="true">
+        <set name="singlechoices" inverse="true" cascade="all-delete-orphan">
             <key>
                 <column name="section_id" />
             </key>
             <one-to-many class="com.yrw.domains.Singlechoice" />
         </set>
-        <set name="trueorfalses" inverse="true">
+        <set name="trueorfalses" inverse="true" cascade="all-delete-orphan">
             <key>
                 <column name="section_id" />
             </key>
             <one-to-many class="com.yrw.domains.Trueorfalse" />
         </set>
-        <set name="multichoices" inverse="true">
+        <set name="multichoices" inverse="true" cascade="all-delete-orphan">
             <key>
                 <column name="section_id" />
             </key>
             <one-to-many class="com.yrw.domains.Multichoice" />
         </set>
-        <set name="collections" inverse="true">
+        <set name="collections" inverse="true" cascade="all-delete-orphan">
             <key>
                 <column name="section_id" not-null="true" />
             </key>
             <one-to-many class="com.yrw.domains.Collection" />
         </set>
-        <set name="materialanalysises" inverse="true">
+        <set name="materialanalysises" inverse="true" cascade="all-delete-orphan">
             <key>
                 <column name="section_id" />
             </key>
             <one-to-many class="com.yrw.domains.Materialanalysis" />
         </set>
-        <set name="errorquestionses" inverse="true">
+        <set name="errorquestionses" inverse="true" cascade="all-delete-orphan">
             <key>
                 <column name="section_id" not-null="true" />
             </key>
             <one-to-many class="com.yrw.domains.Errorquestions" />
         </set>
-        <set name="serrorquestionses" inverse="true">
+        <set name="serrorquestionses" inverse="true" cascade="all-delete-orphan">
             <key>
                 <column name="section_id" not-null="true" />
             </key>

@@ -198,8 +198,8 @@
 															href="${pageContext.request.contextPath}/section.do?flag=updateSectionUI&sectionId=${section.id}"
 															>编辑|</a><a
 															href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&sectionName=${section.sectionName}">查看|</a>
-															<!--  	<a href="${pageContext.request.contextPath}/listQuestion.do?flag=deleteSection&sectionId=${section.id}">删除</a></td>-->
-															<a href="#">删除</a></td>
+																<a href="${pageContext.request.contextPath}/section.do?flag=deleteSection&sectionId=${section.id}">删除</a>
+															</td>
 													</tr>
 												</c:forEach>
 											</table>

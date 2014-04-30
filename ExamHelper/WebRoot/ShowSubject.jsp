@@ -60,23 +60,7 @@ html {
 <link href="./css/css.css" rel="stylesheet" type="text/css" />
 <link href="./css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" language="javascript">
-	function deleteSubject(subjectId) {
-
-		var id = "deleteSingleSubject" + subjectId
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=deleteSubject&subjectId="
-				+ subjectId;
-		document.getElementById("fom").submit();
-		alert("删除成功");
-		window.parent.frames["leftFrame"].location.reload();
-		//document.getElementById(id).href = "${pageContext.request.contextPath}/subject.do?flag=deleteSubject&subjectId="
-		//+ subjectId
-
-		//	var a = document.getElementById(id)
-		//	a[0].click();
-		//    alert("删除成功");
-		//	window.parent.frames["leftFrame"].href="${pageContext.request.contextPath}/login.do?flag=loadLeft";
-
-	}
+	
 
 	function sousuo() {
 		window
@@ -235,8 +219,8 @@ html {
 														<td><a
 															href="${pageContext.request.contextPath}/subject.do?flag=updateSubjectUI&subjectId=${subject.id}">编辑|</a><a
 															href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subject.id}">查看|</a>
-															<a onclick="deleteSubject('${subject.id}');"
-															id="deleteSingleSubject${subject.id}">删除</a></td>
+															<a 
+															id="deleteSingleSubject${subject.id}" href="${pageContext.request.contextPath}/subject.do?flag=deleteSubject&subjectId=${subject.id}">删除</a></td>
 													</tr>
 												</c:forEach>
 											</table>
