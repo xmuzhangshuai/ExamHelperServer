@@ -63,8 +63,25 @@ public class UpdateLibraryServlet extends BaseServlet {
 					msg = FastJsonTools.createJsonString(updateLibraryService.getJMaterias(subjectId));
 				}
 
+				// 如果是材料题小题
 				else if (questionType.equals("questionOfMateria")) {
 					msg = FastJsonTools.createJsonString(updateLibraryService.getJQuestionsOfMaterial(subjectId));
+				}
+
+				// 如果是试卷
+				else if (questionType.equals("examination")) {
+					msg = FastJsonTools.createJsonString(updateLibraryService.getJExaminationList(subjectId));
+				}
+
+				// 如果是试卷答题
+				else if (questionType.equals("examSection")) {
+					msg = FastJsonTools.createJsonString(updateLibraryService.getJExamSectionList(subjectId));
+				}
+
+				// 如果是试卷题目
+				else if (questionType.equals("examQuestion")) {
+					msg = FastJsonTools.createJsonString(updateLibraryService.getJExamQuestionList(subjectId));
+					System.out.println(msg);
 				}
 			}
 		}

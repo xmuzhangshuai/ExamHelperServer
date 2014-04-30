@@ -5,7 +5,7 @@ import java.util.List;
 import com.yrw.domains.Examquestion;
 import com.yrw.idao.IExamQuestionDao;
 
-public class ExamQuestion extends BasicDao implements IExamQuestionDao {
+public class ExamQuestionDao extends BasicDao implements IExamQuestionDao {
 
 	@Override
 	public List getExamQuestionBySection(int examSectionId, int pageNow) {

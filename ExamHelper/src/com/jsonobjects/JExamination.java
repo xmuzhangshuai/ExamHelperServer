@@ -3,6 +3,7 @@ package com.jsonobjects;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.yrw.domains.Examination;
 import com.yrw.domains.Subject;
 import com.yrw.idao.ISubjectDao;
 
@@ -40,7 +41,7 @@ public class JExamination {
 	 * 
 	 * @return
 	 */
-	public com.yrw.domains.Examination NetToLocal() {
+	public Examination NetToLocal() {
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 		ISubjectDao iSubjectDao = (ISubjectDao) applicationContext.getBean("subjectDao");
 
@@ -55,11 +56,10 @@ public class JExamination {
 	 * 
 	 * @return
 	 */
-	public static JErrorQuestions LocalToNet(com.yrw.domains.Errorquestions local) {
-		JErrorQuestions errorQuestions = new JErrorQuestions((long) local.getId(), (long) local.getQuestionId(),
-				local.getErrorTime(), local.getErrorNum(), (long) local.getUser().getId(), (long) local
-						.getQuestiontype().getId(), (long) local.getSection().getId());
-		return errorQuestions;
+	public static JExamination LocalToNet(Examination local) {
+		JExamination jExamination = new JExamination(local.getId().longValue(), local.getExamType(),
+				local.getExamName(), local.getExamRequest(), local.getExamTime(), local.getSubject().getId());
+		return jExamination;
 	}
 
 	public Long getId() {

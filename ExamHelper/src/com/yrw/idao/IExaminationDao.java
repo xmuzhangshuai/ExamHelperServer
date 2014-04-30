@@ -56,6 +56,15 @@ public interface IExaminationDao extends IBasicDao {
 	public List getExamBySubject(int subjectId, int pageNow);
 
 	/**
+	 * Method getExamBySubject 得到某个科目的所有试卷列表
+	 * 
+	 * @param pageNow
+	 * @param subjectId
+	 * @return exams
+	 */
+	public List getExamBySubject(int subjectId);
+
+	/**
 	 * Method getPageCountBySubject
 	 * 
 	 * @param subjectId
@@ -63,12 +72,14 @@ public interface IExaminationDao extends IBasicDao {
 	 */
 	public int getPageCountBySubject(int subjectId);
 
-	
-	/**得到exam对象
+	/**
+	 * 得到exam对象
+	 * 
 	 * @param examId
 	 * @return
 	 */
 	public Examination showExam(int examId);
+
 	/**
 	 * Method addExam
 	 * 
@@ -82,18 +93,19 @@ public interface IExaminationDao extends IBasicDao {
 	 * @param examination
 	 */
 	public void delExam(Examination examination);
+
 	/**
 	 * Method delExams
 	 * 
 	 * @param examination
 	 */
 	public void delExam(List<Examination> examinations);
+
 	/**
 	 * Method delExam
 	 * 
 	 * @param examination
 	 */
 	public void modifyExam(Examination examination);
-	
 
 }
