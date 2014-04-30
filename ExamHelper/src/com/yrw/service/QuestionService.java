@@ -312,6 +312,15 @@ public class QuestionService {
 		return null;
 	}
 
+	/**获得某个题型对象
+	 * @param questionTypeId
+	 * @return
+	 */
+	public Questiontype getQuestiontype(int questionTypeId) {
+
+	return	iQuestionTypeDao.getQuestiontypeById(questionTypeId);
+	}
+
 	/**
 	 * 删除某个题
 	 * 
@@ -484,9 +493,12 @@ public class QuestionService {
 				.getMaxQuestionNumByMaterialId(materialAnalysisId);
 	}
 
-	public List<Questionsofmaterial> getOrderedQuestionsofmaterials(int materialAnalysisId){
-		return iQuestionsOfMaterial.getQuestionOfMaterialByMaterialId(materialAnalysisId);
+	public List<Questionsofmaterial> getOrderedQuestionsofmaterials(
+			int materialAnalysisId) {
+		return iQuestionsOfMaterial
+				.getQuestionOfMaterialByMaterialId(materialAnalysisId);
 	}
+
 	/**
 	 * 修改小题的编号
 	 * 
@@ -574,7 +586,7 @@ public class QuestionService {
 							.updateQuestionOfMaterial(questionsofmaterial);
 					iQuestionsOfMaterial
 							.updateQuestionOfMaterial(nextQuestionsofmaterial);
-				
+
 					break;
 				}
 			}

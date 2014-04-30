@@ -126,12 +126,9 @@ public class SectionAction extends DispatchAction {
 
 		int sectionId = Integer.parseInt(request.getParameter("sectionId"));
 		Section section = sectionService.showSection(sectionId);
-		List<Subject> subjectList = subjectService.getSubjectList(section
-				.getSubject().getId());
+		List<Subject> subjectList = subjectService.getSubjectList();
 
 		request.setAttribute("section", section);
-		request.setAttribute("subject", subjectList.get(0));
-		subjectList.remove(0);
 		request.setAttribute("subjects", subjectList);
 		return mapping.findForward("updateSectionUI");
 
@@ -224,13 +221,12 @@ public class SectionAction extends DispatchAction {
 	 */
 	public ActionForward deleteSection(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
+	
+		System.out.println("É¾³ý");
 		int sectionId = Integer.parseInt(request.getParameter("sectionId"));
-		int subjectId = sectionService.showSection(sectionId).getSubject()
-				.getId();
-
+		
 		sectionService.deleteSection(sectionId);
-		request.getSession().setAttribute("subjectId", subjectId);
-
+		
 		return showSectionListBySubject(mapping, null, request, response);
 	}
 

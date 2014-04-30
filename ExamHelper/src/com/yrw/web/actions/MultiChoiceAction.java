@@ -75,7 +75,6 @@ public class MultiChoiceAction extends DispatchAction {
 			sectionName = new String(request.getParameter("sectionName")
 					.getBytes("ISO-8859-1"), "utf-8");
 
-		
 		String typeName = DefaultValue.MULTI_CHOICE;
 		Section existSection = sectionService
 				.getSectionBySectionName(sectionName);
@@ -89,13 +88,11 @@ public class MultiChoiceAction extends DispatchAction {
 		request.setAttribute("subjects", subjectService.getSubjects());
 
 		// 加载问题类型
-		List<Questiontype> questiontypes = questionService
-				.showQuestiontypes();
+		List<Questiontype> questiontypes = questionService.showQuestiontypes();
 		request.setAttribute("questionTypeName", typeName);
 		request.setAttribute("questionTypes", questiontypes);
 
 		// 加载章节下的题目
-		
 
 		List collection = questionService.listQuestionBySection(
 				existSection.getId(), pageNowString, typeName);
@@ -136,26 +133,19 @@ public class MultiChoiceAction extends DispatchAction {
 		// 获得subject下拉菜单里的所有subject
 		int subjectId = (Integer) request.getSession()
 				.getAttribute("subjectId");
-		List<Subject> subjectList = subjectService.getSubjectList(subjectId);
-		if (subjectList != null) {
-			request.setAttribute("subject", subjectList.get(0));
-			subjectList.remove(0);
-			request.setAttribute("subjects", subjectList);
-		} else
-			request.setAttribute("subject", "暂无所属科目");
+		List<Subject> subjectList = subjectService.getSubjectList();
+		request.setAttribute("subjects", subjectList);
 
 		// 获得下拉菜单里的所有section
 
-		List<Section> sectionList = sectionService.listSectionBySubIdAndSecId(
-				subjectId, multichoice.getSection().getId());
+		List<Section> sectionList = sectionService
+				.listSectionBySubIdAndSecId(subjectId);
 
 		if (sectionList != null) {
-
-			request.setAttribute("section", sectionList.get(0));
-			sectionList.remove(0);
+			request.setAttribute("sectionName", multichoice.getSection()
+					.getSectionName());
 			request.setAttribute("sections", sectionList);
-		} else
-			request.setAttribute("section", "暂无所属科目");
+		}
 		if (isEdit != null) {
 			return mapping.findForward("editMultiChoice");
 		} else
@@ -249,7 +239,8 @@ public class MultiChoiceAction extends DispatchAction {
 		int subjectId = (Integer) request.getSession()
 				.getAttribute("subjectId");
 		System.out.println("MultiChoiceAction addMultiChoiceUI " + subjectId);
-		List<Section> sectionList = sectionService.listSectionBySubject(subjectId);
+		List<Section> sectionList = sectionService
+				.listSectionBySubject(subjectId);
 		List<Subject> subjectList = subjectService.getSubjects();
 		request.setAttribute("subjects", subjectList);
 		request.setAttribute("sections", sectionList);
@@ -339,16 +330,17 @@ public class MultiChoiceAction extends DispatchAction {
 			HttpServletResponse response) throws UnsupportedEncodingException {
 		int multiChoiceId = Integer.parseInt(request
 				.getParameter("multiChoiceId"));
-		
+
 		Multichoice multichoice = (Multichoice) questionService.getQuestion(
 				multiChoiceId, DefaultValue.MULTI_CHOICE);
 		if (multichoice != null) {
 			request.setAttribute("sectionName", multichoice.getSection()
 					.getSectionName());
-			System.out.println("deleteMultiChoice "+multichoice.getSection().getSectionName());
+			System.out.println("deleteMultiChoice "
+					+ multichoice.getSection().getSectionName());
 			questionService.deleteQuestion(DefaultValue.MULTI_CHOICE,
 					multichoice);
-			
+
 		}
 
 		request.setAttribute("source", "deleteMultiChoice");

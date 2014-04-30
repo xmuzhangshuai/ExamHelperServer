@@ -23,10 +23,13 @@ import com.yrw.domains.Examsection;
 import com.yrw.domains.Materialanalysis;
 import com.yrw.domains.Multichoice;
 import com.yrw.domains.Questiontype;
+import com.yrw.domains.Section;
 import com.yrw.domains.Singlechoice;
 import com.yrw.domains.Subject;
 import com.yrw.domains.Trueorfalse;
 import com.yrw.service.ExamService;
+import com.yrw.service.QuestionService;
+import com.yrw.service.SectionService;
 import com.yrw.service.SubjectService;
 import com.yrw.web.forms.ExaminationForm;
 
@@ -41,6 +44,17 @@ public class ExaminationAction extends DispatchAction {
 
 	private ExamService examService;
 	private SubjectService subjectService;
+	private SectionService sectionService;
+	private QuestionService questionService;
+
+	
+	public void setQuestionService(QuestionService questionService) {
+		this.questionService = questionService;
+	}
+
+	public void setSectionService(SectionService sectionService) {
+		this.sectionService = sectionService;
+	}
 
 	public void setSubjectService(SubjectService subjectService) {
 		this.subjectService = subjectService;
@@ -127,14 +141,12 @@ public class ExaminationAction extends DispatchAction {
 		// 设置examination在jsp上的对象
 		request.setAttribute("examination", examination);
 		// 设置examination中科目的下拉框
-		List<Subject> subjectList = subjectService.getSubjectList(examination
-				.getSubject().getId());
+		List<Subject> subjectList = subjectService.getSubjectList();
 		if (subjectList != null) {
-			request.setAttribute("subject", subjectList.get(0));
-			subjectList.remove(0);
+			request.getSession().setAttribute("subjectId",  examination.getSubject().getId());
 			request.setAttribute("subjects", subjectList);
-		} else
-			request.setAttribute("subject", "暂无所属科目");
+		}
+		
 		// 设置examination下的题型
 		List<Examsection> examsections = new ArrayList<Examsection>(
 				examination.getExamsections());
@@ -156,6 +168,7 @@ public class ExaminationAction extends DispatchAction {
 					DefaultValue.TRUE_OR_FALSE)) {
 				List<Trueorfalse> trueorfalses = (List<Trueorfalse>) examService
 						.getQuestions(examsections.get(i));
+				System.out.println(trueorfalses);
 				request.setAttribute("trueOrFalses", trueorfalses);
 			} else if (questiontype.getTypeName().equals(
 					DefaultValue.MATERIAL_ANALYSIS)) {
@@ -283,5 +296,33 @@ public class ExaminationAction extends DispatchAction {
 		int examId = Integer.parseInt(request.getParameter("examinationId"));
 		examService.deleteSingleChoice(examId, singleChoiceId);
 		return showExamination(mapping, form, request, response);
+	}
+	
+	/**添加单项选择题
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward addExamSingleChoiceUI(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response){
+		//获得sectionid
+		int examSectionId=Integer.parseInt(request.getParameter("examSectionId"));
+		request.getSession().setAttribute("examSectionId", examSectionId);
+		//设置页面的subject的下拉菜单
+		List<Subject> subjects=subjectService.getSubjectList();
+		if(subjects!=null)
+			request.setAttribute("subjects", subjects);
+		//设置页面的章节下拉菜单
+		List<Section> sections=sectionService.listSectionBySubject((Integer)request.getSession().getAttribute("subjectId"));
+		request.setAttribute("sections", sections);
+		//设置页面的题型列表
+		List<Questiontype> questiontypes =new ArrayList<Questiontype>();
+		questiontypes.add(questionService.getQuestiontype(1));
+		request.setAttribute("questionTypeName", DefaultValue.SINGLE_CHOICE);
+		request.setAttribute("questionTypes", questiontypes);
+		return mapping.findForward("addExamSingleChoiceUI");
 	}
 }

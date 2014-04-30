@@ -141,26 +141,20 @@ public class MaterialAnalysisAction extends DispatchAction {
 		// 获得subject下拉菜单里的所有subject
 		int subjectId = (Integer) request.getSession()
 				.getAttribute("subjectId");
-		List<Subject> subjectList = subjectService.getSubjectList(subjectId);
+		List<Subject> subjectList = subjectService.getSubjectList();
 		if (subjectList != null) {
-			request.setAttribute("subject", subjectList.get(0));
-			subjectList.remove(0);
 			request.setAttribute("subjects", subjectList);
-		} else
-			request.setAttribute("subject", "暂无所属科目");
+		} 
 
 		// 获得下拉菜单里的所有section
 
 		List<Section> sectionList = sectionService.listSectionBySubIdAndSecId(
-				subjectId, materialanalysis.getSection().getId());
-
+				subjectId);
+ 
 		if (sectionList != null) {
-
-			request.setAttribute("section", sectionList.get(0));
-			sectionList.remove(0);
 			request.setAttribute("sections", sectionList);
-		} else
-			request.setAttribute("section", "暂无所属科目");
+			request.setAttribute("sectionName", materialanalysis.getSection().getSectionName());
+		} 
 		if (isEdit != null) {
 			return mapping.findForward("editMaterialAnalysis");
 		} else
