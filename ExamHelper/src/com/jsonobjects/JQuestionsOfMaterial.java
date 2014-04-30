@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.yrw.domains.Materialanalysis;
+import com.yrw.domains.Questionsofmaterial;
 import com.yrw.idao.IMaterialAnalysisDao;
 
 /**
@@ -48,7 +49,7 @@ public class JQuestionsOfMaterial {
 	 * 
 	 * @return
 	 */
-	public static JQuestionsOfMaterial LocalToNet(com.yrw.domains.Questionsofmaterial local) {
+	public static JQuestionsOfMaterial LocalToNet(Questionsofmaterial local) {
 		JQuestionsOfMaterial net = new JQuestionsOfMaterial((long) local.getId(), local.getQuestionNumber(),
 				local.getQuestionStem(), local.getAnswer(), local.getAnalysis(), local.getScore(), local
 						.getMaterialanalysis().getId());
