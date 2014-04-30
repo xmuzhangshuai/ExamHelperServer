@@ -74,6 +74,15 @@ public class ExamService {
 		this.iExamSectionDao = iExamSectionDao;
 	}
 
+	/**
+	 * 根据科目Id返回试卷列表
+	 * @param subjectId
+	 * @return
+	 */
+	public List<Examination> getExaminationListBySubjectId(int subjectId){
+		return iExaminationDao.getExamBySubject(subjectId);
+	}
+	
 	public List<Examination> listExaminations(String pageNowString) {
 		int pageNow = 1;
 		int pageCount = iExaminationDao.getPageCount();

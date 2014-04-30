@@ -95,7 +95,7 @@
 	<bean id="sectionDao" class="com.yrw.dao.SectionDao" />
 	<bean id="answerQueryDao" class="com.yrw.dao.AnswerQueryDao" />
 	<bean id="examinationDao" class="com.yrw.dao.ExaminationDao" />
-	<bean id="examQuestionDao" class="com.yrw.dao.ExamQuestion" />
+	<bean id="examQuestionDao" class="com.yrw.dao.ExamQuestionDao" />
 	<bean id="examSectionDao" class="com.yrw.dao.ExamSectionDao" />
 	<bean id="materialAnalysisDao" class="com.yrw.dao.MaterialAnalysisDao" />
 	<bean id="multiChoiceDao" class="com.yrw.dao.MultiChoiceDao" />
@@ -185,6 +185,7 @@
 		<property name="subjectService" ref="subjectService" />
 		<property name="iQuestionTypeDao" ref="questionTypeDao" />
 		<property name="sectionService" ref="sectionService" />
+		<property name="examService" ref="examService" />
 	</bean>
 
 

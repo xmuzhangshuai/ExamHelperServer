@@ -3,6 +3,7 @@ package com.jsonobjects;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.yrw.domains.Examquestion;
 import com.yrw.domains.Examsection;
 import com.yrw.idao.IExamSectionDao;
 
@@ -50,7 +51,7 @@ public class JExamQuestion {
 	 * 
 	 * @return
 	 */
-	public static JExamQuestion LocalToNet(com.yrw.domains.Examquestion local) {
+	public static JExamQuestion LocalToNet(Examquestion local) {
 		JExamQuestion net = new JExamQuestion((long) local.getId(), local.getQuestionNumber(), local.getQuestionId(),
 				local.getExamsection().getId());
 		return net;

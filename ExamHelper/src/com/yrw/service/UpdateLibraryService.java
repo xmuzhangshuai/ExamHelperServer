@@ -4,11 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.jsonobjects.JExamQuestion;
+import com.jsonobjects.JExamSection;
+import com.jsonobjects.JExamination;
 import com.jsonobjects.JMaterialAnalysis;
 import com.jsonobjects.JMultiChoice;
 import com.jsonobjects.JQuestionsOfMaterial;
 import com.jsonobjects.JSection;
 import com.jsonobjects.JSingleChoice;
+import com.yrw.domains.Examination;
+import com.yrw.domains.Examquestion;
+import com.yrw.domains.Examsection;
 import com.yrw.domains.Materialanalysis;
 import com.yrw.domains.Multichoice;
 import com.yrw.domains.Questionsofmaterial;
@@ -24,6 +30,7 @@ public class UpdateLibraryService {
 	private SubjectService subjectService;
 	private IQuestionTypeDao iQuestionTypeDao;
 	private SectionService sectionService;
+	private ExamService examService;
 
 	public void setQuestionService(QuestionService questionService) {
 		this.questionService = questionService;
@@ -39,6 +46,10 @@ public class UpdateLibraryService {
 
 	public void setSectionService(SectionService sectionService) {
 		this.sectionService = sectionService;
+	}
+
+	public void setExamService(ExamService examService) {
+		this.examService = examService;
 	}
 
 	/**
@@ -200,5 +211,81 @@ public class UpdateLibraryService {
 		}
 
 		return jQuestionsOfMaterials;
+	}
+
+	/**
+	 * 试卷列表
+	 * 
+	 * @param subjectId
+	 * @return
+	 */
+	public List<JExamination> getJExaminationList(int subjectId) {
+		List<JExamination> jExaminationList = new ArrayList<JExamination>();
+		List<Examination> examinationList = examService.getExaminationListBySubjectId(subjectId);
+		if (examinationList != null) {
+			for (Examination examination : examinationList) {
+				JExamination jExamination = JExamination.LocalToNet(examination);
+				jExaminationList.add(jExamination);
+			}
+		}
+
+		return jExaminationList;
+	}
+
+	/**
+	 * 试卷大题列表
+	 * 
+	 * @param subjectId
+	 * @return
+	 */
+	public List<JExamSection> getJExamSectionList(int subjectId) {
+		List<Examination> examinationList = examService.getExaminationListBySubjectId(subjectId);
+		List<JExamSection> jExamSectionList = new ArrayList<JExamSection>();
+		List<Examsection> examsectionList = new ArrayList<Examsection>();
+		if (examinationList != null) {
+			for (Examination examination : examinationList) {
+				examsectionList.addAll(examination.getExamsections());
+			}
+		}
+		if (examsectionList != null) {
+			for (Examsection examsection : examsectionList) {
+				JExamSection jExamSection = JExamSection.LocalToNet(examsection);
+				jExamSectionList.add(jExamSection);
+			}
+		}
+
+		return jExamSectionList;
+	}
+
+	/**
+	 * 试卷题目列表
+	 * 
+	 * @param subjectId
+	 * @return
+	 */
+	public List<JExamQuestion> getJExamQuestionList(int subjectId) {
+		List<Examination> examinationList = examService.getExaminationListBySubjectId(subjectId);
+		List<JExamQuestion> jExamQuestionList = new ArrayList<JExamQuestion>();
+		List<Examquestion> examQuestionList = new ArrayList<Examquestion>();
+		List<Examsection> examsectionList = new ArrayList<Examsection>();
+		if (examinationList != null) {
+			for (Examination examination : examinationList) {
+				examsectionList.addAll(examination.getExamsections());
+			}
+		}
+
+		if (examsectionList != null) {
+			for (Examsection examsection : examsectionList) {
+				examQuestionList.addAll(examsection.getExamquestions());
+			}
+		}
+		if (examQuestionList != null) {
+			for (Examquestion examQuestion : examQuestionList) {
+				JExamQuestion jExamQuestion = JExamQuestion.LocalToNet(examQuestion);
+				jExamQuestionList.add(jExamQuestion);
+			}
+		}
+
+		return jExamQuestionList;
 	}
 }

@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.yrw.domains.Examination;
+import com.yrw.domains.Examsection;
 import com.yrw.idao.IExaminationDao;
 import com.yrw.idao.IQuestionTypeDao;
 
@@ -59,7 +60,7 @@ public class JExamSection {
 	 * 
 	 * @return
 	 */
-	public static JExamSection LocalToNet(com.yrw.domains.Examsection local) {
+	public static JExamSection LocalToNet(Examsection local) {
 		JExamSection net = new JExamSection((long) local.getId(), local.getRequest(), local.getQuestionNum(),
 				local.getQuestionScore(), local.getQuestiontype().getId(), local.getExamination().getId());
 		return net;
