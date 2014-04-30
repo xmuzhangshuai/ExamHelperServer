@@ -141,7 +141,7 @@ public class MaterialAnalysisAction extends DispatchAction {
 		// 获得subject下拉菜单里的所有subject
 		int subjectId = (Integer) request.getSession()
 				.getAttribute("subjectId");
-		List<Subject> subjectList = subjectService.getSubjectList();
+		List<Subject> subjectList = subjectService.getSubjects();
 		if (subjectList != null) {
 			request.setAttribute("subjects", subjectList);
 		} 

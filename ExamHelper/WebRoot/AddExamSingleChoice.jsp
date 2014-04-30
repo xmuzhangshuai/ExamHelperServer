@@ -205,7 +205,7 @@
 
 			<tr>
 				<td height="30">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-image:url('./images/nav04.gif'); ">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
 						<tr>
 							<td align="left">
 											<table>
@@ -310,7 +310,7 @@
 											value="添加所选题目" onclick="delSelected();" /> <input
 											type="hidden" name="paramsHidden" id="paramsHidden" /> <input
 											name="Submit2" type="button" class="right-button08"
-											value="新建单项选择题" onclick="link();" /></td>
+											value="新增单项选择题" onclick="link();" /></td>
 									</tr>
 									<tr>
 										<td height="40" class="font42">

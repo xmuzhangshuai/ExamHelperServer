@@ -133,7 +133,7 @@ public class MultiChoiceAction extends DispatchAction {
 		// 获得subject下拉菜单里的所有subject
 		int subjectId = (Integer) request.getSession()
 				.getAttribute("subjectId");
-		List<Subject> subjectList = subjectService.getSubjectList();
+		List<Subject> subjectList = subjectService.getSubjects();
 		request.setAttribute("subjects", subjectList);
 
 		// 获得下拉菜单里的所有section

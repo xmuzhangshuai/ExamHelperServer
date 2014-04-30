@@ -141,7 +141,7 @@ public class ExaminationAction extends DispatchAction {
 		// 设置examination在jsp上的对象
 		request.setAttribute("examination", examination);
 		// 设置examination中科目的下拉框
-		List<Subject> subjectList = subjectService.getSubjectList();
+		List<Subject> subjectList = subjectService.getSubjects();
 		if (subjectList != null) {
 			request.getSession().setAttribute("subjectId",  examination.getSubject().getId());
 			request.setAttribute("subjects", subjectList);
@@ -310,13 +310,18 @@ public class ExaminationAction extends DispatchAction {
 			HttpServletResponse response){
 		//获得sectionid
 		int examSectionId=Integer.parseInt(request.getParameter("examSectionId"));
+		Section existSection=sectionService.showSection(examSectionId);
+		int subjectId=existSection.getSubject().getId();
+		request.getSession().setAttribute("subjectId", subjectId);
 		request.getSession().setAttribute("examSectionId", examSectionId);
+		
 		//设置页面的subject的下拉菜单
-		List<Subject> subjects=subjectService.getSubjectList();
+		List<Subject> subjects=subjectService.getSubjects();
 		if(subjects!=null)
 			request.setAttribute("subjects", subjects);
 		//设置页面的章节下拉菜单
-		List<Section> sections=sectionService.listSectionBySubject((Integer)request.getSession().getAttribute("subjectId"));
+		
+		List<Section> sections=sectionService.listSectionBySubject(subjectId);
 		request.setAttribute("sections", sections);
 		//设置页面的题型列表
 		List<Questiontype> questiontypes =new ArrayList<Questiontype>();

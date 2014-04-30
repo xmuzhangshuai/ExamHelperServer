@@ -126,7 +126,7 @@ public class SectionAction extends DispatchAction {
 
 		int sectionId = Integer.parseInt(request.getParameter("sectionId"));
 		Section section = sectionService.showSection(sectionId);
-		List<Subject> subjectList = subjectService.getSubjectList();
+		List<Subject> subjectList = subjectService.getSubjects();
 
 		request.setAttribute("section", section);
 		request.setAttribute("subjects", subjectList);
