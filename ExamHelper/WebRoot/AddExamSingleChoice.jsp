@@ -307,10 +307,10 @@
 												href="#" class="right-font08" onclick="selectAll();">全选</a>-<a
 												href="#" class="right-font08" onclick="unselectAll();">反选</a></span>
 											<input name="Submit" type="button" class="right-button08"
-											value="删除所选题目" onclick="delSelected();" /> <input
+											value="添加所选题目" onclick="delSelected();" /> <input
 											type="hidden" name="paramsHidden" id="paramsHidden" /> <input
 											name="Submit2" type="button" class="right-button08"
-											value="添加单项选择题" onclick="link();" /></td>
+											value="新建单项选择题" onclick="link();" /></td>
 									</tr>
 									<tr>
 										<td height="40" class="font42">
@@ -347,8 +347,7 @@
 														<td><a
 															href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}&edit=true">编辑|</a><a
 															href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">查看|</a>
-															<a
-															href="${pageContext.request.contextPath}/singleChoice.do?flag=deleteSingleChoice&singleChoiceId=${singleChoice.id}">删除</a></td>
+															</td>
 
 													</tr>
 												</c:forEach>

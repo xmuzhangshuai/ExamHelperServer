@@ -92,6 +92,7 @@
 			type="com.yrw.web.actions.ExaminationAction" cancellable="true">
 			<forward name="showExamList" path="/ShowExamList.jsp" />
 			<forward name="showExamination" path="/ShowExamination.jsp" />
+			<forward name="addExamSingleChoiceUI" path="/AddExamSingleChoice.jsp"/>
 		</action>
 		<action parameter="flag" path="/user" type="com.yrw.web.actions.UserAction" cancellable="true">
 			<forward name="userInfo" path="/UserInfo.jsp" />

@@ -176,11 +176,9 @@ public class SubjectAction extends DispatchAction {
 			Section existsection=sectionService.showSection(sectionId);
 			existsection.setSectionName(sectionName);
 	
-			List<Subject> subjectList=subjectService.getSubjectList(existsection.getSubject().getId());
+			List<Subject> subjectList=subjectService.getSubjectList();
 			
 			request.setAttribute("section", existsection);
-			request.setAttribute("subject", subjectList.get(0));
-			subjectList.remove(0);
 			request.setAttribute("subjects", subjectList);
 			return mapping.findForward("updateSectionUI");
 			}

@@ -21,21 +21,10 @@ public class SubjectService {
 	 * @param subjectId
 	 * @return
 	 */
-	public List getSubjectList(int subjectId) {
+	public List getSubjectList() {
 
 		Subject subject = null;
 		List<Subject> subjectList = iSubjectDao.getSubject();
-		int i = 0;
-		for (; i < subjectList.size(); i++) {
-
-			if (subjectList.get(i).getId() == subjectId) {
-				subject = subjectList.get(i);
-				break;
-			}
-		}
-		
-		subjectList.set(i, subjectList.get(0));
-		subjectList.set(0, subject);
 		return subjectList;
 
 	}

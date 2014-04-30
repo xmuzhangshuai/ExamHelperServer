@@ -82,6 +82,10 @@
 
 		document.getElementById("fom").submit();
 	}
+	function addExamSingleChoice(){
+	var examSectionId=document.getElementById("singleChoiceSection");
+	document.getElementById("fom").action="${pageContext.request.contextPath}/examination.do?flag=addExamSingleChoiceUI&examSectionId="examSectionId;
+	}
 	function InitList() {
 
 		if (!'${singleChoices}')
@@ -190,6 +194,23 @@
 											src="./images/ico04.gif" width="8" height="11" /> <a
 											href="#" onclick="showDetail('${examSection.id}');">${examSection.questiontype.typeName}信息</a></td>
 									</tr>
+									<tr><td>
+									<c:choose>
+									<c:when test="${examSection.questiontype.typeName==单项选择题}">
+									<input type="hidden" id="singleChoiceSection" value="${examSection.id}"/>
+									</c:when>
+									<c:when test="${examSection.questiontype.typeName==多项选择题}">
+									<input type="hidden" id="multiChoiceSection" value="${examSection.id}"/>
+									</c:when>
+									<c:when test="${examSection.questiontype.typeName==判断题}">
+									<input type="hidden" id="trueOrFalseSection" value="${examSection.id}"/>
+									</c:when>
+									<c:when test="${examSection.questiontype.typeName==材料分析题}">
+									<input type="hidden" id="materialAnalysisSection" value="${examSection.id}"/>
+									</c:when>
+									</c:choose>
+									
+									</td></tr>
 									<tr>
 										<td><table id="table${examSection.id}"
 												style="display:none;">

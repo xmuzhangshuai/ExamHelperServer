@@ -40,25 +40,9 @@ public class SectionService {
 	 * @param sectionId
 	 * @return
 	 */
-	public List<Section> listSectionBySubIdAndSecId(int subjectId, int sectionId) {
+	public List<Section> listSectionBySubIdAndSecId(int subjectId) {
 		List<Section> sectionList = iSectionDao.getSectionListBySubject(subjectId);
-		Section section = null;
-		int i = 0;
-		for (; i < sectionList.size(); i++) {
-			if (sectionList.get(i).getId() == sectionId) {
-				section = sectionList.get(i);
-				break;
-			}
-		}
-		if (i == sectionList.size()) {
-			System.out.println("SectionService sectionListÎª¿Õ");
-			return null;
-		} else {
-			sectionList.set(i, sectionList.get(0));
-			sectionList.set(0, section);
-			return sectionList;
-		}
-
+		return sectionList;
 	}
 	
 	/**
