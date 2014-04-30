@@ -205,7 +205,7 @@
 
 			<tr>
 				<td height="30">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-image:url('./images/nav04.gif'); ">
 						<tr>
 							<td align="left">
 											<table>

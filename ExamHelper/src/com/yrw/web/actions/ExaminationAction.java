@@ -168,6 +168,7 @@ public class ExaminationAction extends DispatchAction {
 					DefaultValue.TRUE_OR_FALSE)) {
 				List<Trueorfalse> trueorfalses = (List<Trueorfalse>) examService
 						.getQuestions(examsections.get(i));
+				System.out.println(trueorfalses);
 				request.setAttribute("trueOrFalses", trueorfalses);
 			} else if (questiontype.getTypeName().equals(
 					DefaultValue.MATERIAL_ANALYSIS)) {
@@ -308,7 +309,7 @@ public class ExaminationAction extends DispatchAction {
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response){
 		//获得sectionid
-		int examSectionId=Integer.parseInt(request.getParameter("examSectioId"));
+		int examSectionId=Integer.parseInt(request.getParameter("examSectionId"));
 		request.getSession().setAttribute("examSectionId", examSectionId);
 		//设置页面的subject的下拉菜单
 		List<Subject> subjects=subjectService.getSubjectList();
