@@ -81,7 +81,6 @@ public class UpdateLibraryServlet extends BaseServlet {
 				// 如果是试卷题目
 				else if (questionType.equals("examQuestion")) {
 					msg = FastJsonTools.createJsonString(updateLibraryService.getJExamQuestionList(subjectId));
-					System.out.println(msg);
 				}
 			}
 		}
