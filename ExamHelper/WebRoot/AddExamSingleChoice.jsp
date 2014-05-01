@@ -32,25 +32,24 @@
 		var trueOrFalse = "判断题"
 		var analysis = "简答题"
 
-		var subjectId = document.getElementById("subjectChoose").value;
 		var sectionName = document.getElementById("sectionChoose").value;
-		var questionType = document.getElementById("questionTypeChoose").value;
-		if (subjectId == "null" || sectionName == "null"
-				|| questionType == "null")
-			alert("请完整选择科目、章节、题型");
+		var questionTypeName=document.getElementById("questionTypeChoose").value;
+		
+		if (sectionName == "null")
+			alert("请选择章节");
 		else {
-			if (questionType == singleChoice)
+			if (questionTypeName == singleChoice)
 				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showQuestionForAddList&sectionName="
-						+ sectionName+"&typeName="+singleChoice;
-			else if (questionType == multiChoice)
+						+ sectionName+"&questionTypeName="+singleChoice;
+			else if (questionTypeNamee == multiChoice)
 				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showQuestionForAddList&sectionName="
-						+ sectionName+"&typeName="+multiChoice;
-			else if (questionType == trueOrFalse)
+						+ sectionName+"&questionTypeName="+multiChoice;
+			else if (questionTypeName == trueOrFalse)
 				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showQuestionForAddList&sectionName="
-						+ sectionName+"&typeName="trueOrFalse;
-			else if (questionType == analysis)
+						+ sectionName+"&questionTypeName="trueOrFalse;
+			else if (questionTypeName == analysis)
 				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showQuestionForAddList&sectionName="
-						+ sectionName+"&typeName="+analysis;
+						+ sectionName+"&questionTypeName="+analysis;
 
 			document.getElementById("fom").submit();
 		}
@@ -245,7 +244,7 @@
 
 													<td>题型：</td>
 													<td><select id="questionTypeChoose">
-															<option selected="selected">${questionTypeName}</option>
+															<option value="${questionTypeName}" selected="selected">${questionTypeName}</option>
 													</select></td>
 													<td>
 													<input type="button" value="查询"

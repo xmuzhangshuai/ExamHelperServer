@@ -76,13 +76,14 @@ public class ExamService {
 
 	/**
 	 * 根据科目Id返回试卷列表
+	 * 
 	 * @param subjectId
 	 * @return
 	 */
-	public List<Examination> getExaminationListBySubjectId(int subjectId){
+	public List<Examination> getExaminationListBySubjectId(int subjectId) {
 		return iExaminationDao.getExamBySubject(subjectId);
 	}
-	
+
 	public List<Examination> listExaminations(String pageNowString) {
 		int pageNow = 1;
 		int pageCount = iExaminationDao.getPageCount();
@@ -334,6 +335,8 @@ public class ExamService {
 		// }
 		// }
 	}
+
+
 
 	/**
 	 * 从试卷中剔除某个单选题

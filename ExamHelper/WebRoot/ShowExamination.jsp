@@ -85,7 +85,7 @@
 	function addExamSingleChoice() {
 		var examSectionId = document.getElementById("singleChoiceSection").value;
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamSingleChoiceUI&examSectionId="+
-		examSectionId;
+		examSectionId+"&questionTypeName=单项选择题";
 		alert(document.getElementById("fom").action)
 		document.getElementById("fom").submit();
 	}

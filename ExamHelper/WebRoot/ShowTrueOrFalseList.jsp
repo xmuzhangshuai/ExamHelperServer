@@ -169,83 +169,94 @@
 				<td height="30">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
 						<tr>
-							<td width="38">科目：</td>
-							<td style="width: 119px; "><select name="subjectChoose"
-								id="subjectChoose" onchange="loadSection();"
-								style="width: 101px; ">
-									<c:choose>
-										<c:when test="${empty subjectId}">
-											<option value="null" selected="selected">请选择科目</option>
-											<c:forEach items="${subjects}" var="subject">
-												<option value="${subject.sections}">${subject.subName}</option>
-											</c:forEach>
-										</c:when>
-										<c:otherwise>
-											<c:forEach items="${subjects}" var="subject">
+							<td height="62"
+								style="background-image:url('./images/nav04.gif'); ">
+
+								<table width="98%" border="0" align="center" cellpadding="0"
+									cellspacing="0">
+												<tr>
+													<td width="38">科目：</td>
+													<td style="width: 119px; "><select
+														name="subjectChoose" id="subjectChoose"
+														onchange="loadSection();" style="width: 101px; ">
+															<c:choose>
+																<c:when test="${empty subjectId}">
+																	<option value="null" selected="selected">请选择科目</option>
+																	<c:forEach items="${subjects}" var="subject">
+																		<option value="${subject.sections}">${subject.subName}</option>
+																	</c:forEach>
+																</c:when>
+																<c:otherwise>
+																	<c:forEach items="${subjects}" var="subject">
+																		<c:choose>
+																			<c:when test="${subject.id==subjectId}">
+																				<option value="${subject.sections}"
+																					selected="selected">${subject.subName}</option>
+																			</c:when>
+																			<c:otherwise>
+																				<option value="${subject.sections}">${subject.subName}</option>
+																			</c:otherwise>
+																		</c:choose>
+																	</c:forEach>
+																</c:otherwise>
+															</c:choose>
+													</select></td>
+
+
+														<td>章节：</td>
+										<td><select id="sectionChoose">
 												<c:choose>
-													<c:when test="${subject.id==subjectId}">
-														<option value="${subject.sections}" selected="selected">${subject.subName}</option>
+													<c:when test="${empty sectionName}">
+														<option value="null" selected="selected">请选择章节</option>
+														<c:forEach items="${sections}" var="section">
+															<option value="${section.sectionName}">${section.sectionName}</option>
+														</c:forEach>
 													</c:when>
 													<c:otherwise>
-														<option value="${subject.sections}">${subject.subName}</option>
+														<c:forEach items="${sections}" var="section">
+															<c:choose>
+																<c:when test="${section.sectionName==sectionName}">
+																	<option value="${section.sectionName}" selected="selected">${section.sectionName}</option>
+																</c:when>
+																<c:otherwise>
+																	<option value="${section.sectionName}">${section.sectionName}</option>
+																</c:otherwise>
+															</c:choose>
+														</c:forEach>
 													</c:otherwise>
 												</c:choose>
-											</c:forEach>
-										</c:otherwise>
-									</c:choose>
-							</select></td>
+										</select></td>
 
 
-							<td width="38">章节：</td>
-							<td><select id="sectionChoose">
-									<c:choose>
-										<c:when test="${empty sectionName}">
-											<option value="null" selected="selected">请选择章节</option>
-											<c:forEach items="${sections}" var="section">
-												<option value="${section.sectionName}">${section.sectionName}</option>
-											</c:forEach>
-										</c:when>
-										<c:otherwise>
-											<c:forEach items="${sections}" var="section">
-												<c:choose>
-													<c:when test="${section.sectionName==sectionName}">
-														<option value="${section.sectionName}" selected="selected">${section.sectionName}</option>
-													</c:when>
-													<c:otherwise>
-														<option value="${section.sectionName}">${section.sectionName}</option>
-													</c:otherwise>
-												</c:choose>
-											</c:forEach>
-										</c:otherwise>
-									</c:choose>
-							</select></td>
-
-
-							<td width="38">题型：</td>
-							<td><select id="questionTypeChoose">
-									<c:choose>
-										<c:when test="${empty questionTypeName}">
-											<option value="null" selected="selected">请选择题型</option>
-											<c:forEach items="${questionTypes}" var="type">
-												<option value="${type.typeName}">${type.typeName}</option>
-											</c:forEach>
-										</c:when>
-										<c:otherwise>
-											<c:forEach items="${questionTypes}" var="type">
-												<c:choose>
-													<c:when test="${type.typeName==questionTypeName}">
-														<option value="${type.typeName}" selected="selected">${type.typeName}</option>
-													</c:when>
-													<c:otherwise>
-														<option value="${type.typeName}">${type.typeName}</option>
-													</c:otherwise>
-												</c:choose>
-											</c:forEach>
-										</c:otherwise>
-									</c:choose>
-							</select></td>
-							<td><input type="button" value="查询" class="right-button02"
-								onclick="search();" /></td>
+													<td>题型：</td>
+													<td><select id="questionTypeChoose">
+															<c:choose>
+																<c:when test="${empty questionTypeName}">
+																	<option value="null" selected="selected">请选择题型</option>
+																	<c:forEach items="${questionTypes}" var="type">
+																		<option value="${type.typeName}">${type.typeName}</option>
+																	</c:forEach>
+																</c:when>
+																<c:otherwise>
+																	<c:forEach items="${questionTypes}" var="type">
+																		<c:choose>
+																			<c:when test="${type.typeName==questionTypeName}">
+																				<option value="${type.typeName}" selected="selected">${type.typeName}</option>
+																			</c:when>
+																			<c:otherwise>
+																				<option value="${type.typeName}">${type.typeName}</option>
+																			</c:otherwise>
+																		</c:choose>
+																	</c:forEach>
+																</c:otherwise>
+															</c:choose>
+													</select></td>
+													<td>
+													<input type="button" value="查询"
+											class="right-button02" onclick="search();" /></td>
+												</tr>
+											</table>
+										</td>
 						</tr>
 					</table>
 				</td>
