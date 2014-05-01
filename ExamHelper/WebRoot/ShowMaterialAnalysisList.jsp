@@ -30,7 +30,7 @@
 		var singleChoice = "单项选择题"
 		var multiChoice = "多项选择题"
 		var trueOrFalse = "判断题"
-		var analysis = "简答题"
+		var analysis = "材料分析题"
 
 		var subjectId = document.getElementById("subjectChoose").value;
 		var sectionName = document.getElementById("sectionChoose").value;

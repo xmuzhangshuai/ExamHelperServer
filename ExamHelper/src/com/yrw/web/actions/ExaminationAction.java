@@ -301,7 +301,7 @@ public class ExaminationAction extends DispatchAction {
 
 
 	/**
-	 * 添加单项选择题
+	 * 跳转到添加单项选择题的列表
 	 * 
 	 * @param mapping
 	 * @param form
@@ -310,7 +310,7 @@ public class ExaminationAction extends DispatchAction {
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	public ActionForward addExamSingleChoiceUI(ActionMapping mapping,
+	public ActionForward addExamQuestionUI(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws UnsupportedEncodingException {
 
@@ -369,6 +369,6 @@ public class ExaminationAction extends DispatchAction {
 			request.setAttribute("sections", sections);
 		}
 
-		return mapping.findForward("addExamSingleChoiceUI");
+		return mapping.findForward("addExamQuestionUI");
 	}
 }

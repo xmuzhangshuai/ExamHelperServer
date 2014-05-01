@@ -27,32 +27,20 @@
 						"depended=0,alwaysRaised=1,width=800,height=510,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
 	}
 		function search() {
+		
 		var singleChoice = "单项选择题"
 		var multiChoice = "多项选择题"
 		var trueOrFalse = "判断题"
-		var analysis = "简答题"
-
+		var analysis = "材料分析题"
+		
 		var sectionName = document.getElementById("sectionChoose").value;
 		var questionTypeName=document.getElementById("questionTypeChoose").value;
+		alert(questionTypeName)
+			if (sectionName == "null")
+			alert("请选择章节")
+			
+		alert("我的测试")
 		
-		if (sectionName == "null")
-			alert("请选择章节");
-		else {
-			if (questionTypeName == singleChoice)
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showQuestionForAddList&sectionName="
-						+ sectionName+"&questionTypeName="+singleChoice;
-			else if (questionTypeNamee == multiChoice)
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showQuestionForAddList&sectionName="
-						+ sectionName+"&questionTypeName="+multiChoice;
-			else if (questionTypeName == trueOrFalse)
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showQuestionForAddList&sectionName="
-						+ sectionName+"&questionTypeName="trueOrFalse;
-			else if (questionTypeName == analysis)
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showQuestionForAddList&sectionName="
-						+ sectionName+"&questionTypeName="+analysis;
-
-			document.getElementById("fom").submit();
-		}
 	}
 	function loadSection() {
 	
@@ -177,7 +165,8 @@
 	
 		var sectionName=document.getElementById("hiddenValue").value;
 		<%String keywordEP = (String) request.getAttribute("keyword");%>
-		var keyword="<%=keywordEP%>";
+		var keyword="<%=keywordEP%>
+	";
 
 		var nonContent = "null";
 		if (keyword == nonContent)
@@ -207,18 +196,18 @@
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
 						<tr>
 							<td align="left">
-											<table>
-												<tr>
-													<td width="38">科目：</td>
-													<td style="width: 119px; "><select
-														name="subjectChoose" id="subjectChoose"
-														onchange="loadSection();" style="width: 101px; ">
-															<option selected="selected">${subject.subName}</option>
-													</select></td>
+								<table>
+									<tr>
+										<td width="38">科目：</td>
+										<td style="width: 119px; "><select name="subjectChoose"
+											id="subjectChoose" onchange="loadSection();"
+											style="width: 101px; ">
+												<option selected="selected">${subject.subName}</option>
+										</select></td>
 
 
-														<td>章节：</td>
-										<td><select id="sectionChoose" >
+										<td>章节：</td>
+										<td><select id="sectionChoose">
 												<c:choose>
 													<c:when test="${empty sectionName}">
 														<option value="null" selected="selected">请选择章节</option>
@@ -230,7 +219,8 @@
 														<c:forEach items="${sections}" var="section">
 															<c:choose>
 																<c:when test="${section.sectionName==sectionName}">
-																	<option value="${section.sectionName}" selected="selected">${section.sectionName}</option>
+																	<option value="${section.sectionName}"
+																		selected="selected">${section.sectionName}</option>
 																</c:when>
 																<c:otherwise>
 																	<option value="${section.sectionName}">${section.sectionName}</option>
@@ -242,16 +232,15 @@
 										</select></td>
 
 
-													<td>题型：</td>
-													<td><select id="questionTypeChoose">
-															<option value="${questionTypeName}" selected="selected">${questionTypeName}</option>
-													</select></td>
-													<td>
-													<input type="button" value="查询"
+										<td>题型：</td>
+										<td><select id="questionTypeChoose">
+												<option value="${questionTypeName}" selected="selected">${questionTypeName}</option>
+										</select></td>
+										<td><input type="button" value="查询"
 											class="right-button02" onclick="search();" /></td>
-												</tr>
-											</table>
-										</td>
+									</tr>
+								</table>
+							</td>
 						</tr>
 					</table>
 				</td>
@@ -267,9 +256,9 @@
 												href="#" class="right-font08" onclick="selectAll();">全选</a>-<a
 												href="#" class="right-font08" onclick="unselectAll();">反选</a></span>
 											<input name="Submit" type="button" class="right-button08"
-											value="添加所选${questionTypeName}" onclick="delSelected();" /> <input
-											type="hidden" name="paramsHidden" id="paramsHidden" /> <input
-											name="Submit2" type="button" class="right-button08"
+											value="添加所选${questionTypeName}" onclick="delSelected();" />
+											<input type="hidden" name="paramsHidden" id="paramsHidden" />
+											<input name="Submit2" type="button" class="right-button08"
 											value="新增${questionTypeName}" onclick="link();" /></td>
 									</tr>
 									<tr>
@@ -278,8 +267,7 @@
 												cellspacing="1" bgcolor="#464646" class="newfont03">
 												<tr class="CTitle">
 													<td height="22" colspan="7" align="center"
-														style="font-size:16px">${questionTypeName}列表
-													</td>
+														style="font-size:16px">${questionTypeName}列表</td>
 												</tr>
 												<tr bgcolor="#EEEEEE">
 													<td width="4%" align="center" height="30">选择</td>
@@ -290,26 +278,43 @@
 													<tr bgcolor="#FFFFFF">
 														<td height="20"><input type="checkbox"
 															name="delid${question.id}" /></td>
-														<td><a
-															href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${question.id}&questionTypeName=${questionTypeName}">
-																<c:set var="testStr"
-																	value="${singleChoice.questionStem}" /> <c:choose>
-																	<c:when test="${fn:length(testStr) > 50}">
-																		<c:out value="${fn:substring(testStr, 0, 50)}......"
-																			 />
-																	</c:when>
-																	<c:otherwise>
-																		<c:out value="${testStr}" />
-																	</c:otherwise>
-																</c:choose>
+
+														<c:if test="${questionTypeName=='材料分析题'}">
+															<td><a
+																href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${question.id}&questionTypeName=${questionTypeName}">
+																	<c:set var="testStr" value="${question.material}" /> <c:choose>
+																		<c:when test="${fn:length(testStr) > 50}">
+																			<c:out value="${fn:substring(testStr, 0, 50)}......" />
+																		</c:when>
+																		<c:otherwise>
+																			<c:out value="${testStr}" />
+																		</c:otherwise>
+																	</c:choose>
 
 
-														</a></td>
-														<td><a
-															href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}&edit=true">编辑|</a><a
-															href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">查看|</a>
+															</a></td>
+														</c:if>
+														<c:if test="${questionTypeName!='材料分析题'}">
+															<td><a
+																href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${question.id}&questionTypeName=${questionTypeName}">
+																	<c:set var="testStr" value="${question.questionStem}" />
+																	<c:choose>
+																		<c:when test="${fn:length(testStr) > 50}">
+																			<c:out value="${fn:substring(testStr, 0, 50)}......" />
+																		</c:when>
+																		<c:otherwise>
+																			<c:out value="${testStr}" />
+																		</c:otherwise>
+																	</c:choose>
+
+
+															</a></td>
+															</c:if>
+															<td><a
+																href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${question.id}&questionTypeName=${questionTypeName}">查看|</a>
+																 <a href="${pageContext.request.contextPath}/examination.do?flag=addExamQuestion&questionId=${question.id}&questionTypeName=${questionTypeName}">添加</a>
 															</td>
-
+														
 													</tr>
 												</c:forEach>
 											</table>
@@ -331,12 +336,12 @@
 														页 | 第 <span class="right-text09">${pageNow}</span> 页
 													</td>
 													<td width="49%" align="right">[<a class="right-font08"
-														onclick="firstPage();" href="#">首页</a> | <a class="right-font08"
-														onclick="lastPage('${pageNow}');" href="#">上一页</a> | <a
-														class="right-font08"
-														onclick="nextPage('${pageNow}','${pageCount}');" href="#">下一页</a> |
-														<a class="right-font08" onclick="endPage('${pageCount}');" href="#">末页</a>]
-														转至：
+														onclick="firstPage();" href="#">首页</a> | <a
+														class="right-font08" onclick="lastPage('${pageNow}');"
+														href="#">上一页</a> | <a class="right-font08"
+														onclick="nextPage('${pageNow}','${pageCount}');" href="#">下一页</a>
+														| <a class="right-font08"
+														onclick="endPage('${pageCount}');" href="#">末页</a>] 转至：
 													</td>
 													<td width="1%"><table width="20" border="0"
 															cellspacing="0" cellpadding="0">

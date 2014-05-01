@@ -97,13 +97,13 @@ function goByPage(){
 
 <body >
 	<form name="fom" id="fom" method="post" action="" target="mainFrame">
-		<table width="100%" border="0" cellspacing="0" cellpadding="0">
-
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
 				<td height="30">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-image:url('./images/nav04.gif'); ">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
 						<tr>
-							<td align="left" >
+							<td height="62"
+								style="background-image:url('./images/nav04.gif'); ">
 
 								<table width="98%" border="0" align="center" cellpadding="0"
 									cellspacing="0">
@@ -139,13 +139,6 @@ function goByPage(){
 
 													</select>
 													</td>
-												</tr>
-											</table>
-										</td>
-										<td align="left">
-											<table>
-												<tr>
-													<td></td>
 												</tr>
 											</table>
 										</td>
