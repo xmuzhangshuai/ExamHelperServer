@@ -40,17 +40,17 @@
 			alert("请完整选择科目、章节、题型");
 		else {
 			if (questionType == singleChoice)
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&sectionName="
-						+ sectionName;
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showQuestionForAddList&sectionName="
+						+ sectionName+"&typeName="+singleChoice;
 			else if (questionType == multiChoice)
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoiceList&sectionName="
-						+ sectionName;
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showQuestionForAddList&sectionName="
+						+ sectionName+"&typeName="+multiChoice;
 			else if (questionType == trueOrFalse)
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&sectionName="
-						+ sectionName;
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showQuestionForAddList&sectionName="
+						+ sectionName+"&typeName="trueOrFalse;
 			else if (questionType == analysis)
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&sectionName="
-						+ sectionName;
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showQuestionForAddList&sectionName="
+						+ sectionName+"&typeName="+analysis;
 
 			document.getElementById("fom").submit();
 		}
@@ -214,27 +214,7 @@
 													<td style="width: 119px; "><select
 														name="subjectChoose" id="subjectChoose"
 														onchange="loadSection();" style="width: 101px; ">
-															<c:choose>
-																<c:when test="${empty subjectId}">
-																	<option value="null" selected="selected">请选择科目</option>
-																	<c:forEach items="${subjects}" var="subject">
-																		<option value="${subject.sections}">${subject.subName}</option>
-																	</c:forEach>
-																</c:when>
-																<c:otherwise>
-																	<c:forEach items="${subjects}" var="subject">
-																		<c:choose>
-																			<c:when test="${subject.id==subjectId}">
-																				<option value="${subject.sections}"
-																					selected="selected">${subject.subName}</option>
-																			</c:when>
-																			<c:otherwise>
-																				<option value="${subject.sections}">${subject.subName}</option>
-																			</c:otherwise>
-																		</c:choose>
-																	</c:forEach>
-																</c:otherwise>
-															</c:choose>
+															<option selected="selected">${subject.subName}</option>
 													</select></td>
 
 
@@ -265,26 +245,7 @@
 
 													<td>题型：</td>
 													<td><select id="questionTypeChoose">
-															<c:choose>
-																<c:when test="${empty questionTypeName}">
-																	<option value="null" selected="selected">请选择题型</option>
-																	<c:forEach items="${questionTypes}" var="type">
-																		<option value="${type.typeName}">${type.typeName}</option>
-																	</c:forEach>
-																</c:when>
-																<c:otherwise>
-																	<c:forEach items="${questionTypes}" var="type">
-																		<c:choose>
-																			<c:when test="${type.typeName==questionTypeName}">
-																				<option value="${type.typeName}" selected="selected">${type.typeName}</option>
-																			</c:when>
-																			<c:otherwise>
-																				<option value="${type.typeName}">${type.typeName}</option>
-																			</c:otherwise>
-																		</c:choose>
-																	</c:forEach>
-																</c:otherwise>
-															</c:choose>
+															<option selected="selected">${questionTypeName}</option>
 													</select></td>
 													<td>
 													<input type="button" value="查询"
@@ -307,10 +268,10 @@
 												href="#" class="right-font08" onclick="selectAll();">全选</a>-<a
 												href="#" class="right-font08" onclick="unselectAll();">反选</a></span>
 											<input name="Submit" type="button" class="right-button08"
-											value="添加所选题目" onclick="delSelected();" /> <input
+											value="添加所选${questionTypeName}" onclick="delSelected();" /> <input
 											type="hidden" name="paramsHidden" id="paramsHidden" /> <input
 											name="Submit2" type="button" class="right-button08"
-											value="新增单项选择题" onclick="link();" /></td>
+											value="新增${questionTypeName}" onclick="link();" /></td>
 									</tr>
 									<tr>
 										<td height="40" class="font42">
@@ -318,19 +279,20 @@
 												cellspacing="1" bgcolor="#464646" class="newfont03">
 												<tr class="CTitle">
 													<td height="22" colspan="7" align="center"
-														style="font-size:16px">单项选择题列表</td>
+														style="font-size:16px">${questionTypeName}列表
+													</td>
 												</tr>
 												<tr bgcolor="#EEEEEE">
 													<td width="4%" align="center" height="30">选择</td>
 													<td width="10%">题目名</td>
 													<td width="12%">操作</td>
 												</tr>
-												<c:forEach items="${singleChoices}" var="singleChoice">
+												<c:forEach items="${questions}" var="question">
 													<tr bgcolor="#FFFFFF">
 														<td height="20"><input type="checkbox"
-															name="delid${singleChoice.id}" /></td>
+															name="delid${question.id}" /></td>
 														<td><a
-															href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">
+															href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${question.id}&questionTypeName=${questionTypeName}">
 																<c:set var="testStr"
 																	value="${singleChoice.questionStem}" /> <c:choose>
 																	<c:when test="${fn:length(testStr) > 50}">
