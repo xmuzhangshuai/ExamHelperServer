@@ -239,7 +239,7 @@
 
 
 														<td>章节：</td>
-										<td><select id="sectionChoose">
+										<td><select id="sectionChoose" >
 												<c:choose>
 													<c:when test="${empty sectionName}">
 														<option value="null" selected="selected">请选择章节</option>
