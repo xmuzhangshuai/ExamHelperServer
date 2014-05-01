@@ -146,10 +146,9 @@ function goCollectionDetail(id){
 								<td height="20" ><a>${snote.questiontype.typeName}</a></td>
 								<td style="padding: 5px;"><a>${questionStemList[loop.count-1]}</a></td>
 								<td height="20" align="center" ><label>${snote.noteNum}</label></td>
-								<td height="20" >
-									<a href="">编辑|</a>
-								    <a href="">查看|</a>
-									<a href="#" onclick="" id="deleteSingleSubject${query.id}">删除</a>
+								<td height="20" align="center">
+									<a  onclick="alert('删除');" id="">
+									<img alt="删除" class="delete_img" src="./images/delete.png" style="height: 15px;" title="删除">删除</a>
 								</td>
 							</tr>
 						</c:forEach>

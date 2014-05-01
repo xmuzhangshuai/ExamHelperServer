@@ -1,3 +1,4 @@
+<%@page import="com.yrw.domains.Questiontype"%>
 <%@page import="com.yrw.domains.Subject"%>
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
@@ -75,17 +76,35 @@ function goCollectionDetail(id){
 function typeChange(current){
 	 var currentChoice = current;
 	 var subject = "按科目";
-	 var i,j,k;
+	 var section = "按章节";
+	 var questionType = "按题型";
      //清空二级菜单下拉选单
      document.all.list.length = 0 ;
      if(currentChoice == subject){
-		var subjectList= "${subjectList}";
-		var subjectArray = subjectList.toArray(new Subject[subjectList.size()]);
-		alert(subjectArray.length);
-		for (j = 0; j < subjectArray.length; j++) {
+     var jsArray=new Array();
+     <%List<Subject> subjectList = (List<Subject>)request.getAttribute("subjectList");
+       for(int i=0;i<subjectList.size();i++){
+      %>
+	   jsArray[<%=i%>]='<%=subjectList.get(i).getSubName()%>';
+	 <%}%>
+	 for (j = 0; j < jsArray.length; j++) {
 			//填充 二级下拉选单
-       		document.all.list.options[document.all.list.length] = new Option(subjectArray[j].subName,subjectArray[j].subName);
-		}
+       	document.all.list.options[document.all.list.length] = new Option(jsArray[j],jsArray[j]);
+	  }
+     }
+    
+    //如果是按题型
+     if(currentChoice == questionType){
+     var jsArray2=new Array();
+     <%List<Questiontype> questiontypeList = (List<Questiontype>)request.getAttribute("questiontypeList");
+       for(int i=0;i<questiontypeList.size();i++){
+      %>
+	   jsArray2[<%=i%>]='<%=questiontypeList.get(i).getTypeName()%>';
+	 <%}%>
+	 for (j = 0; j < jsArray2.length; j++) {
+			//填充 二级下拉选单
+       	document.all.list.options[document.all.list.length] = new Option(jsArray2[j],jsArray2[j]);
+	  }
      }
 }
 
@@ -106,17 +125,13 @@ function typeChange(current){
 								<td width="80">
 									<select id="type" onchange="typeChange(this.options[this.selectedIndex].value)">
 									 	<option value="">-请选择-</option>
-										<option value="按章节">按章节</option>
 										<option value="按科目">按科目</option>
 										<option value="按题型">按题型</option>
 									</select>
 								</td>
 								<td width="300" align="left">
 									<select id="list">
-										<option></option>
-										<c:forEach items="${subjectList}" var="subject">
-											<option>${subject.subName}</option>
-										</c:forEach>
+										<option>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
 									</select>
 									<input name="Submit4" type="button" class="right-button02"
 									       value="查 询" onclick="keywordSearch();" />
@@ -171,10 +186,9 @@ function typeChange(current){
 								<td height="20" ><a>${scollection.questiontype.typeName}</a></td>
 								<td style="padding: 5px;"><a>${questionStemList[loop.count-1]}</a></td>
 								<td height="20" align="center" ><label>${scollection.collectionNum}</label></td>
-								<td height="20" >
-									<a href="">编辑|</a>
-								    <a href="">查看|</a>
-									<a href="#" onclick="" id="deleteSingleSubject${query.id}">删除</a>
+								<td height="20" align="center">
+									<a  onclick="alert('删除');" id="">
+									<img alt="删除" class="delete_img" src="./images/delete.png" style="height: 15px;" title="删除">删除</a>
 								</td>
 							</tr>
 						</c:forEach>

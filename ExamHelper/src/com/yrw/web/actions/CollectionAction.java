@@ -13,6 +13,7 @@ import org.apache.struts.actions.DispatchAction;
 
 import com.yrw.domains.Materialanalysis;
 import com.yrw.domains.Multichoice;
+import com.yrw.domains.Questiontype;
 import com.yrw.domains.Scollection;
 import com.yrw.domains.Singlechoice;
 import com.yrw.domains.Subject;
@@ -67,9 +68,11 @@ public class CollectionAction extends DispatchAction {
 					.getTypeName()));
 		}
 		List<Subject> subjectList = subjectService.getSubjects();
+		List<Questiontype> questiontypeList = questionService.showQuestiontypes();
 		
 		request.setAttribute("scollectionList", scollectionList);
 		request.setAttribute("questionStemList", questionStemList);
+		request.setAttribute("questiontypeList", questiontypeList);
 		request.setAttribute("subjectList", subjectList);
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("pageNow", pageNow);
