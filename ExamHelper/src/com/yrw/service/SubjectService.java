@@ -16,12 +16,12 @@ public class SubjectService {
 	}
 
 	/**
-	 * 获得subject的列表，其中subjectId用于获得section对应的subject
+	 * 获得所有subject
 	 * 
 	 * @param subjectId
 	 * @return
 	 */
-	public List getSubjectList() {
+	public List<Subject> getSubjects() {
 
 		List<Subject> subjectList = iSubjectDao.getSubject();
 		return subjectList;
@@ -67,15 +67,7 @@ public class SubjectService {
 		iSubjectDao.delSubjects(params);
 	}
 
-	/**
-	 * 得到所有subject
-	 * 
-	 * @return
-	 */
-	public List<Subject> getSubjects() {
-
-		return iSubjectDao.getSubject();
-	}
+	
 
 	public boolean addSubject(Subject subject) {
 		Subject existSubject = iSubjectDao.getSubjectByName(subject.getSubName());

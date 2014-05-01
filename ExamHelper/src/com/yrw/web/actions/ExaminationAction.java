@@ -47,7 +47,6 @@ public class ExaminationAction extends DispatchAction {
 	private SectionService sectionService;
 	private QuestionService questionService;
 
-	
 	public void setQuestionService(QuestionService questionService) {
 		this.questionService = questionService;
 	}
@@ -64,7 +63,9 @@ public class ExaminationAction extends DispatchAction {
 		this.examService = examService;
 	}
 
-	/**显示所有试卷
+	/**
+	 * 显示所有试卷
+	 * 
 	 * @param mapping
 	 * @param form
 	 * @param request
@@ -75,8 +76,7 @@ public class ExaminationAction extends DispatchAction {
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
 		String pageNowString = request.getParameter("pageNow");
-		List collection = examService
-				.listExaminations(pageNowString);
+		List collection = examService.listExaminations(pageNowString);
 
 		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
 		request.setAttribute("pageNow", pageMap.get("pageNow"));
@@ -100,8 +100,8 @@ public class ExaminationAction extends DispatchAction {
 	public ActionForward showExamListBySubject(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
-		int subjectId = Integer.parseInt( request.getParameter("subjectId"));
-		
+		int subjectId = Integer.parseInt(request.getParameter("subjectId"));
+
 		String pageNowString = request.getParameter("pageNow");
 		List collection = examService
 				.listExaminations(pageNowString, subjectId);
@@ -141,12 +141,13 @@ public class ExaminationAction extends DispatchAction {
 		// 设置examination在jsp上的对象
 		request.setAttribute("examination", examination);
 		// 设置examination中科目的下拉框
-		List<Subject> subjectList = subjectService.getSubjectList();
+		List<Subject> subjectList = subjectService.getSubjects();
 		if (subjectList != null) {
-			request.getSession().setAttribute("subjectId",  examination.getSubject().getId());
+			request.getSession().setAttribute("subjectId",
+					examination.getSubject().getId());
 			request.setAttribute("subjects", subjectList);
 		}
-		
+
 		// 设置examination下的题型
 		List<Examsection> examsections = new ArrayList<Examsection>(
 				examination.getExamsections());
@@ -297,32 +298,77 @@ public class ExaminationAction extends DispatchAction {
 		examService.deleteSingleChoice(examId, singleChoiceId);
 		return showExamination(mapping, form, request, response);
 	}
-	
-	/**添加单项选择题
+
+
+	/**
+	 * 跳转到添加单项选择题的列表
+	 * 
 	 * @param mapping
 	 * @param form
 	 * @param request
 	 * @param response
 	 * @return
+	 * @throws UnsupportedEncodingException
 	 */
-	public ActionForward addExamSingleChoiceUI(ActionMapping mapping,
+	public ActionForward addExamQuestionUI(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
-			HttpServletResponse response){
-		//获得sectionid
-		int examSectionId=Integer.parseInt(request.getParameter("examSectionId"));
-		request.getSession().setAttribute("examSectionId", examSectionId);
-		//设置页面的subject的下拉菜单
-		List<Subject> subjects=subjectService.getSubjectList();
-		if(subjects!=null)
-			request.setAttribute("subjects", subjects);
-		//设置页面的章节下拉菜单
-		List<Section> sections=sectionService.listSectionBySubject((Integer)request.getSession().getAttribute("subjectId"));
-		request.setAttribute("sections", sections);
-		//设置页面的题型列表
-		List<Questiontype> questiontypes =new ArrayList<Questiontype>();
-		questiontypes.add(questionService.getQuestiontype(1));
-		request.setAttribute("questionTypeName", DefaultValue.SINGLE_CHOICE);
-		request.setAttribute("questionTypes", questiontypes);
-		return mapping.findForward("addExamSingleChoiceUI");
+			HttpServletResponse response) throws UnsupportedEncodingException {
+
+		// 获得questionTypeName
+		String questionTypeName = new String(request.getParameter(
+				"questionTypeName").getBytes("ISO-8859-1"), "utf-8");
+		request.setAttribute("questionTypeName", questionTypeName);
+
+		// 获得examSectionid，若是存在该参数则表明是从试卷部分跳转过来否则为添加题目界面
+		String examSectionIdString = request.getParameter("examSectionId");
+		int subjectId = 0;
+		if (examSectionIdString != null) {
+			int examSectionId = Integer.parseInt(examSectionIdString);
+			Examsection existExamSection = examService
+					.getExamsection(examSectionId);
+			subjectId = existExamSection.getExamination().getSubject().getId();
+			request.getSession().setAttribute("examSectionId", examSectionId);
+		} else {
+			//设置sectionName的值
+			String sectionName = new String(request.getParameter("sectionName")
+					.getBytes("ISO-8859-1"), "utf-8");
+			request.setAttribute("sectionName", sectionName);
+			Section existSection = sectionService
+					.getSectionBySectionName(sectionName);
+			String pageNowString = request.getParameter("pageNow");
+
+			subjectId = existSection.getSubject().getId();
+
+			// 加载章节下的题目
+			List collection = questionService.listQuestionBySection(
+					existSection.getId(), pageNowString, questionTypeName);
+
+			Map<String, Integer> pageMap = (Map<String, Integer>) collection
+					.get(0);
+			request.setAttribute("pageCount", pageMap.get("pageCount"));
+			request.setAttribute("pageNow", pageMap.get("pageNow"));
+
+			// 设置问题
+			if (questionTypeName.equals(DefaultValue.SINGLE_CHOICE))
+				request.setAttribute("questions", (List) collection.get(1));
+			else if (questionTypeName.equals(DefaultValue.MULTI_CHOICE))
+				request.setAttribute("questions", (List) collection.get(1));
+			else if (questionTypeName.equals(DefaultValue.TRUE_OR_FALSE))
+				request.setAttribute("questions", (List) collection.get(1));
+			else if (questionTypeName.equals(DefaultValue.MATERIAL_ANALYSIS))
+				request.setAttribute("questions", (List) collection.get(1));
+		}
+		// 设置页面的subject的下拉菜单
+		request.getSession().setAttribute("subjectId", subjectId);
+		Subject subject = subjectService.getSubjectById(subjectId);
+		request.setAttribute("subject", subject);
+		// 设置页面的章节下拉菜单
+		if (subjectId != 0) {
+			List<Section> sections = sectionService
+					.listSectionBySubject(subjectId);
+			request.setAttribute("sections", sections);
+		}
+
+		return mapping.findForward("addExamQuestionUI");
 	}
 }

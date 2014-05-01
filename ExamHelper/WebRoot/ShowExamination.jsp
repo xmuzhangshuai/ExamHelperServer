@@ -82,15 +82,35 @@
 
 		document.getElementById("fom").submit();
 	}
-	function addExamSingleChoice() {
-		var examSectionId = document.getElementById("singleChoiceSection").value;
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamSingleChoiceUI&examSectionId="+
-		examSectionId;
-		alert(document.getElementById("fom").action)
+	function addExamQuestion(typeChoose) {
+		var addSingleChoice = "添加单项选择题"
+		var addMultiChoice = "添加多项选择题"
+		var addTrueOrFalse = "添加判断题"
+		var addMaterialAnalysis = "添加材料分析题"
+		var option = typeChoose.value
+		var questionTypeName;
+		var examSectionId ;
+		if (option == addSingleChoice) {
+			questionTypeName = "单项选择题"
+			examSectionId = document.getElementById("singleChoiceSection").value;
+		} else if (option == addMultiChoice) {
+			questionTypeName = "多项选择题"
+			examSectionId=document.getElementById("multiChoiceSection").value;
+		} else if (option == addTrueOrFalse) {
+			questionTypeName = "判断题"
+			examSectionId=document.getElementById("trueOrFalseSection").value;
+		} else if (option == addMaterialAnalysis) {
+			questionTypeName = " 材料分析题"
+			examSectionId=document.getElementById("materialAnalysisSection").value;
+		}
+
+		
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamQuestionUI&examSectionId="
+				+ examSectionId + "&questionTypeName=" + questionTypeName;
 		document.getElementById("fom").submit();
 	}
 	function InitList() {
-		
+
 		if (!'${singleChoices}')
 			document.getElementById("singleChoiceList").style.display = "none";
 		if (!'${multiChoices}')
@@ -265,7 +285,7 @@
 											<table style="width: 100%">
 												<tr>
 													<td><input align="left" type="button" class="button"
-														value="添加单项选择题" onclick="addExamSingleChoice();" /></td>
+														value="添加单项选择题" onclick="addExamQuestion(this);" /></td>
 												</tr>
 												<c:forEach items="${singleChoices}" var="singleChoice"
 													varStatus="singleChoiceCounter">

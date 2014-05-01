@@ -30,7 +30,7 @@
 		var singleChoice = "单项选择题"
 		var multiChoice = "多项选择题"
 		var trueOrFalse = "判断题"
-		var analysis = "简答题"
+		var analysis = "材料分析题"
 
 		var subjectId = document.getElementById("subjectChoose").value;
 		var sectionName = document.getElementById("sectionChoose").value;
@@ -162,8 +162,11 @@
 				<td height="30">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
 						<tr>
-							<td align="left">
-								<table>
+							<td height="62"
+								style="background-image:url('./images/nav04.gif'); ">
+
+								<table width="98%" border="0" align="center" cellpadding="0"
+									cellspacing="0">
 									<tr>
 										<td width="38">科目：</td>
 										<td style="width: 119px; "><select name="subjectChoose"
