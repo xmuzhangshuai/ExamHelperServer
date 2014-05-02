@@ -62,4 +62,11 @@ public interface IExamQuestionDao extends IBasicDao {
 	 * @return void
 	 */
 	public void modifyExamQuestion(Examquestion examquestion);
+	
+	
+	/**得到某个类型的题目下的总题目数
+	 * @param examSectionId
+	 * @return
+	 */
+	public int getMaxQuestionNumberByExamSection(int examSectionId);
 }

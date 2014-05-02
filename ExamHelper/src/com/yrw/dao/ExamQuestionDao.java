@@ -22,7 +22,7 @@ public class ExamQuestionDao extends BasicDao implements IExamQuestionDao {
 	@Override
 	public void addExamQuestion(Examquestion examquestion) {
 		// TODO Auto-generated method stub
-
+		this.add(examquestion);
 	}
 
 	@Override
@@ -41,6 +41,14 @@ public class ExamQuestionDao extends BasicDao implements IExamQuestionDao {
 	public void modifyExamQuestion(Examquestion examquestion) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public int getMaxQuestionNumberByExamSection(int examSectionId) {
+		// TODO Auto-generated method stub
+		String hql = "select max(e.questionNumber) from Examquestion as e where e.examsection.id="
+				+ examSectionId;
+		return (Integer) this.uniqueQuery(hql, null);
 	}
 
 }

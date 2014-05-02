@@ -296,7 +296,7 @@
 															<table style="width: 100%">
 																<tr>
 																	<td><a
-																		href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">
+																		href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${singleChoice.id}&questionTypeName=单项选择题 ">
 																			${singleChoiceCounter.count}:
 																			${singleChoice.questionStem}</a></td>
 																</tr>
@@ -340,7 +340,7 @@
 
 															</c:choose> <a
 															href="${pageContext.request.contextPath}/examination.do?flag=moveSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}&type=increase">下移|</a><a
-															href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">查看|</a><a
+																href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${singleChoice.id}&questionTypeName=单项选择题 ">查看|</a><a
 															href="${pageContext.request.contextPath}/examination.do?flag=deleteSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}">删除</a>
 														</td>
 													</tr>
@@ -361,43 +361,43 @@
 												<tr>
 													<td></td>
 												</tr>
-												<c:forEach items="${multiChoices}" var="mulitChoice"
+												<c:forEach items="${multiChoices}" var="multiChoice"
 													varStatus="multiChoiceCounter">
 													<tr
 														<c:if test="${multiChoiceCounter.count%2==0}">bgcolor="#B2DFEE"</c:if>>
 														<td><table style="width: 100%">
 																<tr>
 																	<td><a
-																		href="${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoice&multiChoiceId=${multiChoice.id}">
+																		href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${multiChoice.id}&questionTypeName=多项选择题">
 																			${multiChoiceCounter.count}:
-																			${mulitChoice.questionStem}</a></td>
+																			${multiChoice.questionStem}</a></td>
 																</tr>
 																<tr>
 																	<td>
 																		<table>
 																			<tr>
 																				<td
-																					<c:if test="${empty mulitChoice.optionA}">style="display:none;"</c:if>>A:${mulitChoice.optionA}</td>
+																					<c:if test="${empty multiChoice.optionA}">style="display:none;"</c:if>>A:${multiChoice.optionA}</td>
 																			</tr>
 																			<tr>
 																				<td
-																					<c:if test="${empty mulitChoice.optionB}">style="display:none;"</c:if>>B:${mulitChoice.optionB}</td>
+																					<c:if test="${empty multiChoice.optionB}">style="display:none;"</c:if>>B:${multiChoice.optionB}</td>
 																			</tr>
 																			<tr>
 																				<td
-																					<c:if test="${empty mulitChoice.optionC}">style="display:none;"</c:if>>C:${mulitChoice.optionC}</td>
+																					<c:if test="${empty multiChoice.optionC}">style="display:none;"</c:if>>C:${multiChoice.optionC}</td>
 																			</tr>
 																			<tr>
 																				<td
-																					<c:if test="${empty mulitChoice.optionD}">style="display:none;"</c:if>>D:${mulitChoice.optionD}</td>
+																					<c:if test="${empty multiChoice.optionD}">style="display:none;"</c:if>>D:${multiChoice.optionD}</td>
 																			</tr>
 																			<tr>
 																				<td
-																					<c:if test="${empty mulitChoice.optionE}">style="display:none;"</c:if>>E:${mulitChoice.optionE}</td>
+																					<c:if test="${empty multiChoice.optionE}">style="display:none;"</c:if>>E:${multiChoice.optionE}</td>
 																			</tr>
 																			<tr>
 																				<td
-																					<c:if test="${empty mulitChoice.optionF}">style="display:none;"</c:if>>F:${mulitChoice.optionF}</td>
+																					<c:if test="${empty multiChoice.optionF}">style="display:none;"</c:if>>F:${multiChoice.optionF}</td>
 																			</tr>
 																		</table>
 																	</td>
@@ -415,7 +415,7 @@
 
 															</c:choose> <a
 															href="${pageContext.request.contextPath}/examination.do?flag=moveSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}&type=increase">下移|</a><a
-															href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">查看|</a><a
+															href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${multiChoice.id}&questionTypeName=多项选择题">查看|</a><a
 															href="${pageContext.request.contextPath}/examination.do?flag=deleteSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}">删除</a></td>
 													</tr>
 												</c:forEach>
@@ -445,7 +445,7 @@
 															<table style="width: 100%">
 																<tr>
 																	<td><a
-																		href="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalse&trueOrFalseId=${trueOrFalse.id}">
+																		href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${trueOrFalse.id}&questionTypeName=判断题">
 																			${trueOrFalseCounter.count}:
 																			${trueOrFalse.questionStem}</a></td>
 																</tr>
@@ -462,7 +462,7 @@
 
 															</c:choose> <a
 															href="${pageContext.request.contextPath}/examination.do?flag=moveSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}&type=increase">下移|</a><a
-															href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">查看|</a><a
+															href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${trueOrFalse.id}&questionTypeName=判断题">查看|</a><a
 															href="${pageContext.request.contextPath}/examination.do?flag=deleteSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}">删除</a>
 														</td>
 													</tr>
@@ -490,7 +490,7 @@
 															<table style="width: 100%">
 																<tr>
 																	<td><a
-																		href="${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysis&materialAnalysisId=${materialAnalysis.id}">
+																		href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${materialAnalysis.id}&questionTypeName=材料分析题">
 																			${materialAnalysisCounter.count}:
 																			${materialAnalysis.material}</a></td>
 																</tr>
@@ -522,7 +522,7 @@
 
 															</c:choose> <a
 															href="${pageContext.request.contextPath}/examination.do?flag=moveSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}&type=increase">下移|</a><a
-															href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}">查看|</a><a
+															href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${materialAnalysis.id}&questionTypeName=材料分析题">查看|</a><a
 															href="${pageContext.request.contextPath}/examination.do?flag=deleteSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}">删除</a></TD>
 													</tr>
 												</c:forEach>

@@ -20,6 +20,7 @@ import org.apache.struts.actions.DispatchAction;
 
 import com.yrw.config.DefaultValue;
 import com.yrw.domains.Examination;
+import com.yrw.domains.Examquestion;
 import com.yrw.domains.Examsection;
 import com.yrw.domains.Materialanalysis;
 import com.yrw.domains.Multichoice;
@@ -374,6 +375,37 @@ public class ExaminationAction extends DispatchAction {
 	}
 
 	/**
+	 * 添加题目
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @param exam
+	 * @return
+	 */
+	public ActionForward addExamQuestion(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		String questionIdString = request.getParameter("questionId");
+		String[] questionIdStrings = questionIdString.split(",");
+System.out.println(questionIdStrings.length);
+		int examSectionId = (Integer) request.getSession().getAttribute(
+				"examSectionId");
+		// 获得examSection
+		Examsection examsection = examService.getExamsection(examSectionId);
+		for (int i = 0; i < questionIdStrings.length ; i++) {
+			int questionId=Integer.parseInt(questionIdStrings[i]);
+			System.out.println("questionId "+questionId);
+			examService.addExamQuestion(questionId, examSectionId, examsection);
+		}
+		request.setAttribute("examinationId", examsection.getExamination()
+				.getId());
+		return showExamination(mapping, null, request, response);
+	}
+
+	/**
 	 * 显示问题的详细信息
 	 * 
 	 * @param mapping
@@ -385,14 +417,17 @@ public class ExaminationAction extends DispatchAction {
 	 */
 	public ActionForward showExamQuestionDetail(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response) throws UnsupportedEncodingException {
 		int questionId = Integer.parseInt(request.getParameter("questionId"));
-		String questionTypeName = request.getParameter("questionTypeName");
+		String questionTypeName = new String(request.getParameter(
+				"questionTypeName").getBytes("ISO-8859-1"), "utf-8");
 		String forwardString = null;
+		System.out.println(questionTypeName);
 		if (questionTypeName.equals(DefaultValue.SINGLE_CHOICE)) {
 			Singlechoice singlechoice = (Singlechoice) questionService
 					.getQuestion(questionId, DefaultValue.SINGLE_CHOICE);
 			request.setAttribute("singleChoice", singlechoice);
+			System.out.println("单项选择测试");
 			forwardString = "showExamSingleChoice";
 		} else if (questionTypeName.equals(DefaultValue.MULTI_CHOICE)) {
 			Multichoice multichoice = (Multichoice) questionService

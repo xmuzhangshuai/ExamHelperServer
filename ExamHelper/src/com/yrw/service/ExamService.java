@@ -336,8 +336,6 @@ public class ExamService {
 		// }
 	}
 
-
-
 	/**
 	 * 从试卷中剔除某个单选题
 	 * 
@@ -365,6 +363,40 @@ public class ExamService {
 
 				}
 			}
+		}
+	}
+
+	public void addExamQuestion(int questionId, int examSectionId,
+			Examsection examsection) {
+		Set<Examquestion> examquestions = examsection.getExamquestions();
+		List<Examquestion> examquestionList = new ArrayList<Examquestion>(
+				examquestions);
+		boolean exist = false;
+		for (int i = 0; i < examquestionList.size(); i++) {
+			if (questionId == examquestionList.get(i).getQuestionId()) {
+				exist = true;
+				break;
+			}
+		}
+		if (!exist) {
+			// 建立examQuestion
+			Examquestion examquestion = new Examquestion();
+			examquestion.setExamsection(examsection);
+			examquestion.setQuestionId(questionId);
+			int questionNumber = iExamQuestionDao
+					.getMaxQuestionNumberByExamSection(examSectionId);
+			if (questionNumber != 0)
+				examquestion.setQuestionNumber(questionNumber + 1);
+			else
+				examquestion.setQuestionNumber(1);
+			iExamQuestionDao.add(examquestion);
+			// 添加入examSection中的examQuestion集合
+
+			examquestions.add(examquestion);
+			examsection.setExamquestions(examquestions);
+			// 修改examsection中的题目数量
+			examsection.setQuestionNum(examsection.getQuestionNum() + 1);
+			iExamSectionDao.update(examsection);
 		}
 	}
 }

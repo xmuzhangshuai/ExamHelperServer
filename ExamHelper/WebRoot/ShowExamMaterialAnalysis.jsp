@@ -51,7 +51,6 @@
 					<td style="width: 485px; "><input type="button"
 						value="返回材料分析题列表" style="width: 137px; " onclick="back();"
 						class="button" /></td>
-
 				</tr>
 				<tr>
 					<td width="100%"><fieldset>
@@ -122,8 +121,9 @@
 							<legend>小题信息</legend>
 							<table>
 								<tr>
-									<td style="width: 1070px; "><c:forEach
-											items="${questionOfMaterials}" var="questionOfMaterial">
+									<td style="width: 1070px; ">
+									   <c:forEach
+											items="${materialAnalysis.questionsofmaterials}" var="questionOfMaterial">
 											<fieldset>
 												<table style="width: 1031px; ">
 													<tr>
@@ -135,23 +135,21 @@
 																	<td><c:out
 																			value="${questionOfMaterial.questionNumber}" /></td>
 																</tr>
-																<br />
+																
 																<tr>
 																	<td>小题题干:</td>
 																	<td><c:out
 																			value="${questionOfMaterial.questionStem}"></c:out></td>
 																</tr>
-																<br />
+																
 																<tr>
 																	<td>小题答案：</td>
 																	<td><c:out value="${questionOfMaterial.answer}" /></td>
 																</tr>
-																<br />
 																<tr>
 																	<td>小题分析：</td>
 																	<td style="height: 84px; "><c:out value="${questionOfMaterial.analysis}" /></td>
 																</tr>
-																<br />
 																<tr>
 																	<td>小题分值：</td>
 																	<td><c:out value="${questionOfMaterial.score}" /></td>
@@ -160,14 +158,6 @@
 
 															</table>
 														</td>
-														<td><table>
-																<tr>
-																	<td><a
-																		href="${pageContext.request.contextPath}/materialAnalysis.do?flag=moveQuestionOfMaterial&type=decrease&questionOfMaterialId=${questionOfMaterial.id}">上移</a></td>
-																	<td><a
-																		href="${pageContext.request.contextPath}/materialAnalysis.do?flag=moveQuestionOfMaterial&type=increase&questionOfMaterialId=${questionOfMaterial.id}">下移</a></td>
-																</tr>
-															</table></td>
 													</tr>
 
 												</table>

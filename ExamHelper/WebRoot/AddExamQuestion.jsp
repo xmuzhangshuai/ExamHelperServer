@@ -48,6 +48,7 @@
 	}
 	function unselectAll() {
 		var obj = document.fom.elements;
+		var list
 		for (var i = 0; i < obj.length; i++) {
 			var name = /delid\d+/;
 			if (name.test(obj[i].name) == true) {
@@ -59,6 +60,17 @@
 		}
 	}
 	function addExistQuestion() {
+		var obj = document.fom.elements;
+		var name = /delid\d+/;
+		var list;
+		for (var i = 0; i < obj.length; i++) {
+			if (name.test(obj[i].name) == true)
+				list = list + obj[i].value + ",";
+		}
+		document.getElementById("questions").value = list;
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamQuestion&questionId="
+				+ list;
+		document.getElementById("fom").submit;
 	}
 	function addNewQuestion() {
 	}
@@ -137,9 +149,9 @@
 			document.getElementById("fom").submit();
 		}
 	}
-		function endPage(pageCount) {
-	
-			var sectionName = document.getElementById("sectionChoose").value;
+	function endPage(pageCount) {
+
+		var sectionName = document.getElementById("sectionChoose").value;
 		if (sectionName == "null")
 			alert("请选择章节");
 		else {
@@ -149,12 +161,11 @@
 					+ sectionName
 					+ "&questionTypeName="
 					+ questionTypeName
-					+ "&pageNow="+pageCount;
+					+ "&pageNow=" + pageCount;
 			document.getElementById("fom").submit();
 		}
-		 
+
 	}
-	
 </script>
 
 </head>
@@ -226,6 +237,7 @@
 							<td><table width="95%" border="0" align="center"
 									cellpadding="0" cellspacing="0">
 									<tr>
+
 										<td height="20"><span class="newfont07">选择：<a
 												href="#" class="right-font08" onclick="selectAll();">全选</a>-<a
 												href="#" class="right-font08" onclick="unselectAll();">反选</a></span>
@@ -251,7 +263,7 @@
 												<c:forEach items="${questions}" var="question">
 													<tr bgcolor="#FFFFFF">
 														<td height="20"><input type="checkbox"
-															name="delid${question.id}" /></td>
+															name="delid${question.id}" value="${question.id}" /></td>
 
 														<c:if test="${questionTypeName=='材料分析题'}">
 															<td><a
@@ -287,7 +299,7 @@
 														<td><a
 															href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${question.id}&questionTypeName=${questionTypeName}">查看|</a>
 															<a
-															href="${pageContext.request.contextPath}/examination.do?flag=addExamQuestion&questionId=${question.id}&questionTypeName=${questionTypeName}">添加</a>
+															href="${pageContext.request.contextPath}/examination.do?flag=addExamQuestion&questionId=${question.id},">添加</a>
 														</td>
 
 													</tr>
@@ -334,8 +346,11 @@
 								</table></td>
 						</tr>
 					</table></td>
-			</tr>
 
+			</tr>
+			<tr>
+				<td><input type="hidden" id="questionIds" name="questionIds" /></td>
+			</tr>
 		</table>
 	</form>
 

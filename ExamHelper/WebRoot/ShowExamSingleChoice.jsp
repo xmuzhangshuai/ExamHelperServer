@@ -63,8 +63,8 @@
 							<table>
 
 								<tr align="left">
-									<td align="left" width="13%">题干内容:</td>
-									<td style="width: 448px; "><c:out value="${singleChoice.questionStem}"/></td>
+									<td align="left">题干内容:</td>
+									<td ><c:out value="${singleChoice.questionStem}"/></td>
 
 								</tr>
 
@@ -83,20 +83,20 @@
 									<td>
 										<table>
 											<tr>
-												<td align="right" width="13%" style="width: 41px; ">选项A:</td>
+												<td align="left" width="13%" >选项A:</td>
 												<td width="43%"><c:out value="${singleChoice.optionA}"/></td>
 											</tr>
 											<tr>
-												<td align="right" width="13%" style="width: 41px; ">选项B:</td>
+												<td align="left" width="13%" >选项B:</td>
 												<td width="43%"><c:out value="${singleChoice.optionB}"/></td>
 											</tr>
 											<tr>
-												<td align="right" width="13%" style="width: 41px; ">选项C:</td>
+												<td align="left" width="13%" >选项C:</td>
 												<td width="43%"><c:out value="${singleChoice.optionC}"/></td>
 											</tr>
 											<c:if test="${!empty singleChoice.optionD}">
 											<tr> 
-												<td align="right" width="13%" style="width: 41px; ">选项D:</td>
+												<td align="left" width="13%" >选项D:</td>
 												<td width="43%"><c:out value="${singleChoice.optionD}" /></td>
 											</tr>
 											</c:if>
@@ -110,8 +110,8 @@
 									</td>
 									<td><table>
 											<tr>
-												<td>答案</td>
-												<td><c:out value="${singleChoice.answer}"/></td>
+												<td align="right" width="13%">答案</td>
+												<td width="43%"><c:out value="${singleChoice.answer}"/></td>
 											</tr>
 
 										</table></td>
@@ -125,7 +125,7 @@
 							<legend>分析</legend>
 							<table>
 								<tr>
-									<td>题目分析</td>
+									<td >题目分析</td>
 									<td><c:out value="${singleChoice.analysis}"/></td>
 								</tr>
 							</table>
