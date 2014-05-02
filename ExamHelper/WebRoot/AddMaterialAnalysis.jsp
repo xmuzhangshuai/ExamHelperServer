@@ -2,22 +2,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://"+ request.getServerName() + ":" + request.getServerPort()+ path + "/";
 %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
-
 <title>单项选择题</title>
 
 
 <link rel="stylesheet" rev="stylesheet" href="./css/style.css" type="text/css" media="all" />
-
+<script id="jquery_172" type="text/javascript" class="library" src="js/jquery-1.7.1.min.js"></script>
 <script language="JavaScript" type="text/javascript">
 	function tishi() {
 		var a = confirm('数据库中保存有该人员基本信息，您可以修改或保留该信息。');
@@ -49,7 +45,6 @@
 			txtSelect[i].disabled = false;
 	}
 	function save() {
-
 		if (document.getElementById("material").value.trim().length != 0) {
 
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=addMaterialAnalysis"
@@ -64,6 +59,23 @@
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=材料分析题&sectionName="
 				+ sectionName;
 		document.getElementById("fom").submit();
+	}
+	
+	//获得图片路径
+	function getValue()
+	{
+	    var ofrm1 = document.getElementById("imageFrame").document;   
+	    if (ofrm1==undefined)
+	    {
+	        ofrm1 = document.getElementById("imageFrame").contentWindow.document;
+	        var ff = ofrm1.getElementById("imageUrl").value;
+	        return ff;
+	    }
+	    else
+	    {
+	        var ie = document.frames["imageFrame"].document.getElementById("imageUrl").value;
+	         return ie;
+	    }
 	}
 </script>
 </head>
@@ -103,11 +115,13 @@
 
 				</TR>
 				<tr>
-					<td><fieldset>
+					<td ><fieldset>
 							<legend>题目图片:</legend>
-							<table>
+							<table style="width: 100%;">
 								<tr>
-									<td><iframe src="UploadImage.jsp" frameborder="0"></iframe></td>
+									<td>
+										 <iframe id="imageFrame" src="UploadImage.jsp" width="100%"  scrolling="auto" frameborder="0"></iframe>
+									</td>
 								</tr>
 							</table>
 						</fieldset></td>

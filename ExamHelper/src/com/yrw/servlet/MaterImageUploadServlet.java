@@ -48,30 +48,26 @@ public class MaterImageUploadServlet extends BaseServlet {
 				return;
 			}
 
-			// 获取系统的业务逻辑组件
-			// UserService userService = (UserService)
-			// getApplicationContext().getBean("userService");
-			// String mail = su.getRequest().getParameter("mail");
-			// String pass = su.getRequest().getParameter("pass");
-			// User user = userService.checkUser(mail, pass);
-
 			// 按照规则准备文件名按规则
 			String fname = new Date().getTime() + (new Random().nextInt(900) + 100) + "." + file.getFileExt();
 			// 把文件从缓存区转移到指定目录中
 			file.saveAs(path + "/" + fname);
 
-			// user.setAvatar("MaterialImages/" + fname);
-			// userService.modifyUser(user);
-
-			out.println("OK!");
+			request.setAttribute("imageUrl", "MaterialImages/" + fname);
+			request.setAttribute("state", "上传成功");
+			request.getRequestDispatcher("/MaterImage.jsp").forward(request, response);
 
 		} catch (SecurityException e) {
 			e.printStackTrace();
 			// 违反上传限制的异常处理
 			out.println("请选择合法的文件！'");
+			request.setAttribute("state", "请选择合法的文件！");
+			request.getRequestDispatcher("/MaterImage.jsp").forward(request, response);
 		} catch (SmartUploadException e) {
 			e.printStackTrace();
 			out.println("文件上传失败！");
+			request.setAttribute("state", "文件上传失败！！");
+			request.getRequestDispatcher("/MaterImage.jsp").forward(request, response);
 		}
 
 	}

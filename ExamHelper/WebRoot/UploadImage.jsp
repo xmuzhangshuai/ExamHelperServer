@@ -21,7 +21,7 @@
 
 			//火狐下，直接设img属性                          
 			imgObjPreview.style.display = 'block';
-			imgObjPreview.style.width = '10%';
+			imgObjPreview.style.width = '15%';
 			//imgObjPreview.style.height = '100%';
 			//imgObjPreview.src = docObj.files[0].getAsDataURL();  
 			//火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式          
@@ -61,14 +61,23 @@ $(function(){
 </head>
 
 <body>
-    <div id="localImag"><img id="preview" width=-1 height=-1 style="diplay:none" /></div>
-	<form action='${pageContext.request.contextPath}/MaterImageUploadServlet' method='post' enctype='multipart/form-data'>
-	<div class="uploader white">
-		<input type="text" class="filename" readonly="readonly"/>
-		<input type="button" name="file" class="buttonUp" value="浏览..."/>
-		<input type="file" size="30" onchange="javascript:setImagePreview();" name='doc' id='doc' accept="images/*"/>
-	</div>
-	<div class="uploadBtnDiv"><input type='submit' class="uploadBtn" value='上传'></div>
-	</form>
+	<table class="upTable">
+		<tr style="vertical-align: top;">
+			<td style="width: 20%;">
+				<form action='${pageContext.request.contextPath}/MaterImageUploadServlet' method='post' enctype='multipart/form-data'>
+					<div class="uploader white">
+						<input type="text" class="filename" readonly="readonly"/>
+						<input type="button" name="file" class="buttonUp" value="浏览..."/>
+						<input type="file" size="30" onchange="javascript:setImagePreview();" name='doc' id='doc' accept="images/*"/>
+					</div>
+					<div class="uploadBtnDiv"><input type='submit' class="uploadBtn" value='上传'></div>
+				</form>
+			</td>
+			<td>
+				<div id="localImag"><img id="preview" width=-1 height=-1 style="diplay:none" /></div>
+			</td>
+		</tr>
+	</table>
+	
 </body>
 </html>
