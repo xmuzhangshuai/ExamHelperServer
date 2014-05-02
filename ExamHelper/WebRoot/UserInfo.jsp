@@ -161,9 +161,11 @@ function link() {
 								<td height="20" ><label>${user.area}</label></td>
 								<td height="20" align="center" ><label>${user.integral}</label></td>
 								<td height="20" ><label>${user.userState}</label></td>
-								<td height="20" ><a href="">编辑|</a>
-								    <a href="">查看|</a>
-									<a href="#" onclick="" id="deleteSingleSubject${subject.id}">删除</a>
+								<td height="20" align="center">
+									<a  onclick="alert('删除');" id="">
+									<img alt="删除" class="delete_img" src="./images/delete.png" style="height: 15px;" title="删除"/>删除</a>
+									<a  onclick="alert('冻结');" id="">
+									<img alt="删除" class="delete_img" src="./images/freeze.png" style="height: 15px;margin-left: 5px;" title="冻结用户"/>冻结</a>
 								</td>
 							</tr>
 						</c:forEach>
