@@ -145,7 +145,7 @@ function goQueryDetail(id,pageNow){
 							<td width="8%" align="center" height="30">操作</td>
 						</tr>
 						<c:forEach items="${queryList}" var="query">
-							<tr id="listbg" onclick="goQueryDetail('${query.id}','${pageNow}');">
+							<tr id="listbg">
 								<td height="20" align="center" ><input  type="checkbox" name="delid${query.id}" /></td>
 								<td height="20" align="center" ><label>${query.id}</label></td>
 								<td height="30" align="center" ><a href="${query.user.avatar}" title="${query.user.nickname}">
@@ -157,9 +157,8 @@ function goQueryDetail(id,pageNow){
 								<td height="20" align="center"><a href="${query.queryImage}" title="${query.queryStem}">
 												<img id ="headImage" height="100px" src="${query.queryImage}" alt="" /></a></td>
 								<td height="20" >
-									<a href="">编辑|</a>
-								    <a href="">查看|</a>
-									<a href="#" onclick="" id="deleteSingleSubject${query.id}">删除</a>
+									<input type="image" src="./images/more.png" onclick="goQueryDetail('${query.id}','${pageNow}');" style="height: 25px;" title="查看"/>查看
+									<input type="image" src="./images/delete.png" onclick="alert('删除');" style="height: 15px;margin-left: 5px;" title="删除"/>删除
 								</td>
 							</tr>
 						</c:forEach>
