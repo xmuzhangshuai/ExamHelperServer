@@ -66,17 +66,10 @@ function endPage(){
 	alert("末页");
 }
 
-//点击列表进入疑问详情
-function goCollectionDetail(id){
-	//document.getElementById("fom").action = "${pageContext.request.contextPath}/query.do?flag=showQueryDetail&id="+id;
-	//document.getElementById("fom").submit();
-}
-
 //选择查看类型级联变化
 function typeChange(current){
 	 var currentChoice = current;
 	 var subject = "按科目";
-	 var section = "按章节";
 	 var questionType = "按题型";
      //清空二级菜单下拉选单
      document.all.list.length = 0 ;
@@ -108,6 +101,17 @@ function typeChange(current){
      }
 }
 
+function search() {
+	var subject = "按科目";
+	var questionType = "按题型";
+	var index = document.getElementById("list").selectedIndex;
+	if(document.getElementById("type").options[window.document.getElementById("type").selectedIndex].text == subject){
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/collection.do?flag=searchCollectionList&type=subject&index="+index;
+	}else if(document.getElementById("type").options[window.document.getElementById("type").selectedIndex].text == questionType){
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/collection.do?flag=searchCollectionList&type=questionType&index="+index;
+	}
+	document.getElementById("fom").submit();
+}
 </script>
 </head>
   
@@ -133,8 +137,8 @@ function typeChange(current){
 									<select id="list">
 										<option>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
 									</select>
-									<input name="Submit4" type="button" class="right-button02"
-									       value="查 询" onclick="keywordSearch();" />
+									<input name="Submit4" type="submit" class="right-button02"
+									       value="查 询" onclick="search();" />
 								</td>
 							</tr>
 						</table>

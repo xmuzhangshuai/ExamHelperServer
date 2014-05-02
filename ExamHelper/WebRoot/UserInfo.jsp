@@ -162,10 +162,8 @@ function link() {
 								<td height="20" align="center" ><label>${user.integral}</label></td>
 								<td height="20" ><label>${user.userState}</label></td>
 								<td height="20" align="center">
-									<a  onclick="alert('删除');" id="">
-									<img alt="删除" class="delete_img" src="./images/delete.png" style="height: 15px;" title="删除"/>删除</a>
-									<a  onclick="alert('冻结');" id="">
-									<img alt="删除" class="delete_img" src="./images/freeze.png" style="height: 15px;margin-left: 5px;" title="冻结用户"/>冻结</a>
+								    <input type="image" src="./images/delete.png" onclick="alert('删除');" style="height: 15px;" title="删除"/>删除
+								    <input type="image" src="./images/freeze.png" onclick="alert('冻结用户');" style="height: 15px;margin-left: 5px;" title="删除"/>冻结
 								</td>
 							</tr>
 						</c:forEach>
