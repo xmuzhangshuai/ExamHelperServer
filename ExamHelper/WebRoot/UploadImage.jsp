@@ -6,19 +6,14 @@
 			+ path + "/";
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML>
 <html>
 <head>
 <base href="<%=basePath%>">
 
 <title>图片上传</title>
-
-<meta http-equiv="pragma" content="no-cache">
-<meta http-equiv="cache-control" content="no-cache">
-<meta http-equiv="expires" content="0">
-<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-<meta http-equiv="description" content="This is my page">
-
+<script id="jquery_172" type="text/javascript" class="library" src="js/jquery-1.7.1.min.js"></script>
+<link href="./css/upload.css" rel="stylesheet" type="text/css" />
 <script>
 	function setImagePreview() {
 
@@ -30,12 +25,9 @@
 			imgObjPreview.style.display = 'block';
 			imgObjPreview.style.width = '10%';
 			//imgObjPreview.style.height = '100%';
-
 			//imgObjPreview.src = docObj.files[0].getAsDataURL();  
-
 			//火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式          
 			imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
-
 		} else {
 			//IE下，使用滤镜                          
 			docObj.select();
@@ -44,7 +36,6 @@
 
 			//必须设置初始大小                          
 			localImagId.style.width = "10%";
-			//localImagId.style.height = "100%";
 
 			//图片异常的捕捉，防止用户修改后缀来伪造图片  
 			try {
@@ -61,17 +52,24 @@
 
 		return true;
 	}
+$(function(){
+	$("input[type=file]").change(function(){$(this).parents(".uploader").find(".filename").val($(this).val());});
+	$("input[type=file]").each(function(){
+	if($(this).val()==""){$(this).parents(".uploader").find(".filename").val("没有选择任何文件...");}
+	});
+});
 </script>
-
 </head>
 
 <body>
-
     <div id="localImag"><img id="preview" width=-1 height=-1 style="diplay:none" /></div>
 	<form action='${pageContext.request.contextPath}/TestServlet' method='post' enctype='multipart/form-data'>
-		请选择要上传的文件:<input type='file' name='doc' id='doc' onchange="javascript:setImagePreview();"   size='50'> 
-		<input type='submit' value='上传'>
+	<div class="uploader white">
+		<input type="text" class="filename" readonly="readonly"/>
+		<input type="button" name="file" class="buttonUp" value="浏览..."/>
+		<input type="file" size="30" onchange="javascript:setImagePreview();" name='doc' id='doc' accept="images/*"/>
+	</div>
+	<div class="uploadBtnDiv"><input type='submit' class="uploadBtn" value='上传'></div>
 	</form>
-	
 </body>
 </html>

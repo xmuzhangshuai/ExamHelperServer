@@ -16,8 +16,7 @@
 <title>单项选择题</title>
 
 
-<link rel="stylesheet" rev="stylesheet" href="./css/style.css"
-	type="text/css" media="all" />
+<link rel="stylesheet" rev="stylesheet" href="./css/style.css" type="text/css" media="all" />
 
 <script language="JavaScript" type="text/javascript">
 	function tishi() {
@@ -111,9 +110,7 @@
 							<legend>题目图片:</legend>
 							<table>
 								<tr>
-									<td>题目图片</td>
-									<td><input type="file" name="materialImage"
-										id="materialImage" tit /></td>
+									<td><jsp:include page="UploadImage.jsp" /></td>
 								</tr>
 							</table>
 						</fieldset></td>
