@@ -1,9 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://"+ request.getServerName() + ":" + request.getServerPort()+ path + "/";
 %>
 
 <!DOCTYPE HTML>
@@ -58,12 +56,13 @@ $(function(){
 	if($(this).val()==""){$(this).parents(".uploader").find(".filename").val("没有选择任何文件...");}
 	});
 });
+
 </script>
 </head>
 
 <body>
     <div id="localImag"><img id="preview" width=-1 height=-1 style="diplay:none" /></div>
-	<form action='${pageContext.request.contextPath}/TestServlet' method='post' enctype='multipart/form-data'>
+	<form action='${pageContext.request.contextPath}/MaterImageUploadServlet' method='post' enctype='multipart/form-data'>
 	<div class="uploader white">
 		<input type="text" class="filename" readonly="readonly"/>
 		<input type="button" name="file" class="buttonUp" value="浏览..."/>

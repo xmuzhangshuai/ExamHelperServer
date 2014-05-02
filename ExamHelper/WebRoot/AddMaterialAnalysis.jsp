@@ -78,10 +78,7 @@
 					<th class="tablestyle_title">材料分析题</th>
 				</tr>
 				<tr>
-					<td style="width: 485px; "><input type="button"
-						value="返回材料分析题列表" style="width: 137px; " onclick="back();"
-						class="button" /></td>
-
+					<td><input type="button"value="返回材料分析题列表"  onclick="back();"class="button" style="margin-left: 12px;"/></td>
 				</tr>
 
 				<TR>
@@ -110,7 +107,7 @@
 							<legend>题目图片:</legend>
 							<table>
 								<tr>
-									<td><jsp:include page="UploadImage.jsp" /></td>
+									<td><iframe src="UploadImage.jsp" frameborder="0"></iframe></td>
 								</tr>
 							</table>
 						</fieldset></td>
@@ -182,7 +179,7 @@
 				</tr>
 
 				<TR>
-					<TD colspan="2" align="center" height="50px"><input
+					<TD colspan="2" align="center" height="50px" style="padding-bottom: 10px;"><input
 						type="button" value="编辑" class="button" style="width: 83px; "
 						onclick="edit();" /> <input type="button" value="保存"
 						type="submit" style="width: 77px;" onclick="save();"

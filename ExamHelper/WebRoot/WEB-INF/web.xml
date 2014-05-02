@@ -102,6 +102,11 @@
     <servlet-name>ChangeSubjectServlet</servlet-name>
     <servlet-class>com.yrw.servlet.ChangeSubjectServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>MaterImageUploadServlet</servlet-name>
+    <servlet-class>com.yrw.servlet.MaterImageUploadServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -204,6 +209,10 @@
   <servlet-mapping>
     <servlet-name>ChangeSubjectServlet</servlet-name>
     <url-pattern>/ChangeSubjectServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MaterImageUploadServlet</servlet-name>
+    <url-pattern>/MaterImageUploadServlet</url-pattern>
   </servlet-mapping>
 
 
