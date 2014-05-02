@@ -33,13 +33,9 @@
 		var trueOrFalse = "判断题"
 		var analysis = "材料分析题"
 		
-		var sectionName = document.getElementById("sectionChoose").value;
-		var questionTypeName=document.getElementById("questionTypeChoose").value;
-		alert(questionTypeName)
-			if (sectionName == "null")
-			alert("请选择章节")
+	
+		alert("我")
 			
-		alert("我的测试")
 		
 	}
 	function loadSection() {
