@@ -26,37 +26,26 @@
 						"",
 						"depended=0,alwaysRaised=1,width=800,height=510,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
 	}
-		function search() {
-		
-		var singleChoice = "单项选择题"
-		var multiChoice = "多项选择题"
-		var trueOrFalse = "判断题"
-		var analysis = "材料分析题"
-		
-	
-		alert("我")
-			
-		
-	}
-	function loadSection() {
-	
-	 
-	
-	}
 
+	function search() {
+		var sectionName = document.getElementById("sectionChoose").value;
+		var questionTypeName = document.getElementById("questionTypeChoose").value;
+		if (sectionName == "null")
+			alert("请选择章节");
+		else {
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamQuestionUI&sectionName="
+					+ sectionName + "&questionTypeName=" + questionTypeName;
+			document.getElementById("fom").submit();
+		}
+	}
 	function selectAll() {
 
 		var obj = document.fom.elements;
 		var name = /delid\d+/;
-		for (var i = 0; i < obj.length; i++) {
-			if (name.test(obj[i].name) == true) {
+		for (var i = 0; i < obj.length; i++)
+			if (name.test(obj[i].name) == true)
 				obj[i].checked = true;
-			}
-			;
-		}
-		;
 	}
-
 	function unselectAll() {
 		var obj = document.fom.elements;
 		for (var i = 0; i < obj.length; i++) {
@@ -69,116 +58,103 @@
 			}
 		}
 	}
-
-	function link() {
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=addSingleChoiceUI";
-		document.getElementById("fom").submit();
+	function addExistQuestion() {
 	}
-
-	function delSelected() {
-		var obj = document.fom.elements;
-		var name = /delid\d+/;
-		var list
-
-		for (var i = 0; i < obj.length; i++) {
-			if (name.test(obj[i].name) == true && obj[i].checked == true)
-				list = list + obj[i].name;
-
-		}
-		document.getElementById("paramsHidden").value = list;
-
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=delSubjectByList&pageNow=${pageNow}";
-		document.getElementById("fom").submit();
+	function addNewQuestion() {
 	}
-	
-	function goByPage(){
-		var sectionName=document.getElementById("sectionChoose").value;
-		var page=document.getElementById("page").value;
-	
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&pageNow="
-					+ page+"&sectionName="+sectionName;
+	function goByPage() {
+		var sectionName = document.getElementById("sectionChoose").value;
+		var pageNow = document.getElementById("page").value;
+		var questionTypeName = document.getElementById("questionTypeChoose").value;
+
+		if (sectionName == "null")
+			alert("请选择章节");
+		else {
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamQuestionUI&sectionName="
+					+ sectionName
+					+ "&questionTypeName="
+					+ questionTypeName
+					+ "&pageNow=" + pageNow;
 			document.getElementById("fom").submit();
-	}
-	function lastPage(pageNow){
-	if(pageNow==1)
-	alert("当前页为第一页")
-	else{
-	var sectionName=document.getElementById("sectionChoose").value;
-	
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&pageNow="
-						+ (pageNow - 1) + "&sectionName=" + sectionName;
-				document.getElementById("fom").submit();
 		}
+	}
+	function lastPage(pageNow) {
+		var sectionName = document.getElementById("sectionChoose").value;
 
+		if (sectionName == "null")
+			alert("请选择章节");
+		else {
+			if (pageNow == 1)
+				alert("当前页为第一页")
+			else {
+
+				var questionTypeName = document
+						.getElementById("questionTypeChoose").value;
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamQuestionUI&sectionName="
+						+ sectionName
+						+ "&questionTypeName="
+						+ questionTypeName
+						+ "&pageNow=" + (pageNow - 1);
+				document.getElementById("fom").submit();
+			}
+		}
 	}
 	function nextPage(pageNow, pageCount) {
-		pageCount=parseInt(pageCount);
-		pageNow=parseInt(pageNow)+1;
-		
-		if (pageNow> pageCount)
-			alert(当前为最后一页);
+		pageCount = parseInt(pageCount);
+		pageNow = parseInt(pageNow) + 1;
+		var sectionName = document.getElementById("sectionChoose").value;
+		if (sectionName == "null")
+			alert("请选择章节");
 		else {
-		var sectionName=document.getElementById("sectionChoose").value;
-		<%String keywordNP = (String) request.getAttribute("keyword");%>
-		var keyword="<%=keywordNP%>"
-			var nonContent = "null";
-			
-				if (keyword == nonContent)
+			if (pageNow > pageCount)
+				alert(当前为最后一页);
+			else {
 
-			{
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&pageNow="
-						+ pageNow + "&sectionName=" + sectionName;
-				document.getElementById("fom").submit();
-			} else {
-
-				document.getElementById("textfield").value = keyword;
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=searchSubjectByKeyWord&pageNow="
-				+pageNow+ "&sectionName=" + sectionName;
+				var questionTypeName = document
+						.getElementById("questionTypeChoose").value;
+				document.getElementById("sectionChoose").value;
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamQuestionUI&sectionName="
+						+ sectionName
+						+ "&questionTypeName="
+						+ questionTypeName
+						+ "&pageNow=" + pageNow
 				document.getElementById("fom").submit();
 			}
 		}
 	}
 	function firstPage() {
-	var sectionName=document.getElementById("hiddenValue").value;
-		<%String keywordFP = (String) request.getAttribute("keyword");%>
-		var keyword="<%=keywordFP%>"
-			var nonContent = "null";
-			if (keyword == nonContent)
-
-			{
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&pageNow=1"
-						 + "&sectionName=" + sectionName;
-				document.getElementById("fom").submit();
-			} else {
-
-				document.getElementById("textfield").value = keyword;
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=searchSubjectByKeyWord&pageNow=1"
-				+"&sectionName=" + sectionName;
-				document.getElementById("fom").submit();
-			}
-	}
-	function endPage(pageCount) {
-	
-		var sectionName=document.getElementById("hiddenValue").value;
-		<%String keywordEP = (String) request.getAttribute("keyword");%>
-		var keyword="<%=keywordEP%>
-	";
-
-		var nonContent = "null";
-		if (keyword == nonContent)
-
-		{
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&pageNow="
-					+ pageCount + "&sectionName=" + sectionName;
-			document.getElementById("fom").submit();
-		} else {
-
-			document.getElementById("textfield").value = keyword;
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=searchSubjectByKeyWord&pageNow="
-					+ pageCount + "&sectionName=" + sectionName;
+		var sectionName = document.getElementById("sectionChoose").value;
+		if (sectionName == "null")
+			alert("请选择章节");
+		else {
+			var questionTypeName = document
+					.getElementById("questionTypeChoose").value;
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamQuestionUI&sectionName="
+					+ sectionName
+					+ "&questionTypeName="
+					+ questionTypeName
+					+ "&pageNow=1"
 			document.getElementById("fom").submit();
 		}
 	}
+		function endPage(pageCount) {
+	
+			var sectionName = document.getElementById("sectionChoose").value;
+		if (sectionName == "null")
+			alert("请选择章节");
+		else {
+			var questionTypeName = document
+					.getElementById("questionTypeChoose").value;
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamQuestionUI&sectionName="
+					+ sectionName
+					+ "&questionTypeName="
+					+ questionTypeName
+					+ "&pageNow="+pageCount;
+			document.getElementById("fom").submit();
+		}
+		 
+	}
+	
 </script>
 
 </head>
@@ -186,13 +162,15 @@
 <body>
 	<form name="fom" id="fom" method="post" action="" target="mainFrame">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
-
 			<tr>
 				<td height="30">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
 						<tr>
-							<td align="left">
-								<table>
+							<td height="62"
+								style="background-image:url('./images/nav04.gif'); ">
+
+								<table width="98%" border="0" align="center" cellpadding="0"
+									cellspacing="0">
 									<tr>
 										<td width="38">科目：</td>
 										<td style="width: 119px; "><select name="subjectChoose"
@@ -252,10 +230,10 @@
 												href="#" class="right-font08" onclick="selectAll();">全选</a>-<a
 												href="#" class="right-font08" onclick="unselectAll();">反选</a></span>
 											<input name="Submit" type="button" class="right-button08"
-											value="添加所选${questionTypeName}" onclick="delSelected();" />
-											<input type="hidden" name="paramsHidden" id="paramsHidden" />
-											<input name="Submit2" type="button" class="right-button08"
-											value="新增${questionTypeName}" onclick="link();" /></td>
+											value="添加所选${questionTypeName}" onclick="addExistQuestion();"
+											style="width: 107px; " /> <input name="Submit2"
+											type="button" class="right-button08"
+											value="新增${questionTypeName}" onclick="addNewQuestion();" /></td>
 									</tr>
 									<tr>
 										<td height="40" class="font42">
@@ -305,12 +283,13 @@
 
 
 															</a></td>
-															</c:if>
-															<td><a
-																href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${question.id}&questionTypeName=${questionTypeName}">查看|</a>
-																 <a href="${pageContext.request.contextPath}/examination.do?flag=addExamQuestion&questionId=${question.id}&questionTypeName=${questionTypeName}">添加</a>
-															</td>
-														
+														</c:if>
+														<td><a
+															href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${question.id}&questionTypeName=${questionTypeName}">查看|</a>
+															<a
+															href="${pageContext.request.contextPath}/examination.do?flag=addExamQuestion&questionId=${question.id}&questionTypeName=${questionTypeName}">添加</a>
+														</td>
+
 													</tr>
 												</c:forEach>
 											</table>

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,6 +23,7 @@ import com.yrw.domains.Examination;
 import com.yrw.domains.Examsection;
 import com.yrw.domains.Materialanalysis;
 import com.yrw.domains.Multichoice;
+import com.yrw.domains.Questionsofmaterial;
 import com.yrw.domains.Questiontype;
 import com.yrw.domains.Section;
 import com.yrw.domains.Singlechoice;
@@ -299,7 +301,6 @@ public class ExaminationAction extends DispatchAction {
 		return showExamination(mapping, form, request, response);
 	}
 
-
 	/**
 	 * 跳转到添加单项选择题的列表
 	 * 
@@ -329,7 +330,7 @@ public class ExaminationAction extends DispatchAction {
 			subjectId = existExamSection.getExamination().getSubject().getId();
 			request.getSession().setAttribute("examSectionId", examSectionId);
 		} else {
-			//设置sectionName的值
+			// 设置sectionName的值
 			String sectionName = new String(request.getParameter("sectionName")
 					.getBytes("ISO-8859-1"), "utf-8");
 			request.setAttribute("sectionName", sectionName);
@@ -370,5 +371,45 @@ public class ExaminationAction extends DispatchAction {
 		}
 
 		return mapping.findForward("addExamQuestionUI");
+	}
+
+	/**
+	 * 显示问题的详细信息
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+	public ActionForward showExamQuestionDetail(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		int questionId = Integer.parseInt(request.getParameter("questionId"));
+		String questionTypeName = request.getParameter("questionTypeName");
+		String forwardString = null;
+		if (questionTypeName.equals(DefaultValue.SINGLE_CHOICE)) {
+			Singlechoice singlechoice = (Singlechoice) questionService
+					.getQuestion(questionId, DefaultValue.SINGLE_CHOICE);
+			request.setAttribute("singleChoice", singlechoice);
+			forwardString = "showExamSingleChoice";
+		} else if (questionTypeName.equals(DefaultValue.MULTI_CHOICE)) {
+			Multichoice multichoice = (Multichoice) questionService
+					.getQuestion(questionId, DefaultValue.MULTI_CHOICE);
+			request.setAttribute("multiChoice", multichoice);
+			forwardString = "showExamMultiChoice";
+		} else if (questionTypeName.equals(DefaultValue.TRUE_OR_FALSE)) {
+			Trueorfalse trueorfalse = (Trueorfalse) questionService
+					.getQuestion(questionId, DefaultValue.TRUE_OR_FALSE);
+			request.setAttribute("trueOrFalse", trueorfalse);
+			forwardString = "showExamTrueOrFalse";
+		} else if (questionTypeName.equals(DefaultValue.MATERIAL_ANALYSIS)) {
+			Materialanalysis materialanalysis = (Materialanalysis) questionService
+					.getQuestion(questionId, DefaultValue.MATERIAL_ANALYSIS);
+			request.setAttribute("materialAnalysis", materialanalysis);
+			forwardString = "showExamMaterialAnalysis";
+		}
+		return mapping.findForward(forwardString);
 	}
 }

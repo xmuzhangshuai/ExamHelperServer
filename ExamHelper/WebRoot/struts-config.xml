@@ -93,6 +93,11 @@
 			<forward name="showExamList" path="/ShowExamList.jsp" />
 			<forward name="showExamination" path="/ShowExamination.jsp" />
 			<forward name="addExamQuestionUI" path="/AddExamQuestion.jsp"/>
+			
+			<forward name="showExamSingleChoice" path="/ShowExamSingleChoice.jsp"/>
+			<forward name="showExamMultiChoice" path="/ShowExamMultiChoice.jsp"/>
+			<forward name="showExamTrueOrFalse" path="/ShowExamTrueOrFalse.jsp"/>
+			<forward name="showExamMaterialAnalysis" path="/ShowExamMaterialAnalysis.jsp"/>
 		</action>
 		<action parameter="flag" path="/user" type="com.yrw.web.actions.UserAction" cancellable="true">
 			<forward name="userInfo" path="/UserInfo.jsp" />

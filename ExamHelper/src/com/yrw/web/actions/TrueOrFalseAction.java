@@ -120,11 +120,11 @@ public class TrueOrFalseAction extends DispatchAction {
 	public ActionForward showTrueOrFalse(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
-		int singleChoiceId = Integer.parseInt(request
+		int trueOrFalseId = Integer.parseInt(request
 				.getParameter("trueOrFalseId"));
 		String isEdit = request.getParameter("edit");
 		Trueorfalse trueorfalse = (Trueorfalse) questionService.getQuestion(
-				singleChoiceId, DefaultValue.TRUE_OR_FALSE);
+				trueOrFalseId, DefaultValue.TRUE_OR_FALSE);
 		request.setAttribute("trueOrFalse", trueorfalse);
 		
 		
