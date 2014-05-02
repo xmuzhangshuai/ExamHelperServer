@@ -2,23 +2,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://"+ request.getServerName() + ":" + request.getServerPort()+ path + "/";
 %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
-
 <title>单项选择题</title>
 
 
-<link rel="stylesheet" rev="stylesheet" href="./css/style.css"
-	type="text/css" media="all" />
-
+<link rel="stylesheet" rev="stylesheet" href="./css/style.css" type="text/css" media="all" />
+<script id="jquery_172" type="text/javascript" class="library" src="js/jquery-1.7.1.min.js"></script>
 <script language="JavaScript" type="text/javascript">
 	function tishi() {
 		var a = confirm('数据库中保存有该人员基本信息，您可以修改或保留该信息。');
@@ -50,7 +45,6 @@
 			txtSelect[i].disabled = false;
 	}
 	function save() {
-
 		if (document.getElementById("material").value.trim().length != 0) {
 
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=addMaterialAnalysis"
@@ -66,6 +60,23 @@
 				+ sectionName;
 		document.getElementById("fom").submit();
 	}
+	
+	//获得图片路径
+	function getValue()
+	{
+	    var ofrm1 = document.getElementById("imageFrame").document;   
+	    if (ofrm1==undefined)
+	    {
+	        ofrm1 = document.getElementById("imageFrame").contentWindow.document;
+	        var ff = ofrm1.getElementById("imageUrl").value;
+	        return ff;
+	    }
+	    else
+	    {
+	        var ie = document.frames["imageFrame"].document.getElementById("imageUrl").value;
+	         return ie;
+	    }
+	}
 </script>
 </head>
 
@@ -79,10 +90,7 @@
 					<th class="tablestyle_title">材料分析题</th>
 				</tr>
 				<tr>
-					<td style="width: 485px; "><input type="button"
-						value="返回材料分析题列表" style="width: 137px; " onclick="back();"
-						class="button" /></td>
-
+					<td><input type="button"value="返回材料分析题列表"  onclick="back();"class="button" style="margin-left: 12px;"/></td>
 				</tr>
 
 				<TR>
@@ -107,13 +115,13 @@
 
 				</TR>
 				<tr>
-					<td><fieldset>
+					<td ><fieldset>
 							<legend>题目图片:</legend>
-							<table>
+							<table style="width: 100%;">
 								<tr>
-									<td>题目图片</td>
-									<td><input type="file" name="materialImage"
-										id="materialImage" tit /></td>
+									<td>
+										 <iframe id="imageFrame" src="UploadImage.jsp" width="100%"  scrolling="auto" frameborder="0"></iframe>
+									</td>
 								</tr>
 							</table>
 						</fieldset></td>
@@ -185,7 +193,7 @@
 				</tr>
 
 				<TR>
-					<TD colspan="2" align="center" height="50px"><input
+					<TD colspan="2" align="center" height="50px" style="padding-bottom: 10px;"><input
 						type="button" value="编辑" class="button" style="width: 83px; "
 						onclick="edit();" /> <input type="button" value="保存"
 						type="submit" style="width: 77px;" onclick="save();"
