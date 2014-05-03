@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.mail.Flags.Flag;
+
 import com.yrw.config.DefaultValue;
 import com.yrw.domains.Examination;
 import com.yrw.domains.Examquestion;
@@ -347,15 +349,23 @@ public class ExamService {
 		Set<Examquestion> examquestions = examsection.getExamquestions();
 		List<Examquestion> examquestionList = new ArrayList<Examquestion>(
 				examquestions);
-		int targetExamQuestionId=0;
+		int targetExamQuestionId = 0;
+		boolean flag = true;
 		for (int i = 0; i < examquestionList.size(); i++) {
-			if (questionId == examquestionList.get(i).getQuestionId()) {
-				targetExamQuestionId = examquestionList.get(i).getId();
-				break;
-			}
+			if (flag) {
+				if (questionId == examquestionList.get(i).getQuestionId()) {
+					targetExamQuestionId = examquestionList.get(i).getId();
+					examquestionList.remove(i);
+					System.out.println(targetExamQuestionId);
+					flag=false;
+
+				}
+			}else
+				examquestionList.get(i).setQuestionNumber(examquestionList.get(i).getQuestionNumber()-1);
+			
 		}
 		iExamQuestionDao.deletById(Examquestion.class, targetExamQuestionId);
-		examquestions=new HashSet<Examquestion>(examquestionList);
+		examquestions = new HashSet<Examquestion>(examquestionList);
 		examsection.setExamquestions(examquestions);
 
 		// 修改后续章节的examquestionNumber
@@ -370,7 +380,7 @@ public class ExamService {
 						.getExamquestions().iterator();
 				while (iterator.hasNext()) {
 					exq = (Examquestion) iterator.next();
-					exq.setQuestionNumber(exq.getQuestionNumber() - 1);
+					iExamQuestionDao.updateQuestionNumber(exq.getId(), exq.getQuestionNumber() - 1);
 				}
 				iExamSectionDao.update(nextExamsections.get(i));
 			}
@@ -417,7 +427,7 @@ public class ExamService {
 							.getExamquestions().iterator();
 					while (iterator.hasNext()) {
 						exq = (Examquestion) iterator.next();
-						exq.setQuestionNumber(exq.getQuestionNumber() + 1);
+						iExamQuestionDao.updateQuestionNumber(exq.getId(), exq.getQuestionNumber()+1);
 					}
 					iExamSectionDao.update(nextExamsections.get(i));
 				}

@@ -69,4 +69,8 @@ public interface IExamQuestionDao extends IBasicDao {
 	 * @return
 	 */
 	public int getMaxQuestionNumberByExamSection(int examSectionId);
+	/**更新数量
+	 * @param examQuestionId
+	 */
+	public void updateQuestionNumber(int examQuestionId,int questionNumber);
 }

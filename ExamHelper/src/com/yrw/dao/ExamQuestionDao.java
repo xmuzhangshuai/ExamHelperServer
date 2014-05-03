@@ -51,4 +51,11 @@ public class ExamQuestionDao extends BasicDao implements IExamQuestionDao {
 		return (Integer) this.uniqueQuery(hql, null);
 	}
 
+	@Override
+	public void updateQuestionNumber(int examQuestionId,int questionNumber) {
+		// TODO Auto-generated method stub
+		String hql="update Examquestion as e set e.questionNumber="+questionNumber+" where e.id ="+examQuestionId;
+		this.executeUpdate(hql, null);
+	}
+
 }

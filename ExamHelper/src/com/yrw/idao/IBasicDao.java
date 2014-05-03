@@ -52,7 +52,7 @@ public interface IBasicDao {
 	 * @param 查找条件
 	 * @return List
 	 */
-	public List executeUpdate(String hql,Object []parameters);
+	public void executeUpdate(String hql,Object []parameters);
 	
 	
 	/**更新

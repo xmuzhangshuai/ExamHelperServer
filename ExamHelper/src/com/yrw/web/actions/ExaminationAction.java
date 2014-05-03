@@ -375,19 +375,26 @@ public class ExaminationAction extends DispatchAction {
 
 		String questionIdString = request.getParameter("questionId");
 		String[] questionIdStrings = questionIdString.split(",");
-		System.out.println(questionIdStrings.length);
+
 		int examSectionId = (Integer) request.getSession().getAttribute(
 				"examSectionId");
 		// »ñµÃexamSection
 		Examsection examsection = examService.getExamsection(examSectionId);
-		for (int i = 0; i < questionIdStrings.length; i++) {
-			int questionId = Integer.parseInt(questionIdStrings[i]);
-			System.out.println("questionId " + questionId);
-			examService.addExamQuestion(questionId, examSectionId, examsection);
+		if (questionIdString != null && !questionIdString.equals("undefined")) {
+			for (int i = 0; i < questionIdStrings.length; i++) {
+				int questionId = Integer.parseInt(questionIdStrings[i]);
+				System.out.println("questionId " + questionId);
+				examService.addExamQuestion(questionId, examSectionId,
+						examsection);
+			}
+
+			request.setAttribute("examinationId", examsection.getExamination()
+					.getId());
+			return showExamination(mapping, null, request, response);
 		}
-		request.setAttribute("examinationId", examsection.getExamination()
-				.getId());
-		return showExamination(mapping, null, request, response);
+		else 
+			return null;
+		
 	}
 
 	/**

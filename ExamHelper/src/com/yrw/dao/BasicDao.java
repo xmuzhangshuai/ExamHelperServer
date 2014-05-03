@@ -104,10 +104,11 @@ public abstract class BasicDao implements IBasicDao {
 	 * @return List
 	 */
 	@Override
-	public List executeUpdate(String hql, Object[] parameters) {
+	public void executeUpdate(String hql, Object[] parameters) {
 		// TODO Auto-generated method stub
 
-		return null;
+		Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+		query.executeUpdate();
 	}
 
 	/**

@@ -110,37 +110,30 @@
 		var MultiChoice = "多项选择题"
 		var TrueOrFalse = "判断题"
 		var MaterialAnalysis = "材料分析题"
+
 		if (questionTypeName == SingleChoice) {
 			examSectionId = document.getElementById("singleChoiceSection").value;
-		} else if (option == MultiChoice) {
+		} else if (questionTypeName == MultiChoice) {
 			examSectionId = document.getElementById("multiChoiceSection").value;
-		} else if (option == TrueOrFalse) {
+			alert(MultiChoice)
+		} else if (questionTypeName == TrueOrFalse) {
 			examSectionId = document.getElementById("trueOrFalseSection").value;
-		} else if (option == MaterialAnalysis) {
+		} else if (questionTypeName == MaterialAnalysis) {
 			examSectionId = document.getElementById("materialAnalysisSection").value;
 		}
 
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=removeExamQuestion&examSectionId="
 				+ examSectionId + "&questionId=" + questionId;
+		alert(document.getElementById("fom").action);
 		document.getElementById("fom").submit();
 
 	}
-	function InitList() {
 
-		if (!'${singleChoices}')
-			document.getElementById("singleChoiceList").style.display = "none";
-		if (!'${multiChoices}')
-			document.getElementById("multiChoiceList").style.display = "none";
-		if (!'${trueOrFalses}')
-			document.getElementById("trueOrFalseList").style.display = "none";
-		if (!'${materialAnalysises}')
-			document.getElementById("materialAnalysisList").style.display = "none"
-	}
 </script>
 
 </head>
 
-<body class="ContentBody" onload="InitList();">
+<body class="ContentBody" >
 	<form
 		action="${pageContext.request.contextPath}/examination.do?flag=editExaminationInfor&examinationId=${examination.id}"
 		method="post" enctype="multipart/form-data" name="fom" id="fom"
@@ -153,7 +146,7 @@
 				</tr>
 				<tr>
 					<td style="width: 485px; "><input type="button" value="返回试卷列表"
-						style="width: 111px; " onclick="back();" class="button" /></td>
+						onclick="back();" class="button" /></td>
 
 				</tr>
 
@@ -216,8 +209,8 @@
 											<TR>
 												<TD colspan="2" align="center" height="50px"><input
 													type="button" value="编辑" class="button"
-													style="width: 83px; " onclick="editExamInfor();" /> <input
-													type="button" value="保存" type="submit" style="width: 77px;"
+													onclick="editExamInfor();" /> <input type="button"
+													value="保存" type="submit"
 													onclick="saveExamInfor('${examination.id}');"
 													class="button" /></TD>
 											</TR>
@@ -284,9 +277,8 @@
 												<tr>
 													<TD colspan="2" align="center" height="50px"><input
 														type="button" value="编辑" class="button"
-														style="width: 83px; "
 														onclick="editSectionInfor('${examSection.id}');" /> <input
-														type="button" value="保存" style="width: 77px;"
+														type="button" value="保存"
 														onclick="saveSectionInfor('${examSection.id}','${examination.id}');"
 														class="button" /></TD>
 												</tr>
@@ -442,7 +434,8 @@
 															</c:choose> <a
 															href="${pageContext.request.contextPath}/examination.do?flag=moveSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}&type=increase">下移|</a><a
 															href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${multiChoice.id}&questionTypeName=多项选择题">查看|</a><a
-															href="#" onclick="removeExamQuestion('${multiChoice.id}','多项选择题');">删除</a></td>
+															href="#"
+															onclick="removeExamQuestion('${multiChoice.id}','多项选择题');">删除</a></td>
 													</tr>
 												</c:forEach>
 											</table>
@@ -459,7 +452,8 @@
 											<legend>判断题</legend>
 											<table style="width: 100%">
 												<tr>
-													<td></td>
+													<td><input align="left" type="button" class="button"
+														value="添加判断题" onclick="addExamQuestion(this);" /></td>
 												</tr>
 
 												<c:forEach items="${trueOrFalses}" var="trueOrFalse"
@@ -489,7 +483,8 @@
 															</c:choose> <a
 															href="${pageContext.request.contextPath}/examination.do?flag=moveSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}&type=increase">下移|</a><a
 															href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${trueOrFalse.id}&questionTypeName=判断题">查看|</a><a
-															href="${pageContext.request.contextPath}/examination.do?flag=deleteSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}">删除</a>
+															href="#"
+															onclick="removeExamQuestion('${trueOrFalse.id}','判断题');">删除</a>
 														</td>
 													</tr>
 												</c:forEach>
@@ -506,7 +501,8 @@
 											<legend>材料分析题</legend>
 											<table style="width: 100%">
 												<tr>
-													<td></td>
+													<td><input align="left" type="button" class="button"
+														value="添加材料分析题" onclick="addExamQuestion(this);" /></td>
 												</tr>
 												<c:forEach items="${materialAnalysises}"
 													var="materialAnalysis" varStatus="materialAnalysisCounter">
@@ -549,7 +545,8 @@
 															</c:choose> <a
 															href="${pageContext.request.contextPath}/examination.do?flag=moveSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}&type=increase">下移|</a><a
 															href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${materialAnalysis.id}&questionTypeName=材料分析题">查看|</a><a
-															href="${pageContext.request.contextPath}/examination.do?flag=deleteSingleChoice&examinationId=${examination.id}&singleChoiceId=${singleChoice.id}">删除</a></TD>
+															href="#"
+															onclick="removeExamQuestion('${materialAnalysis.id}','材料分析题');">删除</a></TD>
 													</tr>
 												</c:forEach>
 											</table>

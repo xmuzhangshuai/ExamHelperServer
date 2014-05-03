@@ -122,8 +122,7 @@
 											<table>
 												<tr>
 													<td>题目图片:</td>
-													<td><input type="file" name="materialImage"
-														id="materialImage" /></td>
+													<td><img src="${materialAnalysis.materialImage}" alt="" /></td>
 												</tr>
 											</table>
 										</fieldset></td>

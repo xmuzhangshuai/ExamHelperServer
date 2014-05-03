@@ -29,12 +29,12 @@
 
 	function search() {
 		var sectionName = document.getElementById("sectionChoose").value;
-		var questionTypeName ='${questionTypeName}';
+		var questionTypeName = '${questionTypeName}';
 		if (sectionName == "null")
 			alert("请选择章节");
 		else {
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamQuestionUI&sectionName="
-					+ sectionName+"&questionTypeName="+questionTypeName;
+					+ sectionName + "&questionTypeName=" + questionTypeName;
 			document.getElementById("fom").submit();
 		}
 	}
@@ -62,17 +62,25 @@
 	function addExistQuestion() {
 		var obj = document.fom.elements;
 		var name = /delid\d+/;
-		var list;
+		var flag = 'true';
+
 		for (var i = 0; i < obj.length; i++) {
-			if (name.test(obj[i].name) == true)
-				list = list + obj[i].value + ",";
+			if (name.test(obj[i].name) == true && obj[i].checked == true) {
+				if (flag == 'true') {
+					var list = obj[i].value + ",";
+					flag = 'false';
+				} else
+					list = list + obj[i].value + ",";
+					
+			}
 		}
-		document.getElementById("questions").value = list;
+		if(flag=='false'){
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamQuestion&questionId="
 				+ list;
-		document.getElementById("fom").submit;
+		document.getElementById("fom").submit();
+		}
 	}
-	
+
 	function goByPage() {
 		var sectionName = document.getElementById("sectionChoose").value;
 		var pageNow = document.getElementById("page").value;
@@ -220,7 +228,7 @@
 										<td><select id="questionTypeChoose">
 												<option value="${questionTypeName}" selected="selected">${questionTypeName}</option>
 										</select></td>
-									
+
 									</tr>
 								</table>
 							</td>
@@ -240,8 +248,7 @@
 												href="#" class="right-font08" onclick="selectAll();">全选</a>-<a
 												href="#" class="right-font08" onclick="unselectAll();">反选</a></span>
 											<input name="Submit" type="button" class="right-button08"
-											value="添加所选${questionTypeName}" onclick="addExistQuestion();"
-											 /> </td>
+											value="添加所选${questionTypeName}" onclick="addExistQuestion();" /></td>
 									</tr>
 									<tr>
 										<td height="40" class="font42">
