@@ -51,8 +51,12 @@
 		}
 	}
 
-	function link() {
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExaminationUI";
+	function addExamination() {
+	var subjectId=document.getElementById("subjectChoose").value;
+	if(subjectId!=undefined)
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExaminationUI&subjectId="+subjectId;
+		else
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExaminationUI;
 		document.getElementById("fom").submit();
 	}
 	function changeSubject(){
@@ -164,7 +168,7 @@ function goByPage(){
 											value="删除所选试卷" onclick="delSelected();" /> <input
 											type="hidden" name="paramsHidden" id="paramsHidden" /> <input
 											name="Submit2" type="button" class="right-button08"
-											value="添加试卷" onclick="link();" /></td>
+											value="添加试卷" onclick="addExamination();" /></td>
 									</tr>
 									<tr>
 										<td height="40" class="font42">

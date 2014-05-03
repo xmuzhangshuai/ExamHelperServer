@@ -281,7 +281,63 @@ public class ExaminationAction extends DispatchAction {
 		return showExamination(mapping, form, request, response);
 
 	}
+	
+	/**跳转到添加试卷的页面
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward addExaminationUI(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response){
+	String subjectIdString=request.getParameter("subjectId");
+	if(subjectIdString!=null)
+		request.getSession().setAttribute("subjectId", Integer.parseInt(subjectIdString));
+	
+	// 设置examination中科目的下拉框
+			List<Subject> subjectList = subjectService.getSubjects();
+			if (subjectList != null) 
+				request.setAttribute("subjects", subjectList);
 
+			
+		
+		return mapping.findForward("addExamination");
+	}
+	/**添加试卷
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward addExamination(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response){
+		ExaminationForm examinationForm=(ExaminationForm)form;
+		String examName = examinationForm.getExamName();
+		String subjectName = examinationForm.getSubjectName();
+		String examType = examinationForm.getExamType();
+		String examTime = examinationForm.getExamTime();
+		String examRequest = examinationForm.getExamRequest();
+
+		Examination examination=new Examination();
+		// 更新examination对象属性
+		if (examName != null)
+			examination.setExamName(examName);
+		if (subjectName != null)
+			examination
+					.setSubject(subjectService.getSubjectByName(subjectName));
+		if (examType != null)
+			examination.setExamType(examType);
+		if (examTime != null)
+			examination.setExamTime(Integer.parseInt(examTime));
+		if (examRequest != null)
+			examination.setExamRequest(examRequest);
+
+		return showExamination(mapping, form, request, response);
+	}
 	/**
 	 * 跳转到添加单项选择题的列表
 	 * 
@@ -369,7 +425,7 @@ public class ExaminationAction extends DispatchAction {
 	 * @param exam
 	 * @return
 	 */
-	public ActionForward addExamQuestion(ActionMapping mapping,
+	public ActionForward addExamQuestionInfor(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
 

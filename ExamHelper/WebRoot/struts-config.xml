@@ -90,6 +90,7 @@
 		</action>
 		<action attribute="examinationForm" name="examinationForm" parameter="flag" path="/examination"
 			type="com.yrw.web.actions.ExaminationAction" cancellable="true">
+			<forward name="addExamination" path="AddExamination.jsp"/>
 			<forward name="showExamList" path="/ShowExamList.jsp" />
 			<forward name="showExamination" path="/ShowExamination.jsp" />
 			<forward name="addExamQuestionUI" path="/AddExamQuestion.jsp"/>
