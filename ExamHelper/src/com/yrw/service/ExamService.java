@@ -337,32 +337,47 @@ public class ExamService {
 	}
 
 	/**
-	 * 从试卷中剔除某个单选题
+	 * 从试卷中剔除某个题目
 	 * 
 	 * @param examId
 	 * @param singleChoiceId
 	 */
-	public void deleteSingleChoice(int examId, int singleChoiceId) {
-		// 获得examSection对象
-		Examination examination = iExaminationDao.showExam(examId);
-		Examsection examsection = null;
-		Examquestion examquestion = null;
-
-		Iterator<Examsection> examSectionIterator = examination
-				.getExamsections().iterator();
-		while (examSectionIterator.hasNext()) {
-			examsection = examSectionIterator.next();
-			if (examsection.getQuestiontype().getTypeName()
-					.equals(DefaultValue.SINGLE_CHOICE)) {
-				Iterator<Examquestion> examQuestionIterator = examsection
-						.getExamquestions().iterator();
-				while (examQuestionIterator.hasNext()) {
-					examquestion = examQuestionIterator.next();
-					if (examquestion.getQuestionId() == singleChoiceId)
-						examQuestionIterator.remove();
-
-				}
+	public void removeExamQuestion(int questionId, int examSectionId,
+			Examsection examsection) {
+		Set<Examquestion> examquestions = examsection.getExamquestions();
+		List<Examquestion> examquestionList = new ArrayList<Examquestion>(
+				examquestions);
+		int targetExamQuestionId=0;
+		for (int i = 0; i < examquestionList.size(); i++) {
+			if (questionId == examquestionList.get(i).getQuestionId()) {
+				targetExamQuestionId = examquestionList.get(i).getId();
+				break;
 			}
+		}
+		iExamQuestionDao.deletById(Examquestion.class, targetExamQuestionId);
+		examquestions=new HashSet<Examquestion>(examquestionList);
+		examsection.setExamquestions(examquestions);
+
+		// 修改后续章节的examquestionNumber
+		Examquestion exq = null;
+		List<Examsection> nextExamsections = iExamSectionDao
+				.getExamsectionsByExamIdAndExamSectionId(examsection
+						.getExamination().getId(), examSectionId);
+		if (nextExamsections != null) {
+
+			for (int i = 0; i < nextExamsections.size(); i++) {
+				Iterator<Examquestion> iterator = nextExamsections.get(i)
+						.getExamquestions().iterator();
+				while (iterator.hasNext()) {
+					exq = (Examquestion) iterator.next();
+					exq.setQuestionNumber(exq.getQuestionNumber() - 1);
+				}
+				iExamSectionDao.update(nextExamsections.get(i));
+			}
+
+			// 修改examsection中的题目数量
+			examsection.setQuestionNum(examsection.getQuestionNum() - 1);
+			iExamSectionDao.update(examsection);
 		}
 	}
 
@@ -378,6 +393,7 @@ public class ExamService {
 				break;
 			}
 		}
+		System.out.println(exist);
 		if (!exist) {
 			// 建立examQuestion
 			Examquestion examquestion = new Examquestion();
@@ -390,8 +406,24 @@ public class ExamService {
 			else
 				examquestion.setQuestionNumber(1);
 			iExamQuestionDao.add(examquestion);
-			// 添加入examSection中的examQuestion集合
+			// 修改后续章节的examquestionNumber
+			List<Examsection> nextExamsections = iExamSectionDao
+					.getExamsectionsByExamIdAndExamSectionId(examsection
+							.getExamination().getId(), examSectionId);
+			if (nextExamsections != null) {
+				Examquestion exq = null;
+				for (int i = 0; i < nextExamsections.size(); i++) {
+					Iterator<Examquestion> iterator = nextExamsections.get(i)
+							.getExamquestions().iterator();
+					while (iterator.hasNext()) {
+						exq = (Examquestion) iterator.next();
+						exq.setQuestionNumber(exq.getQuestionNumber() + 1);
+					}
+					iExamSectionDao.update(nextExamsections.get(i));
+				}
+			}
 
+			// 添加入examSection中的examQuestion集合
 			examquestions.add(examquestion);
 			examsection.setExamquestions(examquestions);
 			// 修改examsection中的题目数量

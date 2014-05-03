@@ -57,4 +57,11 @@ public interface IExamSectionDao extends IBasicDao {
 	 * @return void
 	 */
 	public void modifyExamSection(Examsection examsection);
+	
+	/**获得某个试卷章节以外的同一试卷章节
+	 * @param examId
+	 * @param examSectionId
+	 * @return
+	 */
+	public List<Examsection> getExamsectionsByExamIdAndExamSectionId(int examId,int examSectionId);
 }

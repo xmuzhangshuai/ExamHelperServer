@@ -47,7 +47,7 @@
 	function save() {
 		if (document.getElementById("material").value.trim().length != 0) {
 
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=addMaterialAnalysis"
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=addMaterialAnalysis&imageUrl="+getValue();
 
 			document.getElementById("fom").submit();
 		} else
@@ -196,7 +196,7 @@
 					<TD colspan="2" align="center" height="50px" style="padding-bottom: 10px;"><input
 						type="button" value="编辑" class="button" style="width: 83px; "
 						onclick="edit();" /> <input type="button" value="保存"
-						type="submit" style="width: 77px;" onclick="save();"
+						type="submit"  onclick="save();"
 						class="button" /></TD>
 				</TR>
 			</TABLE>

@@ -40,7 +40,16 @@ public class ExamSectionDao extends BasicDao implements IExamSectionDao {
 	@Override
 	public Examsection showExamsection(int examSectioId) {
 		// TODO Auto-generated method stub
-		return (Examsection)this.findById(Examsection.class, examSectioId);
+		return (Examsection) this.findById(Examsection.class, examSectioId);
+	}
+
+	@Override
+	public List<Examsection> getExamsectionsByExamIdAndExamSectionId(
+			int examId, int examSectionId) {
+		// TODO Auto-generated method stub
+		String hql = "select e from Examsection as e  where e.examination.id="
+				+ examId + " and e.id>" + examSectionId;
+		return this.executeQuery(hql, null);
 	}
 
 }

@@ -29,12 +29,12 @@
 
 	function search() {
 		var sectionName = document.getElementById("sectionChoose").value;
-		var questionTypeName = document.getElementById("questionTypeChoose").value;
+		var questionTypeName ='${questionTypeName}';
 		if (sectionName == "null")
 			alert("请选择章节");
 		else {
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamQuestionUI&sectionName="
-					+ sectionName + "&questionTypeName=" + questionTypeName;
+					+ sectionName+"&questionTypeName="+questionTypeName;
 			document.getElementById("fom").submit();
 		}
 	}
@@ -72,8 +72,7 @@
 				+ list;
 		document.getElementById("fom").submit;
 	}
-	function addNewQuestion() {
-	}
+	
 	function goByPage() {
 		var sectionName = document.getElementById("sectionChoose").value;
 		var pageNow = document.getElementById("page").value;
@@ -192,7 +191,7 @@
 
 
 										<td>章节：</td>
-										<td><select id="sectionChoose">
+										<td><select id="sectionChoose" onchange="search();">
 												<c:choose>
 													<c:when test="${empty sectionName}">
 														<option value="null" selected="selected">请选择章节</option>
@@ -221,8 +220,7 @@
 										<td><select id="questionTypeChoose">
 												<option value="${questionTypeName}" selected="selected">${questionTypeName}</option>
 										</select></td>
-										<td><input type="button" value="查询"
-											class="right-button02" onclick="search();" /></td>
+									
 									</tr>
 								</table>
 							</td>
@@ -243,9 +241,7 @@
 												href="#" class="right-font08" onclick="unselectAll();">反选</a></span>
 											<input name="Submit" type="button" class="right-button08"
 											value="添加所选${questionTypeName}" onclick="addExistQuestion();"
-											style="width: 107px; " /> <input name="Submit2"
-											type="button" class="right-button08"
-											value="新增${questionTypeName}" onclick="addNewQuestion();" /></td>
+											 /> </td>
 									</tr>
 									<tr>
 										<td height="40" class="font42">

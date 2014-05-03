@@ -283,26 +283,6 @@ public class ExaminationAction extends DispatchAction {
 	}
 
 	/**
-	 * 删除单项选择题
-	 * 
-	 * @param mapping
-	 * @param form
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	public ActionForward deleteSingleChoice(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
-			HttpServletResponse response) {
-		// 获得操作类型、单选题Id、试卷Id
-		int singleChoiceId = Integer.parseInt(request
-				.getParameter("singleChoiceId"));
-		int examId = Integer.parseInt(request.getParameter("examinationId"));
-		examService.deleteSingleChoice(examId, singleChoiceId);
-		return showExamination(mapping, form, request, response);
-	}
-
-	/**
 	 * 跳转到添加单项选择题的列表
 	 * 
 	 * @param mapping
@@ -316,18 +296,21 @@ public class ExaminationAction extends DispatchAction {
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws UnsupportedEncodingException {
 
-		// 获得questionTypeName
-		String questionTypeName = new String(request.getParameter(
-				"questionTypeName").getBytes("ISO-8859-1"), "utf-8");
-		request.setAttribute("questionTypeName", questionTypeName);
-
 		// 获得examSectionid，若是存在该参数则表明是从试卷部分跳转过来否则为添加题目界面
 		String examSectionIdString = request.getParameter("examSectionId");
 		int subjectId = 0;
+		String questionTypeName = request.getParameter("questionTypeName");
+		if (questionTypeName != null) {
+			questionTypeName = new String(
+					questionTypeName.getBytes("ISO-8859-1"), "utf-8");
+		}
 		if (examSectionIdString != null) {
 			int examSectionId = Integer.parseInt(examSectionIdString);
 			Examsection existExamSection = examService
 					.getExamsection(examSectionId);
+			// 获得questionTypeName
+			questionTypeName = existExamSection.getQuestiontype().getTypeName();
+			request.setAttribute("questionTypeName", questionTypeName);
 			subjectId = existExamSection.getExamination().getSubject().getId();
 			request.getSession().setAttribute("examSectionId", examSectionId);
 		} else {
@@ -337,6 +320,7 @@ public class ExaminationAction extends DispatchAction {
 			request.setAttribute("sectionName", sectionName);
 			Section existSection = sectionService
 					.getSectionBySectionName(sectionName);
+
 			String pageNowString = request.getParameter("pageNow");
 
 			subjectId = existSection.getSubject().getId();
@@ -370,7 +354,8 @@ public class ExaminationAction extends DispatchAction {
 					.listSectionBySubject(subjectId);
 			request.setAttribute("sections", sections);
 		}
-
+		// 设置题目类型下拉菜单
+		request.setAttribute("questionTypeName", questionTypeName);
 		return mapping.findForward("addExamQuestionUI");
 	}
 
@@ -390,16 +375,39 @@ public class ExaminationAction extends DispatchAction {
 
 		String questionIdString = request.getParameter("questionId");
 		String[] questionIdStrings = questionIdString.split(",");
-System.out.println(questionIdStrings.length);
+		System.out.println(questionIdStrings.length);
 		int examSectionId = (Integer) request.getSession().getAttribute(
 				"examSectionId");
 		// 获得examSection
 		Examsection examsection = examService.getExamsection(examSectionId);
-		for (int i = 0; i < questionIdStrings.length ; i++) {
-			int questionId=Integer.parseInt(questionIdStrings[i]);
-			System.out.println("questionId "+questionId);
+		for (int i = 0; i < questionIdStrings.length; i++) {
+			int questionId = Integer.parseInt(questionIdStrings[i]);
+			System.out.println("questionId " + questionId);
 			examService.addExamQuestion(questionId, examSectionId, examsection);
 		}
+		request.setAttribute("examinationId", examsection.getExamination()
+				.getId());
+		return showExamination(mapping, null, request, response);
+	}
+
+	/**
+	 * 移除试卷题目
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward removeExamQuestion(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		int questionId = Integer.parseInt(request.getParameter("questionId"));
+		int examSectionId = (Integer) request.getSession().getAttribute(
+				"examSectionId");
+		// 获得examSection
+		Examsection examsection = examService.getExamsection(examSectionId);
+		examService.removeExamQuestion(questionId, examSectionId, examsection);
 		request.setAttribute("examinationId", examsection.getExamination()
 				.getId());
 		return showExamination(mapping, null, request, response);
