@@ -448,7 +448,8 @@ public class ExamService {
 	 * @param examinationForm
 	 */
 	public Examination addExaminationInfor(Examination examination){
-		iExaminationDao.add(examination);
-		return iExaminationDao.getExaminationByExamName(examination.getExamName());
+		int examinationId=(Integer)iExaminationDao.addReturnId(examination);
+		examination=iExaminationDao.showExam(examinationId);
+		return examination;
 	}
 }

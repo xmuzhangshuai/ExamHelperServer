@@ -48,10 +48,14 @@ public abstract class BasicDao implements IBasicDao {
 	 */
 	@Override
 	public void add(Object object) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub	
 		this.sessionFactory.getCurrentSession().save(object);
 	}
 
+	
+	public Object addReturnId(Object object){
+		return this.sessionFactory.getCurrentSession().save(object);
+	}
 	/**
 	 * 删除 根据ID删除对象
 	 * 

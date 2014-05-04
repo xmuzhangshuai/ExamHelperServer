@@ -19,7 +19,11 @@ import org.hibernate.Session;
  */ 
 public interface IBasicDao {
 	
-	
+	/**
+	 * @param object
+	 * @return
+	 */
+	public Object addReturnId(Object object);
 	/**添加
 	 * 通过对象添加
 	 * @param Object

@@ -61,7 +61,6 @@
 	var subjectId='${subjectId}';
 	var noContent="";
 	if(subjectId==noContent){
-	alert(subjectId)
 	document.getElementById("fom").action ="${pageContext.request.contextPath}/examination.do?flag=addExaminationUI";
 	}
 	else

@@ -133,8 +133,9 @@ public class ExaminationAction extends DispatchAction {
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
 		// 得到examination对象
-		int examinationId;
+		int examinationId=0;
 		if ((request.getParameter("examinationId") != null))
+			if(request.getParameter("examinationId").length()>0)
 			examinationId = Integer.parseInt(request
 					.getParameter("examinationId"));
 		else
@@ -317,7 +318,6 @@ public class ExaminationAction extends DispatchAction {
 	 */
 	public ActionForward addExamination(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
-		
 
 		ExaminationForm examinationForm = (ExaminationForm) form;
 		String examName = examinationForm.getExamName();
@@ -325,10 +325,8 @@ public class ExaminationAction extends DispatchAction {
 		String examType = examinationForm.getExamType();
 		String examTime = examinationForm.getExamTime();
 		String examRequest = examinationForm.getExamRequest();
-		Examination	examination = new Examination();
-		
-	
-		
+		Examination examination = new Examination();
+
 		// 更新examination对象属性
 		if (examName != null)
 			examination.setExamName(examName);
@@ -338,10 +336,12 @@ public class ExaminationAction extends DispatchAction {
 		if (examType != null)
 			examination.setExamType(examType);
 		if (examTime != null)
-			examination.setExamTime(Integer.parseInt(examTime));
+			if (examTime.length() > 0) {
+				examination.setExamTime(Integer.parseInt(examTime));
+			}
 		if (examRequest != null)
 			examination.setExamRequest(examRequest);
-		examination=examService.addExaminationInfor(examination);
+		examination = examService.addExaminationInfor(examination);
 		request.setAttribute("examinationId", examination.getId());
 		return showExamination(mapping, null, request, response);
 	}
@@ -362,7 +362,7 @@ public class ExaminationAction extends DispatchAction {
 
 		// 获得examSectionid，若是存在该参数则表明是从试卷部分跳转过来否则为添加题目界面
 		String examSectionIdString = request.getParameter("examSectionId");
-		System.out.println("examSectionIdString "+examSectionIdString);
+		System.out.println("examSectionIdString " + examSectionIdString);
 		int subjectId = 0;
 		String questionTypeName = request.getParameter("questionTypeName");
 		if (questionTypeName != null) {
