@@ -70,4 +70,8 @@ public class UserService {
 		User user = iUserDao.getUserById(key);
 		return user;
 	}
+	
+	public void deleteUser(int key){
+		iUserDao.deletById(User.class, key);
+	}
 }

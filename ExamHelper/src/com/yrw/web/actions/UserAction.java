@@ -54,4 +54,37 @@ public class UserAction extends DispatchAction {
 		return mapping.findForward("userInfo");
 	}
 
+	/**
+	 * É¾³ýÓÃ»§
+	 */
+	public ActionForward deleteUser(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		// TODO Auto-generated method stub
+		String userIdString = request.getParameter("userId");
+		int userId = 0;
+		if (userIdString != null) {
+			userId = Integer.parseInt(request.getParameter("userId"));
+		}
+
+		int pageNow = 1;
+		int pageCount = userService.getPageCount();
+		String pageNowString = request.getParameter("pageNow");
+		if (pageNowString != null) {
+			pageNow = Integer.parseInt(pageNowString);
+			if (pageNow < 1)
+				pageNow = 1;
+			else if (pageNow > pageCount)
+				pageNow = pageCount;
+		}
+		if (userId > 0) {
+			userService.deleteUser(userId);
+		}
+
+		List<User> userList = userService.getUserListByPage(pageNow);
+		request.setAttribute("userList", userList);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("pageNow", pageNow);
+		return mapping.findForward("userInfo");
+	}
+
 }
