@@ -12,6 +12,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="./css/query_detail.css" rel="stylesheet" type="text/css" />
 <link href="./css/css.css" rel="stylesheet" type="text/css" />
 <link href="./css/style.css" rel="stylesheet" type="text/css" />
+<link type="text/css" rel="stylesheet" href="./css/plug.css"/>
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery.lightbox-0.5.js"></script>
 <link rel="stylesheet" type="text/css" href="css/jquery.lightbox-0.5.css" media="screen" />
@@ -76,6 +78,96 @@ function goback(pageNow){
 	document.getElementById("fom").submit;
 }
 
+function position(elem,l,t){
+	var isIE6 = !-[1,] && !window.XMLHttpRequest;
+	if(isIE6){
+		var style = elem.style,
+		dom  = '(document.documentElement)',
+        left = l - document.documentElement.scrollLeft,
+        top  = t - document.documentElement.scrollTop;
+		style.position = 'absolute';
+		style.removeExpression('left');
+		style.removeExpression('top');
+		style.setExpression('left', 'eval(' + dom + '.scrollLeft + ' + left + ') + "px"');
+		style.setExpression('top', 'eval(' + dom + '.scrollTop + ' + top + ') + "px"');
+	}else{
+		elem.style.position = 'fixed';
+	}
+}		
+function scscms_alert(msg,sign,ok,can){
+	var c_=false;//是否已经关闭窗口，解决自动关闭与手动关闭冲突
+	sign=sign||"";
+	var s="<div id='mask_layer'></div><div id='scs_alert'><div id='alert_top'></div><div id='alert_bg'><table width='260' align='center' border='0' cellspacing='0' cellpadding='1'><tr>";
+	if (sign!="")s+="<td width='45'><div id='inco_"+sign+"'></div></td>";
+	s+="<td id='alert_txt'>"+msg+"</td></tr></table>";
+	if (sign=="confirm"){
+		s+="<a href='javascript:void(0)' id='confirm_ok'>确 定</a><a href='javascript:void(0)' id='confirm_cancel'>取 消</a>";
+	}else{
+		s+="<a href='javascript:void(0)' id='alert_ok'>确 定</a>"
+	}
+	s+="</div><div id='alert_foot'></div></div>";
+	$("body").append(s);
+	$("#scs_alert").css("margin-top",-($("#scs_alert").height()/2)+"px"); //使其垂直居中
+	$("#scs_alert").focus(); //获取焦点，以防回车后无法触发函数
+	position(document.getElementById('mask_layer'),0,0);
+	position(document.getElementById('scs_alert'),$(window).width()/2,$(window).height()/2);
+	if (typeof can == "number"){
+	//定时关闭提示
+		setTimeout(function(){
+			close_info();
+		},can*1000);
+	}
+	function close_info(){
+	//关闭提示窗口
+		if(!c_){
+		$("#mask_layer").fadeOut("fast",function(){
+			$("#scs_alert").remove();
+			$(this).remove();
+		});
+		c_=true;
+		}
+	}
+	$("#alert_ok").click(function(){
+		close_info();
+		if(typeof(ok)=="function")ok();
+	});
+	$("#confirm_ok").click(function(){
+		close_info();
+		if(typeof(ok)=="function")ok();
+	});
+	$("#confirm_cancel").click(function(){
+		close_info();
+		if(typeof(can)=="function")can();
+	});
+	function modal_key(e){	
+		e = e||event;
+		close_info();
+		var code = e.which||event.keyCode;
+		if (code == 13 || code == 32){if(typeof(ok)=="function")ok()}
+		if (code == 27){if(typeof(can)=="function")can()}		
+	}
+	//绑定回车与ESC键
+	if (document.attachEvent)
+		document.attachEvent("onkeydown", modal_key);
+	else
+		document.addEventListener("keydown", modal_key, true);
+}
+
+function deleteAnswer(answerId,pageNow,aPageNow,id){
+	scscms_alert("确定要删除该回答吗？","confirm",function(){
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/query.do?flag=deleteQueryAnswer&pageNow="+pageNow+"&answerId="+answerId+"&aPageNow="+aPageNow+"&id="+id;
+		document.getElementById("fom").submit();
+		scscms_alert("删除成功！","ok");
+	},function(){});
+}
+
+function delSelected(){
+	scscms_alert("确定要删除所选回答吗？","confirm",function(){
+		//document.getElementById("fom").action = "${pageContext.request.contextPath}/query.do?flag=deleteQuery&pageNow="+pageNow+"&queryId="+queryId;
+		//document.getElementById("fom").submit();
+		scscms_alert("删除成功！","ok");
+	},function(){});
+}
 </script>
 </head>
 <body>
@@ -110,7 +202,7 @@ function goback(pageNow){
 		<span class="newfont07">全选：
 			<input type="checkbox" id="selectOrNot" onchange="selectOrUnSelect()"/>
 		</span>
-		<input name="Submit" type="button" class="right-button08" value="删除所选疑问" onclick="delSelected();" /> 
+		<input name="Submit" type="button" class="right-button08" value="删除所选回答" onclick="delSelected();" /> 
 		<input type="hidden" name="paramsHidden" id="paramsHidden" /> 
 	</div>
 	
@@ -136,10 +228,8 @@ function goback(pageNow){
 					<td height="20" ><label>${answer.user.nickname}</label></td>
 					<td height="20" ><label>${answer.answerContent}</label></td>
 					<td height="20" align="center" ><label>${answer.answerTime}</label></td>
-					<td height="20" >
-							<a href="">编辑|</a>
-							<a href="">查看|</a>
-							<a href="#" onclick="" id="deleteSingleSubject${query.id}">删除</a>
+					<td height="20" align="center">
+						<img src="./images/delete.png" style="height: 15px;" alt="删除" onclick="deleteAnswer(${answer.id},${pageNow},${aPageNow},${id});" title="删除"/>删除
 					</td>
 				</tr>
 			</c:forEach>

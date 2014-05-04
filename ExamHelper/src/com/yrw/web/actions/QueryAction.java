@@ -4,7 +4,6 @@
  */
 package com.yrw.web.actions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +14,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DispatchAction;
 
-import com.yrw.domains.Answerquery;
 import com.yrw.domains.Query;
 import com.yrw.service.QueryService;
 
@@ -60,6 +58,45 @@ public class QueryAction extends DispatchAction {
 	}
 
 	/**
+	 * 删除疑问
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return ActionForward
+	 */
+	public ActionForward deleteQuery(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		int pageNow = 1;
+		String queryIdString = request.getParameter("queryId");
+		int queryId = 0;
+		if (queryIdString != null) {
+			queryId = Integer.parseInt(queryIdString);
+		}
+		int pageCount = queryService.getQueryPageCount();
+		String pageNowString = request.getParameter("pageNow");
+		if (pageNowString != null) {
+			pageNow = Integer.parseInt(pageNowString);
+			if (pageNow < 1)
+				pageNow = 1;
+			else if (pageNow > pageCount)
+				pageNow = pageCount;
+		}
+
+		if (queryId > 0) {
+			queryService.deleteQuery(queryId);
+		}
+
+		List<Query> querieList = queryService.getJQueryListByPage(pageNow - 1);
+		request.setAttribute("queryList", querieList);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("pageNow", pageNow);
+		return mapping.findForward("querySquare");
+	}
+
+	/**
 	 * 根据点击的疑问显示回答详情
 	 */
 	public ActionForward showQueryDetail(ActionMapping mapping, ActionForm form, HttpServletRequest request,
@@ -93,4 +130,45 @@ public class QueryAction extends DispatchAction {
 		return mapping.findForward("queryDetail");
 	}
 
+	/**
+	 * 根据点击的疑问显示回答详情
+	 */
+	public ActionForward deleteQueryAnswer(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		// TODO Auto-generated method stub
+		int aPageNow = 1;
+		int pageNow = 1;
+		int answerId = 0;
+
+		String answerIdString = request.getParameter("answerId");
+		if (answerIdString != null) {
+			answerId = Integer.parseInt(answerIdString);
+		}
+		pageNow = Integer.parseInt(request.getParameter("pageNow"));
+
+		int queryId = Integer.parseInt(request.getParameter("id"));
+		int aPageCount = queryService.getAnswerQueryPageCount(queryId);
+		String pageNowString = request.getParameter("aPageNow");
+		if (pageNowString != null) {
+			aPageNow = Integer.parseInt(pageNowString);
+			if (aPageNow < 1)
+				aPageNow = 1;
+			else if (aPageNow > aPageCount)
+				aPageNow = aPageCount;
+		}
+
+		Query query = queryService.getQueryByID(queryId);
+		if (answerId > 0) {
+			queryService.deleteQueryAnswer(answerId);
+		}
+		if (query != null) {
+			request.setAttribute("query", query);
+			request.setAttribute("id", queryId);
+			request.setAttribute("answerqueryList", query.getAnswerqueries());
+			request.setAttribute("aPageCount", aPageCount);
+			request.setAttribute("aPageNow", aPageNow);
+			request.setAttribute("pageNow", pageNow);
+		}
+		return mapping.findForward("queryDetail");
+	}
 }

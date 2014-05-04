@@ -370,4 +370,20 @@ public class QueryService {
 	public void addAnswerQuery(Answerquery answerquery) {
 		iAnswerQueryDao.addAnswerQuery(answerquery);
 	}
+	
+	/**
+	 * …æ≥˝“…Œ 
+	 * @param queryId
+	 */
+	public void deleteQuery(int queryId){
+		iQueryDao.delQuery(queryId);
+	}
+	
+	/**
+	 * …æ≥˝“…Œ 
+	 * @param queryId
+	 */
+	public void deleteQueryAnswer(int answerId){
+		iAnswerQueryDao.delAnswerQuery(answerId);
+	}
 }
