@@ -42,13 +42,18 @@
 	}
 
 	function saveExamInfor(examId) {
+		var subjectName = document.getElementById("subjectName").value;
+		if (subjectName == "null") {
+			alert("请选择科目");
+		} else {
 
-		if (examId != null && examId != undefined)
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamination&examinationId="
-					+ examId;
-		else
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamination";
-		document.getElementById("fom").submit();
+			if (examId != null && examId != undefined)
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamination&examinationId="
+						+ examId;
+			else
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamination";
+			document.getElementById("fom").submit();
+		}
 	}
 </script>
 
@@ -88,11 +93,11 @@
 											</tr>
 											<tr align="left">
 												<td>科目名称：</td>
-												<td style="width: 264px; "><select name="subjectName" id="subjectName"
-													style="width: 243px; ">
+												<td style="width: 264px; "><select name="subjectName"
+													id="subjectName" style="width: 243px; " required>
 														<c:choose>
 															<c:when test="${empty subjectId}">
-																<option selected="selected">请选择科目</option>
+																<option value="null" selected="selected">请选择科目</option>
 																<c:forEach items="${subjects}" var="item">
 																	<option value="${item.subName}">${item.subName}</option>
 																</c:forEach>

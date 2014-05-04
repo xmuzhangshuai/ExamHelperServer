@@ -452,4 +452,10 @@ public class ExamService {
 		examination=iExaminationDao.showExam(examinationId);
 		return examination;
 	}
+	/**Ìí¼ÓexamS
+	 * @param examsection
+	 */
+	public void addExamSection(Examsection examsection){
+		iExamSectionDao.add(examsection);
+	}
 }

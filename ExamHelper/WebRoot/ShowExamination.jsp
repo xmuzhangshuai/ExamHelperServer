@@ -100,7 +100,7 @@
 		} else if (option == addMaterialAnalysis) {
 			examSectionId = document.getElementById("materialAnalysisSection").value;
 		}
-
+alert(examSectionId);
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamQuestionUI&examSectionId="
 				+ examSectionId;
 		document.getElementById("fom").submit();
@@ -127,9 +127,9 @@
 		document.getElementById("fom").submit();
 
 	}
-	function addExamSection(){
+	function addExamSectionInfor(){
 	var examId='${examination.id}'
-	document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamSection&examinationId="+examId;
+	document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamSectionInforUI&examinationId="+examId;
 		document.getElementById("fom").submit();
 	
 	}
@@ -233,7 +233,7 @@
 							<table style="width: 100%">
 								<tr>
 									<td><input align="left" type="button" class="button"
-										value="添加考试章节" onclick="addExamSection();" /></td>
+										value="添加考试章节" onclick="addExamSectionInfor();" /></td>
 								</tr>
 								<c:forEach items="${examination.examsections}" var="examSection">
 
