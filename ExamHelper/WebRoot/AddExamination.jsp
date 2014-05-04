@@ -35,7 +35,8 @@
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showExamListBySubject&subjectId="
 				+ subjectId;
 				else
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showAllExamList;	
+				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showAllExamList;
+				
 		document.getElementById("fom").submit();
 	}
 	function showExamInfor() {
@@ -49,19 +50,12 @@
 			examImage.src = "./images/ico04.gif";
 		}
 	}
-	function editExamInfor() {
-		document.getElementById("examName").readOnly = false;
-		document.getElementById("subjectName").disabled = false;
-		document.getElementById("examType").readOnly = false;
-		document.getElementById("examTime").readOnly = false;
-		document.getElementById("examRequest").readOnly = false;
-	}
-	function saveExamInfor() {
-	var subjectId=document.getElementById("subjectName").value;
-	if(subjectId!=undefined){
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamQuestionInfor&subjectId="subjectId;
+
+	function saveExamInfor(examId) {
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=editExaminationInfor&examinationId="
+				+ examId;
+
 		document.getElementById("fom").submit();
-		}
 	}
 	function showDetail(sectionId) {
 		var tableId = "table" + sectionId;
@@ -137,7 +131,7 @@
 
 </head>
 
-<body class="ContentBody">
+<body class="ContentBody" >
 	<form
 		action="${pageContext.request.contextPath}/examination.do?flag=editExaminationInfor&examinationId=${examination.id}"
 		method="post" enctype="multipart/form-data" name="fom" id="fom"
@@ -165,7 +159,8 @@
 										onclick="showExamInfor();">试卷信息</a></td>
 								</tr>
 								<tr>
-									<td><table id="examInfor" style="width: 100%;">
+									<td><table id="examInfor"
+											style="display: none;width: 100%;">
 											<tr>
 												<td>试卷名称：</td>
 												<td><input type="text" name="examName" id="examName"
@@ -174,26 +169,16 @@
 											<tr align="left">
 												<td>科目名称：</td>
 												<td><select name="subjectName" id="subjectName"
-													style="width: 243px; " disabled="disabled" required>
+													style="width: 243px; " disabled="disabled">
+
+
 														<c:forEach items="${subjects}" var="subject">
 															<c:choose>
-																<c:when test="${empty subjectId}">
-																	<option value="null" selected="selected">请选择科目</option>
-																	<c:forEach items="${subjects}" var="subject">
-																		<option value="${subject.id}">${subject.subName}</option>
-																	</c:forEach>
+																<c:when test="${subject.id==subjectId}">
+																	<option value="${subject.subName}" selected="selected">${subject.subName}</option>
 																</c:when>
 																<c:otherwise>
-																	<c:forEach items="${subjects}" var="subject">
-																		<c:choose>
-																			<c:when test="${subject.id==subjectId}">
-																				<option value="${subject.id}" selected="selected">${subject.subName}</option>
-																			</c:when>
-																			<c:otherwise>
-																				<option value="${subject.id}">${subject.subName}</option>
-																			</c:otherwise>
-																		</c:choose>
-																	</c:forEach>
+																	<option value="${subject.subName}">${subject.subName}</option>
 																</c:otherwise>
 															</c:choose>
 														</c:forEach>
@@ -202,24 +187,27 @@
 											<tr>
 												<td>试卷类型：</td>
 												<td><input type="text" name="examType" id="examType"
-													style="width: 246px; " /></td>
+													value="${examination.examType}" style="width: 246px; "
+													readonly="readonly" /></td>
 											</tr>
 											<tr>
 												<td>考试时间：</td>
 												<td><input id="examTime" name="examTime" type="text"
+													readonly="readonly" value="${examination.examTime}"
 													style="width: 248px; " /></td>
 											</tr>
 											<tr>
 												<td>考试要求：</td>
 												<td style="height: 67px; width: 236px"><textarea
-														id="examRequest" name="examRequest"
-														style="width: 245px; height: 56px"></textarea></td>
+														id="examRequest" name="examRequest" readonly="readonly"
+														style="width: 245px; height: 56px">${examination.examRequest}</textarea></td>
 											</tr>
 
 											<TR>
-												<TD colspan="2" align="center" height="50px"><input
-													type="button" value="保存" type="submit"
-													onclick="saveExamInfor();" class="button" /></TD>
+												<TD colspan="2" align="center" height="50px"><input type="button"
+													value="保存" type="submit"
+													onclick="saveExamInfor('${examination.id}');"
+													class="button" /></TD>
 											</TR>
 										</table></td>
 								</tr>
