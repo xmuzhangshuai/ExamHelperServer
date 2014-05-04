@@ -132,6 +132,13 @@ public class ExaminationAction extends DispatchAction {
 	public ActionForward showExamination(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
+		//判断是否请求发展编辑或者仅为查看
+		String isEdit=request.getParameter("isEdit");
+		if(isEdit!=null)
+			if(isEdit.length()>0)
+				request.setAttribute("isEdit", isEdit);
+		
+		
 		// 得到examination对象
 		int examinationId = 0;
 		if ((request.getParameter("examinationId") != null))

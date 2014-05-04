@@ -100,7 +100,6 @@
 		} else if (option == addMaterialAnalysis) {
 			examSectionId = document.getElementById("materialAnalysisSection").value;
 		}
-alert(examSectionId);
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamQuestionUI&examSectionId="
 				+ examSectionId;
 		document.getElementById("fom").submit();
@@ -127,17 +126,36 @@ alert(examSectionId);
 		document.getElementById("fom").submit();
 
 	}
-	function addExamSectionInfor(){
-	var examId='${examination.id}'
-	document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamSectionInforUI&examinationId="+examId;
+	function addExamSectionInfor() {
+		var examId = '${examination.id}'
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamSectionInforUI&examinationId="
+				+ examId;
 		document.getElementById("fom").submit();
-	
+
+	}
+	function Init() {
+		var isEdit = '${isEdit}';
+		if (isEdit == "true")
+		 {
+			var txtN = document.getElementsByTagName("input");
+			for (i = 0; i < txtN.length; i++)
+				txtN[i].readOnly = false;
+
+			var txtArea = document.getElementsByTagName("textarea");
+			for (i = 0; i < txtArea.length; i++)
+				txtArea[i].readOnly = false;
+
+			var txtSelect = document.getElementsByTagName("select");
+			for (var i = 0; i < txtSelect.length; i++)
+				txtSelect[i].disabled = false;
+		}
+
 	}
 </script>
 
 </head>
 
-<body class="ContentBody">
+<body class="ContentBody" onload="Init();">
 	<form
 		action="${pageContext.request.contextPath}/examination.do?flag=editExaminationInfor&examinationId=${examination.id}"
 		method="post" enctype="multipart/form-data" name="fom" id="fom"

@@ -162,7 +162,7 @@
 														<td><a
 															href="${pageContext.request.contextPath}/examination.do?flag=showExamination&examinationId=${examination.id}">${examination.examName}</a></td>
 														<td><a
-															href="${pageContext.request.contextPath}/examination.do?flag=editExamination&examinationId=${examination.id}">编辑|</a><a
+															href="${pageContext.request.contextPath}/examination.do?flag=showExamination&examinationId=${examination.id}&isEdit=true">编辑|</a><a
 															href="${pageContext.request.contextPath}/examination.do?flag=showExamination&examinationId=${examination.id}">查看|</a>
 															<!--  	<a href="${pageContext.request.contextPath}/section.do?flag=deleteSection&sectionId=${section.id}">删除</a></td>-->
 															<a
