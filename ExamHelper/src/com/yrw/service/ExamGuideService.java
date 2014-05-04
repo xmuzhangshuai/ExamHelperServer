@@ -23,7 +23,7 @@ public class ExamGuideService {
 	public void setiExamGuideDao(IExamGuideDao iExamGuideDao) {
 		this.iExamGuideDao = iExamGuideDao;
 	}
-	
+
 	public void setiSubjectDao(ISubjectDao iSubjectDao) {
 		this.iSubjectDao = iSubjectDao;
 	}
@@ -75,7 +75,7 @@ public class ExamGuideService {
 	public int getExamGuidePageCount() {
 		return iExamGuideDao.getPageCount();
 	}
-	
+
 	/**
 	 * 返回考试指南文章页码
 	 * 
@@ -84,46 +84,64 @@ public class ExamGuideService {
 	public int getExamGuidePageCount(int typeID) {
 		return iExamGuideDao.getPageCount(typeID);
 	}
-	
-	
+
 	/**
 	 * 返回考试指南目录页码
+	 * 
 	 * @return
 	 */
-	public int getExamGuideTypePageCount(){
+	public int getExamGuideTypePageCount() {
 		return iExamGuideDao.getTypePageCount();
 	}
 
 	/**
 	 * 根据页码返回列表
 	 */
-	public List<Examguide> getExamguideListByPage(int pageNow){
+	public List<Examguide> getExamguideListByPage(int pageNow) {
 		return iExamGuideDao.getExamguideListByPage(pageNow);
 	}
-	
+
 	/**
 	 * 根据页码和类型
 	 */
-	public List<Examguide> getExamguideListByPage(int pageNow,int typeID){
+	public List<Examguide> getExamguideListByPage(int pageNow, int typeID) {
 		return iExamGuideDao.getExamguideListByPage(pageNow, typeID);
 	}
-	
+
 	/**
 	 * 根据页码返回列表
 	 */
-	public List<Examguidetype> getExamguideTypeListByPage(int pageNow){
+	public List<Examguidetype> getExamguideTypeListByPage(int pageNow) {
 		return iExamGuideDao.getExamguidetypeListByPage(pageNow);
 	}
-	
+
 	/**
 	 * 添加考试指南目录
 	 */
-	public void addExamType(int subjectID,String name){
+	public void addExamType(int subjectID, String name) {
 		Subject subject = iSubjectDao.getSubjectById(subjectID);
 		Examguidetype examguidetype = new Examguidetype(subject, name, null);
 		iExamGuideDao.addExamguidetype(examguidetype);
 	}
-	
+
+	/**
+	 * 删除考试指南类型
+	 * 
+	 * @param examGuideTypeId
+	 */
+	public void deleteExamGuideType(int examGuideTypeId) {
+		iExamGuideDao.deletExamguideType(examGuideTypeId);
+	}
+
+	/**
+	 * 删除考试指南
+	 * 
+	 * @param examGuideTypeId
+	 */
+	public void deleteExamGuide(int examGuideId) {
+		iExamGuideDao.deletExamguide(examGuideId);
+	}
+
 	/**
 	 * 添加考试指南
 	 * 
