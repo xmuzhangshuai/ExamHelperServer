@@ -17,11 +17,10 @@ import org.apache.struts.actions.DispatchAction;
 
 import com.yrw.domains.Materialanalysis;
 import com.yrw.domains.Multichoice;
-import com.yrw.domains.Scollection;
+import com.yrw.domains.Questiontype;
 import com.yrw.domains.Serrorquestions;
 import com.yrw.domains.Singlechoice;
 import com.yrw.domains.Subject;
-import com.yrw.service.CollectionService;
 import com.yrw.service.ErrorQuestionService;
 import com.yrw.service.QuestionService;
 import com.yrw.service.SubjectService;
@@ -68,13 +67,83 @@ public class ErrorAction extends DispatchAction {
 
 		List<String> questionStemList = new ArrayList<String>();
 		List<Serrorquestions> serrorquestionList = errorQuestionService.getSErrorQuestionListByPageNow(pageNow);
-		for (Serrorquestions serrorquestions : serrorquestionList) {
-			questionStemList.add(getQuestionName(serrorquestions.getQuestionId(), serrorquestions.getQuestiontype()
-					.getTypeName()));
-		}
-		
-		List<Subject> subjectList = subjectService.getSubjects();
 
+		if (serrorquestionList != null) {
+			for (Serrorquestions serrorquestions : serrorquestionList) {
+				questionStemList.add(getQuestionName(serrorquestions.getQuestionId(), serrorquestions.getQuestiontype()
+						.getTypeName()));
+			}
+		}
+
+		List<Subject> subjectList = subjectService.getSubjects();
+		List<Questiontype> questiontypeList = questionService.showQuestiontypes();
+		request.setAttribute("questiontypeList", questiontypeList);
+		request.setAttribute("serrorquestionList", serrorquestionList);
+		request.setAttribute("questionStemList", questionStemList);
+		request.setAttribute("subjectList", subjectList);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("pageNow", pageNow);
+		return mapping.findForward("showError");
+	}
+
+	/**
+	 * Method execute 根据查询显示列表
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return ActionForward
+	 */
+	public ActionForward searchErrorList(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		int pageNow = 1;
+		int pageCount = 0;
+
+		List<String> questionStemList = new ArrayList<String>();
+		List<Serrorquestions> serrorquestionList = new ArrayList<Serrorquestions>();
+		List<Subject> subjectList = subjectService.getSubjects();
+		List<Questiontype> questiontypeList = questionService.showQuestiontypes();
+		String type = request.getParameter("type");
+		int index = Integer.parseInt(request.getParameter("index"));
+
+		if (type != null) {
+			if (type.equals("subject")) {
+				int subjectId = subjectList.get(index).getId();
+				pageCount = errorQuestionService.getSErrorQuestionPageCountBySubject(subjectId);
+				String pageNowString = request.getParameter("pageNow");
+				if (pageNowString != null) {
+					pageNow = Integer.parseInt(pageNowString);
+					if (pageNow < 1)
+						pageNow = 1;
+					else if (pageNow > pageCount)
+						pageNow = pageCount;
+				}
+				serrorquestionList = errorQuestionService.getSErrorQuestionListBySubject(subjectId, pageNow);
+			} else if (type.equals("questionType")) {
+				int questionTypeId = questiontypeList.get(index).getId();
+				pageCount = errorQuestionService.getSErrorQuestionPageCountByQuestionType(questionTypeId);
+				String pageNowString = request.getParameter("pageNow");
+				if (pageNowString != null) {
+					pageNow = Integer.parseInt(pageNowString);
+					if (pageNow < 1)
+						pageNow = 1;
+					else if (pageNow > pageCount)
+						pageNow = pageCount;
+				}
+				serrorquestionList = errorQuestionService.getSErrorQuestionListByQuestionType(questionTypeId, pageNow);
+			}
+		}
+
+		if (serrorquestionList != null) {
+			for (Serrorquestions serrorquestions : serrorquestionList) {
+				questionStemList.add(getQuestionName(serrorquestions.getQuestionId(), serrorquestions.getQuestiontype()
+						.getTypeName()));
+			}
+		}
+
+		request.setAttribute("questiontypeList", questiontypeList);
 		request.setAttribute("serrorquestionList", serrorquestionList);
 		request.setAttribute("questionStemList", questionStemList);
 		request.setAttribute("subjectList", subjectList);
@@ -90,20 +159,23 @@ public class ErrorAction extends DispatchAction {
 	 */
 	public String getQuestionName(int questionID, String questionType) {
 		Object object = questionService.getQuestion(questionID, questionType);
-		if (object.getClass().equals(Singlechoice.class)) {
-			Singlechoice singlechoice = (Singlechoice) object;
-			return singlechoice.getQuestionStem();
-		} else if (object.getClass().equals(Multichoice.class)) {
-			Multichoice multichoice = (Multichoice) object;
-			return multichoice.getQuestionStem();
-		} else if (object.getClass().equals(Materialanalysis.class)) {
-			Materialanalysis materialanalysis = (Materialanalysis) object;
-			if (materialanalysis.getMaterial().length() >= 100) {
-				return materialanalysis.getMaterial().substring(0, 100) + "...";
-			} else {
-				return materialanalysis.getMaterial();
+		if (object != null) {
+			if (object.getClass().equals(Singlechoice.class)) {
+				Singlechoice singlechoice = (Singlechoice) object;
+				return singlechoice.getQuestionStem();
+			} else if (object.getClass().equals(Multichoice.class)) {
+				Multichoice multichoice = (Multichoice) object;
+				return multichoice.getQuestionStem();
+			} else if (object.getClass().equals(Materialanalysis.class)) {
+				Materialanalysis materialanalysis = (Materialanalysis) object;
+				if (materialanalysis.getMaterial().length() >= 100) {
+					return materialanalysis.getMaterial().substring(0, 100) + "...";
+				} else {
+					return materialanalysis.getMaterial();
+				}
 			}
 		}
+
 		return null;
 	}
 }

@@ -20,13 +20,6 @@ import com.yrw.domains.Subject;
 import com.yrw.service.ExamGuideService;
 import com.yrw.service.SubjectService;
 
-/**
- * MyEclipse Struts Creation date: 04-24-2014
- * 
- * XDoclet definition:
- * 
- * @struts.action parameter="flag" validate="true"
- */
 public class ExamGuideAction extends DispatchAction {
 	private ExamGuideService examGuideService;
 	private SubjectService subjectService;
@@ -79,6 +72,108 @@ public class ExamGuideAction extends DispatchAction {
 	}
 
 	/**
+	 * 删除考试指南目录
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward deleteExamGuideType(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		int pageNow = 1;
+		int typeId = -1;
+		int pageCount = examGuideService.getExamGuideTypePageCount();
+		String pageNowString = request.getParameter("pageNow");
+		String typeIdString = request.getParameter("typeId");
+		if (typeIdString != null) {
+			typeId = Integer.parseInt(typeIdString);
+		}
+		if (pageNowString != null) {
+			pageNow = Integer.parseInt(pageNowString);
+			if (pageNow < 1)
+				pageNow = 1;
+			else if (pageNow > pageCount)
+				pageNow = pageCount;
+		}
+
+		if (typeId > -1) {
+			examGuideService.deleteExamGuideType(typeId);
+		}
+
+		List<Subject> subjectList = subjectService.getSubjects();
+		request.setAttribute("subjectList", subjectList);
+		List<Examguidetype> examguidetypeList = examGuideService.getExamguideTypeListByPage(pageNow);
+		request.setAttribute("examguidetypeList", examguidetypeList);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("pageNow", pageNow);
+		return mapping.findForward("showExamGuideType");
+	}
+
+	/**
+	 * 删除考试指南文章列表
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward deleteExamGuide(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		int pageNow = 1;
+		List<Examguide> examguideList = null;
+		int pageCount = 0;
+		int examGuideId = -1;
+		String pageNowString = request.getParameter("pageNow");
+		String examGuideString = request.getParameter("examGuideId");
+		if (examGuideString != null) {
+			examGuideId = Integer.parseInt(examGuideString);
+		}
+
+		String typeId = request.getParameter("id");
+		if (typeId == null || (typeId != null && typeId.length() == 0)) {
+			pageCount = examGuideService.getExamGuidePageCount();
+			if (pageNowString != null) {
+				pageNow = Integer.parseInt(pageNowString);
+				if (pageNow < 1)
+					pageNow = 1;
+				else if (pageNow > pageCount)
+					pageNow = pageCount;
+			}
+			if (examGuideId > -1) {
+				examGuideService.deleteExamGuide(examGuideId);
+			}
+			examguideList = examGuideService.getExamguideListByPage(pageNow);
+		} else {
+			int typeID = Integer.parseInt(typeId);
+			pageCount = examGuideService.getExamGuidePageCount(typeID);
+			if (pageNowString != null) {
+				pageNow = Integer.parseInt(pageNowString);
+				if (pageNow < 1)
+					pageNow = 1;
+				else if (pageNow > pageCount)
+					pageNow = pageCount;
+			}
+			if (examGuideId > -1) {
+				examGuideService.deleteExamGuide(examGuideId);
+			}
+			examguideList = examGuideService.getExamguideListByPage(pageNow, typeID);
+			request.setAttribute("id", typeId);
+		}
+
+		List<Subject> subjectList = subjectService.getSubjects();
+		request.setAttribute("subjectList", subjectList);
+		request.setAttribute("examGuideList", examguideList);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("pageNow", pageNow);
+		return mapping.findForward("showExamGuide");
+	}
+
+	/**
 	 * 展示考试指南文章列表
 	 * 
 	 * @param mapping
@@ -120,6 +215,8 @@ public class ExamGuideAction extends DispatchAction {
 			request.setAttribute("id", typeId);
 		}
 
+		List<Subject> subjectList = subjectService.getSubjects();
+		request.setAttribute("subjectList", subjectList);
 		request.setAttribute("examGuideList", examguideList);
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("pageNow", pageNow);
@@ -149,7 +246,45 @@ public class ExamGuideAction extends DispatchAction {
 				pageNow = pageCount;
 		}
 
+		List<Subject> subjectList = subjectService.getSubjects();
+		request.setAttribute("subjectList", subjectList);
 		List<Examguidetype> examguidetypeList = examGuideService.getExamguideTypeListByPage(pageNow);
+		request.setAttribute("examguidetypeList", examguidetypeList);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("pageNow", pageNow);
+		return mapping.findForward("showExamGuideType");
+	}
+
+	/**
+	 * 查找考试指南目录列表
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward searchTypeList(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		int pageNow = 1;
+		int pageCount = 0;
+		
+		String pageNowString = request.getParameter("pageNow");
+		if (pageNowString != null) {
+			pageNow = Integer.parseInt(pageNowString);
+			if (pageNow < 1)
+				pageNow = 1;
+			else if (pageNow > pageCount)
+				pageNow = pageCount;
+		}
+		List<Subject> subjectList = subjectService.getSubjects();
+		List<Examguidetype> examguidetypeList = examGuideService.getExamguideTypeListByPage(pageNow);
+		int index = Integer.parseInt(request.getParameter("index"));
+		int subjectId = subjectList.get(index).getId();
+
+		
+		request.setAttribute("subjectList", subjectList);
 		request.setAttribute("examguidetypeList", examguidetypeList);
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("pageNow", pageNow);
