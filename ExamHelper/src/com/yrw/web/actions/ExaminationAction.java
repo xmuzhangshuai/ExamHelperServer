@@ -207,19 +207,24 @@ public class ExaminationAction extends DispatchAction {
 		String examTime = examinationForm.getExamTime();
 		String examRequest = examinationForm.getExamRequest();
 
+		System.out.println(examName);
 		// 获取examination对象
 		Examination examination = examService.getExamination(examinationId);
 		// 更新examination对象属性
 		if (examName != null)
+			if(examName.length()>0)
 			examination.setExamName(examName);
 		if (subjectName != null)
 			examination
 					.setSubject(subjectService.getSubjectByName(subjectName));
 		if (examType != null)
+			if(examType.length()>0)
 			examination.setExamType(examType);
 		if (examTime != null)
+			if(examTime.length()>0)
 			examination.setExamTime(Integer.parseInt(examTime));
 		if (examRequest != null)
+			if(examRequest.length()>0)
 			examination.setExamRequest(examRequest);
 
 		return showExamination(mapping, form, request, response);
@@ -345,7 +350,21 @@ public class ExaminationAction extends DispatchAction {
 		request.setAttribute("examinationId", examination.getId());
 		return showExamination(mapping, null, request, response);
 	}
-
+	/**添加试卷章节信息
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward addExamination(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+	
+		int examId=Integer.parseInt(request.getParameter("examinationId"));
+		Examsection examsection=new Examsection();
+		
+		
+	}
 	/**
 	 * 跳转到添加单项选择题的列表
 	 * 

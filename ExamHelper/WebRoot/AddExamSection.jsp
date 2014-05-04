@@ -155,75 +155,7 @@
 				</tr>
 
 				<TR>
-					<TD width="100%">
-						<fieldset style="height:100%;">
-							<legend>试卷信息</legend>
-							<table>
-								<tr>
-									<td><img name="image" id="examImage"
-										src="./images/ico04.gif" width="8" height="11" /><a href="#"
-										onclick="showExamInfor();">试卷信息</a></td>
-								</tr>
-								<tr>
-									<td><table id="examInfor"
-											style="display: none;width: 100%;">
-											<tr>
-												<td>试卷名称：</td>
-												<td><input type="text" name="examName" id="examName"
-													readonly="readonly" value="${examination.examName}"
-													style="width: 244px; " /></td>
-											</tr>
-											<tr align="left">
-												<td>科目名称：</td>
-												<td><select name="subjectName" id="subjectName"
-													style="width: 243px; " disabled="disabled">
-
-
-														<c:forEach items="${subjects}" var="subject">
-															<c:choose>
-																<c:when test="${subject.id==subjectId}">
-																	<option value="${subject.subName}" selected="selected">${subject.subName}</option>
-																</c:when>
-																<c:otherwise>
-																	<option value="${subject.subName}">${subject.subName}</option>
-																</c:otherwise>
-															</c:choose>
-														</c:forEach>
-												</select></td>
-											</tr>
-											<tr>
-												<td>试卷类型：</td>
-												<td><input type="text" name="examType" id="examType"
-													value="${examination.examType}" style="width: 246px; "
-													readonly="readonly" /></td>
-											</tr>
-											<tr>
-												<td>考试时间：</td>
-												<td><input id="examTime" name="examTime" type="text"
-													readonly="readonly" value="${examination.examTime}"
-													style="width: 248px; " /></td>
-											</tr>
-											<tr>
-												<td>考试要求：</td>
-												<td style="height: 67px; width: 236px"><textarea
-														id="examRequest" name="examRequest" readonly="readonly"
-														style="width: 245px; height: 56px">${examination.examRequest}</textarea></td>
-											</tr>
-
-											<TR>
-												<TD colspan="2" align="center" height="50px"><input
-													type="button" value="编辑" class="button"
-													onclick="editExamInfor();" /> <input type="button"
-													value="保存" type="submit"
-													onclick="saveExamInfor('${examination.id}');"
-													class="button" /></TD>
-											</TR>
-										</table></td>
-								</tr>
-							</table>
-							<br />
-						</fieldset>
-					</TD>
+					
 
 				</TR>
 				<tr>
@@ -231,39 +163,10 @@
 						<fieldset>
 							<legend>小题信息</legend>
 							<table style="width: 100%">
-								<tr>
-									<td><input align="left" type="button" class="button"
-										value="添加考试章节" onclick="addExamSection();" /></td>
-								</tr>
-								<c:forEach items="${examination.examsections}" var="examSection">
-
+								
+									
 									<tr>
-										<td><img name="image" id="image${examSection.id}"
-											src="./images/ico04.gif" width="8" height="11" /> <a
-											href="#" onclick="showDetail('${examSection.id}');">${examSection.questiontype.typeName}信息</a></td>
-									</tr>
-									<tr>
-										<td><c:choose>
-												<c:when test="${examSection.questiontype.typeName=='单项选择题'}">
-													<input type="hidden" id="singleChoiceSection"
-														value="${examSection.id}" />
-												</c:when>
-												<c:when test="${examSection.questiontype.typeName=='多项选择题'}">
-													<input type="hidden" id="multiChoiceSection"
-														value="${examSection.id}" />
-												</c:when>
-												<c:when test="${examSection.questiontype.typeName=='判断题'}">
-													<input type="hidden" id="trueOrFalseSection"
-														value="${examSection.id}" />
-												</c:when>
-												<c:when test="${examSection.questiontype.typeName=='材料分析题'}">
-													<input type="hidden" id="materialAnalysisSection"
-														value="${examSection.id}" />
-												</c:when>
-											</c:choose></td>
-									</tr>
-									<tr>
-										<td><table id="table${examSection.id}"
+										<td><table id="table"
 												style="display:none;">
 												<tr>
 													<td>题目要求：</td>
