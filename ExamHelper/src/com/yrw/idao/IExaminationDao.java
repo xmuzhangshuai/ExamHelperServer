@@ -80,6 +80,11 @@ public interface IExaminationDao extends IBasicDao {
 	 */
 	public Examination showExam(int examId);
 
+	/**通过试题的题目获得试卷对象
+	 * @param examName
+	 * @return
+	 */
+	public Examination getExaminationByExamName(String examName);
 	/**
 	 * Method addExam
 	 * 

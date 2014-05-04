@@ -37,7 +37,6 @@
 		}
 		;
 	}
-
 	function unselectAll() {
 		var obj = document.fom.elements;
 		for (var i = 0; i < obj.length; i++) {
@@ -50,15 +49,6 @@
 			}
 		}
 	}
-
-	function addExamination() {
-	var subjectId=document.getElementById("subjectChoose").value;
-	if(subjectId!=undefined)
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExaminationUI&subjectId="+subjectId;
-		else
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExaminationUI;
-		document.getElementById("fom").submit();
-	}
 	function changeSubject(){
  		var subjectId=document.getElementById("subjectChoose").value
  		if(subjectId!= undefined)
@@ -67,34 +57,6 @@
  		document.getElementById("fom").submit();
  		}
 	}
-
-	function delSelected() {
-		var obj = document.fom.elements;
-		var name = /delid\d+/;
-		var list
-
-		for (var i = 0; i < obj.length; i++) {
-			if (name.test(obj[i].name) == true && obj[i].checked == true)
-				list = list + obj[i].name;
-
-		}
-		document.getElementById("paramsHidden").value = list;
-
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=delSubjectByList&pageNow=${pageNow}";
-		document.getElementById("fom").submit();
-	}
-	
-	
-function goByPage(){
-		
-		var page=document.getElementById("page").value;
-	
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showExamList&pageNow="
-					+ page;
-			document.getElementById("fom").submit();
-	}
-	
-	
 </script>
 
 </head>
