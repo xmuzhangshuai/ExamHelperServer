@@ -151,11 +151,10 @@ public class ExaminationAction extends DispatchAction {
 			request.setAttribute("subjects", subjectList);
 		}
 
-		// 设置examination下的题型
+		// 设置每个题型下的具体题目
+
 		List<Examsection> examsections = new ArrayList<Examsection>(
 				examination.getExamsections());
-		request.setAttribute("examSections", examsections);
-		// 设置每个题型下的具体题目
 		Questiontype questiontype = null;
 		for (int i = 0; i < examsections.size(); i++) {
 			questiontype = examsections.get(i).getQuestiontype();
@@ -281,8 +280,10 @@ public class ExaminationAction extends DispatchAction {
 		return showExamination(mapping, form, request, response);
 
 	}
-	
-	/**跳转到添加试卷的页面
+
+	/**
+	 * 跳转到添加试卷的页面
+	 * 
 	 * @param mapping
 	 * @param form
 	 * @param request
@@ -291,38 +292,43 @@ public class ExaminationAction extends DispatchAction {
 	 */
 	public ActionForward addExaminationUI(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
-			HttpServletResponse response){
-	String subjectIdString=request.getParameter("subjectId");
-	if(subjectIdString!=null)
-		request.getSession().setAttribute("subjectId", Integer.parseInt(subjectIdString));
-	
-	// 设置examination中科目的下拉框
-			List<Subject> subjectList = subjectService.getSubjects();
-			if (subjectList != null) 
-				request.setAttribute("subjects", subjectList);
+			HttpServletResponse response) {
+		String subjectIdString = request.getParameter("subjectId");
+		if (subjectIdString != null)
+			request.getSession().setAttribute("subjectId",
+					Integer.parseInt(subjectIdString));
 
-			
-		
+		// 设置examination中科目的下拉框
+		List<Subject> subjectList = subjectService.getSubjects();
+		if (subjectList != null)
+			request.setAttribute("subjects", subjectList);
+
 		return mapping.findForward("addExamination");
 	}
-	/**添加试卷
+
+	/**
+	 * 添加试卷
+	 * 
 	 * @param mapping
 	 * @param form
 	 * @param request
 	 * @param response
 	 * @return
 	 */
-	public ActionForward addExamination(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
-			HttpServletResponse response){
-		ExaminationForm examinationForm=(ExaminationForm)form;
+	public ActionForward addExamination(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+		
+
+		ExaminationForm examinationForm = (ExaminationForm) form;
 		String examName = examinationForm.getExamName();
 		String subjectName = examinationForm.getSubjectName();
 		String examType = examinationForm.getExamType();
 		String examTime = examinationForm.getExamTime();
 		String examRequest = examinationForm.getExamRequest();
-
-		Examination examination=new Examination();
+		Examination	examination = new Examination();
+		
+	
+		
 		// 更新examination对象属性
 		if (examName != null)
 			examination.setExamName(examName);
@@ -335,9 +341,11 @@ public class ExaminationAction extends DispatchAction {
 			examination.setExamTime(Integer.parseInt(examTime));
 		if (examRequest != null)
 			examination.setExamRequest(examRequest);
-
-		return showExamination(mapping, form, request, response);
+		examination=examService.addExaminationInfor(examination);
+		request.setAttribute("examinationId", examination.getId());
+		return showExamination(mapping, null, request, response);
 	}
+
 	/**
 	 * 跳转到添加单项选择题的列表
 	 * 
@@ -447,10 +455,9 @@ public class ExaminationAction extends DispatchAction {
 			request.setAttribute("examinationId", examsection.getExamination()
 					.getId());
 			return showExamination(mapping, null, request, response);
-		}
-		else 
+		} else
 			return null;
-		
+
 	}
 
 	/**

@@ -227,7 +227,7 @@
 						<fieldset>
 							<legend>小题信息</legend>
 							<table style="width: 100%">
-								<c:forEach items="${examSections}" var="examSection">
+								<c:forEach items="${examination.examsections}" var="examSection">
 
 									<tr>
 										<td><img name="image" id="image${examSection.id}"

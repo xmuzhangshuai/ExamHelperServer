@@ -84,4 +84,11 @@ public class ExaminationDao extends BasicDao implements IExaminationDao {
 		return this.executeQuery(hql, null);
 	}
 
+	@Override
+	public Examination getExaminationByExamName(String examName) {
+		// TODO Auto-generated method stub
+		String hql="from Examination as e where e.examName="+examName;
+		return (Examination) this.uniqueQuery(hql, null);
+	}
+
 }

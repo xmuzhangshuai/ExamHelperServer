@@ -10,6 +10,8 @@ import java.util.Set;
 
 import javax.mail.Flags.Flag;
 
+import net.sf.cglib.transform.impl.AddDelegateTransformer;
+
 import com.yrw.config.DefaultValue;
 import com.yrw.domains.Examination;
 import com.yrw.domains.Examquestion;
@@ -29,6 +31,7 @@ import com.yrw.idao.IQuestionTypeDao;
 import com.yrw.idao.IQuestionsOfMaterial;
 import com.yrw.idao.ISingleChoiceDao;
 import com.yrw.idao.ITrueOrFalseDao;
+import com.yrw.web.forms.ExaminationForm;
 
 public class ExamService {
 
@@ -440,5 +443,12 @@ public class ExamService {
 			examsection.setQuestionNum(examsection.getQuestionNum() + 1);
 			iExamSectionDao.update(examsection);
 		}
+	}
+	/**添加新的试题信息，并返回examination对象
+	 * @param examinationForm
+	 */
+	public Examination addExaminationInfor(Examination examination){
+		iExaminationDao.add(examination);
+		return iExaminationDao.getExaminationByExamName(examination.getExamName());
 	}
 }
