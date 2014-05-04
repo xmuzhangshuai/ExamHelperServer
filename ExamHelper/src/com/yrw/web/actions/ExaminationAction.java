@@ -362,6 +362,7 @@ public class ExaminationAction extends DispatchAction {
 
 		// 获得examSectionid，若是存在该参数则表明是从试卷部分跳转过来否则为添加题目界面
 		String examSectionIdString = request.getParameter("examSectionId");
+		System.out.println("examSectionIdString "+examSectionIdString);
 		int subjectId = 0;
 		String questionTypeName = request.getParameter("questionTypeName");
 		if (questionTypeName != null) {

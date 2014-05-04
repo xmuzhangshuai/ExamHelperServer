@@ -57,13 +57,26 @@
  		document.getElementById("fom").submit();
  		}
 	}
+	function addExamination() {
+	var subjectId='${subjectId}';
+	var noContent="";
+	if(subjectId==noContent){
+	alert(subjectId)
+	document.getElementById("fom").action ="${pageContext.request.contextPath}/examination.do?flag=addExaminationUI";
+	}
+	else
+	document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExaminationUI&subjectId="+subjectId;
+	
+	document.getElementById("fom").submit();
+	
+	}
 </script>
 
 </head>
 
-<body >
+<body>
 	<form name="fom" id="fom" method="post" action="" target="mainFrame">
-	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
 				<td height="30">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -78,8 +91,7 @@
 											<table>
 												<tr>
 													<td width="538" style="width: 44px; ">科目：</td>
-													<td style="width: 129px; ">
-													<select
+													<td style="width: 129px; "><select
 														name="subjectChoose" id="subjectChoose"
 														onchange="changeSubject();">
 															<c:choose>
@@ -103,8 +115,7 @@
 																</c:otherwise>
 															</c:choose>
 
-													</select>
-													</td>
+													</select></td>
 												</tr>
 											</table>
 										</td>
@@ -150,13 +161,13 @@
 														<td height="20"><input type="checkbox"
 															name="delid${examination.id}" /></td>
 														<td><a
-															href="${pageContext.request.contextPath}/examination.do?flag=showExamination&examinationId=${examination.id}"
-														>${examination.examName}</a></td>
+															href="${pageContext.request.contextPath}/examination.do?flag=showExamination&examinationId=${examination.id}">${examination.examName}</a></td>
 														<td><a
-															href="${pageContext.request.contextPath}/examination.do?flag=editExamination&examinationId=${examination.id}" >编辑|</a><a
+															href="${pageContext.request.contextPath}/examination.do?flag=editExamination&examinationId=${examination.id}">编辑|</a><a
 															href="${pageContext.request.contextPath}/examination.do?flag=showExamination&examinationId=${examination.id}">查看|</a>
-														<!--  	<a href="${pageContext.request.contextPath}/section.do?flag=deleteSection&sectionId=${section.id}">删除</a></td>-->
-													<a href="${pageContext.request.contextPath}/examination.do?flag=deleteExamination&examinationId=${examination.id}">删除</a></td>
+															<!--  	<a href="${pageContext.request.contextPath}/section.do?flag=deleteSection&sectionId=${section.id}">删除</a></td>-->
+															<a
+															href="${pageContext.request.contextPath}/examination.do?flag=deleteExamination&examinationId=${examination.id}">删除</a></td>
 													</tr>
 												</c:forEach>
 											</table>
@@ -178,26 +189,32 @@
 														页 | 第 <span class="right-text09">${pageNow}</span> 页
 													</td>
 													<c:choose>
-													<c:when test="${!empty subjecId}">
-													<td width="49%" align="right">[<a class="right-font08"
-														href="${pageContext.request.contextPath}/examination.do?flag=showExamListBySubject&subjectId=${subjectId}&pageNow=1">首页</a> | <a class="right-font08"
-														href="${pageContext.request.contextPath}/examination.do?flag=showExamListBySubject&subjectId=${subjectId}&pageNow=${pageNow-1}">上一页</a> | <a
-														class="right-font08"
-														href="${pageContext.request.contextPath}/examination.do?flag=showExamListBySubject&subjectId=${subjectId}&pageNow=${pageNow+1}">下一页</a> |
-														<a class="right-font08" href="${pageContext.request.contextPath}/examination.do?flag=showExamListBySubject&subjectId=${subjectId}&pageNow=${pageCount}">末页</a>]
-														转至：
-													</td>
-													</c:when>
-													<c:otherwise>
-													<td width="49%" align="right">[<a class="right-font08"
-														href="${pageContext.request.contextPath}/examination.do?flag=showAllExamList&pageNow=1">首页</a> | <a class="right-font08"
-														href="${pageContext.request.contextPath}/examination.do?flag=showAllExamList&pageNow=${pageNow-1}">上一页</a> | <a
-														class="right-font08"
-														href="${pageContext.request.contextPath}/examination.do?flag=showAllExamList&pageNow=${pageNow+1}">下一页</a> |
-														<a class="right-font08" href="${pageContext.request.contextPath}/examination.do?flag=showAllExamList&pageNow=${pageCount}">末页</a>]
-														转至：
-													</td>
-													</c:otherwise>
+														<c:when test="${!empty subjecId}">
+															<td width="49%" align="right">[<a
+																class="right-font08"
+																href="${pageContext.request.contextPath}/examination.do?flag=showExamListBySubject&subjectId=${subjectId}&pageNow=1">首页</a>
+																| <a class="right-font08"
+																href="${pageContext.request.contextPath}/examination.do?flag=showExamListBySubject&subjectId=${subjectId}&pageNow=${pageNow-1}">上一页</a>
+																| <a class="right-font08"
+																href="${pageContext.request.contextPath}/examination.do?flag=showExamListBySubject&subjectId=${subjectId}&pageNow=${pageNow+1}">下一页</a>
+																| <a class="right-font08"
+																href="${pageContext.request.contextPath}/examination.do?flag=showExamListBySubject&subjectId=${subjectId}&pageNow=${pageCount}">末页</a>]
+																转至：
+															</td>
+														</c:when>
+														<c:otherwise>
+															<td width="49%" align="right">[<a
+																class="right-font08"
+																href="${pageContext.request.contextPath}/examination.do?flag=showAllExamList&pageNow=1">首页</a>
+																| <a class="right-font08"
+																href="${pageContext.request.contextPath}/examination.do?flag=showAllExamList&pageNow=${pageNow-1}">上一页</a>
+																| <a class="right-font08"
+																href="${pageContext.request.contextPath}/examination.do?flag=showAllExamList&pageNow=${pageNow+1}">下一页</a>
+																| <a class="right-font08"
+																href="${pageContext.request.contextPath}/examination.do?flag=showAllExamList&pageNow=${pageCount}">末页</a>]
+																转至：
+															</td>
+														</c:otherwise>
 													</c:choose>
 													<td width="1%"><table width="20" border="0"
 															cellspacing="0" cellpadding="0">
