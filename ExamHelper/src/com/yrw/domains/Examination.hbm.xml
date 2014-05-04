@@ -25,7 +25,7 @@
         <property name="examTime" type="java.lang.Integer">
             <column name="exam_time" />
         </property>
-        <set name="examsections" inverse="true">
+        <set name="examsections" inverse="true" cascade="all-delete-orphan">
             <key>
                 <column name="exam_id" not-null="true" />
             </key>

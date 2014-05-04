@@ -164,9 +164,8 @@
 														<td><a
 															href="${pageContext.request.contextPath}/examination.do?flag=showExamination&examinationId=${examination.id}&isEdit=true">编辑|</a><a
 															href="${pageContext.request.contextPath}/examination.do?flag=showExamination&examinationId=${examination.id}">查看|</a>
-															<!--  	<a href="${pageContext.request.contextPath}/section.do?flag=deleteSection&sectionId=${section.id}">删除</a></td>-->
 															<a
-															href="${pageContext.request.contextPath}/examination.do?flag=deleteExamination&examinationId=${examination.id}">删除</a></td>
+															href="${pageContext.request.contextPath}/examination.do?flag=deleteExamination&examinationId=${examination.id}&pageNow=${pageNow}">删除</a></td>
 													</tr>
 												</c:forEach>
 											</table>
@@ -188,7 +187,7 @@
 														页 | 第 <span class="right-text09">${pageNow}</span> 页
 													</td>
 													<c:choose>
-														<c:when test="${!empty subjecId}">
+														<c:when test="${!empty subjectId}">
 															<td width="49%" align="right">[<a
 																class="right-font08"
 																href="${pageContext.request.contextPath}/examination.do?flag=showExamListBySubject&subjectId=${subjectId}&pageNow=1">首页</a>

@@ -73,13 +73,20 @@
 		}
 
 	}
-	function editSectionInfor(sectionId) {
+	function deleteSectionInfor(sectionId,examinationId) {
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=deleteExamSectionInfor&examSectionId="
+				+ sectionId + "&examinationId=" + examinationId;
+
+		document.getElementById("fom").submit();
+	}
+	function editSectionInfor(sectionId,examinationId) {
 		document.getElementById("request" + sectionId).readOnly = false;
 		document.getElementById("score" + sectionId).readOnly = false;
+		document.getElementById("delete" + sectionId).disabled = false;
 	}
 	function saveSectionInfor(sectionId, examinationId) {
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=editExamSectionInfor&examSectionId="
-				+ sectionId + "&examinationId=" + examinationId;
+				+ sectionId+ "&examinationId=" + examinationId ;
 
 		document.getElementById("fom").submit();
 	}
@@ -135,8 +142,7 @@
 	}
 	function Init() {
 		var isEdit = '${isEdit}';
-		if (isEdit == "true")
-		 {
+		if (isEdit == "true") {
 			var txtN = document.getElementsByTagName("input");
 			for (i = 0; i < txtN.length; i++)
 				txtN[i].readOnly = false;
@@ -306,7 +312,10 @@
 														onclick="editSectionInfor('${examSection.id}');" /> <input
 														type="button" value="保存"
 														onclick="saveSectionInfor('${examSection.id}','${examination.id}');"
-														class="button" /></TD>
+														class="button" /><input id="delete${examSection.id}"
+														type="button" value="删除"	onclick="deleteSectionInfor('${examSection.id}','${examination.id}');"
+														class="button" disabled="disabled" /></TD>
+
 												</tr>
 											</table></td>
 									</tr>

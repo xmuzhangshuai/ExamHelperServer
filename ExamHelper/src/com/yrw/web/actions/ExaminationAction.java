@@ -78,7 +78,14 @@ public class ExaminationAction extends DispatchAction {
 	public ActionForward showAllExamList(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
-		String pageNowString = request.getParameter("pageNow");
+		
+		String pageNowString = null;
+		if (request.getParameter("pageNow") != null) {
+			if (request.getParameter("pageNow").length() > 0)
+				pageNowString = request.getParameter("pageNow");
+		} else if (request.getAttribute("pageNow") != null)
+			if (request.getAttribute("pageNow").toString().length() > 0)
+				pageNowString = (String) request.getAttribute("pageNow");
 		List collection = examService.listExaminations(pageNowString);
 
 		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
@@ -105,7 +112,14 @@ public class ExaminationAction extends DispatchAction {
 			HttpServletResponse response) {
 		int subjectId = Integer.parseInt(request.getParameter("subjectId"));
 
-		String pageNowString = request.getParameter("pageNow");
+		String pageNowString = null;
+		if (request.getParameter("pageNow") != null) {
+			if (request.getParameter("pageNow").length() > 0)
+				pageNowString = request.getParameter("pageNow");
+		} else if (request.getAttribute("pageNow") != null)
+			if (request.getAttribute("pageNow").toString().length() > 0)
+				pageNowString = (String) request.getAttribute("pageNow");
+		
 		List collection = examService
 				.listExaminations(pageNowString, subjectId);
 
@@ -132,13 +146,12 @@ public class ExaminationAction extends DispatchAction {
 	public ActionForward showExamination(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
-		//判断是否请求发展编辑或者仅为查看
-		String isEdit=request.getParameter("isEdit");
-		if(isEdit!=null)
-			if(isEdit.length()>0)
+		// 判断是否请求发展编辑或者仅为查看
+		String isEdit = request.getParameter("isEdit");
+		if (isEdit != null)
+			if (isEdit.length() > 0)
 				request.setAttribute("isEdit", isEdit);
-		
-		
+
 		// 得到examination对象
 		int examinationId = 0;
 		if ((request.getParameter("examinationId") != null))
@@ -214,7 +227,6 @@ public class ExaminationAction extends DispatchAction {
 		String examTime = examinationForm.getExamTime();
 		String examRequest = examinationForm.getExamRequest();
 
-		System.out.println(examName);
 		// 获取examination对象
 		Examination examination = examService.getExamination(examinationId);
 		// 更新examination对象属性
@@ -263,6 +275,7 @@ public class ExaminationAction extends DispatchAction {
 			examsection.setRequest(examSectionRequest);
 		if (examSectionScore != null)
 			examsection.setQuestionScore(Integer.parseInt(examSectionScore));
+		
 		return showExamination(mapping, form, request, response);
 	}
 
@@ -394,11 +407,12 @@ public class ExaminationAction extends DispatchAction {
 			HttpServletResponse response) {
 
 		Examsection examsection = new Examsection();
-		
-		int examinationId= Integer.parseInt(request.getParameter("examinationId"));
-		Examination examination=examService.getExamination(examinationId);
+
+		int examinationId = Integer.parseInt(request
+				.getParameter("examinationId"));
+		Examination examination = examService.getExamination(examinationId);
 		examsection.setExamination(examination);
-		
+
 		String questionTypeIdString = request.getParameter("questionType");
 		String requestString = request.getParameter("request");
 		String scoreString = request.getParameter("score");
@@ -416,12 +430,12 @@ public class ExaminationAction extends DispatchAction {
 			if (scoreString.length() > 0) {
 				examsection.setQuestionScore(Integer.parseInt(scoreString));
 			}
-		
+
 		examService.addExamSection(examsection);
-		
+
 		request.setAttribute("examinationId", examinationId);
 		return showExamination(mapping, form, request, response);
-		
+
 	}
 
 	/**
@@ -560,6 +574,48 @@ public class ExaminationAction extends DispatchAction {
 		request.setAttribute("examinationId", examsection.getExamination()
 				.getId());
 		return showExamination(mapping, null, request, response);
+	}
+
+	/**
+	 * 删除所选试卷
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward deleteExamination(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response){
+		int examinationId=Integer.parseInt(request.getParameter("examinationId"));
+		examService.deleteExamination(examinationId);
+		
+		//设置跳转页面的当前页面
+		String pageNowString=request.getParameter("pageNow");
+		request.setAttribute("pageNow", pageNowString);
+		
+		if(request.getSession().getAttribute("subjectId")==null)
+			return showAllExamList(mapping, form, request, response);
+		else 
+			return showExamListBySubject(mapping, form, request, response);
+		
+		
+	}
+	/**删除试卷章节
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward deleteExamSectionInfor(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response){
+		int examSectionId=Integer.parseInt(request.getParameter("examSectionId"));
+	
+		examService.deleteExamSection(examSectionId);
+		return showExamination(mapping, form, request, response);
 	}
 
 	/**

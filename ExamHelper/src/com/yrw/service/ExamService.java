@@ -458,4 +458,13 @@ public class ExamService {
 	public void addExamSection(Examsection examsection){
 		iExamSectionDao.add(examsection);
 	}
+	/**É¾³ýÊÔ¾í
+	 * @param examination
+	 */
+	public void deleteExamination(int examinationId){
+		iExaminationDao.deletById(Examination.class, examinationId);
+	}
+	public void deleteExamSection(int examSectionId){
+		iExamSectionDao.deletById(Examsection.class, examSectionId);
+	}
 }
