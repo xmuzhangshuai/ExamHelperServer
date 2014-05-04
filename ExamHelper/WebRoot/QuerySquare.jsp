@@ -237,7 +237,7 @@ function delSelected(){
 							<td width="8%" align="center" height="30">操作</td>
 						</tr>
 						<c:forEach items="${queryList}" var="query">
-							<tr id="listbg"  onclick="goQueryDetail('${query.id}','${pageNow}');">
+							<tr id="listbg" >
 								<td height="20" align="center" ><input  type="checkbox" name="delid${query.id}" /></td>
 								<td height="20" align="center" ><label>${query.id}</label></td>
 								<td height="30" align="center" ><a href="${query.user.avatar}" title="${query.user.nickname}">

@@ -17,6 +17,7 @@ import org.apache.struts.actions.DispatchAction;
 
 import com.yrw.domains.Materialanalysis;
 import com.yrw.domains.Multichoice;
+import com.yrw.domains.Questiontype;
 import com.yrw.domains.Singlechoice;
 import com.yrw.domains.Snote;
 import com.yrw.domains.Subject;
@@ -65,11 +66,78 @@ public class NoteAction extends DispatchAction {
 		}
 		List<String> questionStemList = new ArrayList<String>();
 		List<Snote> snoteList = noteService.getSnoteListByPage(pageNow);
-		for (Snote snote : snoteList) {
-			questionStemList.add(getQuestionName(snote.getQuestionId(), snote.getQuestiontype().getTypeName()));
+		if (snoteList != null) {
+			for (Snote snote : snoteList) {
+				questionStemList.add(getQuestionName(snote.getQuestionId(), snote.getQuestiontype().getTypeName()));
+			}
 		}
-		List<Subject> subjectList = subjectService.getSubjects();
 
+		List<Subject> subjectList = subjectService.getSubjects();
+		List<Questiontype> questiontypeList = questionService.showQuestiontypes();
+		request.setAttribute("questiontypeList", questiontypeList);
+		request.setAttribute("snoteList", snoteList);
+		request.setAttribute("questionStemList", questionStemList);
+		request.setAttribute("subjectList", subjectList);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("pageNow", pageNow);
+		return mapping.findForward("showNote");
+	}
+
+	/**
+	 * Method execute 查找笔记列表
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return ActionForward
+	 */
+	public ActionForward searchNoteList(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		int pageNow = 1;
+		int pageCount = 0;
+
+		List<String> questionStemList = new ArrayList<String>();
+		List<Snote> snoteList = new ArrayList<Snote>();
+		List<Subject> subjectList = subjectService.getSubjects();
+		List<Questiontype> questiontypeList = questionService.showQuestiontypes();
+		String type = request.getParameter("type");
+		int index = Integer.parseInt(request.getParameter("index"));
+
+		if (type != null) {
+			if (type.equals("subject")) {
+
+			} else if (type.equals("questionType")) {
+				int questionTypeId = questiontypeList.get(index).getId();
+				pageCount = noteService.getSnotePageCountByQuestionType(questionTypeId);
+				String pageNowString = request.getParameter("pageNow");
+				if (pageNowString != null) {
+					pageNow = Integer.parseInt(pageNowString);
+					if (pageNow < 1)
+						pageNow = 1;
+					else if (pageNow > pageCount)
+						pageNow = pageCount;
+				}
+				snoteList = noteService.getSnoteListByQuestionType(questionTypeId, pageNow);
+			}
+		}
+
+		String pageNowString = request.getParameter("pageNow");
+		if (pageNowString != null) {
+			pageNow = Integer.parseInt(pageNowString);
+			if (pageNow < 1)
+				pageNow = 1;
+			else if (pageNow > pageCount)
+				pageNow = pageCount;
+		}
+		if (snoteList != null) {
+			for (Snote snote : snoteList) {
+				questionStemList.add(getQuestionName(snote.getQuestionId(), snote.getQuestiontype().getTypeName()));
+			}
+		}
+
+		request.setAttribute("questiontypeList", questiontypeList);
 		request.setAttribute("snoteList", snoteList);
 		request.setAttribute("questionStemList", questionStemList);
 		request.setAttribute("subjectList", subjectList);
