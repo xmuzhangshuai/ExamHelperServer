@@ -33,4 +33,8 @@ public class SystemNoticeService {
 		return iSystemNoticeDao.getSystemnotciePageCount();
 	}
 	
+	public Systemnotice getSystemnoticeById(int id){
+		return (Systemnotice) iSystemNoticeDao.findById(Systemnotice.class, id);
+	}
+	
 }
