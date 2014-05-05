@@ -144,17 +144,18 @@ public class MaterialAnalysisAction extends DispatchAction {
 		List<Subject> subjectList = subjectService.getSubjects();
 		if (subjectList != null) {
 			request.setAttribute("subjects", subjectList);
-		} 
+		}
 
 		// 获得下拉菜单里的所有section
 
-		List<Section> sectionList = sectionService.listSectionBySubIdAndSecId(
-				subjectId);
- 
+		List<Section> sectionList = sectionService
+				.listSectionBySubject(subjectId);
+
 		if (sectionList != null) {
 			request.setAttribute("sections", sectionList);
-			request.setAttribute("sectionName", materialanalysis.getSection().getSectionName());
-		} 
+			request.setAttribute("sectionName", materialanalysis.getSection()
+					.getSectionName());
+		}
 		if (isEdit != null) {
 			return mapping.findForward("editMaterialAnalysis");
 		} else

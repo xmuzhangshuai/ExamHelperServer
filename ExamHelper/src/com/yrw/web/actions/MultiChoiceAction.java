@@ -139,7 +139,7 @@ public class MultiChoiceAction extends DispatchAction {
 		// 获得下拉菜单里的所有section
 
 		List<Section> sectionList = sectionService
-				.listSectionBySubIdAndSecId(subjectId);
+				.listSectionBySubject(subjectId);
 
 		if (sectionList != null) {
 			request.setAttribute("sectionName", multichoice.getSection()

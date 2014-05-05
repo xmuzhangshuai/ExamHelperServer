@@ -138,7 +138,7 @@ public class TrueOrFalseAction extends DispatchAction {
 		} 
 		// 获得下拉菜单里的所有section
 
-		List<Section> sectionList = sectionService.listSectionBySubIdAndSecId(
+		List<Section> sectionList = sectionService.listSectionBySubject(
 				subjectId);
 
 		if (sectionList != null) {

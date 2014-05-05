@@ -66,7 +66,7 @@ html { overflow-x: ; overflow-y: ; border:0;}
 	   var subjectId=document.getElementById("subjectChoose").value;
 	   if(subjectId!="null"){
 	   document.getElementById("fom").action="${pageContext.request.contextPath}/question.do?flag=loadSectionList&subjectId="+subjectId;
-	   document.getElementById("fom").submit;
+	  document.getElementById("fom").submit();
 	   }
 	}
 </script>
@@ -114,6 +114,9 @@ html { overflow-x: ; overflow-y: ; border:0;}
 													<td style="width: 80px;text-align: right;">章节：</td>
 													<td><select id="sectionChoose">
 															<option value="null" selected="selected">-请选择章节-</option>
+															<c:forEach items="${sections}" var="section">
+															<option>${section.sectionName}</option>
+															</c:forEach>
 													</select></td>
 
 

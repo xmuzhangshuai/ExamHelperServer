@@ -50,9 +50,11 @@
 		}
 	}
 	function loadSection() {
-	
-	 
-	
+	  var subjectId=document.getElementById("subjectChoose").value;
+	   if(subjectId!="null"){
+	   document.getElementById("fom").action="${pageContext.request.contextPath}/singleChoice.do?flag=loadSectionList&subjectId="+subjectId;
+	  document.getElementById("fom").submit();
+	   }
 	}
 
 	function selectAll() {
@@ -88,8 +90,8 @@ function selectOrUnSelect(){
     }
 }
 
-	function link() {
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=addSingleChoiceUI";
+	function addSingleChoice() {
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=addSingleChoiceUI&pageNow="+'${pageNow}';
 		document.getElementById("fom").submit();
 	}
 
@@ -199,7 +201,7 @@ function selectOrUnSelect(){
 	
 function deleteSingle(singleChoiceId) {
 	scscms_alert("确定要删除该单选题吗？","confirm",function(){
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=deleteSingleChoice&singleChoiceId="+singleChoiceId;
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=deleteSingleChoice&singleChoiceId="+singleChoiceId+"&pageNow="+'${pageNow}';
 		document.getElementById("fom").submit();
 		scscms_alert("删除成功！","ok");
 	},function(){});
@@ -222,25 +224,25 @@ function deleteSingle(singleChoiceId) {
 									cellspacing="0">
 												<tr>
 													<td width="38">科目：</td>
-													<td style="width: 119px; "><select
+													<td ><select
 														name="subjectChoose" id="subjectChoose"
 														onchange="loadSection();" style="width: 101px; ">
 															<c:choose>
 																<c:when test="${empty subjectId}">
 																	<option value="null" selected="selected">请选择科目</option>
 																	<c:forEach items="${subjects}" var="subject">
-																		<option value="${subject.sections}">${subject.subName}</option>
+																		<option value="${subject.id}">${subject.subName}</option>
 																	</c:forEach>
 																</c:when>
 																<c:otherwise>
 																	<c:forEach items="${subjects}" var="subject">
 																		<c:choose>
 																			<c:when test="${subject.id==subjectId}">
-																				<option value="${subject.sections}"
+																				<option value="${subject.id}"
 																					selected="selected">${subject.subName}</option>
 																			</c:when>
 																			<c:otherwise>
-																				<option value="${subject.sections}">${subject.subName}</option>
+																				<option value="${subject.id}">${subject.subName}</option>
 																			</c:otherwise>
 																		</c:choose>
 																	</c:forEach>
@@ -249,7 +251,7 @@ function deleteSingle(singleChoiceId) {
 													</select></td>
 
 
-														<td>章节：</td>
+														<td style="width: 80px;text-align: right;">章节：</td>
 										<td><select id="sectionChoose">
 												<c:choose>
 													<c:when test="${empty sectionName}">
@@ -274,7 +276,7 @@ function deleteSingle(singleChoiceId) {
 										</select></td>
 
 
-													<td>题型：</td>
+													<td style="width: 80px;text-align: right;">题型：</td>
 													<td><select id="questionTypeChoose">
 															<c:choose>
 																<c:when test="${empty questionTypeName}">
@@ -297,7 +299,7 @@ function deleteSingle(singleChoiceId) {
 																</c:otherwise>
 															</c:choose>
 													</select></td>
-													<td>
+													<td style="width: 80px;text-align: right;">
 													<input type="button" value="查询"
 											class="right-button02" onclick="search();" /></td>
 												</tr>
@@ -322,7 +324,7 @@ function deleteSingle(singleChoiceId) {
 											value="删除所选题目" onclick="delSelected();" /> <input
 											type="hidden" name="paramsHidden" id="paramsHidden" /> <input
 											name="Submit2" type="button" class="right-button08"
-											value="添加单项选择题" onclick="link();" /></td>
+											value="添加单项选择题" onclick="addSingleChoice();" /></td>
 									</tr>
 									<tr>
 										<td height="40" class="font42">
@@ -355,7 +357,7 @@ function deleteSingle(singleChoiceId) {
 																</c:choose>
 														</a></td>
 														<td align="center">
-															<a href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}&edit=true">
+															<a href="${pageContext.request.contextPath}/singleChoice.do?flag=editSingleChoice&singleChoiceId=${singleChoice.id}&pageNow=${pageNow}">
 																<img alt="编辑" class="delete_img" src="./images/edit.png" style="height: 18px;" title="编辑"/>编辑</a>
 															<a href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoice&singleChoiceId=${singleChoice.id}" style="margin-left: 10px;">
 																<img alt="查看" class="delete_img" src="./images/more.png" style="height: 15px;" title="查看"/>查看</a>

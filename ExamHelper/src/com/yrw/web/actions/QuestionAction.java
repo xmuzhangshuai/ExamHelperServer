@@ -156,9 +156,20 @@ public class QuestionAction extends DispatchAction {
 	 */
 	public ActionForward loadSectionList(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
+		int subjectId=0;
+		if(request.getParameter("subjectId")!=null)
+			if(request.getParameter("subjectId").length()>0)
+		subjectId=Integer.parseInt(request.getParameter("subjectId"));
+		request.getSession().setAttribute("subjectId", subjectId);
 		
-		int subjectId=Integer.parseInt(request.getParameter("subjectId"));
+		List<Section>sections=sectionService.listSectionBySubject(subjectId);
+		request.setAttribute("sections", sections);
 		
+		List<Subject> subjects = subjectService.getSubjects();
+		List<Questiontype> questiontypes = questionService.showQuestiontypes();
+		request.setAttribute("subjects", subjects);
+		request.setAttribute("questionTypes", questiontypes);
+		return mapping.findForward("showQuestion");
 		
 	}
 

@@ -33,17 +33,7 @@ public class SectionService {
 		return iSectionDao.getSectoinByName(sectionName);
 	}
 
-	/**
-	 * 通过科目id以及章节名称获得章节
-	 * 
-	 * @param subjectId
-	 * @param sectionId
-	 * @return
-	 */
-	public List<Section> listSectionBySubIdAndSecId(int subjectId) {
-		List<Section> sectionList = iSectionDao.getSectionListBySubject(subjectId);
-		return sectionList;
-	}
+	
 	
 	/**
 	 * @return

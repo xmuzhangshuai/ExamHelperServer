@@ -29,7 +29,6 @@ public class SingleChoiceDao extends BasicDao implements ISingleChoiceDao {
 					iterator.remove();
 					break;
 				}
-			this.deletById(Singlechoice.class, singlechoice.getId());
 		}
 	}
 

@@ -19,21 +19,6 @@
 <link rel="stylesheet" rev="stylesheet" href="./css/style.css"
 	type="text/css" media="all" />
 <script language="JavaScript" type="text/javascript">
-	function tishi() {
-		var a = confirm('数据库中保存有该人员基本信息，您可以修改或保留该信息。');
-		if (a != true)
-			return false;
-		window
-				.open(
-						"冲突页.htm",
-						"",
-						"depended=0,alwaysRaised=1,width=800,height=400,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
-	}
-
-	function check() {
-		document.getElementById("aa").style.display = "";
-	}
-	
 	function save() {
 		document.getElementById("fom").submit();
 
@@ -41,7 +26,7 @@
 	function back() {
 	var sectionName=document.getElementById("sectionName").value;
 	
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&sectionName="+sectionName;
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&sectionName="+sectionName+"&pageNow="+'${pageNow}';
 				
 		document.getElementById("fom").submit();
 	}
@@ -50,7 +35,7 @@
 
 <body class="ContentBody">
 	<form
-		action="${pageContext.request.contextPath}/singleChoice.do?flag=editSingleChoice&singleChoiceId=${singleChoice.id}"
+		action="${pageContext.request.contextPath}/singleChoice.do?flag=saveSingleChoice&singleChoiceId=${singleChoice.id}"
 		method="post" enctype="multipart/form-data" name="fom" id="fom"
 		target="mainFrame">
 		<div class="MainDiv">
@@ -153,23 +138,34 @@
 							<table>
 								<tr>
 									<td>科目名称：</td>
-									<td><select name="subjectName">
-											<option selected="selected">${subject.subName}</option>
-											<c:forEach items="${subjects}" var="item">
-												<option>${item.subName}</option>
-											</c:forEach>
-									</select></td>
+									<td><select name="subjectName" id="subjectName"
+													style="width: 243px; ">
+														<c:forEach items="${subjects}" var="subject">
+															<c:choose>
+																<c:when test="${subject.id==subjectId}">
+																	<option value="${subject.subName}" selected="selected">${subject.subName}</option>
+																</c:when>
+																<c:otherwise>
+																	<option value="${subject.subName}">${subject.subName}</option>
+																</c:otherwise>
+															</c:choose>
+														</c:forEach>
+												</select></td>
 								</tr>
 								<tr>
 									<td>章节名称:</td>
 									<td><select id="sectionName" name="sectionName">
-											<option selected="selected">${section.sectionName}</option>
-											<c:forEach items="${sections}" var="item">
-												<option>${item.sectionName}</option>
-											</c:forEach>
+											<c:forEach items="${sections}" var="section">
+															<c:choose>
+																<c:when test="${section.sectionName==sectionName}">
+																	<option value="${section.sectionName}" selected="selected">${section.sectionName}</option>
+																</c:when>
+																<c:otherwise>
+																	<option value="${section.sectionName}">${section.sectionName}</option>
+																</c:otherwise>
+															</c:choose>
+														</c:forEach>
 									</select></td>
-									<td><input type="hidden" id="sectionId"
-										value="${section.id}" /></td>
 								</tr>
 							</table>
 						</fieldset></td>

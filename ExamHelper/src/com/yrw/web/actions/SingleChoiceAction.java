@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -53,6 +54,37 @@ public class SingleChoiceAction extends DispatchAction {
 	}
 
 	/**
+	 * 加载sectionList
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward loadSectionList(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		String subjectString = request.getParameter("subjectId");
+		int subjectId = 0;
+		if (subjectString != null)
+			if (subjectString.length() > 0) {
+				subjectId = Integer.parseInt(subjectString);
+				request.getSession().setAttribute("subjectId", subjectId);
+			}
+		List<Section> sections = sectionService.listSectionBySubject(subjectId);
+		request.setAttribute("sections", sections);
+
+		List<Subject> subjects = subjectService.getSubjects();
+		List<Questiontype> questiontypes = questionService.showQuestiontypes();
+		request.setAttribute("subjects", subjects);
+		request.setAttribute("questionTypes", questiontypes);
+
+		return mapping.findForward("showSingleChoiceList");
+	}
+
+	/**
 	 * Method showSingleChoiceList 按章节显示单选题列表
 	 * 
 	 * @param mapping
@@ -67,46 +99,44 @@ public class SingleChoiceAction extends DispatchAction {
 			HttpServletResponse response) throws UnsupportedEncodingException {
 		// TODO Auto-generated method stub
 
-		
 		// 加载章节类型
-		String sectionName;
-		if (request.getAttribute("source") != null)
-			sectionName = (String) request.getAttribute("sectionName");
-		else
-			sectionName= new String(request.getParameter("sectionName")
-					.getBytes("ISO-8859-1"), "utf-8");
-		
+		String sectionName = new String(request.getParameter("sectionName")
+				.getBytes("ISO-8859-1"), "utf-8");
+
 		String typeName = DefaultValue.SINGLE_CHOICE;
 
 		request.getSession().setAttribute("typeName", typeName);
 		String pageNowString = request.getParameter("pageNow");
 
-		Section existSection=sectionService.getSectionBySectionName(sectionName);
+		Section existSection = sectionService
+				.getSectionBySectionName(sectionName);
+
 		int subjectId = existSection.getSubject().getId();
 		request.getSession().setAttribute("subjectId", subjectId);
 		request.setAttribute("subjects", subjectService.getSubjects());
-		
 
 		// 加载问题类型
-		List<Questiontype> questiontypes = questionService
-				.showQuestiontypes();
+		List<Questiontype> questiontypes = questionService.showQuestiontypes();
 		request.setAttribute("questionTypeName", typeName);
 		request.setAttribute("questionTypes", questiontypes);
 
 		// 加载章节下的页码
-		
+
 		List collection = questionService.listQuestionBySection(
 				existSection.getId(), pageNowString, typeName);
 
 		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
 		request.setAttribute("pageCount", pageMap.get("pageCount"));
 		request.setAttribute("pageNow", pageMap.get("pageNow"));
-	
+
 		// 为jsp中的section设置值
 		request.setAttribute("sectionName", sectionName);
-		
+		List<Section> sections = sectionService.listSectionBySubject(subjectId);
+		request.setAttribute("sections", sections);
+
 		// 设置题目
-			request.setAttribute("singleChoices", (List<Singlechoice>) collection.get(1));
+		request.setAttribute("singleChoices",
+				(List<Singlechoice>) collection.get(1));
 
 		return mapping.findForward((String) collection.get(2));
 	}
@@ -125,31 +155,18 @@ public class SingleChoiceAction extends DispatchAction {
 			HttpServletResponse response) {
 		int singleChoiceId = Integer.parseInt(request
 				.getParameter("singleChoiceId"));
-		String isEdit = request.getParameter("edit");
-		Singlechoice singlechoice = (Singlechoice) questionService
-				.getQuestion(singleChoiceId, DefaultValue.SINGLE_CHOICE);
+		Singlechoice singlechoice = (Singlechoice) questionService.getQuestion(
+				singleChoiceId, DefaultValue.SINGLE_CHOICE);
 		request.setAttribute("singleChoice", singlechoice);
 
 		// 获得subject下拉菜单里的所有subject
-		int subjectId = (Integer) request.getSession()
-				.getAttribute("subjectId");
-		List<Subject> subjectList = subjectService.getSubjects();
-		if (subjectList != null) {
-			request.setAttribute("subjects", subjectList);
-		} 
-
+		request.setAttribute("subject", singlechoice.getSection().getSubject()
+				.getSubName());
 		// 获得下拉菜单里的所有section
+		request.setAttribute("sectionName", singlechoice.getSection()
+				.getSectionName());
 
-		List<Section> sectionList = sectionService.listSectionBySubIdAndSecId(
-				subjectId);
-		if (sectionList != null) {
-			request.setAttribute("sectionName", singlechoice.getSection().getSectionName());
-			request.setAttribute("sections", sectionList);
-		} 
-		if (isEdit != null) {
-			return mapping.findForward("editSingleChoice");
-		} else
-			return mapping.findForward("showSingleChoice");
+		return mapping.findForward("showSingleChoice");
 	}
 
 	/**
@@ -164,10 +181,16 @@ public class SingleChoiceAction extends DispatchAction {
 	public ActionForward addSingleChoiceUI(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
+		String pageNowString = request.getParameter("pageNow");
+		if (pageNowString != null)
+			if (pageNowString.length() > 0)
+				request.setAttribute("pageNow", Integer.parseInt(pageNowString));
+
 		int subjectId = (Integer) request.getSession()
 				.getAttribute("subjectId");
 
-		List<Section> sectionList = sectionService.listSectionBySubject(subjectId);
+		List<Section> sectionList = sectionService
+				.listSectionBySubject(subjectId);
 		List<Subject> subjectList = subjectService.getSubjects();
 		request.setAttribute("subjects", subjectList);
 		request.setAttribute("sections", sectionList);
@@ -204,22 +227,89 @@ public class SingleChoiceAction extends DispatchAction {
 			Section section = sectionService
 					.getSectionBySectionName(singleChoiceForm.getSectionName());
 			singlechoice.setSection(section);
+
+			request.getSession().setAttribute("subjectId",
+					section.getSubject().getId());
+
 		} else {
 			singlechoice.setSection(null);
 
 		}
-
 		questionService.addSingleChoice(singlechoice);
-		// 设置在showQuestioBySection中要使用参数
+
+		// 设置subject下拉菜单
+		request.setAttribute("subjects", subjectService.getSubjects());
+		// 设置在section下拉列表
 		request.setAttribute("sectionName", singlechoice.getSection()
 				.getSectionName());
+		List<Section> sections = sectionService
+				.listSectionBySubject(singlechoice.getSection().getSubject()
+						.getId());
+		request.setAttribute("sections", sections);
+		// 设置问题类型下拉菜单
+		request.setAttribute("questionTypeName", DefaultValue.SINGLE_CHOICE);
+		request.setAttribute("questionTypes",
+				questionService.showQuestiontypes());
+		// 设置题目及页码
 
-		request.setAttribute("source", "addSingleChoice");
-		return showSingleChoiceList(mapping, null, request, response);
+		List collection = questionService.listQuestionBySection(singlechoice
+				.getSection().getId(), null, DefaultValue.SINGLE_CHOICE);
+		// 设置页码
+		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
+		request.setAttribute("pageCount", pageMap.get("pageCount"));
+		request.setAttribute("pageNow", pageMap.get("pageNow"));
+		// 设置单项选择题
+		request.setAttribute("singleChoices",
+				(List<Singlechoice>) collection.get(1));
+		return mapping.findForward("showSingleChoiceList");
 	}
 
 	/**
-	 * 修该单项选择题
+	 * 编辑单项选择题
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward editSingleChoice(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		int singleChoiceId = Integer.parseInt(request
+				.getParameter("singleChoiceId"));
+		Singlechoice singlechoice = (Singlechoice) questionService.getQuestion(
+				singleChoiceId, DefaultValue.SINGLE_CHOICE);
+		request.setAttribute("singleChoice", singlechoice);
+
+		String pageNowString = request.getParameter("pageNow");
+		if (pageNowString != null)
+			if (pageNowString.length() > 0)
+				request.setAttribute("pageNow", Integer.parseInt(pageNowString));
+
+		// 获得subject下拉菜单里的所有subject
+		int subjectId = (Integer) request.getSession()
+				.getAttribute("subjectId");
+		List<Subject> subjectList = subjectService.getSubjects();
+		if (subjectList != null) {
+			request.setAttribute("subjects", subjectList);
+		}
+
+		// 获得下拉菜单里的所有section
+
+		List<Section> sectionList = sectionService
+				.listSectionBySubject(subjectId);
+		if (sectionList != null) {
+			request.setAttribute("sectionName", singlechoice.getSection()
+					.getSectionName());
+			request.setAttribute("sections", sectionList);
+		}
+
+		return mapping.findForward("editSingleChoice");
+	}
+
+	/**
+	 * 保存单项选择题的修改
 	 * 
 	 * @param mapping
 	 * @param form
@@ -228,16 +318,21 @@ public class SingleChoiceAction extends DispatchAction {
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	public ActionForward editSingleChoice(ActionMapping mapping,
+	public ActionForward saveSingleChoice(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws UnsupportedEncodingException {
+		// 设置返回页码
+		String pageNowString = request.getParameter("pageNow");
+		if (pageNowString != null)
+			if (pageNowString.length() > 0)
+				request.setAttribute("pageNow", pageNowString);
+		// 存储更改过后的singleChoice
 		SingleChoiceForm singleChoiceForm = (SingleChoiceForm) form;
 		int singleChoiceId = Integer.parseInt(request
 				.getParameter("singleChoiceId"));
 
 		Singlechoice singlechoice = (Singlechoice) questionService.getQuestion(
 				singleChoiceId, DefaultValue.SINGLE_CHOICE);
-		System.out.println(singleChoiceForm.getRemark());
 
 		singlechoice.setQuestionStem(singleChoiceForm.getQuestionStem());
 		singlechoice.setOptionA(singleChoiceForm.getOptionA());
@@ -249,9 +344,6 @@ public class SingleChoiceAction extends DispatchAction {
 		singlechoice.setAnalysis(singleChoiceForm.getAnalysis());
 		singlechoice.setRemark(singleChoiceForm.getRemark());
 
-		System.out.println("QuestionAction editSingleChoice  "
-				+ singleChoiceForm.getSectionName()
-				+ singleChoiceForm.getSubjectName());
 		if (singleChoiceForm.getSectionName() != null) {
 			Section section = sectionService
 					.getSectionBySectionName(singleChoiceForm.getSectionName());
@@ -259,12 +351,36 @@ public class SingleChoiceAction extends DispatchAction {
 		}
 
 		questionService.updateSingleChoice(singlechoice);
-		//设置转到showSIngleChoiceLIst中要使用参数
+		// 获得subject下拉菜单里的所有subject
+		int subjectId = (Integer) request.getSession()
+				.getAttribute("subjectId");
+		List<Subject> subjectList = subjectService.getSubjects();
+		if (subjectList != null) {
+			request.setAttribute("subjects", subjectList);
+		}
+		// 设置section下拉菜单
 		request.setAttribute("sectionName", singlechoice.getSection()
 				.getSectionName());
-
-		request.setAttribute("source", "editSingleChoice");
-		return showSingleChoiceList(mapping, null, request, response);
+		List<Section> sections = sectionService.listSectionBySubject(subjectId);
+		request.setAttribute("sections", sections);
+		// 设置科目列表
+		request.setAttribute("subjects", subjectService.getSubjects());
+		// 设置题型
+		request.setAttribute("questionTypeName", DefaultValue.SINGLE_CHOICE);
+		request.setAttribute("questionTypes",
+				questionService.showQuestiontypes());
+		// 设置题目及页码
+		List collection = questionService.listQuestionBySection(singlechoice
+				.getSection().getId(), pageNowString,
+				DefaultValue.SINGLE_CHOICE);
+		// 设置页码
+		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
+		request.setAttribute("pageCount", pageMap.get("pageCount"));
+		request.setAttribute("pageNow", pageMap.get("pageNow"));
+		// 设置单项选择题
+		request.setAttribute("singleChoices",
+				(List<Singlechoice>) collection.get(1));
+		return mapping.findForward("showSingleChoiceList");
 	}
 
 	/**
@@ -282,15 +398,44 @@ public class SingleChoiceAction extends DispatchAction {
 			HttpServletResponse response) throws UnsupportedEncodingException {
 		int singleChoiceId = Integer.parseInt(request
 				.getParameter("singleChoiceId"));
-		Singlechoice singlechoice = (Singlechoice) questionService
-				.getQuestion(singleChoiceId, DefaultValue.SINGLE_CHOICE);
+		Singlechoice singlechoice = (Singlechoice) questionService.getQuestion(
+				singleChoiceId, DefaultValue.SINGLE_CHOICE);
+		// 设置section下拉框
 		request.setAttribute("sectionName", singlechoice.getSection()
 				.getSectionName());
-		request.setAttribute("source", "deleteSingleChoice");
+		request.setAttribute(
+				"sections",
+				sectionService.listSectionBySubject(singlechoice.getSection()
+						.getSubject().getId()));
+		// 设置subject下拉框
+		request.setAttribute("subjects", subjectService.getSubjects());
+		// 设置questionType下拉框
+		request.setAttribute("questionTypeName", DefaultValue.SINGLE_CHOICE);
+		request.setAttribute("questionTypes",
+				questionService.showQuestiontypes());
+
+		// 删除该选择题
 		questionService
 				.deleteQuestion(DefaultValue.SINGLE_CHOICE, singlechoice);
-		
-		return showSingleChoiceList(mapping, null, request, response);
+
+		// 设置页码及问题
+		String pageNowString = request.getParameter("pageNow");
+		List collection = questionService.listQuestionBySection(singlechoice
+				.getSection().getId(), pageNowString,
+				DefaultValue.SINGLE_CHOICE);
+		// 设置页码
+		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
+		request.setAttribute("pageCount", pageMap.get("pageCount"));
+		request.setAttribute("pageNow", pageMap.get("pageNow"));
+		// 设置单项选择题
+		request.setAttribute("singleChoices",
+				(List<Singlechoice>) collection.get(1));
+
+		// 删除该选择题
+		questionService
+				.deleteQuestion(DefaultValue.SINGLE_CHOICE, singlechoice);
+
+		return mapping.findForward("showSingleChoiceList");
 
 	}
 }
