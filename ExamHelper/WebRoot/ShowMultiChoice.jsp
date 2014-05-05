@@ -19,60 +19,24 @@
 <link rel="stylesheet" rev="stylesheet" href="./css/style.css"
 	type="text/css" media="all" />
 <script language="JavaScript" type="text/javascript">
-	function tishi() {
-		var a = confirm('数据库中保存有该人员基本信息，您可以修改或保留该信息。');
-		if (a != true)
-			return false;
-		window
-				.open(
-						"冲突页.htm",
-						"",
-						"depended=0,alwaysRaised=1,width=800,height=400,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
-	}
-
-	function check() {
-		document.getElementById("aa").style.display = "";
-	}
+	
 	function InitCheckBox() {
 		var checked = "true";
 		for (var i = 1; i < 7; i++) {
 			if (document.getElementById("answer" + i).value == checked)
 				document.getElementById("answer" + i).checked = true;
+				
 		}
 
 	}
-	function edit() {
-		for (var i = 1; i < 7; i++)
-			document.getElementById("answer" + i).disabled = false;
-
-		var txtN = document.getElementsByTagName("input");
-		for (i = 0; i < txtN.length; i++)
-			txtN[i].readOnly = false;
-
-		var txtArea = document.getElementsByTagName("textarea");
-		for (i = 0; i < txtArea.length; i++)
-			txtArea[i].readOnly = false;
-
-		var txtSelect = document.getElementsByTagName("select");
-		for (var i = 0; i < txtSelect.length; i++)
-			txtSelect[i].disabled = false;
-	}
-	function save() {
-		document.getElementById("fom").submit();
-
-	}
-	function back() {
-		var sectionName = document.getElementById("sectionName").value;
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=多项选择题&sectionName="
-				+ sectionName;
-		document.getElementById("fom").submit();
+	function back(){
+	window.history.back(-1);
 	}
 </script>
 </head>
 
 <body class="ContentBody" onload="InitCheckBox();">
 	<form
-		action="${pageContext.request.contextPath}/multiChoice.do?flag=editMultiChoice&multiChoiceId=${multiChoice.id}"
 		method="post" enctype="multipart/form-data" name="fom" id="fom"
 		target="mainFrame">
 		<div class="MainDiv">
@@ -95,7 +59,7 @@
 								<tr align="left">
 									<td align="left" width="13%">题干内容:</td>
 									<td style="width: 448px; "><textarea rows="" cols=""
-											id="questionStem" readonly="readonly" name="questionStem"
+											id="questionStem"  name="questionStem" readonly="readonly"
 											style="width: 376px; height: 100px">${multiChoice.questionStem}</textarea></td>
 
 								</tr>
@@ -115,60 +79,82 @@
 									<td>
 										<table>
 											<tr>
-												<td align="right" width="13%" style="width: 41px; ">选项A:</td>
-												<td width="43%"><input id="optionA" name="optionA"
-													class="text" style="width:250px" type="text" size="40"
-													readonly="readonly" value="${multiChoice.optionA}" /></td>
+												<c:if test="${!empty multiChoice.optionA}">
+													<td align="right" width="13%" style="width: 41px; ">选项A:</td>
+													<td width="43%">
+                                                		<c:out value="${multiChoice.optionA}"/>
+                                                	</td>
+                                                </c:if>
 											</tr>
 											<tr>
-												<td align="right" width="13%" style="width: 41px; ">选项B:</td>
-												<td width="43%"><input id="optionB" name="optionB"
-													class="text" style="width:250px" type="text" size="40"
-													readonly="readonly" value="${multiChoice.optionB}" /></td>
+												<c:if test="${!empty multiChoice.optionB}">
+													<td align="right" width="13%" style="width: 41px; ">选项B:</td>
+													<td width="43%">
+                                                		<c:out value="${multiChoice.optionB}"/>
+                                                	</td>
+                                                </c:if>
 											</tr>
 											<tr>
-												<td align="right" width="13%" style="width: 41px; ">选项C:</td>
-												<td width="43%"><input id="optionC" class="text"
-													style="width:250px" type="text" size="40" name="optionC"
-													readonly="readonly" value="${multiChoice.optionC}" /></td>
+												<c:if test="${!empty multiChoice.optionC}">
+													<td align="right" width="13%" style="width: 41px; ">选项C:</td>
+													<td width="43%">
+                                                		<c:out value="${multiChoice.optionC}"/>
+                                                	</td>
+                                                </c:if>
 											</tr>
 											<tr>
-												<td align="right" width="13%" style="width: 41px; ">选项D:</td>
-												<td width="43%"><input id="optionD" class="text"
-													style="width:250px" type="text" size="40" name="optionD"
-													readonly="readonly" value="${multiChoice.optionD}" /></td>
+												<c:if test="${!empty multiChoice.optionD}">
+													<td align="right" width="13%" style="width: 41px; ">选项D:</td>
+													<td width="43%">
+                                                		<c:out value="${multiChoice.optionD}"/>
+                                                	</td>
+                                                </c:if>
 											</tr>
 											<tr>
-												<td align="right" width="13%" style="width: 41px; ">选项E:</td>
-												<td width="43%"><input id="optionE" name="optionE"
-													class="text" style="width:250px" type="text" size="40"
-													name="optionE" readonly="readonly"
-													value="${multiChoice.optionE}" /></td>
+												<c:if test="${!empty multiChoice.optionE}">
+													<td align="right" width="13%" style="width: 41px; ">选项E:</td>
+													<td width="43%">
+                                                		<c:out value="${multiChoice.optionE}"/>
+                                                	</td>
+                                                </c:if>
 											</tr>
 											<tr>
-												<td align="right" width="13%" style="width: 41px; ">选项F:</td>
-												<td width="43%"><input id="optionE" name="optionE"
-													class="text" style="width:250px" type="text" size="40"
-													name="optionF" readonly="readonly"
-													value="${multiChoice.optionF}" /></td>
+												<c:if test="${!empty multiChoice.optionF}">
+													<td align="right" width="13%" style="width: 41px; ">选项F:</td>
+													<td width="43%">
+                                                		<c:out value="${multiChoice.optionF}"/>
+                                                	</td>
+                                                </c:if>
 											</tr>
 										</table>
 									</td>
 									<td><table>
 											<tr>
 												<td>答案</td>
+												<c:if test="${multiChoice.answerA=='true'}">
 												<td><input type="checkbox" id="answer1" name="answerA"
 													disabled="disabled" value="${multiChoice.answerA}" />A</td>
+													</c:if>
+													<c:if test="${multiChoice.answerA=='true'}">
 												<td><input type="checkbox" id="answer2" name="answerB"
 													disabled="disabled" value="${multiChoice.answerB}" />B</td>
+													</c:if>
+													<c:if test="${multiChoice.answerA=='true'}">
 												<td><input type="checkbox" id="answer3" name="answerC"
 													disabled="disabled" value="${multiChoice.answerC}" />C</td>
+													</c:if>
+													<c:if test="${multiChoice.answerA=='true'}">
 												<td><input type="checkbox" id="answer4" name="answerD"
 													disabled="disabled" value="${multiChoice.answerD}" />D</td>
+													</c:if>
+													<c:if test="${multiChoice.answerA=='true'}">
 												<td><input type="checkbox" id="answer5" name="answerE"
 													disabled="disabled" value="${multiChoice.answerE}" />E</td>
+													</c:if>
+													<c:if test="${multiChoice.answerA=='true'}">
 												<td><input type="checkbox" id="answer6" name="answerF"
 													disabled="disabled" value="${multiChoice.answerF}" />F</td>
+													</c:if>
 											</tr>
 
 										</table></td>
@@ -196,35 +182,16 @@
 							<table>
 								<tr>
 									<td>科目名称：</td>
-									<td><select name="subjectName" disabled="disabled">
-											<option selected="selected">${subject.subName}</option>
-											<c:forEach items="${subjects}" var="item">
-												<option>${item.subName}</option>
-											</c:forEach>
-									</select></td>
+									<td><c:out value="${subject}"/></td>
 								</tr>
 								<tr>
 									<td>章节名称:</td>
-									<td><select id="sectionName" disabled="disabled"
-										name="sectionName">
-											<option selected="selected">${section.sectionName}</option>
-											<c:forEach items="${sections}" var="item">
-												<option>${item.sectionName}</option>
-											</c:forEach>
-									</select></td>
-									<td><input type="hidden" id="sectionId"
-										value="${section.sectionName}" /></td>
+									<td><c:out value="${sectionName}"/></td>
 								</tr>
 							</table>
 						</fieldset></td>
 				</tr>
-				<TR>
-					<TD colspan="2" align="center" height="50px"><input
-						type="button" value="编辑" class="button"
-						onclick="edit();" /> <input type="button" value="保存"
-						type="submit" onclick="save();"
-						class="button" /></TD>
-				</TR>
+				
 			</TABLE>
 
 		</div>

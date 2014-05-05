@@ -54,6 +54,37 @@ public class MultiChoiceAction extends DispatchAction {
 	}
 
 	/**
+	 * 加载sectionList
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward loadSectionList(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		String subjectString = request.getParameter("subjectId");
+		int subjectId = 0;
+		if (subjectString != null)
+			if (subjectString.length() > 0) {
+				subjectId = Integer.parseInt(subjectString);
+				request.getSession().setAttribute("subjectId", subjectId);
+			}
+		List<Section> sections = sectionService.listSectionBySubject(subjectId);
+		request.setAttribute("sections", sections);
+
+		List<Subject> subjects = subjectService.getSubjects();
+		List<Questiontype> questiontypes = questionService.showQuestiontypes();
+		request.setAttribute("subjects", subjects);
+		request.setAttribute("questionTypes", questiontypes);
+
+		return mapping.findForward("showMultiChoiceList");
+	}
+
+	/**
 	 * Method showQuestionBySection 按题目章节
 	 * 
 	 * @param mapping
@@ -67,23 +98,17 @@ public class MultiChoiceAction extends DispatchAction {
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws UnsupportedEncodingException {
 		// TODO Auto-generated method stub
-		String sectionName;
 		// 加载章节类型
-		if (request.getAttribute("source") != null)
-			sectionName = (String) request.getAttribute("sectionName");
-		else
-			sectionName = new String(request.getParameter("sectionName")
-					.getBytes("ISO-8859-1"), "utf-8");
+		String sectionName = new String(request.getParameter("sectionName")
+				.getBytes("ISO-8859-1"), "utf-8");
 
 		String typeName = DefaultValue.MULTI_CHOICE;
 		Section existSection = sectionService
 				.getSectionBySectionName(sectionName);
-
-		request.getSession().setAttribute("typeName", typeName);
 		String pageNowString = request.getParameter("pageNow");
-
+		
+		// 加载科目
 		int subjectId = existSection.getSubject().getId();
-		request.getSession().setAttribute("subjectId", subjectId);
 		request.getSession().setAttribute("subjectId", subjectId);
 		request.setAttribute("subjects", subjectService.getSubjects());
 
@@ -92,6 +117,9 @@ public class MultiChoiceAction extends DispatchAction {
 		request.setAttribute("questionTypeName", typeName);
 		request.setAttribute("questionTypes", questiontypes);
 
+		// 为jsp中的section设置值
+				request.setAttribute("sectionName", sectionName);
+				request.setAttribute("sections",sectionService.listSectionBySubject(subjectId));
 		// 加载章节下的题目
 
 		List collection = questionService.listQuestionBySection(
@@ -100,8 +128,7 @@ public class MultiChoiceAction extends DispatchAction {
 		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
 		request.setAttribute("pageCount", pageMap.get("pageCount"));
 		request.setAttribute("pageNow", pageMap.get("pageNow"));
-		// 为jsp中的section设置值
-		request.setAttribute("sectionName", sectionName);
+		
 		// 设置问题
 
 		if (typeName.equals(DefaultValue.MULTI_CHOICE))

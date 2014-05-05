@@ -159,7 +159,7 @@ function selectOrUnSelect(){
 		}
 	}
 	function firstPage() {
-	var sectionName=document.getElementById("hiddenValue").value;
+	var sectionName=document.getElementById("sectionChoose").value;
 		<%String keywordFP = (String) request.getAttribute("keyword");%>
 		var keyword="<%=keywordFP%>"
 			var nonContent = "null";
@@ -178,8 +178,7 @@ function selectOrUnSelect(){
 			}
 	}
 	function endPage(pageCount) {
-	
-		var sectionName=document.getElementById("hiddenValue").value;
+	var sectionName=document.getElementById("sectionChoose").value;
 		<%String keywordEP = (String) request.getAttribute("keyword");%>
 		var keyword="<%=keywordEP%>";
 
