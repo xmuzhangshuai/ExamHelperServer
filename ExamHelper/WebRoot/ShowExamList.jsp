@@ -7,26 +7,18 @@
 			+ path + "/";
 %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
-
 <title>科目管理</title>
-
+<link type="text/css" rel="stylesheet" href="./css/plug.css"/>
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/dialog.js" charset="utf-8"></script>
 <link href="./css/css.css" rel="stylesheet" type="text/css" />
 <link href="./css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" language="javascript">
-	function sousuo() {
-		window
-				.open(
-						"gaojisousuo.htm",
-						"",
-						"depended=0,alwaysRaised=1,width=800,height=510,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
-	}
-	function selectAll() {
-
+function selectAll() {
 		var obj = document.fom.elements;
 		var name = /delid\d+/;
 		for (var i = 0; i < obj.length; i++) {
@@ -49,6 +41,14 @@
 			}
 		}
 	}
+	
+function selectOrUnSelect(){
+	if(document.getElementById("selectOrNot").checked){
+    	 selectAll();
+    }else{
+    	unselectAll();
+    }
+}
 	function changeSubject(){
  		var subjectId=document.getElementById("subjectChoose").value
  		if(subjectId!= undefined)
@@ -69,6 +69,17 @@
 	document.getElementById("fom").submit();
 	
 	}
+	
+
+
+//删除试卷
+function deleteExam(examId,pageNow) {
+	scscms_alert("确定要删除该试卷吗？","confirm",function(){
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=deleteExamination&examinationId="+examId+"&pageNow="+pageNow;
+		document.getElementById("fom").submit();
+		scscms_alert("删除成功！","ok");
+	},function(){});
+}
 </script>
 
 </head>
@@ -133,14 +144,14 @@
 							<td><table width="95%" border="0" align="center"
 									cellpadding="0" cellspacing="0">
 									<tr>
-										<td height="20"><span class="newfont07">选择：<a
-												href="#" class="right-font08" onclick="selectAll();">全选</a>-<a
-												href="#" class="right-font08" onclick="unselectAll();">反选</a></span>
-											<input name="Submit" type="button" class="right-button08"
-											value="删除所选试卷" onclick="delSelected();" /> <input
-											type="hidden" name="paramsHidden" id="paramsHidden" /> <input
-											name="Submit2" type="button" class="right-button08"
-											value="添加试卷" onclick="addExamination();" /></td>
+										<td height="20" style="padding-bottom: 5px;">
+											<span class="newfont07">全选：
+												<input type="checkbox" id="selectOrNot" onchange="selectOrUnSelect()"/>
+											</span>
+											<input name="Submit" type="button" class="right-button08" value="删除所选试卷" onclick="delSelected();" /> 
+											<input type="hidden" name="paramsHidden" id="paramsHidden" /> 
+											<input name="Submit2" type="button" class="right-button08" value="添加试卷" onclick="addExamination();" />
+										</td>
 									</tr>
 									<tr>
 										<td height="40" class="font42">
@@ -151,21 +162,23 @@
 														style="font-size:16px">试卷列表</td>
 												</tr>
 												<tr bgcolor="#EEEEEE">
-													<td width="4%" align="center" height="30">选择</td>
-													<td width="10%">试卷名称</td>
-													<td width="12%">操作</td>
+													<td width="10%" align="center" height="30">选择</td>
+													<td width="70%" align="center">试卷名称</td>
+													<td width="20%" align="center">操作</td>
 												</tr>
 												<c:forEach items="${examinations}" var="examination">
 													<tr bgcolor="#FFFFFF">
-														<td height="20"><input type="checkbox"
+														<td height="20" align="center"><input type="checkbox"
 															name="delid${examination.id}" /></td>
-														<td><a
-															href="${pageContext.request.contextPath}/examination.do?flag=showExamination&examinationId=${examination.id}">${examination.examName}</a></td>
-														<td><a
-															href="${pageContext.request.contextPath}/examination.do?flag=showExamination&examinationId=${examination.id}&isEdit=true">编辑|</a><a
-															href="${pageContext.request.contextPath}/examination.do?flag=showExamination&examinationId=${examination.id}">查看|</a>
-															<a
-															href="${pageContext.request.contextPath}/examination.do?flag=deleteExamination&examinationId=${examination.id}&pageNow=${pageNow}">删除</a></td>
+														<td><a href="${pageContext.request.contextPath}/examination.do?flag=showExamination&examinationId=${examination.id}">${examination.examName}</a></td>
+														<td align="center">
+															<a href="${pageContext.request.contextPath}/examination.do?flag=showExamination&examinationId=${examination.id}&isEdit=true">
+																<img alt="编辑" class="delete_img" src="./images/edit.png" style="height: 18px;" title="编辑"/>编辑</a>
+															<a href="${pageContext.request.contextPath}/examination.do?flag=showExamination&examinationId=${examination.id}">
+																<img alt="查看" class="delete_img" src="./images/more.png" style="height: 15px;" title="查看"/>查看</a>
+															<a onclick="deleteExam(${examination.id},${pageNow});" id="" style="cursor: pointer;">
+																<img alt="删除" class="delete_img" src="./images/delete.png" style="height: 15px;" title="删除"/>删除</a>
+														</td>
 													</tr>
 												</c:forEach>
 											</table>
