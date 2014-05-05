@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,11 +19,9 @@ import org.apache.struts.actions.DispatchAction;
 
 import com.yrw.config.DefaultValue;
 import com.yrw.domains.Examination;
-import com.yrw.domains.Examquestion;
 import com.yrw.domains.Examsection;
 import com.yrw.domains.Materialanalysis;
 import com.yrw.domains.Multichoice;
-import com.yrw.domains.Questionsofmaterial;
 import com.yrw.domains.Questiontype;
 import com.yrw.domains.Section;
 import com.yrw.domains.Singlechoice;
@@ -75,10 +72,9 @@ public class ExaminationAction extends DispatchAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward showAllExamList(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
+	public ActionForward showAllExamList(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
-		
+
 		String pageNowString = null;
 		if (request.getParameter("pageNow") != null) {
 			if (request.getParameter("pageNow").length() > 0)
@@ -107,10 +103,13 @@ public class ExaminationAction extends DispatchAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward showExamListBySubject(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
+	public ActionForward showExamListBySubject(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
-		int subjectId = Integer.parseInt(request.getParameter("subjectId"));
+		String subjectIdString = request.getParameter("subjectId");
+		int subjectId = -1;
+		if (subjectIdString != null) {
+			subjectId = Integer.parseInt(request.getParameter("subjectId"));
+		}
 
 		String pageNowString = null;
 		if (request.getParameter("pageNow") != null) {
@@ -119,17 +118,18 @@ public class ExaminationAction extends DispatchAction {
 		} else if (request.getAttribute("pageNow") != null)
 			if (request.getAttribute("pageNow").toString().length() > 0)
 				pageNowString = (String) request.getAttribute("pageNow");
-		
-		List collection = examService
-				.listExaminations(pageNowString, subjectId);
 
-		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
-		request.setAttribute("pageNow", pageMap.get("pageNow"));
-		request.setAttribute("pageCount", pageMap.get("pageCount"));
+		if (subjectId > -1) {
+			List collection = examService.listExaminations(pageNowString, subjectId);
+			Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
+			request.setAttribute("pageNow", pageMap.get("pageNow"));
+			request.setAttribute("pageCount", pageMap.get("pageCount"));
 
-		List<Examination> exmaList = (List<Examination>) collection.get(1);
-		request.setAttribute("examinations", exmaList);
-		request.getSession().setAttribute("subjectId", subjectId);
+			List<Examination> exmaList = (List<Examination>) collection.get(1);
+			request.setAttribute("examinations", exmaList);
+			request.getSession().setAttribute("subjectId", subjectId);
+		}
+
 		return mapping.findForward("showExamList");
 
 	}
@@ -143,8 +143,7 @@ public class ExaminationAction extends DispatchAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward showExamination(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
+	public ActionForward showExamination(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
 		// 判断是否请求发展编辑或者仅为查看
 		String isEdit = request.getParameter("isEdit");
@@ -156,8 +155,7 @@ public class ExaminationAction extends DispatchAction {
 		int examinationId = 0;
 		if ((request.getParameter("examinationId") != null))
 			if (request.getParameter("examinationId").length() > 0)
-				examinationId = Integer.parseInt(request
-						.getParameter("examinationId"));
+				examinationId = Integer.parseInt(request.getParameter("examinationId"));
 			else
 				examinationId = (Integer) request.getAttribute("examinationId");
 
@@ -167,35 +165,27 @@ public class ExaminationAction extends DispatchAction {
 		// 设置examination中科目的下拉框
 		List<Subject> subjectList = subjectService.getSubjects();
 		if (subjectList != null) {
-			request.getSession().setAttribute("subjectId",
-					examination.getSubject().getId());
+			request.getSession().setAttribute("subjectId", examination.getSubject().getId());
 			request.setAttribute("subjects", subjectList);
 		}
 
 		// 设置每个题型下的具体题目
 
-		List<Examsection> examsections = new ArrayList<Examsection>(
-				examination.getExamsections());
+		List<Examsection> examsections = new ArrayList<Examsection>(examination.getExamsections());
 		Questiontype questiontype = null;
 		for (int i = 0; i < examsections.size(); i++) {
 			questiontype = examsections.get(i).getQuestiontype();
 			if (questiontype.getTypeName().equals(DefaultValue.SINGLE_CHOICE)) {
-				List<Singlechoice> singlechoices = (List<Singlechoice>) examService
-						.getQuestions(examsections.get(i));
+				List<Singlechoice> singlechoices = (List<Singlechoice>) examService.getQuestions(examsections.get(i));
 				request.setAttribute("singleChoices", singlechoices);
-			} else if (questiontype.getTypeName().equals(
-					DefaultValue.MULTI_CHOICE)) {
-				List<Multichoice> multichoices = (List<Multichoice>) examService
-						.getQuestions(examsections.get(i));
+			} else if (questiontype.getTypeName().equals(DefaultValue.MULTI_CHOICE)) {
+				List<Multichoice> multichoices = (List<Multichoice>) examService.getQuestions(examsections.get(i));
 				request.setAttribute("multiChoices", multichoices);
-			} else if (questiontype.getTypeName().equals(
-					DefaultValue.TRUE_OR_FALSE)) {
-				List<Trueorfalse> trueorfalses = (List<Trueorfalse>) examService
-						.getQuestions(examsections.get(i));
+			} else if (questiontype.getTypeName().equals(DefaultValue.TRUE_OR_FALSE)) {
+				List<Trueorfalse> trueorfalses = (List<Trueorfalse>) examService.getQuestions(examsections.get(i));
 				System.out.println(trueorfalses);
 				request.setAttribute("trueOrFalses", trueorfalses);
-			} else if (questiontype.getTypeName().equals(
-					DefaultValue.MATERIAL_ANALYSIS)) {
+			} else if (questiontype.getTypeName().equals(DefaultValue.MATERIAL_ANALYSIS)) {
 				List<Materialanalysis> materialanalysis = (List<Materialanalysis>) examService
 						.getQuestions(examsections.get(i));
 				request.setAttribute("materialAnalysises", materialanalysis);
@@ -213,12 +203,10 @@ public class ExaminationAction extends DispatchAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward editExaminationInfor(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
+	public ActionForward editExaminationInfor(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
 		// 获取jsp页面上的数据
-		int examinationId = Integer.parseInt(request
-				.getParameter("examinationId"));
+		int examinationId = Integer.parseInt(request.getParameter("examinationId"));
 		ExaminationForm examinationForm = (ExaminationForm) form;
 
 		String examName = examinationForm.getExamName();
@@ -234,8 +222,7 @@ public class ExaminationAction extends DispatchAction {
 			if (examName.length() > 0)
 				examination.setExamName(examName);
 		if (subjectName != null)
-			examination
-					.setSubject(subjectService.getSubjectByName(subjectName));
+			examination.setSubject(subjectService.getSubjectByName(subjectName));
 		if (examType != null)
 			if (examType.length() > 0)
 				examination.setExamType(examType);
@@ -258,16 +245,13 @@ public class ExaminationAction extends DispatchAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward editExamSectionInfor(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
+	public ActionForward editExamSectionInfor(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
 		// 获得examinationSection的Id
-		int examSectionId = Integer.parseInt(request
-				.getParameter("examSectionId"));
+		int examSectionId = Integer.parseInt(request.getParameter("examSectionId"));
 		Examsection examsection = examService.getExamsection(examSectionId);
 		// 获得examSection下的题目要求与分数
-		String examSectionRequest = request.getParameter("request"
-				+ examSectionId);
+		String examSectionRequest = request.getParameter("request" + examSectionId);
 		String examSectionScore = request.getParameter("score" + examSectionId);
 
 		// 更新examSection对象
@@ -275,7 +259,7 @@ public class ExaminationAction extends DispatchAction {
 			examsection.setRequest(examSectionRequest);
 		if (examSectionScore != null)
 			examsection.setQuestionScore(Integer.parseInt(examSectionScore));
-		
+
 		return showExamination(mapping, form, request, response);
 	}
 
@@ -289,15 +273,13 @@ public class ExaminationAction extends DispatchAction {
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	public ActionForward moveSingleChoice(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
+	public ActionForward moveSingleChoice(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws UnsupportedEncodingException {
 		System.out.println(" 进入moveSingleChoice Action");
 
 		// 获得操作类型、单选题Id、试卷Id
 		String type = request.getParameter("type");
-		int singleChoiceId = Integer.parseInt(request
-				.getParameter("singleChoiceId"));
+		int singleChoiceId = Integer.parseInt(request.getParameter("singleChoiceId"));
 		int examId = Integer.parseInt(request.getParameter("examinationId"));
 
 		examService.moveSingleChoice(singleChoiceId, type, examId);
@@ -316,13 +298,11 @@ public class ExaminationAction extends DispatchAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward addExaminationUI(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
+	public ActionForward addExaminationUI(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
 		String subjectIdString = request.getParameter("subjectId");
 		if (subjectIdString != null)
-			request.getSession().setAttribute("subjectId",
-					Integer.parseInt(subjectIdString));
+			request.getSession().setAttribute("subjectId", Integer.parseInt(subjectIdString));
 
 		// 设置examination中科目的下拉框
 		List<Subject> subjectList = subjectService.getSubjects();
@@ -341,8 +321,8 @@ public class ExaminationAction extends DispatchAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward addExamination(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response) {
+	public ActionForward addExamination(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
 
 		ExaminationForm examinationForm = (ExaminationForm) form;
 		String examName = examinationForm.getExamName();
@@ -356,8 +336,7 @@ public class ExaminationAction extends DispatchAction {
 		if (examName != null)
 			examination.setExamName(examName);
 		if (subjectName != null)
-			examination
-					.setSubject(subjectService.getSubjectByName(subjectName));
+			examination.setSubject(subjectService.getSubjectByName(subjectName));
 		if (examType != null)
 			examination.setExamType(examType);
 		if (examTime != null)
@@ -380,8 +359,7 @@ public class ExaminationAction extends DispatchAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward addExamSectionInforUI(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
+	public ActionForward addExamSectionInforUI(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
 
 		int examId = Integer.parseInt(request.getParameter("examinationId"));
@@ -402,14 +380,12 @@ public class ExaminationAction extends DispatchAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward addExamSectionInfor(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
+	public ActionForward addExamSectionInfor(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
 
 		Examsection examsection = new Examsection();
 
-		int examinationId = Integer.parseInt(request
-				.getParameter("examinationId"));
+		int examinationId = Integer.parseInt(request.getParameter("examinationId"));
 		Examination examination = examService.getExamination(examinationId);
 		examsection.setExamination(examination);
 
@@ -419,8 +395,7 @@ public class ExaminationAction extends DispatchAction {
 
 		if (questionTypeIdString != null)
 			if (questionTypeIdString.length() > 0) {
-				Questiontype questiontype = questionService
-						.getQuestiontype(Integer.parseInt(questionTypeIdString));
+				Questiontype questiontype = questionService.getQuestiontype(Integer.parseInt(questionTypeIdString));
 				examsection.setQuestiontype(questiontype);
 			}
 		if (requestString != null)
@@ -448,8 +423,7 @@ public class ExaminationAction extends DispatchAction {
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	public ActionForward addExamQuestionUI(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
+	public ActionForward addExamQuestionUI(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws UnsupportedEncodingException {
 
 		// 获得examSectionid，若是存在该参数则表明是从试卷部分跳转过来否则为添加题目界面
@@ -458,13 +432,11 @@ public class ExaminationAction extends DispatchAction {
 		int subjectId = 0;
 		String questionTypeName = request.getParameter("questionTypeName");
 		if (questionTypeName != null) {
-			questionTypeName = new String(
-					questionTypeName.getBytes("ISO-8859-1"), "utf-8");
+			questionTypeName = new String(questionTypeName.getBytes("ISO-8859-1"), "utf-8");
 		}
 		if (examSectionIdString != null) {
 			int examSectionId = Integer.parseInt(examSectionIdString);
-			Examsection existExamSection = examService
-					.getExamsection(examSectionId);
+			Examsection existExamSection = examService.getExamsection(examSectionId);
 			// 获得questionTypeName
 			questionTypeName = existExamSection.getQuestiontype().getTypeName();
 			request.setAttribute("questionTypeName", questionTypeName);
@@ -472,22 +444,19 @@ public class ExaminationAction extends DispatchAction {
 			request.getSession().setAttribute("examSectionId", examSectionId);
 		} else {
 			// 设置sectionName的值
-			String sectionName = new String(request.getParameter("sectionName")
-					.getBytes("ISO-8859-1"), "utf-8");
+			String sectionName = new String(request.getParameter("sectionName").getBytes("ISO-8859-1"), "utf-8");
 			request.setAttribute("sectionName", sectionName);
-			Section existSection = sectionService
-					.getSectionBySectionName(sectionName);
+			Section existSection = sectionService.getSectionBySectionName(sectionName);
 
 			String pageNowString = request.getParameter("pageNow");
 
 			subjectId = existSection.getSubject().getId();
 
 			// 加载章节下的题目
-			List collection = questionService.listQuestionBySection(
-					existSection.getId(), pageNowString, questionTypeName);
+			List collection = questionService.listQuestionBySection(existSection.getId(), pageNowString,
+					questionTypeName);
 
-			Map<String, Integer> pageMap = (Map<String, Integer>) collection
-					.get(0);
+			Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
 			request.setAttribute("pageCount", pageMap.get("pageCount"));
 			request.setAttribute("pageNow", pageMap.get("pageNow"));
 
@@ -507,8 +476,7 @@ public class ExaminationAction extends DispatchAction {
 		request.setAttribute("subject", subject);
 		// 设置页面的章节下拉菜单
 		if (subjectId != 0) {
-			List<Section> sections = sectionService
-					.listSectionBySubject(subjectId);
+			List<Section> sections = sectionService.listSectionBySubject(subjectId);
 			request.setAttribute("sections", sections);
 		}
 		// 设置题目类型下拉菜单
@@ -526,27 +494,23 @@ public class ExaminationAction extends DispatchAction {
 	 * @param exam
 	 * @return
 	 */
-	public ActionForward addExamQuestion(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
+	public ActionForward addExamQuestion(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
 
 		String questionIdString = request.getParameter("questionId");
 		String[] questionIdStrings = questionIdString.split(",");
 
-		int examSectionId = (Integer) request.getSession().getAttribute(
-				"examSectionId");
+		int examSectionId = (Integer) request.getSession().getAttribute("examSectionId");
 		// 获得examSection
 		Examsection examsection = examService.getExamsection(examSectionId);
 		if (questionIdString != null && !questionIdString.equals("undefined")) {
 			for (int i = 0; i < questionIdStrings.length; i++) {
 				int questionId = Integer.parseInt(questionIdStrings[i]);
 				System.out.println("questionId " + questionId);
-				examService.addExamQuestion(questionId, examSectionId,
-						examsection);
+				examService.addExamQuestion(questionId, examSectionId, examsection);
 			}
 
-			request.setAttribute("examinationId", examsection.getExamination()
-					.getId());
+			request.setAttribute("examinationId", examsection.getExamination().getId());
 			return showExamination(mapping, null, request, response);
 		} else
 			return null;
@@ -562,17 +526,14 @@ public class ExaminationAction extends DispatchAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward removeExamQuestion(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
+	public ActionForward removeExamQuestion(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
 		int questionId = Integer.parseInt(request.getParameter("questionId"));
-		int examSectionId = (Integer) request.getSession().getAttribute(
-				"examSectionId");
+		int examSectionId = (Integer) request.getSession().getAttribute("examSectionId");
 		// 获得examSection
 		Examsection examsection = examService.getExamsection(examSectionId);
 		examService.removeExamQuestion(questionId, examSectionId, examsection);
-		request.setAttribute("examinationId", examsection.getExamination()
-				.getId());
+		request.setAttribute("examinationId", examsection.getExamination().getId());
 		return showExamination(mapping, null, request, response);
 	}
 
@@ -585,35 +546,35 @@ public class ExaminationAction extends DispatchAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward deleteExamination(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
-			HttpServletResponse response){
-		int examinationId=Integer.parseInt(request.getParameter("examinationId"));
+	public ActionForward deleteExamination(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		int examinationId = Integer.parseInt(request.getParameter("examinationId"));
 		examService.deleteExamination(examinationId);
-		
-		//设置跳转页面的当前页面
-		String pageNowString=request.getParameter("pageNow");
+
+		// 设置跳转页面的当前页面
+		String pageNowString = request.getParameter("pageNow");
 		request.setAttribute("pageNow", pageNowString);
-		
-		if(request.getSession().getAttribute("subjectId")==null)
+
+		if (request.getSession().getAttribute("subjectId") == null)
 			return showAllExamList(mapping, form, request, response);
-		else 
+		else
 			return showExamListBySubject(mapping, form, request, response);
-		
-		
+
 	}
-	/**删除试卷章节
+
+	/**
+	 * 删除试卷章节
+	 * 
 	 * @param mapping
 	 * @param form
 	 * @param request
 	 * @param response
 	 * @return
 	 */
-	public ActionForward deleteExamSectionInfor(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
-			HttpServletResponse response){
-		int examSectionId=Integer.parseInt(request.getParameter("examSectionId"));
-	
+	public ActionForward deleteExamSectionInfor(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		int examSectionId = Integer.parseInt(request.getParameter("examSectionId"));
+
 		examService.deleteExamSection(examSectionId);
 		return showExamination(mapping, form, request, response);
 	}
@@ -628,33 +589,29 @@ public class ExaminationAction extends DispatchAction {
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	public ActionForward showExamQuestionDetail(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
+	public ActionForward showExamQuestionDetail(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws UnsupportedEncodingException {
 		int questionId = Integer.parseInt(request.getParameter("questionId"));
-		String questionTypeName = new String(request.getParameter(
-				"questionTypeName").getBytes("ISO-8859-1"), "utf-8");
+		String questionTypeName = new String(request.getParameter("questionTypeName").getBytes("ISO-8859-1"), "utf-8");
 		String forwardString = null;
 		System.out.println(questionTypeName);
 		if (questionTypeName.equals(DefaultValue.SINGLE_CHOICE)) {
-			Singlechoice singlechoice = (Singlechoice) questionService
-					.getQuestion(questionId, DefaultValue.SINGLE_CHOICE);
+			Singlechoice singlechoice = (Singlechoice) questionService.getQuestion(questionId,
+					DefaultValue.SINGLE_CHOICE);
 			request.setAttribute("singleChoice", singlechoice);
 			System.out.println("单项选择测试");
 			forwardString = "showExamSingleChoice";
 		} else if (questionTypeName.equals(DefaultValue.MULTI_CHOICE)) {
-			Multichoice multichoice = (Multichoice) questionService
-					.getQuestion(questionId, DefaultValue.MULTI_CHOICE);
+			Multichoice multichoice = (Multichoice) questionService.getQuestion(questionId, DefaultValue.MULTI_CHOICE);
 			request.setAttribute("multiChoice", multichoice);
 			forwardString = "showExamMultiChoice";
 		} else if (questionTypeName.equals(DefaultValue.TRUE_OR_FALSE)) {
-			Trueorfalse trueorfalse = (Trueorfalse) questionService
-					.getQuestion(questionId, DefaultValue.TRUE_OR_FALSE);
+			Trueorfalse trueorfalse = (Trueorfalse) questionService.getQuestion(questionId, DefaultValue.TRUE_OR_FALSE);
 			request.setAttribute("trueOrFalse", trueorfalse);
 			forwardString = "showExamTrueOrFalse";
 		} else if (questionTypeName.equals(DefaultValue.MATERIAL_ANALYSIS)) {
-			Materialanalysis materialanalysis = (Materialanalysis) questionService
-					.getQuestion(questionId, DefaultValue.MATERIAL_ANALYSIS);
+			Materialanalysis materialanalysis = (Materialanalysis) questionService.getQuestion(questionId,
+					DefaultValue.MATERIAL_ANALYSIS);
 			request.setAttribute("materialAnalysis", materialanalysis);
 			forwardString = "showExamMaterialAnalysis";
 		}

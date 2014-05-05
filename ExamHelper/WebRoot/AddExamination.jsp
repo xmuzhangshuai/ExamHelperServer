@@ -30,13 +30,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		if (subjectName == "null") {
 			alert("请选择科目");
 		} else {
-
 			if (examId != null && examId != undefined)
 				document.getElementById("contact_form").action = "${pageContext.request.contextPath}/examination.do?flag=addExamination&examinationId="
 						+ examId;
 			else
 				document.getElementById("contact_form").action = "${pageContext.request.contextPath}/examination.do?flag=addExamination";
-			document.getElementById("contact_form").submit();
+				document.getElementById("contact_form").submit();
 		}
 	}
 </script>
@@ -50,7 +49,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<tr>
 			<td><input type="button" value="返回试卷列表" onclick="back();" class="button" /></td>
 		</tr>
-		
 		
 		<tr>
 			<td style="border-style: none; border-width: medium;">
@@ -98,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         				
         				<li>
              				<label for="examTime">考试时间</label>
-        					<input type="text" name="examTime" value="${examination.examTime}" id="examTime" placeholder="考试时间(分钟)" required />
+        					<input type="number" name="examTime" value="${examination.examTime}" id="examTime" placeholder="考试时间(分钟)" required />
         				</li>
         				<li>
              				<label for="examRequest">考试要求</label>
