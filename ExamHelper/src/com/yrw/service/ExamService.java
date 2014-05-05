@@ -8,18 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.mail.Flags.Flag;
-
-import net.sf.cglib.transform.impl.AddDelegateTransformer;
-
 import com.yrw.config.DefaultValue;
 import com.yrw.domains.Examination;
 import com.yrw.domains.Examquestion;
 import com.yrw.domains.Examsection;
 import com.yrw.domains.Materialanalysis;
 import com.yrw.domains.Multichoice;
-import com.yrw.domains.Questiontype;
-import com.yrw.domains.Section;
 import com.yrw.domains.Singlechoice;
 import com.yrw.domains.Trueorfalse;
 import com.yrw.idao.IExamQuestionDao;
@@ -27,11 +21,9 @@ import com.yrw.idao.IExamSectionDao;
 import com.yrw.idao.IExaminationDao;
 import com.yrw.idao.IMaterialAnalysisDao;
 import com.yrw.idao.IMultiChoiceDao;
-import com.yrw.idao.IQuestionTypeDao;
 import com.yrw.idao.IQuestionsOfMaterial;
 import com.yrw.idao.ISingleChoiceDao;
 import com.yrw.idao.ITrueOrFalseDao;
-import com.yrw.web.forms.ExaminationForm;
 
 public class ExamService {
 

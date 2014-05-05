@@ -15,7 +15,6 @@
 
 <title>修改科目信息</title>
 
-
 <link rel="stylesheet" rev="stylesheet" href="./css/style.css"
 	type="text/css" media="all" />
 <script language="JavaScript" type="text/javascript">
@@ -47,8 +46,10 @@
 	<form action="" method="post" enctype="multipart/form-data" name="fom"
 		id="fom" target="mainFrame">
 		<div class="MainDiv">
-			<table width="99%" border="0" cellpadding="0" cellspacing="0"
-				class="CContent">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="CContent">
+				<tr>
+					<td height="62" background="./images/nav04.gif"></td>
+				</tr>
 				<tr>
 					<th class="tablestyle_title">科目修改页面</th>
 				</tr>

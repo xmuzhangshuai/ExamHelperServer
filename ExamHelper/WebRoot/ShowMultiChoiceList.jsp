@@ -15,17 +15,12 @@
 
 
 <title>科目管理</title>
-
+<link type="text/css" rel="stylesheet" href="./css/plug.css"/>
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/dialog.js" charset="utf-8"></script>
 <link href="./css/css.css" rel="stylesheet" type="text/css" />
 <link href="./css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" language="javascript">
-	function sousuo() {
-		window
-				.open(
-						"gaojisousuo.htm",
-						"",
-						"depended=0,alwaysRaised=1,width=800,height=510,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
-	}
 	function search() {
 		var singleChoice = "单项选择题"
 		var multiChoice = "多项选择题"
@@ -73,7 +68,13 @@
 			}
 		}
 	}
-
+function selectOrUnSelect(){
+	if(document.getElementById("selectOrNot").checked){
+    	 selectAll();
+    }else{
+    	unselectAll();
+    }
+}
 	function link() {
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=addMultiChoiceUI";
 		document.getElementById("fom").submit();
@@ -263,9 +264,10 @@
 							<td><table width="95%" border="0" align="center"
 									cellpadding="0" cellspacing="0">
 									<tr>
-										<td height="20"><span class="newfont07">选择：<a
-												href="#" class="right-font08" onclick="selectAll();">全选</a>-<a
-												href="#" class="right-font08" onclick="unselectAll();">反选</a></span>
+										<td height="20" style="padding-bottom: 5px;">
+											<span class="newfont07">全选：
+												<input type="checkbox" id="selectOrNot" onchange="selectOrUnSelect()"/>
+											</span>
 											<input name="Submit" type="button" class="right-button08"
 											value="删除所选题目" onclick="delSelected();" /> <input
 											type="hidden" name="paramsHidden" id="paramsHidden" /> <input

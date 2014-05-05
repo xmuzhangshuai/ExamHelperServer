@@ -15,17 +15,6 @@
 <link rel="stylesheet" rev="stylesheet" href="./css/style.css" type="text/css" media="all" />
 <script id="jquery_172" type="text/javascript" class="library" src="js/jquery-1.7.1.min.js"></script>
 <script language="JavaScript" type="text/javascript">
-	function tishi() {
-		var a = confirm('数据库中保存有该人员基本信息，您可以修改或保留该信息。');
-		if (a != true)
-			return false;
-		window
-				.open(
-						"冲突页.htm",
-						"",
-						"depended=0,alwaysRaised=1,width=800,height=400,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
-	}
-
 	function check() {
 		document.getElementById("aa").style.display = "";
 	}
@@ -84,8 +73,10 @@
 	<form method="post" enctype="multipart/form-data" name="fom" id="fom"
 		target="mainFrame">
 		<div class="MainDiv">
-			<table width="99%" border="0" cellpadding="0" cellspacing="0"
-				class="CContent">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="CContent">
+				<tr>
+					<td height="62" background="./images/nav04.gif"></td>
+				</tr>
 				<tr>
 					<th class="tablestyle_title">材料分析题</th>
 				</tr>

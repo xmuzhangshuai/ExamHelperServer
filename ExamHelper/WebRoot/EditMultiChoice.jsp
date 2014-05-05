@@ -77,10 +77,8 @@
 					<th class="tablestyle_title">多项选择题</th>
 				</tr>
 				<tr>
-					<td style="width: 485px; "><input type="button"
-						value="返回多选题列表" style="width: 111px; " onclick="back();"
-						class="button" /></td>
-
+					<td><input type="button" value="返回多选题列表" onclick="back();" class="button" />
+					</td>
 				</tr>
 
 				<TR>
@@ -213,7 +211,7 @@
 				</tr>
 				<TR>
 					<TD colspan="2" align="center" height="50px"><input
-						type="button" value="保存" type="submit" style="width: 77px;"
+						type="button" value="保存" type="submit"
 						onclick="save();" class="button" /></TD>
 				</TR>
 			</TABLE>

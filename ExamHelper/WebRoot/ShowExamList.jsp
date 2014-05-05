@@ -71,7 +71,6 @@ function selectOrUnSelect(){
 	}
 	
 
-
 //删除试卷
 function deleteExam(examId,pageNow) {
 	scscms_alert("确定要删除该试卷吗？","confirm",function(){
@@ -161,7 +160,7 @@ function deleteExam(examId,pageNow) {
 													<td height="22" colspan="7" align="center"
 														style="font-size:16px">试卷列表</td>
 												</tr>
-												<tr bgcolor="#EEEEEE">
+												<tr bgcolor="#EEEEEE" style="font-weight: bold;">
 													<td width="10%" align="center" height="30">选择</td>
 													<td width="70%" align="center">试卷名称</td>
 													<td width="20%" align="center">操作</td>

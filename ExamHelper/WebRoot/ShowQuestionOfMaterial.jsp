@@ -104,9 +104,9 @@ window.history.back(-1);
 
 				<TR>
 					<TD colspan="2" align="center" height="50px"><input
-						type="button" value="保存"  style="width: 77px;"
+						type="button" value="保存"
 						onclick="save('${materialAnalysisId}');" class="button" /><input type="button"
-						value="返回" class="button" style="width: 83px; " onclick="back('${materialAnalysisId}');" /></TD>
+						value="返回" class="button" onclick="back('${materialAnalysisId}');" /></TD>
 				</TR>
 			</TABLE>
 

@@ -15,21 +15,9 @@
 
 <title>单线选择题</title>
 
-
 <link rel="stylesheet" rev="stylesheet" href="./css/style.css"
 	type="text/css" media="all" />
 <script language="JavaScript" type="text/javascript">
-	function tishi() {
-		var a = confirm('数据库中保存有该人员基本信息，您可以修改或保留该信息。');
-		if (a != true)
-			return false;
-		window
-				.open(
-						"冲突页.htm",
-						"",
-						"depended=0,alwaysRaised=1,width=800,height=400,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
-	}
-
 	function check() {
 		document.getElementById("aa").style.display = "";
 	}
@@ -56,16 +44,16 @@
 	<form method="post" enctype="multipart/form-data" name="fom" id="fom"
 		target="mainFrame">
 		<div class="MainDiv">
-			<table width="99%" border="0" cellpadding="0" cellspacing="0"
-				class="CContent">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="CContent">
+				<tr>
+					<td height="62" background="./images/nav04.gif"></td>
+				</tr>
 				<tr>
 					<th class="tablestyle_title">单选题</th>
 				</tr>
 				<tr>
-					<td style="width: 485px; "><input type="button"
-						value="返回单选题列表" style="width: 111px; " onclick="back();"
-						class="button" /></td>
-
+					<td><input type="button" value="返回单选题列表" onclick="back();"class="button" />
+					</td>
 				</tr>
 
 				<TR>
@@ -176,7 +164,7 @@
 				</tr>
 				<TR>
 					<TD colspan="2" align="center" height="50px"><input
-						type="button" value="保存" type="submit" style="width: 77px;"
+						type="button" value="保存" type="submit"
 						onclick="save();" class="button" /></TD>
 				</TR>
 			</TABLE>

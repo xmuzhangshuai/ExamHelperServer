@@ -59,16 +59,11 @@ html {
 </style>
 <link href="./css/css.css" rel="stylesheet" type="text/css" />
 <link href="./css/style.css" rel="stylesheet" type="text/css" />
+<link type="text/css" rel="stylesheet" href="./css/plug.css"/>
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/dialog.js" charset="utf-8"></script>
 <script type="text/javascript" language="javascript">
-	
 
-	function sousuo() {
-		window
-				.open(
-						"gaojisousuo.htm",
-						"",
-						"depended=0,alwaysRaised=1,width=800,height=510,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
-	}
 	function selectAll() {
 
 		var obj = document.fom.elements;
@@ -94,7 +89,13 @@ html {
 			}
 		}
 	}
-
+function selectOrUnSelect(){
+	if(document.getElementById("selectOrNot").checked){
+    	 selectAll();
+    }else{
+    	unselectAll();
+    }
+}
 	function link() {
 
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=addSubjectUI";
@@ -153,6 +154,14 @@ html {
 				+ pageCount;
 		document.getElementById("fom").submit();
 	}
+
+function deleteSubject(subjectId) {
+	scscms_alert("确定要删除该科目吗？","confirm",function(){
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=deleteSubject&subjectId="+subjectId;
+		document.getElementById("fom").submit();
+		scscms_alert("删除成功！","ok");
+	},function(){});
+}
 </script>
 
 </head>
@@ -187,9 +196,10 @@ html {
 							<td><table width="95%" border="0" align="center"
 									cellpadding="0" cellspacing="0">
 									<tr>
-										<td height="20"><span class="newfont07">选择：<a
-												href="#" class="right-font08" onclick="selectAll();">全选</a>-<a
-												href="#" class="right-font08" onclick="unselectAll();">反选</a></span>
+										<td height="20" style="padding-bottom: 5px;">
+											<span class="newfont07">全选：
+												<input type="checkbox" id="selectOrNot" onchange="selectOrUnSelect()"/>
+											</span>
 											<input name="Submit" type="button" class="right-button08"
 											value="删除所选科目" onclick="delSelected();" /> <input
 											type="hidden" name="paramsHidden" id="paramsHidden" /> <input
@@ -204,23 +214,26 @@ html {
 													<td height="22" colspan="7" align="center"
 														style="font-size:16px">科目列表</td>
 												</tr>
-												<tr bgcolor="#EEEEEE">
-													<td width="4%" align="center" height="30">选择</td>
-													<td width="10%">科目名称</td>
-													<td width="12%">操作</td>
+												<tr bgcolor="#EEEEEE" style="font-weight: bold;">
+													<td width="15%" align="center" height="30">选择</td>
+													<td width="60%" align="center">科目名称</td>
+													<td width="25%" align="center">操作</td>
 												</tr>
 												<c:forEach items="${subjects}" var="subject">
 													<tr bgcolor="#FFFFFF">
-														<td height="20"><input type="checkbox"
+														<td height="20" align="center"><input type="checkbox"
 															name="delid${subject.id}" /></td>
 														<td><a
 															href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subject.id}"
 															onclick="" target="mainFrame">${subject.subName}</a></td>
-														<td><a
-															href="${pageContext.request.contextPath}/subject.do?flag=updateSubjectUI&subjectId=${subject.id}">编辑|</a><a
-															href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subject.id}">查看|</a>
-															<a 
-															id="deleteSingleSubject${subject.id}" href="${pageContext.request.contextPath}/subject.do?flag=deleteSubject&subjectId=${subject.id}">删除</a></td>
+														<td align="center">
+															<a href="${pageContext.request.contextPath}/subject.do?flag=updateSubjectUI&subjectId=${subject.id}">
+																<img alt="编辑" class="delete_img" src="./images/edit.png" style="height: 18px;" title="编辑"/>编辑</a>
+															<a href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subject.id}" style="margin-left: 10px;">
+																<img alt="查看" class="delete_img" src="./images/more.png" style="height: 15px;" title="查看"/>查看</a>
+															<a id="deleteSingleSubject${subject.id}" onclick="deleteSubject(${subject.id});" style="cursor: pointer;margin-left: 10px;">
+																<img alt="删除" class="delete_img" src="./images/delete.png" style="height: 15px;" title="删除"/>删除</a>
+														</td>
 													</tr>
 												</c:forEach>
 											</table>

@@ -143,10 +143,8 @@
 					<th class="tablestyle_title">材料分析题</th>
 				</tr>
 				<tr>
-					<td style="width: 485px; "><input type="button"
-						value="返回材料分析题列表" style="width: 137px; " onclick="back();"
-						class="button" /></td>
-
+					<td><input type="button" value="返回材料分析题列表"onclick="back();"class="button" />
+					</td>
 				</tr>
 				<tr>
 					<td width="100%"><fieldset>
@@ -222,9 +220,9 @@
 								</tr>
 								<TR>
 									<TD colspan="2" align="center" height="50px"><input
-										type="button" value="编辑" class="button" style="width: 83px; "
+										type="button" value="编辑" class="button"
 										onclick="editMaterialAnalysis();" id="materialAnalysis_Edit" />
-										<input type="button" value="保存" style="width: 77px;"
+										<input type="button" value="保存"
 										onclick="saveMaterialAnalysis('${materialAnalysis.id}');"
 										class="button" id="materialAnalysis_Save" /></TD>
 								</TR>
@@ -298,12 +296,11 @@
 													<TR>
 														<TD colspan="2" align="center" height="50px"
 															style="width: 257px; "><input type="button"
-															value="编辑" class="button" style="width: 83px; "
+															value="编辑" class="button"
 															onclick="editQuestionOfMaterial('${questionOfMaterial.id}');" />
-															<input type="button" value="保存" style="width: 77px;"
+															<input type="button" value="保存"
 															onclick="saveQuestionOfMaterial('${questionOfMaterial.id}');"
 															class="button" /><input type="button" value="删除"
-															style="width: 77px;"
 															onclick="deleteQuestionOfMaterial('${questionOfMaterial.id}');"
 															class="button" /></TD>
 													</TR>

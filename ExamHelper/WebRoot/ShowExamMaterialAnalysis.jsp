@@ -48,8 +48,8 @@
 					<th class="tablestyle_title">材料分析题</th>
 				</tr>
 				<tr>
-					<td style="width: 485px; "><input type="button"
-						value="返回材料分析题列表" style="width: 137px; " onclick="back();"
+					<td><input type="button"
+						value="返回材料分析题列表" onclick="back();"
 						class="button" /></td>
 				</tr>
 				<tr>

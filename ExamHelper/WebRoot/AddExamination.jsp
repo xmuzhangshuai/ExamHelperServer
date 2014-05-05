@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		document.getElementById("contact_form").submit();
 	}
-
+/*
 	function saveExamInfor(examId) {
 		var subjectName = document.getElementById("subjectName").value;
 		if (subjectName == "null") {
@@ -38,6 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				document.getElementById("contact_form").submit();
 		}
 	}
+	*/
 </script>
 </head>
   
@@ -55,14 +56,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<fieldset style="height:100%;">
 				<legend>试卷信息</legend>
 				<form class="contact_form" id="contact_form" target="mainFrame"
-					action="${pageContext.request.contextPath}/examGuide.do?flag=addExamGuide" method="post" name="contact_form">
+					action="${pageContext.request.contextPath}/examination.do?flag=addExamination" method="post" name="contact_form">
 					<ul>
 						<li>
              				<h2>添加试卷</h2>
         				</li>
         				<li>
              				<label for="examName">试卷名称:</label>
-             				<input type="text" name="examName" id="examName" value="${examination.examName}" placeholder="试卷名称" required />
+             				<input type="text" name="examName" id="examName" placeholder="试卷名称" required />
         				</li>
         				<li>
              				<label for="subjectName">科目名称:</label>
@@ -91,19 +92,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         				</li>
         				<li>
              				<label for="examType">试卷类型:</label>
-            				<input type="text" name="examType" id="examType" placeholder="试卷类型" value="${examination.examType}"  required />
+            				<input type="text" name="examType" id="examType" placeholder="试卷类型"  required />
         				</li>
         				
         				<li>
              				<label for="examTime">考试时间</label>
-        					<input type="number" name="examTime" value="${examination.examTime}" id="examTime" placeholder="考试时间(分钟)" required />
+        					<input type="number" name="examTime" id="examTime" placeholder="考试时间(分钟)" required />
         				</li>
         				<li>
              				<label for="examRequest">考试要求</label>
         					<textarea rows="8" cols="40" id="examRequest" name="examRequest" placeholder="考试要求" required>${examination.examRequest}</textarea>
         				</li>
         				<li>
-        					<button type="submit" class="submit" onclick="saveExamInfor('${examination.id}');">保       存</button>
+        					<button type="submit" class="submit">添     加</button>
         				</li>
 					</ul>
 				</form>

@@ -60,12 +60,8 @@
 					<th class="tablestyle_title">单选题</th>
 				</tr>
 				<tr>
-					<td style="width: 485px; "><input type="button"
-						value="返回单选题列表" style="width: 111px; " onclick="back();"
-						class="button" /></td>
-
+					<td><input type="button" value="返回单选题列表" onclick="back();" class="button" /></td>
 				</tr>
-
 				<TR>
 					<TD width="100%">
 						<fieldset style="height:100%;">

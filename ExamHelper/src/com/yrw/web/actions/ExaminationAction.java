@@ -164,7 +164,7 @@ public class ExaminationAction extends DispatchAction {
 		request.setAttribute("examination", examination);
 		// 设置examination中科目的下拉框
 		List<Subject> subjectList = subjectService.getSubjects();
-		if (subjectList != null) {
+		if (subjectList != null && examination != null) {
 			request.getSession().setAttribute("subjectId", examination.getSubject().getId());
 			request.setAttribute("subjects", subjectList);
 		}

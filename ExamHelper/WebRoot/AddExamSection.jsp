@@ -12,23 +12,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
-
 <title>试卷</title>
-
 
 <link rel="stylesheet" rev="stylesheet" href="./css/style.css"
 	type="text/css" media="all" />
 <script language="JavaScript" type="text/javascript">
-	function tishi() {
-		var a = confirm('数据库中保存有该人员基本信息，您可以修改或保留该信息。');
-		if (a != true)
-			return false;
-		window
-				.open(
-						"冲突页.htm",
-						"",
-						"depended=0,alwaysRaised=1,width=800,height=400,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
-	}
 	function back() {
 		var examinationId = '${examinatioId}'
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showExamination&examinationId="
@@ -66,20 +54,14 @@
 				<tr>
 					<td style="width: 485px; "><input type="button" value="返回试卷列表"
 						onclick="back();" class="button" /></td>
-
 				</tr>
-
 				<TR>
-
-
 				</TR>
 				<tr>
 					<td>
 						<fieldset>
 							<legend>小题信息</legend>
 							<table style="width: 100%">
-
-
 								<tr>
 									<td><table id="table">
 											<tr>

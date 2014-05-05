@@ -61,9 +61,7 @@
 					<th class="tablestyle_title">判断题题</th>
 				</tr>
 				<tr>
-					<td style="width: 485px; "><input type="button"
-						value="返回判断题列表" style="width: 111px; " onclick="back();"
-						class="button" /></td>
+					<td><input type="button" value="返回判断题列表"onclick="back();" class="button" /></td>
 
 				</tr>
 

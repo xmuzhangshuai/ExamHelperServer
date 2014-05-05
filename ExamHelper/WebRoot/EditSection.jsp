@@ -112,21 +112,12 @@
 				</tr>
 
 				<TR>
-					<TD colspan="2" align="center" height="50px"><input
-						type="submit" name="Submit" value="发送" class="button"
-						style="width: 94px; " /> <input type="button" name="Submit2"
-						value="返回" class="button" onclick="window.history.go(-1);"
-						style="width: 94px; " /></TD>
+					<TD colspan="2" align="center" height="50px">
+						<input type="submit" name="Submit" value="发送" class="button"/> 
+						<input type="button" name="Submit2" value="返回" class="button" onclick="window.history.go(-1);"/>
+					</TD>
 				</TR>
 			</TABLE>
-
-
-			</td>
-			</tr>
-
-
-
-			</table>
 
 		</div>
 	</form>
