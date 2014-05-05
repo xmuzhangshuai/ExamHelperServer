@@ -58,39 +58,7 @@
 	//选择查看类型级联变化
 function typeChange(current){
 
-	 var currentChoice = current;
-	 var subject = document.getElementById("subjectChoose").value;
-	 if(subject!="null"){
-     //清空二级菜单下拉选单
-     document.all.sectionChoose.length = 0 ;
-     if(currentChoice == subject){
-     var jsArray=new Array();
-     
-     <%List<Section> sectionList = %>;
-       for(int i=0;i<subjectList.size();i++){
-      %>
-	   jsArray[<%=i%>]='<%=subjectList.get(i).getSubName()%>';
-	 <%}%>
-	 for (j = 0; j < jsArray.length; j++) {
-			//填充 二级下拉选单
-       	document.all.list.options[document.all.list.length] = new Option(jsArray[j],jsArray[j]);
-	  }
-     }
-    
-    //如果是按题型
-     if(currentChoice == questionType){
-     var jsArray2=new Array();
-     <%List<Questiontype> questiontypeList = (List<Questiontype>)request.getAttribute("questiontypeList");
-       for(int i=0;i<questiontypeList.size();i++){
-      %>
-	   jsArray2[<%=i%>]='<%=questiontypeList.get(i).getTypeName()%>';
-	 <%}%>
-	 for (j = 0; j < jsArray2.length; j++) {
-			//填充 二级下拉选单
-       	document.all.list.options[document.all.list.length] = new Option(jsArray2[j],jsArray2[j]);
-	  }
-     }
-     }
+
 }
 	function selectAll() {
 

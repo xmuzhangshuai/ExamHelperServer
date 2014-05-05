@@ -63,13 +63,11 @@ html { overflow-x: ; overflow-y: ; border:0;}
 	
 	//根据科目加载对应section
 	function loadSection() {
-	    var index = document.getElementById("subjectChoose").selectedIndex;
-		var subjectArray = new Array();
-		var sectionArray = new Array();
-        <%List<Subject> subjectList = (List<Subject>)request.getAttribute("subjects");
-        for(int i=0;i<subjectList.size();i++){%>
-	    subjectArray[<%=i%>]='<%=subjectList.get(i)%>';
-	    <%}%>
+	   var subjectId=document.getElementById("subjectChoose").value;
+	   if(subjectId!="null"){
+	   document.getElementById("fom").action="${pageContext.request.contextPath}/question.do?flag=loadSectionList&subjectId="+subjectId;
+	   document.getElementById("fom").submit;
+	   }
 	}
 </script>
 
@@ -92,19 +90,20 @@ html { overflow-x: ; overflow-y: ; border:0;}
 													<td><select name="subjectChoose" id="subjectChoose" onchange="loadSection();">
 															<c:choose>
 																<c:when test="${empty subjectId}">
+																<option value="null" selected="selected">请选择科目</option>
 																	<c:forEach items="${subjects}" var="subject">
-																		<option value="${subject.sections}">${subject.subName}</option>
+																		<option value="${subject.id}">${subject.subName}</option>
 																	</c:forEach>
 																</c:when>
 																<c:otherwise>
 																	<c:forEach items="${subjects}" var="subject">
 																		<c:choose>
 																			<c:when test="${subject.id==subjectId}">
-																				<option value="${subject.sections}"
+																				<option value="${subject.id}"
 																					selected="selected">${subject.subName}</option>
 																			</c:when>
 																			<c:otherwise>
-																				<option value="${subject.sections}">${subject.subName}</option>
+																				<option value="${subject.id}">${subject.subName}</option>
 																			</c:otherwise>
 																		</c:choose>
 																	</c:forEach>

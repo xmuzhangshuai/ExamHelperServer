@@ -147,5 +147,19 @@ public class QuestionAction extends DispatchAction {
 		request.setAttribute("questionTypes", questiontypes);
 		return mapping.findForward("showQuestion");
 	}
+	/**加载section下拉列表
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward loadSectionList(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		
+		int subjectId=Integer.parseInt(request.getParameter("subjectId"));
+		
+		
+	}
 
 }
