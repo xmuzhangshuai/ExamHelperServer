@@ -11,13 +11,9 @@
          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-
-
 <title>试卷</title>
 
-
-<link rel="stylesheet" rev="stylesheet" href="./css/style.css"
-	type="text/css" media="all" />
+<link rel="stylesheet" rev="stylesheet" href="./css/style.css" type="text/css" media="all" />
 <script language="JavaScript" type="text/javascript">
 	function tishi() {
 		var a = confirm('数据库中保存有该人员基本信息，您可以修改或保留该信息。');
@@ -173,11 +169,8 @@
 					<th class="tablestyle_title">试卷</th>
 				</tr>
 				<tr>
-					<td style="width: 485px; "><input type="button" value="返回试卷列表"
-						onclick="back();" class="button" /></td>
-
+					<td><input type="button" value="返回试卷列表" onclick="back();" class="button" /></td>
 				</tr>
-
 				<TR>
 					<TD width="100%">
 						<fieldset style="height:100%;">

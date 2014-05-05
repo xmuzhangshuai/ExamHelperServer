@@ -249,7 +249,7 @@ function delSelected(){
 								<td height="20" align="center"><a href="${query.queryImage}" title="${query.queryStem}">
 												<img id ="headImage" height="100px" src="${query.queryImage}" alt="" /></a></td>
 								<td height="20" >
-									<input type="image" src="./images/more.png" onclick="goQueryDetail('${query.id}','${pageNow}');" style="height: 25px;" title="查看"/>查看
+									<input type="image" src="./images/more.png" onclick="goQueryDetail('${query.id}','${pageNow}');" style="height: 15px;" title="查看"/>查看
 									<img src="./images/delete.png" style="height: 15px;" alt="删除" onclick="deleteQuery(${query.id},${pageNow});" title="删除"/>删除
 								</td>
 							</tr>
