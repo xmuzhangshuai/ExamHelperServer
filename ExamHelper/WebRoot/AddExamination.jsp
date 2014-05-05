@@ -1,44 +1,28 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
+<title>添加试卷</title>
 
-
-<title>试卷</title>
-
-
-<link rel="stylesheet" rev="stylesheet" href="./css/style.css"
-	type="text/css" media="all" />
-<script language="JavaScript" type="text/javascript">
-	function tishi() {
-		var a = confirm('数据库中保存有该人员基本信息，您可以修改或保留该信息。');
-		if (a != true)
-			return false;
-		window
-				.open(
-						"冲突页.htm",
-						"",
-						"depended=0,alwaysRaised=1,width=800,height=400,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
-	}
+<link rel="stylesheet" type="text/css" href="./css/form.css" />
+<link rel="stylesheet" href="./css/style.css" type="text/css" media="all" />
+<script type="text/javascript">
 	function back() {
 		var subjectId = '${subjectId}';
 		var noContent = "";
 		if (subjectId == noContent)
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showAllExamList";
+			document.getElementById("contact_form").action = "${pageContext.request.contextPath}/examination.do?flag=showAllExamList";
 		else
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showExamListBySubject&subjectId="
+			document.getElementById("contact_form").action = "${pageContext.request.contextPath}/examination.do?flag=showExamListBySubject&subjectId="
 					+ subjectId;
 
-		document.getElementById("fom").submit();
+		document.getElementById("contact_form").submit();
 	}
 
 	function saveExamInfor(examId) {
@@ -48,109 +32,86 @@
 		} else {
 
 			if (examId != null && examId != undefined)
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamination&examinationId="
+				document.getElementById("contact_form").action = "${pageContext.request.contextPath}/examination.do?flag=addExamination&examinationId="
 						+ examId;
 			else
-				document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamination";
-			document.getElementById("fom").submit();
+				document.getElementById("contact_form").action = "${pageContext.request.contextPath}/examination.do?flag=addExamination";
+			document.getElementById("contact_form").submit();
 		}
 	}
 </script>
-
 </head>
-
-<body class="ContentBody">
-	<form
-		action="${pageContext.request.contextPath}/examination.do?flag=editExaminationInfor&examinationId=${examination.id}"
-		method="post" enctype="multipart/form-data" name="fom" id="fom"
-		target="mainFrame">
-		<div class="MainDiv">
-			<table width="99%" border="0" cellpadding="0" cellspacing="0"
-				class="CContent">
-				<tr>
-					<th class="tablestyle_title">试卷</th>
-				</tr>
-				<tr>
-					<td style="width: 485px; "><input type="button" value="返回试卷列表"
-						onclick="back();" class="button" /></td>
-
-				</tr>
-
-				<TR>
-					<TD width="100%">
-						<fieldset style="height:100%;">
-							<legend>试卷信息</legend>
-							<table>
-								<tr>
-									<td><a href="#" onclick="showExamInfor();">试卷信息</a></td>
-								</tr>
-								<tr>
-									<td><table id="examInfor" style="width: 100%;">
-											<tr>
-												<td>试卷名称：</td>
-												<td><input type="text" name="examName" id="examName"
-													value="${examination.examName}" style="width: 244px; " /></td>
-											</tr>
-											<tr align="left">
-												<td>科目名称：</td>
-												<td style="width: 264px; "><select name="subjectName"
-													id="subjectName" style="width: 243px; " required>
-														<c:choose>
-															<c:when test="${empty subjectId}">
-																<option value="null" selected="selected">请选择科目</option>
-																<c:forEach items="${subjects}" var="item">
-																	<option value="${item.subName}">${item.subName}</option>
-																</c:forEach>
-															</c:when>
-															<c:otherwise>
-																<c:forEach items="${subjects}" var="item">
-																	<c:choose>
-																		<c:when test="${item.id==subjectId}">
-																			<option value="${item.subName}" selected="selected">${item.subName}</option>
-																		</c:when>
-																		<c:otherwise>
-																			<option value="${item.subName}">${item.subName}</option>
-																		</c:otherwise>
-																	</c:choose>
-																</c:forEach>
-															</c:otherwise>
-														</c:choose>
-												</select><span class="red">*</span></td>
-											</tr>
-											<tr>
-												<td>试卷类型：</td>
-												<td><input type="text" name="examType" id="examType"
-													value="${examination.examType}" style="width: 246px; " /></td>
-											</tr>
-											<tr>
-												<td>考试时间：</td>
-												<td><input id="examTime" name="examTime" type="text"
-													value="${examination.examTime}" style="width: 248px; " /></td>
-											</tr>
-											<tr>
-												<td>考试要求：</td>
-												<td style="height: 67px; width: 236px"><textarea
-														id="examRequest" name="examRequest"
-														style="width: 245px; height: 56px">${examination.examRequest}</textarea></td>
-											</tr>
-
-											<TR>
-												<TD colspan="2" align="center" height="50px"><input
-													type="button" value="保存" type="submit"
-													onclick="saveExamInfor('${examination.id}');"
-													class="button" /></TD>
-											</TR>
-										</table></td>
-								</tr>
-							</table>
-						</fieldset>
-					</TD>
-
-				</TR>
-
-			</table>
-		</div>
-	</form>
+  
+<body style="margin: 0px;">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td height="62" background="./images/nav04.gif"></td>
+		</tr>
+		<tr>
+			<td><input type="button" value="返回试卷列表" onclick="back();" class="button" /></td>
+		</tr>
+		
+		
+		<tr>
+			<td style="border-style: none; border-width: medium;">
+			<fieldset style="height:100%;">
+				<legend>试卷信息</legend>
+				<form class="contact_form" id="contact_form" target="mainFrame"
+					action="${pageContext.request.contextPath}/examGuide.do?flag=addExamGuide" method="post" name="contact_form">
+					<ul>
+						<li>
+             				<h2>添加试卷</h2>
+        				</li>
+        				<li>
+             				<label for="examName">试卷名称:</label>
+             				<input type="text" name="examName" id="examName" value="${examination.examName}" placeholder="试卷名称" required />
+        				</li>
+        				<li>
+             				<label for="subjectName">科目名称:</label>
+        					<select name="subjectName" id="subjectName" required>
+        						<c:choose>
+									<c:when test="${empty subjectId}">
+										<option value="null" selected="selected">-请选择科目-</option>
+										<c:forEach items="${subjects}" var="item">
+											<option value="${item.subName}">${item.subName}</option>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										<c:forEach items="${subjects}" var="item">
+											<c:choose>
+												<c:when test="${item.id==subjectId}">
+													<option value="${item.subName}" selected="selected">${item.subName}</option>
+												</c:when>
+												<c:otherwise>
+													<option value="${item.subName}">${item.subName}</option>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
+        					</select>
+        				</li>
+        				<li>
+             				<label for="examType">试卷类型:</label>
+            				<input type="text" name="examType" id="examType" placeholder="试卷类型" value="${examination.examType}"  required />
+        				</li>
+        				
+        				<li>
+             				<label for="examTime">考试时间</label>
+        					<input type="text" name="examTime" value="${examination.examTime}" id="examTime" placeholder="考试时间(分钟)" required />
+        				</li>
+        				<li>
+             				<label for="examRequest">考试要求</label>
+        					<textarea rows="8" cols="40" id="examRequest" name="examRequest" placeholder="考试要求" required>${examination.examRequest}</textarea>
+        				</li>
+        				<li>
+        					<button type="submit" class="submit" onclick="saveExamInfor('${examination.id}');">保       存</button>
+        				</li>
+					</ul>
+				</form>
+				</fieldset>
+			</td>
+		</tr>
+	</table>
 </body>
-
 </html>
