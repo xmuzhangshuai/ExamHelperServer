@@ -1,3 +1,6 @@
+<%@page import="com.yrw.domains.Section"%>
+<%@page import="com.yrw.domains.Questiontype"%>
+<%@page import="com.yrw.domains.Subject"%>
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -15,17 +18,19 @@
 
 
 <title>科目管理</title>
-
+<style type="text/css">
+body {
+	background-color: #ffffff;
+	text-align: center;
+	border: 0px;
+	margin: 0px;
+}
+html { overflow-x: ; overflow-y: ; border:0;} 
+</style>
 <link href="./css/css.css" rel="stylesheet" type="text/css" />
 <link href="./css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" language="javascript">
-	function sousuo() {
-		window
-				.open(
-						"gaojisousuo.htm",
-						"",
-						"depended=0,alwaysRaised=1,width=800,height=510,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
-	}
+
 	function search() {
 		var singleChoice = "单项选择题"
 		var multiChoice = "多项选择题"
@@ -55,10 +60,16 @@
 			document.getElementById("fom").submit();
 		}
 	}
+	
+	//根据科目加载对应section
 	function loadSection() {
-	
-	 
-	
+	    var index = document.getElementById("subjectChoose").selectedIndex;
+		var subjectArray = new Array();
+		var sectionArray = new Array();
+        <%List<Subject> subjectList = (List<Subject>)request.getAttribute("subjects");
+        for(int i=0;i<subjectList.size();i++){%>
+	    subjectArray[<%=i%>]='<%=subjectList.get(i)%>';
+	    <%}%>
 	}
 </script>
 
@@ -67,27 +78,20 @@
 <body>
 	<form name="fom" id="fom" method="post" action="" target="mainFrame">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
-
 			<tr>
 				<td height="30">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
 						<tr>
-							<td height="62"
-								style="background-image:url('./images/nav04.gif'); ">
-
-								<table width="98%" border="0" align="center" cellpadding="0"
-									cellspacing="0">
+							<td height="62" style="background-image:url('./images/nav04.gif'); ">
+								<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
 									<tr>
 										<td align="left">
 											<table>
 												<tr>
 													<td width="38">科目：</td>
-													<td style="width: 119px; "><select
-														name="subjectChoose" id="subjectChoose"
-														onchange="loadSection();" style="width: 101px; ">
+													<td><select name="subjectChoose" id="subjectChoose" onchange="loadSection();">
 															<c:choose>
 																<c:when test="${empty subjectId}">
-																	<option value="null" selected="selected">请选择科目</option>
 																	<c:forEach items="${subjects}" var="subject">
 																		<option value="${subject.sections}">${subject.subName}</option>
 																	</c:forEach>
@@ -108,18 +112,17 @@
 															</c:choose>
 													</select></td>
 
-
-													<td>章节：</td>
+													<td style="width: 80px;text-align: right;">章节：</td>
 													<td><select id="sectionChoose">
-															<option value="null" selected="selected">请选择章节</option>
+															<option value="null" selected="selected">-请选择章节-</option>
 													</select></td>
 
 
-													<td>题型：</td>
+													<td style="width: 80px;text-align: right;">题型：</td>
 													<td><select id="questionTypeChoose">
 															<c:choose>
 																<c:when test="${empty questionTypeName}">
-																	<option value="null" selected="selected">请选择题型</option>
+																	<option value="null" selected="selected">-请选择题型-</option>
 																	<c:forEach items="${questionTypes}" var="type">
 																		<option value="${type.typeName}">${type.typeName}</option>
 																	</c:forEach>
@@ -138,9 +141,8 @@
 																</c:otherwise>
 															</c:choose>
 													</select></td>
-													<td>
-													<input type="button" value="查询"
-											class="right-button02" onclick="search();" /></td>
+													<td style="width: 80px;text-align: right;">
+													<input type="button" value="查询" class="right-button02" onclick="search();" /></td>
 												</tr>
 											</table>
 										</td>
@@ -152,7 +154,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td><img id="informImage" src="./images/404.png" alt="" /></td>
+				<td><img src="./images/welcome.png" width="800" height="536" /></td>
 			</tr>
 
 		</table>

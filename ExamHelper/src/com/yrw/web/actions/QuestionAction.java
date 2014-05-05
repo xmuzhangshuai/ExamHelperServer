@@ -17,15 +17,12 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DispatchAction;
 
 import com.yrw.config.DefaultValue;
-import com.yrw.domains.Multichoice;
 import com.yrw.domains.Questiontype;
 import com.yrw.domains.Section;
-import com.yrw.domains.Singlechoice;
 import com.yrw.domains.Subject;
 import com.yrw.service.QuestionService;
 import com.yrw.service.SectionService;
 import com.yrw.service.SubjectService;
-import com.yrw.web.forms.SingleChoiceForm;
 
 /**
  * 
@@ -43,7 +40,6 @@ public class QuestionAction extends DispatchAction {
 	private QuestionService questionService;
 	private SectionService sectionService;
 
-	
 	public void setSubjectService(SubjectService subjectService) {
 		this.subjectService = subjectService;
 	}
@@ -56,50 +52,6 @@ public class QuestionAction extends DispatchAction {
 		this.questionService = questionService;
 	}
 
-	// /**
-	// * Method showQuestionByType 按题目类型显示题目
-	// *
-	// * @param mapping
-	// * @param form
-	// * @param request
-	// * @param response
-	// * @return ActionForward
-	// * @throws UnsupportedEncodingException
-	// */
-	// public ActionForward showQuestionByType(ActionMapping mapping,
-	// ActionForm form, HttpServletRequest request,
-	// HttpServletResponse response) throws UnsupportedEncodingException {
-	// // TODO Auto-generated method stub
-	//
-	// String typeName = new String(request.getParameter("typeName").getBytes(
-	// "ISO-8859-1"), "utf-8");
-	//
-	// String pageNowString = request.getParameter("pageNow");
-	//
-	// int subjectId = (Integer) request.getSession()
-	// .getAttribute("subjectId");
-	// List collection = questionService.listQuestionByType(typeName,
-	// pageNowString, subjectId);
-	//
-	// Map<String, Integer> map = (Map<String, Integer>) collection.get(0);
-	// request.setAttribute("pageCount", map.get("pageCount"));
-	// request.setAttribute("pageNow", map.get("pageNow"));
-	//
-	// if (typeName.equals(DefaultValue.SINGLE_CHOICE))
-	//
-	// request.setAttribute("singleChoice", (List) collection.get(1));
-	// else if (typeName.equals(DefaultValue.MULTI_CHOICE))
-	//
-	// request.setAttribute("multiChoices", (List) collection.get(1));
-	// else if (typeName.equals(DefaultValue.TRUE_OR_FALSE))
-	//
-	// request.setAttribute("trueOrFalse", (List) collection.get(1));
-	// else if (typeName.equals(DefaultValue.MATERIAL_ANALYSIS))
-	// request.setAttribute("materialAnalysis", (List) collection.get(1));
-	//
-	// return mapping.findForward((String) collection.get(2));
-	// }
-
 	/**
 	 * Method showQuestionBySection 按题目章节
 	 * 
@@ -110,34 +62,27 @@ public class QuestionAction extends DispatchAction {
 	 * @return ActionForward
 	 * @throws UnsupportedEncodingException
 	 */
-	public ActionForward showQuestionBySection(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
+	public ActionForward showQuestionBySection(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws UnsupportedEncodingException {
 		// TODO Auto-generated method stub
 
 		// 加载章节类型
-		String sectionName = new String(request.getParameter("sectionName")
-				.getBytes("ISO-8859-1"), "utf-8");
-		String typeName = new String(request.getParameter("typeName").getBytes(
-				"ISO-8859-1"), "utf-8");
+		String sectionName = new String(request.getParameter("sectionName").getBytes("ISO-8859-1"), "utf-8");
+		String typeName = new String(request.getParameter("typeName").getBytes("ISO-8859-1"), "utf-8");
 
 		request.getSession().setAttribute("typeName", typeName);
 		String pageNowString = request.getParameter("pageNow");
 
-		int subjectId = (Integer) request.getSession()
-				.getAttribute("subjectId");
+		int subjectId = (Integer) request.getSession().getAttribute("subjectId");
 
 		// 加载问题类型
-		List<Questiontype> questiontypes = questionService
-				.showQuestiontypes();
+		List<Questiontype> questiontypes = questionService.showQuestiontypes();
 		request.setAttribute("questionTypeName", typeName);
 		request.setAttribute("questionTypes", questiontypes);
 
 		// 加载章节下的题目
-		Section existSection = sectionService
-				.getSectionBySectionName(sectionName);
-		List collection = questionService.listQuestionBySection(
-				existSection.getId(), pageNowString, typeName);
+		Section existSection = sectionService.getSectionBySectionName(sectionName);
+		List collection = questionService.listQuestionBySection(existSection.getId(), pageNowString, typeName);
 
 		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
 		request.setAttribute("pageCount", pageMap.get("pageCount"));
@@ -170,13 +115,11 @@ public class QuestionAction extends DispatchAction {
 	 * @return ActionForward
 	 * @throws UnsupportedEncodingException
 	 */
-	public ActionForward deleteQuestion(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws UnsupportedEncodingException {
+	public ActionForward deleteQuestion(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws UnsupportedEncodingException {
 
 		int id = Integer.parseInt(request.getParameter("id"));
-		String typeName = new String(request.getParameter("typeName").getBytes(
-				"ISO-8859-1"), "utf-8");
+		String typeName = new String(request.getParameter("typeName").getBytes("ISO-8859-1"), "utf-8");
 
 		questionService.deleteQuestion(typeName, id);
 		return showQuestionBySection(mapping, form, request, response);
@@ -191,15 +134,15 @@ public class QuestionAction extends DispatchAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward showQuestionList(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response){
-	
+	public ActionForward showQuestionList(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+
 		request.getSession().removeAttribute("subjectId");
 		request.removeAttribute("sectionName");
 		request.removeAttribute("questionTypeName");
-		
-		List<Subject> subjects=subjectService.getSubjects();
-		List<Questiontype> questiontypes=questionService.showQuestiontypes();
+
+		List<Subject> subjects = subjectService.getSubjects();
+		List<Questiontype> questiontypes = questionService.showQuestiontypes();
 		request.setAttribute("subjects", subjects);
 		request.setAttribute("questionTypes", questiontypes);
 		return mapping.findForward("showQuestion");
