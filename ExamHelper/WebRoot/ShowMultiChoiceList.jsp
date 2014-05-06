@@ -121,7 +121,6 @@ function selectOrUnSelect(){
 		var sectionName=document.getElementById("sectionChoose").value;
 				document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoiceList&pageNow="
 						+ (pageNow - 1) + "&sectionName=" + sectionName;
-				alert(document.getElementById("fom").action);
 				document.getElementById("fom").submit();
 		}
 
@@ -154,7 +153,6 @@ function selectOrUnSelect(){
 	
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoiceList&pageNow="
 					+ pageCount + "&sectionName=" + sectionName;
-			alert(document.getElementById("fom").action);
 			document.getElementById("fom").submit();
 	}
 </script>

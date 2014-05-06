@@ -424,7 +424,7 @@ public class MultiChoiceAction extends DispatchAction {
 		request.setAttribute("pageCount", pageMap.get("pageCount"));
 		request.setAttribute("pageNow", pageMap.get("pageNow"));
 		// 设置单项选择题
-		request.setAttribute("multichoices",
+		request.setAttribute("multiChoices",
 				(List<Multichoice>) collection.get(1));
 		return mapping.findForward("showMultiChoiceList");
 	}
