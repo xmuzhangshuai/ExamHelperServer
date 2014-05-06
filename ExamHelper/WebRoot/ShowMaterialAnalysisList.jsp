@@ -52,9 +52,12 @@
 		}
 	}
 	function loadSection() {
-	
-	 
-	
+	  var subjectId=document.getElementById("subjectChoose").value;
+	  var questionType=document.getElementById("questionTypeChoose").value
+	   if(subjectId!="null" ){
+	   document.getElementById("fom").action="${pageContext.request.contextPath}/materialAnalysis.do?flag=loadSectionList&subjectId="+subjectId+"&questionTypeName="+questionType;
+	  document.getElementById("fom").submit();
+	   }
 	}
 	function selectAll() {
 
@@ -88,8 +91,8 @@ function selectOrUnSelect(){
     	unselectAll();
     }
 }
-	function link() {
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=addMaterialAnalysisUI";
+	function addMaterialAnalysis() {
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=addMaterialAnalysisUI&pageNow="+'${pageNow}';
 		document.getElementById("fom").submit();
 	}
 
@@ -142,8 +145,6 @@ function selectOrUnSelect(){
 		var sectionName = document.getElementById("sectionChoose").value;
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&pageNow=1"
 				+ "&sectionName=" + sectionName;
-		alert(document.getElementById("fom").action);
-
 	}
 	function endPage(pageCount) {
 		var sectionName = document.getElementById("sectionChoose").value;
@@ -171,30 +172,31 @@ function selectOrUnSelect(){
 									cellspacing="0">
 									<tr>
 										<td width="38">科目：</td>
-										<td style="width: 119px; "><select name="subjectChoose"
-											id="subjectChoose" onchange="loadSection();"
-											style="width: 101px; ">
-												<c:choose>
-													<c:when test="${empty subjectId}">
-														<option value="null" selected="selected">请选择科目</option>
-														<c:forEach items="${subjects}" var="subject">
-															<option value="${subject.sections}">${subject.subName}</option>
-														</c:forEach>
-													</c:when>
-													<c:otherwise>
-														<c:forEach items="${subjects}" var="subject">
+										<td style="width: 119px; "><select
+														name="subjectChoose" id="subjectChoose"
+														onchange="loadSection();" style="width: 101px; ">
 															<c:choose>
-																<c:when test="${subject.id==subjectId}">
-																	<option value="${subject.sections}" selected="selected">${subject.subName}</option>
+																<c:when test="${empty subjectId}">
+																	<option value="null" selected="selected">请选择科目</option>
+																	<c:forEach items="${subjects}" var="subject">
+																		<option value="${subject.id}">${subject.subName}</option>
+																	</c:forEach>
 																</c:when>
 																<c:otherwise>
-																	<option value="${subject.sections}">${subject.subName}</option>
+																	<c:forEach items="${subjects}" var="subject">
+																		<c:choose>
+																			<c:when test="${subject.id==subjectId}">
+																				<option value="${subject.id}"
+																					selected="selected">${subject.subName}</option>
+																			</c:when>
+																			<c:otherwise>
+																				<option value="${subject.id}">${subject.subName}</option>
+																			</c:otherwise>
+																		</c:choose>
+																	</c:forEach>
 																</c:otherwise>
 															</c:choose>
-														</c:forEach>
-													</c:otherwise>
-												</c:choose>
-										</select></td>
+													</select></td>
 
 
 											<td>章节：</td>
@@ -224,27 +226,27 @@ function selectOrUnSelect(){
 
 										<td>题型：</td>
 										<td><select id="questionTypeChoose">
-												<c:choose>
-													<c:when test="${empty questionTypeName}">
-														<option value="null" selected="selected">请选择题型</option>
-														<c:forEach items="${questionTypes}" var="type">
-															<option value="${type.typeName}">${type.typeName}</option>
-														</c:forEach>
-													</c:when>
-													<c:otherwise>
-														<c:forEach items="${questionTypes}" var="type">
 															<c:choose>
-																<c:when test="${type.typeName==questionTypeName}">
-																	<option value="${type.typeName}" selected="selected">${type.typeName}</option>
+																<c:when test="${empty questionTypeName}">
+																	<option value="null" selected="selected">请选择题型</option>
+																	<c:forEach items="${questionTypes}" var="type">
+																		<option value="${type.typeName}">${type.typeName}</option>
+																	</c:forEach>
 																</c:when>
 																<c:otherwise>
-																	<option value="${type.typeName}">${type.typeName}</option>
+																	<c:forEach items="${questionTypes}" var="type">
+																		<c:choose>
+																			<c:when test="${type.typeName==questionTypeName}">
+																				<option value="${type.typeName}" selected="selected">${type.typeName}</option>
+																			</c:when>
+																			<c:otherwise>
+																				<option value="${type.typeName}">${type.typeName}</option>
+																			</c:otherwise>
+																		</c:choose>
+																	</c:forEach>
 																</c:otherwise>
 															</c:choose>
-														</c:forEach>
-													</c:otherwise>
-												</c:choose>
-										</select></td>
+													</select></td>
 										<td><input type="button" value="查询"
 											class="right-button02" onclick="search();" /></td>
 									</tr>
@@ -269,7 +271,7 @@ function selectOrUnSelect(){
 											value="删除所选题目" onclick="delSelected();" /> <input
 											type="hidden" name="paramsHidden" id="paramsHidden" /> <input
 											name="Submit2" type="button" class="right-button08"
-											value="添加材料题" onclick="link();" /></td>
+											value="添加材料题" onclick="addMaterialAnalysis();" /></td>
 									</tr>
 									<tr>
 										<td height="40" class="font42">
@@ -305,7 +307,7 @@ function selectOrUnSelect(){
 
 														</a></td>
 														<td><a
-															href="${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysis&materialAnalysisId=${materialAnalysis.id}&edit=true">编辑|</a><a
+															href="${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysis&materialAnalysisId=${materialAnalysis.id}&pageNow=${pageNow}">编辑|</a><a
 															href="${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysis&materialAnalysisId=${materialAnalysis.id}">查看|</a>
 															<a
 															href="${pageContext.request.contextPath}/materialAnalysis.do?flag=deleteMaterialAnalysis&materialAnalysisId=${materialAnalysis.id}">删除</a></td>

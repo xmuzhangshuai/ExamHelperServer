@@ -19,47 +19,9 @@
 <link rel="stylesheet" rev="stylesheet" href="./css/style.css"
 	type="text/css" media="all" />
 <script language="JavaScript" type="text/javascript">
-	function tishi() {
-		var a = confirm('数据库中保存有该人员基本信息，您可以修改或保留该信息。');
-		if (a != true)
-			return false;
-		window
-				.open(
-						"冲突页.htm",
-						"",
-						"depended=0,alwaysRaised=1,width=800,height=400,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
-	}
-
-	function check() {
-		document.getElementById("aa").style.display = "";
-	}
-
-	function edit() {
-		var answers = document.getElementsByName("answer");
-		answers[0].disabled = false;
-		answers[1].disabled = false;
-
-		var txtN = document.getElementsByTagName("input");
-		for (var i = 0; i < txtN.length; i++)
-			txtN[i].readOnly = false;
-
-		var txtArea = document.getElementsByTagName("textarea");
-		for (var i = 0; i < txtArea.length; i++)
-			txtArea[i].readOnly = false;
-
-		var txtSelect = document.getElementsByTagName("select");
-		for (var i = 0; i < txtSelect.length; i++)
-			txtSelect[i].disabled = false;
-	}
-	function save() {
-		document.getElementById("fom").submit();
-
-	}
+	
 	function back() {
-		var sectionName = document.getElementById("sectionName").value;
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=判断题&sectionName="
-				+ sectionName;
-		document.getElementById("fom").submit();
+	window.history.back(-1);
 	}
 	function initAnswer(answer) {
 		var checked = "true";
@@ -78,14 +40,13 @@
 
 <body class="ContentBody" onload="initAnswer('${trueOrFalse.answer}');">
 	<form
-		action="${pageContext.request.contextPath}/trueOrFalse.do?flag=editTrueOrFalse&trueOrFalseId=${trueOrFalse.id}"
 		method="post" enctype="multipart/form-data" name="fom" id="fom"
 		target="mainFrame">
 		<div class="MainDiv">
 			<table width="99%" border="0" cellpadding="0" cellspacing="0"
 				class="CContent">
 				<tr>
-					<th class="tablestyle_title">判断题题</th>
+					<th class="tablestyle_title">判断题</th>
 				</tr>
 				<tr>
 					<td><input type="button" value="返回判断题列表" onclick="back();" class="button" /></td>
@@ -158,33 +119,17 @@
 							<table>
 								<tr>
 									<td>科目名称：</td>
-									<td><select name="subjectName" disabled="disabled">
-											<option selected="selected">${subject.subName}</option>
-											<c:forEach items="${subjects}" var="item">
-												<option>${item.subName}</option>
-											</c:forEach>
-									</select></td>
+									<td><c:out value="${subject}"/></td>
 								</tr>
 								<tr>
 									<td>章节名称:</td>
-									<td><select id="sectionName" disabled="disabled"
-										name="sectionName">
-											<option selected="selected">${section.sectionName}</option>
-											<c:forEach items="${sections}" var="item">
-												<option>${item.sectionName}</option>
-											</c:forEach>
-									</select></td>
-									<td><input type="hidden" id="sectionId"
-										value="${section.sectionName}" /></td>
+									<td><c:out value="${sectionName}"/></td>
 								</tr>
 							</table>
 						</fieldset></td>
 				</tr>
 				<TR>
-					<TD colspan="2" align="center" height="50px">
-						<input type="button" value="编辑" class="button" onclick="edit();" /> 
-						<input type="button" value="保存" type="submit" onclick="save();" class="button" />
-					</TD>
+					<TD colspan="2" align="center" height="50px"> </TD>
 				</TR>
 			</TABLE>
 

@@ -13,17 +13,12 @@
 <head>
 
 
-<title>单线选择题</title>
+<title>添加判断题</title>
 
 
 <link rel="stylesheet" rev="stylesheet" href="./css/style.css"
 	type="text/css" media="all" />
 <script language="JavaScript" type="text/javascript">
-
-	function check() {
-		document.getElementById("aa").style.display = "";
-	}
-
 	function save() {
 
 		if (document.getElementById("questionStem").value.trim().length != 0) {
@@ -35,9 +30,10 @@
 
 	}
 	function back() {
-		var sectionId = document.getElementById("sectionId").value;
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=判断题&sectionId="
-				+ sectionId;
+		var sectionName = document.getElementById("sectionName").value;
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalseList&typeName=判断题&sectionName="
+				+ sectionName+"&pageNow="+'${pageNow}';
+		document.getElementById("fom").submit();
 	}
 	function right() {
 		var right = document.getElementById("answerR");
@@ -62,9 +58,6 @@
 		target="mainFrame">
 		<div class="MainDiv">
 			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="CContent">
-				<tr>
-					<td height="62" background="./images/nav04.gif"></td>
-				</tr>
 				<tr>
 					<th class="tablestyle_title">判断题</th>
 				</tr>
@@ -142,21 +135,37 @@
 							<table>
 								<tr>
 									<td>科目名称：</td>
-									<td><select name="subjectName">
-											<c:forEach items="${subjects}" var="item">
-												<option>${item.subName}</option>
+									<td><select name="subjectName" id="subjectName"
+										style="width: 243px; " >
+											<c:forEach items="${subjects}" var="subject">
+												<c:choose>
+													<c:when test="${subject.id==subjectId}">
+														<option value="${subject.id}" selected="selected">${subject.subName}</option>
+													</c:when>
+													<c:otherwise>
+														<option value="${subject.id}">${subject.subName}</option>
+													</c:otherwise>
+												</c:choose>
 											</c:forEach>
 									</select></td>
 								</tr>
 								<tr>
 									<td>章节名称:</td>
 									<td><select id="sectionName" name="sectionName">
-											<c:forEach items="${sections}" var="item">
-												<option>${item.sectionName}</option>
-											</c:forEach>
+											
+														<c:forEach items="${sections}" var="section">
+															<c:choose>
+																<c:when test="${section.sectionName==sectionName}">
+																	<option value="${section.sectionName}" selected="selected">${section.sectionName}</option>
+																</c:when>
+																<c:otherwise>
+																	<option value="${section.sectionName}">${section.sectionName}</option>
+																</c:otherwise>
+															</c:choose>
+														</c:forEach>
+													
 									</select></td>
-									<td><input type="hidden" id="sectionId"
-										value="${section.id}" /></td>
+									<td></td>
 								</tr>
 							</table>
 						</fieldset></td>

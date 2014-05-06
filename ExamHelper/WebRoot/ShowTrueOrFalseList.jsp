@@ -50,11 +50,7 @@
 			document.getElementById("fom").submit();
 		}
 	}
-	//选择查看类型级联变化
-function typeChange(current){
 
-
-}
 	function selectAll() {
 
 		var obj = document.fom.elements;
@@ -88,9 +84,16 @@ function selectOrUnSelect(){
     	unselectAll();
     }
 }
-
-	function link() {
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=addTrueOrFalseUI";
+function loadSection() {
+	  var subjectId=document.getElementById("subjectChoose").value;
+	  var questionType=document.getElementById("questionTypeChoose").value
+	   if(subjectId!="null" ){
+	   document.getElementById("fom").action="${pageContext.request.contextPath}/trueOrFalse.do?flag=loadSectionList&subjectId="+subjectId+"&questionTypeName="+questionType;
+	  document.getElementById("fom").submit();
+	   }
+	}
+	function addTrueOrFalse() {
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=addTrueOrFalseUI&pageNow="+'${pageNow}';;
 		document.getElementById("fom").submit();
 	}
 
@@ -181,23 +184,23 @@ function selectOrUnSelect(){
 													<td width="38">科目：</td>
 													<td style="width: 119px; "><select
 														name="subjectChoose" id="subjectChoose"
-														onchange="typeChange(this.options[this.selectedIndex].value)"style="width: 101px; ">
+														onchange="loadSection();" style="width: 101px; ">
 															<c:choose>
 																<c:when test="${empty subjectId}">
 																	<option value="null" selected="selected">请选择科目</option>
 																	<c:forEach items="${subjects}" var="subject">
-																		<option value="${subject.sections}">${subject.subName}</option>
+																		<option value="${subject.id}">${subject.subName}</option>
 																	</c:forEach>
 																</c:when>
 																<c:otherwise>
 																	<c:forEach items="${subjects}" var="subject">
 																		<c:choose>
 																			<c:when test="${subject.id==subjectId}">
-																				<option value="${subject.sections}"
+																				<option value="${subject.id}"
 																					selected="selected">${subject.subName}</option>
 																			</c:when>
 																			<c:otherwise>
-																				<option value="${subject.sections}">${subject.subName}</option>
+																				<option value="${subject.id}">${subject.subName}</option>
 																			</c:otherwise>
 																		</c:choose>
 																	</c:forEach>
@@ -207,7 +210,7 @@ function selectOrUnSelect(){
 
 
 														<td>章节：</td>
-										<td><select id="sectionChoose" name="sectionChoose">
+										<td><select id="sectionChoose">
 												<c:choose>
 													<c:when test="${empty sectionName}">
 														<option value="null" selected="selected">请选择章节</option>
@@ -279,7 +282,7 @@ function selectOrUnSelect(){
 											value="删除所选题目" onclick="delSelected();" /> <input
 											type="hidden" name="paramsHidden" id="paramsHidden" /> <input
 											name="Submit2" type="button" class="right-button08"
-											value="添加判断题" onclick="link();" /></td>
+											value="添加判断题" onclick="addTrueOrFalse();" /></td>
 									</tr>
 									<tr>
 										<td height="40" class="font42">
@@ -303,8 +306,7 @@ function selectOrUnSelect(){
 																<c:set var="testStr" value="${trueOrFalse.questionStem}" />
 																<c:choose>
 																	<c:when test="${fn:length(testStr) > 50}">
-																		<c:out value="${fn:substring(testStr, 0, 50)}......"
-																			escapeXml="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalse&trueOrFalseId=${trueOrFalse.id}" />
+																		<c:out value="${fn:substring(testStr, 0, 50)}......" />
 																	</c:when>
 																	<c:otherwise>
 																		<c:out value="${testStr}" />
@@ -314,7 +316,7 @@ function selectOrUnSelect(){
 
 														</a></td>
 														<td><a
-															href="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalse&trueOrFalseId=${trueOrFalse.id}&edit=true">编辑|</a><a
+															href="${pageContext.request.contextPath}/singleChoice.do?flag=editSingleChoice&singleChoiceId=${singleChoice.id}&pageNow=${pageNow}"><img alt="编辑" class="delete_img" src="./images/edit.png" style="height: 18px;" title="编辑"/>编辑</a><a
 															href="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalse&trueOrFalseId=${trueOrFalse.id}">查看|</a>
 															<a
 															href="${pageContext.request.contextPath}/trueOrFalse.do?flag=deleteTrueOrFalse&trueOrFalseId=${trueOrFalse.id}">删除</a></td>

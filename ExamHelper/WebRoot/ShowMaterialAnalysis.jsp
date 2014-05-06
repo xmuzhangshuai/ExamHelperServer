@@ -20,119 +20,15 @@
 	type="text/css" media="all" />
 
 <script language="JavaScript" type="text/javascript">
-	function tishi() {
-		var a = confirm('数据库中保存有该人员基本信息，您可以修改或保留该信息。');
-		if (a != true)
-			return false;
-		window
-				.open(
-						"冲突页.htm",
-						"",
-						"depended=0,alwaysRaised=1,width=800,height=400,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
-	}
-
-	function check() {
-		document.getElementById("aa").style.display = "";
-	}
-	function init() {
-		var txtN = document.getElementsByTagName("input");
-		for (i = 0; i < txtN.length; i++) {
-			txtN[i].readOnly = true;
-		}
-		var txtArea = document.getElementsByTagName("textarea");
-		for (i = 0; i < txtArea.length; i++)
-			txtArea[i].readOnly = true;
-
-		var txtSelect = document.getElementsByTagName("select");
-		for (var i = 0; i < txtSelect.length; i++)
-			txtSelect[i].disabled = true;
-			
-			if (GetCookie("scroll")!=null)
- 		document.documentElement.scrollTop=GetCookie("scroll")
-	}
-
-	function editMaterialAnalysis() {
-		document.getElementById("material").readOnly = false;
-		document.getElementById("materialImage").readOnly = false;
-		document.getElementById("remark").readOnly = false;
-		var txtSelect = document.getElementsByTagName("select");
-		for (var i = 0; i < txtSelect.length; i++)
-			txtSelect[i].disabled = false;
-	}
-	function saveMaterialAnalysis(materialAnalysisId) {
-
-		if (document.getElementById("material").value.trim().length != 0) {
-
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=editMaterialAnalysis&materialAnalysisId="
-					+ materialAnalysisId;
-			alert(document.getElementById("fom").action);
-			document.getElementById("fom").submit();
-		} else
-			alert("请输入题干");
-	}
-	function editQuestionOfMaterial(questionNumber) {
-		document.getElementById("questionStem" + questionNumber).readOnly = false;
-		document.getElementById("analysis" + questionNumber).readOnly = false;
-		document.getElementById("answer" + questionNumber).readOnly = false;
-		document.getElementById("score" + questionNumber).readOnly = false;
-	}
-	function saveQuestionOfMaterial(questionOfMaterialId) {
-
-		if (document.getElementById("questionStem" + questionOfMaterialId).value
-				.trim().length != 0) {
-
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=editQuestionOfMaterial&questionOfMaterialId="
-					+ questionOfMaterialId;
-
-			document.getElementById("fom").submit();
-		} else
-			alert("请输入题干");
-	}
-	function deleteQuestionOfMaterial(questionOfMaterialId) {
 	
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=deleteQuestionOfMaterial&questionOfMaterialId="
-				+ questionOfMaterialId;
-
-		document.getElementById("fom").submit();
+	function back(){
+	window.history.back(-1);
 	}
-	function back() {
-		var sectionName = document.getElementById("sectionName").value;
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=材料分析题&sectionName="
-				+ sectionName;
-		document.getElementById("fom").submit();
-	}
-	
-	
-	window.onscroll =SetCookie('scroll',documentElement.scrollTop); 
-	
-		function Trim(strValue) 
- 	{ 
- 		return strValue.replace(/^\s*|\s*/g,""); 
- 	} 
- 	function SetCookie(sName, sValue) 
- 	{ 
- 		document.cookie = sName + "=" + escape(sValue); 
- 	} 
- 
-	function GetCookie(sName) 
- 	{ 
- 		var aCookie = document.cookie.split(";"); 
- 		for (var i=0; i < aCookie.length; i++) 
- 		{ 
- 			var aCrumb = aCookie[i].split("="); 
- 			if (sName == Trim(aCrumb[0])) 
- 			{ 
- 				return unescape(aCrumb[1]); 
- 			}			 
- 		} 
- 
-			return null; 
- 	} 
  	
 </script>
 </head>
 
-<body class="ContentBody" onload="init();">
+<body class="ContentBody" >
 	<form method="post" enctype="multipart/form-data" name="fom" id="fom"
 		target="mainFrame">
 		<div class="MainDiv">
@@ -158,7 +54,7 @@
 												<tr align="left">
 													<td align="left" width="13%" style="width: 58px; ">题干内容:</td>
 													<td style="width: 448px; "><textarea rows="" cols=""
-															id="material" name="material"
+															id="material" name="material" readonly="readonly"
 															style="width: 729px; height: 100px">${materialAnalysis.material}</textarea><span
 														class="red"> *</span></td>
 
@@ -185,7 +81,7 @@
 											<table>
 												<tr>
 													<td>备注内容：</td>
-													<td><textarea name="remark" id="remark"
+													<td><textarea name="remark" id="remark" readonly="readonly"
 															style="width: 731px; height: 85px">${materialAnalysis.remark}</textarea></td>
 												</tr>
 											</table>
@@ -195,36 +91,20 @@
 								<tr>
 									<td><fieldset>
 											<table>
-												<tr>
-													<td>科目名称：</td>
-													<td><select name="subjectName">
-															<option>${subject.subName}</option>
-															<c:forEach items="${subjects}" var="item">
-																<option>${item.subName}</option>
-															</c:forEach>
-													</select></td>
-												</tr>
-												<tr>
-													<td>章节名称:</td>
-													<td><select id="sectionName" name="sectionName">
-															<option>${section.sectionName}</option>
-															<c:forEach items="${sections}" var="item">
-																<option>${item.sectionName}</option>
-															</c:forEach>
-													</select></td>
-													<td><input type="hidden" id="sectionId"
-														value="${section.id}" /></td>
-												</tr>
-											</table>
+								<tr>
+									<td>科目名称：</td>
+									<td><c:out value="${subject}"/></td>
+								</tr>
+								<tr>
+									<td>章节名称:</td>
+									<td><c:out value="${sectionName}"/></td>
+								</tr>
+							</table>
 										</fieldset></td>
 								</tr>
 								<TR>
-									<TD colspan="2" align="center" height="50px"><input
-										type="button" value="编辑" class="button"
-										onclick="editMaterialAnalysis();" id="materialAnalysis_Edit" />
-										<input type="button" value="保存"
-										onclick="saveMaterialAnalysis('${materialAnalysis.id}');"
-										class="button" id="materialAnalysis_Save" /></TD>
+									<TD colspan="2" align="center" height="50px">
+										</TD>
 								</TR>
 							</table>
 						</fieldset></td>
@@ -247,36 +127,32 @@
 																	<td><input type="text"
 																		id="questionNumber${questionOfMaterial.id}"
 																		name="questionNumber${questionOfMaterial.id}"
-																		value="${questionOfMaterial.questionNumber}" /></td>
+																		value="${questionOfMaterial.questionNumber}"  readonly="readonly"/></td>
 																</tr>
-																<br />
 																<tr>
 																	<td>小题题干:</td>
-																	<td><textarea
+																	<td><textarea readonly="readonly"
 																			id="questionStem${questionOfMaterial.id}"
 																			name="questionStem${questionOfMaterial.id}"
 																			style="width: 721px; height: 93px">${questionOfMaterial.questionStem}</textarea></td>
 																</tr>
-																<br />
 																<tr>
 																	<td>小题答案：</td>
-																	<td><textarea id="answer${questionOfMaterial.id}"
+																	<td><textarea id="answer${questionOfMaterial.id}" readonly="readonly"
 																			name="answer${questionOfMaterial.id}"
 																			style="width: 723px; height: 98px">${questionOfMaterial.answer}</textarea></td>
 																</tr>
-																<br />
 																<tr>
 																	<td>小题分析：</td>
 																	<td style="height: 84px; "><textarea
-																			id="analysis${questionOfMaterial.id}"
+																			id="analysis${questionOfMaterial.id}" readonly="readonly"
 																			name="analysis${questionOfMaterial.id}"
 																			style="width: 720px; height: 89px">${questionOfMaterial.analysis}</textarea></td>
 																</tr>
-																<br />
 																<tr>
 																	<td>小题分值：</td>
 																	<td><input type="text"
-																		id="score${questionOfMaterial.id}"
+																		id="score${questionOfMaterial.id}" readonly="readonly"
 																		name="score${questionOfMaterial.id}"
 																		value="${questionOfMaterial.score}" /></td>
 																</tr>
@@ -284,26 +160,9 @@
 
 															</table>
 														</td>
-														<td><table>
-																<tr>
-																	<td><a
-																		href="${pageContext.request.contextPath}/materialAnalysis.do?flag=moveQuestionOfMaterial&type=decrease&questionOfMaterialId=${questionOfMaterial.id}">上移</a></td>
-																	<td><a
-																		href="${pageContext.request.contextPath}/materialAnalysis.do?flag=moveQuestionOfMaterial&type=increase&questionOfMaterialId=${questionOfMaterial.id}">下移</a></td>
-																</tr>
-															</table></td>
+														
 													</tr>
-													<TR>
-														<TD colspan="2" align="center" height="50px"
-															style="width: 257px; "><input type="button"
-															value="编辑" class="button"
-															onclick="editQuestionOfMaterial('${questionOfMaterial.id}');" />
-															<input type="button" value="保存"
-															onclick="saveQuestionOfMaterial('${questionOfMaterial.id}');"
-															class="button" /><input type="button" value="删除"
-															onclick="deleteQuestionOfMaterial('${questionOfMaterial.id}');"
-															class="button" /></TD>
-													</TR>
+													
 												</table>
 
 											</fieldset>

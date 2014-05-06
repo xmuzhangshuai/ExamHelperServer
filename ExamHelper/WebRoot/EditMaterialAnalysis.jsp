@@ -20,30 +20,12 @@
 	type="text/css" media="all" />
 
 <script language="JavaScript" type="text/javascript">
-	function tishi() {
-		var a = confirm('数据库中保存有该人员基本信息，您可以修改或保留该信息。');
-		if (a != true)
-			return false;
-		window
-				.open(
-						"冲突页.htm",
-						"",
-						"depended=0,alwaysRaised=1,width=800,height=400,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
-	}
-
-	function check() {
-		document.getElementById("aa").style.display = "";
-	}
-	
-
-	
 	function saveMaterialAnalysis(materialAnalysisId) {
 
 		if (document.getElementById("material").value.trim().length != 0) {
 
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=editMaterialAnalysis&materialAnalysisId="
-					+ materialAnalysisId;
-			alert(document.getElementById("fom").action);
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=saveMaterialAnalysis&materialAnalysisId="
+					+ materialAnalysisId+"&pageNow="+'${pageNow}';
 			document.getElementById("fom").submit();
 		} else
 			alert("请输入题干");
@@ -54,8 +36,8 @@
 		if (document.getElementById("questionStem" + questionOfMaterialId).value
 				.trim().length != 0) {
 
-			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=editQuestionOfMaterial&questionOfMaterialId="
-					+ questionOfMaterialId;
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=saveQuestionOfMaterial&questionOfMaterialId="
+					+ questionOfMaterialId+"&pageNow="+'${pageNow}';
 
 			document.getElementById("fom").submit();
 		} else
@@ -67,9 +49,15 @@
 
 		document.getElementById("fom").submit();
 	}
+	function addQuestionOfMaterial(){
+	document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=addQuestionOfMaterialUI&materialAnalysisId="
+				+ '${materialAnalysis.id}';
+
+		document.getElementById("fom").submit();
+	}
 	function back() {
 		var sectionName = document.getElementById("sectionName").value;
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&sectionName="+sectionName;
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&sectionName="+sectionName+"&pageNow="+'${pageNow}';
 			
 		document.getElementById("fom").submit();
 	
@@ -143,23 +131,34 @@
 											<table>
 												<tr>
 													<td>科目名称：</td>
-													<td><select name="subjectName">
-															<option>${subject.subName}</option>
-															<c:forEach items="${subjects}" var="item">
-																<option>${item.subName}</option>
-															</c:forEach>
-													</select></td>
+													<td><select name="subjectName" id="subjectName"
+													style="width: 243px; ">
+														<c:forEach items="${subjects}" var="subject">
+															<c:choose>
+																<c:when test="${subject.id==subjectId}">
+																	<option value="${subject.subName}" selected="selected">${subject.subName}</option>
+																</c:when>
+																<c:otherwise>
+																	<option value="${subject.subName}">${subject.subName}</option>
+																</c:otherwise>
+															</c:choose>
+														</c:forEach>
+												</select></td>
 												</tr>
 												<tr>
 													<td>章节名称:</td>
 													<td><select id="sectionName" name="sectionName">
-															<option>${section.sectionName}</option>
-															<c:forEach items="${sections}" var="item">
-																<option>${item.sectionName}</option>
-															</c:forEach>
-													</select></td>
-													<td><input type="hidden" id="sectionId"
-														value="${section.id}" /></td>
+											<c:forEach items="${sections}" var="section">
+															<c:choose>
+																<c:when test="${section.sectionName==sectionName}">
+																	<option value="${section.sectionName}" selected="selected">${section.sectionName}</option>
+																</c:when>
+																<c:otherwise>
+																	<option value="${section.sectionName}">${section.sectionName}</option>
+																</c:otherwise>
+															</c:choose>
+														</c:forEach>
+									</select></td>
 												</tr>
 											</table>
 										</fieldset></td>
@@ -192,7 +191,6 @@
 																		name="questionNumber${questionOfMaterial.id}"
 																		value="${questionOfMaterial.questionNumber}" /></td>
 																</tr>
-																<br />
 																<tr>
 																	<td>小题题干:</td>
 																	<td><textarea
@@ -200,14 +198,12 @@
 																			name="questionStem${questionOfMaterial.id}"
 																			style="width: 721px; height: 93px">${questionOfMaterial.questionStem}</textarea></td>
 																</tr>
-																<br />
 																<tr>
 																	<td>小题答案：</td>
 																	<td><textarea id="answer${questionOfMaterial.id}"
 																			name="answer${questionOfMaterial.id}"
 																			style="width: 723px; height: 98px">${questionOfMaterial.answer}</textarea></td>
 																</tr>
-																<br />
 																<tr>
 																	<td>小题分析：</td>
 																	<td style="height: 84px; "><textarea
@@ -215,7 +211,6 @@
 																			name="analysis${questionOfMaterial.id}"
 																			style="width: 720px; height: 89px">${questionOfMaterial.analysis}</textarea></td>
 																</tr>
-																<br />
 																<tr>
 																	<td>小题分值：</td>
 																	<td><input type="text"
@@ -230,9 +225,9 @@
 														<td><table>
 																<tr>
 																	<td><a
-																		href="${pageContext.request.contextPath}/materialAnalysis.do?flag=moveQuestionOfMaterial&type=decrease&questionOfMaterialId=${questionOfMaterial.id}">上移</a></td>
+																		href="${pageContext.request.contextPath}/materialAnalysis.do?flag=moveQuestionOfMaterial&type=decrease&questionOfMaterialId=${questionOfMaterial.id}&pageNow=${pageNow}">上移</a></td>
 																	<td><a
-																		href="${pageContext.request.contextPath}/materialAnalysis.do?flag=moveQuestionOfMaterial&type=increase&questionOfMaterialId=${questionOfMaterial.id}">下移</a></td>
+																		href="${pageContext.request.contextPath}/materialAnalysis.do?flag=moveQuestionOfMaterial&type=increase&questionOfMaterialId=${questionOfMaterial.id}&pageNow=${pageNow}">下移</a></td>
 																</tr>
 															</table></td>
 													</tr>

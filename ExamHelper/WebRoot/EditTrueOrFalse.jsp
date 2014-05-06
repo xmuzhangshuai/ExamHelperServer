@@ -40,7 +40,7 @@
 	}
 	function back() {
 		var sectionName = document.getElementById("sectionName").value;
-		document.getElementById("fom").action = "${pageContext.request.contextPath}trueOrFalse.do?flag=showTrueOrFalseList&sectionName="+sectionName
+		document.getElementById("fom").action = "${pageContext.request.contextPath}trueOrFalse.do?flag=showTrueOrFalseList&sectionName="+sectionName+"&pageNow="+'${pageNow}';
 		document.getElementById("fom").submit();
 	}
 	function initAnswer(answer) {
@@ -59,7 +59,7 @@
 
 <body class="ContentBody" onload="initAnswer('${trueOrFalse.answer}')">
 	<form
-		action="${pageContext.request.contextPath}/trueOrFalse.do?flag=editTrueOrFalse&trueOrFalseId=${trueOrFalse.id}"
+		action="${pageContext.request.contextPath}/trueOrFalse.do?flag=saveTrueOrFalse&trueOrFalseId=${trueOrFalse.id}&pageNow=${pageNow}"
 		method="post" enctype="multipart/form-data" name="fom" id="fom"
 		target="mainFrame">
 		<div class="MainDiv">
@@ -140,31 +140,40 @@
 							<table>
 								<tr>
 									<td>科目名称：</td>
-									<td><select name="subjectName">
-											<option selected="selected">${subject.subName}</option>
-											<c:forEach items="${subjects}" var="item">
-												<option>${item.subName}</option>
-											</c:forEach>
-									</select></td>
+									<td><select name="subjectName" id="subjectName"
+													style="width: 243px; ">
+														<c:forEach items="${subjects}" var="subject">
+															<c:choose>
+																<c:when test="${subject.id==subjectId}">
+																	<option value="${subject.subName}" selected="selected">${subject.subName}</option>
+																</c:when>
+																<c:otherwise>
+																	<option value="${subject.subName}">${subject.subName}</option>
+																</c:otherwise>
+															</c:choose>
+														</c:forEach>
+												</select></td>
 								</tr>
 								<tr>
 									<td>章节名称:</td>
 									<td><select id="sectionName" name="sectionName">
-											<option selected="selected">${section.sectionName}</option>
-											<c:forEach items="${sections}" var="item">
-												<option>${item.sectionName}</option>
-											</c:forEach>
+											<c:forEach items="${sections}" var="section">
+															<c:choose>
+																<c:when test="${section.sectionName==sectionName}">
+																	<option value="${section.sectionName}" selected="selected">${section.sectionName}</option>
+																</c:when>
+																<c:otherwise>
+																	<option value="${section.sectionName}">${section.sectionName}</option>
+																</c:otherwise>
+															</c:choose>
+														</c:forEach>
 									</select></td>
-									<td><input type="hidden" id="sectionId"
-										value="${section.sectionName}" /></td>
 								</tr>
 							</table>
 						</fieldset></td>
 				</tr>
 				<TR>
-					<TD colspan="2" align="center" height="50px"><input
-						type="button" value="编辑" class="button"
-						onclick="edit();" /> <input type="button" value="保存"
+					<td> <input type="button" value="保存"
 						type="submit"onclick="save();"
 						class="button" /></TD>
 				</TR>

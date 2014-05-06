@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import net.sf.cglib.transform.impl.AddDelegateTransformer;
+
 import com.yrw.config.DefaultValue;
 import com.yrw.domains.Materialanalysis;
 import com.yrw.domains.Multichoice;
@@ -312,13 +314,15 @@ public class QuestionService {
 		return null;
 	}
 
-	/**获得某个题型对象
+	/**
+	 * 获得某个题型对象
+	 * 
 	 * @param questionTypeId
 	 * @return
 	 */
 	public Questiontype getQuestiontype(int questionTypeId) {
 
-	return	iQuestionTypeDao.getQuestiontypeById(questionTypeId);
+		return iQuestionTypeDao.getQuestiontypeById(questionTypeId);
 	}
 
 	/**
@@ -406,18 +410,20 @@ public class QuestionService {
 	}
 
 	/**
-	 * 增加材料分析题,返回该题的Id号
+	 * 增加材料分析题
 	 * 
 	 * @param sectionId
 	 * @param materialanalysis
 	 * @param questionofMaterial
 	 */
-	public int addMaterialAnalysis(Materialanalysis materialanalysis) {
+	public void addMaterialAnalysis(Materialanalysis materialanalysis) {
 
 		iMaterialAnalysisDao.add(materialanalysis);
-		int materialAnalysisId = iMaterialAnalysisDao
-				.getMaterialAnalysisIdByMaterial(materialanalysis.getMaterial());
-		return materialAnalysisId;
+
+	}
+
+	public int addMaterialAnalysisWithReturn(Materialanalysis materialanalysis) {
+		return (Integer)iMaterialAnalysisDao.addReturnId(materialanalysis);
 	}
 
 	/**
