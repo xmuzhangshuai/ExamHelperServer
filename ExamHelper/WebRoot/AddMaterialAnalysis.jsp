@@ -37,19 +37,20 @@
 	    if (ofrm1==undefined)
 	    {
 	        ofrm1 = document.getElementById("imageFrame").contentWindow.document;
-	        var ff = ofrm1.getElementById("imageUrl").value;
-	        return ff;
+	        var imageUrl = ofrm1.getElementById("imageUrl");
+	        if(imageUrl==undefined) return null;
+	        else return imageUrl.value;
 	    }
 	    else
 	    {
-	        var ie = document.frames["imageFrame"].document.getElementById("imageUrl").value;
-	         return ie;
+	        var ieImageUrl = document.frames["imageFrame"].document.getElementById("imageUrl");
+	        if(ieImageUrl==undefined) return null;
+	        return ieImageUrl.value;
 	    }
 	}
 	function addQuestionOfMaterial(){
 	if (document.getElementById("material").value.trim().length != 0) {
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=firstTimeAddQuestionOfMaterial&imageUrl="+getValue();
-			alert(document.getElementById("fom").action)
 			document.getElementById("fom").submit();
 		} else
 			alert("请先完成题干输入");
@@ -177,7 +178,7 @@
 									</table>
 								</fieldset>
 							</c:forEach>
-							<input type="button"value="添加小题"  onclick="addQuestionOfMaterial();"class="button" style="margin-left: 12px;"/>
+							<input type="button" value="添加小题"  onclick="addQuestionOfMaterial();"class="button" style="margin-left: 12px;"/>
 						</fieldset></td>
 				</tr>
 

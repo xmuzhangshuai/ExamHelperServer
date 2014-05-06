@@ -10,6 +10,7 @@
 <base href="<%=basePath%>">
 
 <title>图片上传</title>
+	
 <script id="jquery_172" type="text/javascript" class="library" src="js/jquery-1.7.1.min.js"></script>
 <link href="./css/upload.css" rel="stylesheet" type="text/css" />
 <script>
@@ -56,7 +57,15 @@ $(function(){
 	if($(this).val()==""){$(this).parents(".uploader").find(".filename").val("没有选择任何文件...");}
 	});
 });
-
+function uploadNow() {
+	var doc = document.getElementById("doc");
+	if(doc.files && doc.files[0]){
+		document.getElementById("uploadform").action = "${pageContext.request.contextPath}/MaterImageUploadServlet";
+		document.getElementById("uploadform").submit();
+	}else{
+		alert("请选择文件！");
+	}
+}
 </script>
 </head>
 
@@ -64,14 +73,14 @@ $(function(){
 	<table class="upTable">
 		<tr style="vertical-align: top;">
 			<td style="width: 30%;">
-				<form action='${pageContext.request.contextPath}/MaterImageUploadServlet' method='post' enctype='multipart/form-data'>
+				  <form action='' id="uploadform" method='post' enctype='multipart/form-data'>
 					<div class="uploader white">
 						<input type="text" class="filename" readonly="readonly"/>
 						<input type="button" name="file" class="buttonUp" value="浏览..."/>
 						<input type="file" size="30" onchange="javascript:setImagePreview();" name='doc' id='doc' accept="images/*"/>
 					</div>
-					<div class="uploadBtnDiv"><input type='submit' class="uploadBtn" value='上传'></div>
-				</form>
+					<div class="uploadBtnDiv"><input type="button" onclick="uploadNow();" class="uploadBtn" value='上传'></div>
+				 </form>
 			</td>
 			<td>
 				<div id="localImag"><img id="preview" width=-1 height=-1 style="diplay:none" /></div>
