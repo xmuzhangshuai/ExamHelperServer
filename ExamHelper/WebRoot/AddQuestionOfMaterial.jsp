@@ -24,7 +24,9 @@
 	}
 
 	function back(materialAnalysisId) {
-window.history.back(-1);
+document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=editMaterialAnalysis&materialAnalysisId="+materialAnalysisId;
+
+			document.getElementById("fom").submit();
 
 	}
 	function save(materialAnalysisId) {
@@ -62,7 +64,7 @@ window.history.back(-1);
 									<tr>
 										<td>小题编号：</td>
 										<td><input type="text" id="questionNumber"
-											name="questionNumber" value="${quesitonNumber}"
+											name="questionNumber" value="${questionNumber}"
 											readonly="readonly" /><span class="red"> *</span></td>
 									</tr>
 									<tr>

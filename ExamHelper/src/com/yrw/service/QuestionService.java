@@ -539,25 +539,33 @@ public class QuestionService {
 	 * @param materialanalysis
 	 */
 	public void decreaseQuestionNumber(Questionsofmaterial questionsofmaterial) {
-		if (questionsofmaterial.getQuestionNumber() != 1) {
+		if (questionsofmaterial.getQuestionNumber() < getMaxQuestionNumByMaterialId(questionsofmaterial
+				.getMaterialanalysis().getId())) {
 			Materialanalysis materialanalysis = questionsofmaterial
 					.getMaterialanalysis();
 			List<Questionsofmaterial> questionsofmaterials = new ArrayList<Questionsofmaterial>(
 					materialanalysis.getQuestionsofmaterials());
 			for (int i = 0; i < questionsofmaterials.size(); i++) {
-				if (questionsofmaterials.get(i).getQuestionNumber() + 1 == questionsofmaterial
+				if (questionsofmaterials.get(i).getQuestionNumber() +1 == questionsofmaterial
 						.getQuestionNumber()) {
-					Questionsofmaterial lastQuestionsofmaterial = questionsofmaterials
+					Questionsofmaterial nextQuestionsofmaterial = questionsofmaterials
 							.get(i);
-					lastQuestionsofmaterial
+					nextQuestionsofmaterial
 							.setQuestionNumber(questionsofmaterial
 									.getQuestionNumber());
 					questionsofmaterial.setQuestionNumber(questionsofmaterial
-							.getQuestionNumber() - 1);
+							.getQuestionNumber() -1);
 					iQuestionsOfMaterial
 							.updateQuestionOfMaterial(questionsofmaterial);
 					iQuestionsOfMaterial
-							.updateQuestionOfMaterial(lastQuestionsofmaterial);
+							.updateQuestionOfMaterial(nextQuestionsofmaterial);
+
+					int index=questionsofmaterials.indexOf(questionsofmaterial);
+					questionsofmaterials.set(i, questionsofmaterial);
+					questionsofmaterials.set(index, nextQuestionsofmaterial);
+					Set<Questionsofmaterial> set=new HashSet<Questionsofmaterial>(questionsofmaterials);
+					materialanalysis.setQuestionsofmaterials(set);
+					iMaterialAnalysisDao.update(materialanalysis);
 					break;
 				}
 			}
@@ -594,6 +602,12 @@ public class QuestionService {
 					iQuestionsOfMaterial
 							.updateQuestionOfMaterial(nextQuestionsofmaterial);
 
+					int index=questionsofmaterials.indexOf(questionsofmaterial);
+					questionsofmaterials.set(i, questionsofmaterial);
+					questionsofmaterials.set(index, nextQuestionsofmaterial);
+					Set<Questionsofmaterial> set=new HashSet<Questionsofmaterial>(questionsofmaterials);
+					materialanalysis.setQuestionsofmaterials(set);
+					iMaterialAnalysisDao.update(materialanalysis);
 					break;
 				}
 			}

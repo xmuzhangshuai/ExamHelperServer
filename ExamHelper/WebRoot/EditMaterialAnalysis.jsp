@@ -25,7 +25,7 @@
 		if (document.getElementById("material").value.trim().length != 0) {
 
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=saveMaterialAnalysis&materialAnalysisId="
-					+ materialAnalysisId+"&pageNow="+'${pageNow}';
+					+ materialAnalysisId;
 			document.getElementById("fom").submit();
 		} else
 			alert("请输入题干");
@@ -250,6 +250,9 @@
 								<tr>
 									<td><input type="button"value="添加小题"  onclick="addQuestionOfMaterial();"class="button" style="margin-left: 12px;"/></td>
 								</tr>
+								<TR>
+									<TD colspan="2" align="center" height="50px"> </TD>
+								</TR>
 							</table>
 
 						</fieldset></td>

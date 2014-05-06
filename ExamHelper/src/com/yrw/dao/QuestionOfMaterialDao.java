@@ -17,7 +17,7 @@ public class QuestionOfMaterialDao extends BasicDao implements
 	public List getQuestionOfMaterialByMaterialId(int pageNow, int materialId) {
 		// TODO Auto-generated method stub
 		String hql = "select q from Questionsofmaterial q where q.materialanalysis.id="
-				+ materialId+" order by q.questionNumber";
+				+ materialId + " order by q.questionNumber";
 		return this.executeQueryByPage(hql, null, pageNow);
 	}
 
@@ -46,24 +46,31 @@ public class QuestionOfMaterialDao extends BasicDao implements
 	@Override
 	public void delQuestionOfMaterial(Object object) {
 		// TODO Auto-generated method stub
-		Questionsofmaterial questionsofmaterial = (Questionsofmaterial)object;
+		Questionsofmaterial questionsofmaterial = (Questionsofmaterial) object;
 		if (questionsofmaterial != null) {
-			Materialanalysis materialanalysis = questionsofmaterial.getMaterialanalysis();
-			Set<Questionsofmaterial> questionsofmaterials = materialanalysis.getQuestionsofmaterials();
-			Iterator<Questionsofmaterial> iterator = questionsofmaterials.iterator();
+			Materialanalysis materialanalysis = questionsofmaterial
+					.getMaterialanalysis();
+			Set<Questionsofmaterial> questionsofmaterials = materialanalysis
+					.getQuestionsofmaterials();
+			Iterator<Questionsofmaterial> iterator = questionsofmaterials
+					.iterator();
 			while (iterator.hasNext())
 				if (iterator.next().getId() == questionsofmaterial.getId()) {
 					iterator.remove();
 					break;
 				}
-			this.deletById(Questionsofmaterial.class, questionsofmaterial.getId());
+			this.deletById(Questionsofmaterial.class,
+					questionsofmaterial.getId());
 		}
 	}
 
 	@Override
 	public void updateQuestionOfMaterial(Questionsofmaterial questionOfMaterial) {
 		// TODO Auto-generated method stub
-		this.update(questionOfMaterial);
+		String hql = "update Questionsofmaterial as q set q.questionNumber="
+				+ questionOfMaterial.getQuestionNumber() + " where q.id ="
+				+ questionOfMaterial.getId();
+		this.executeUpdate(hql, null);
 	}
 
 	@Override
@@ -87,25 +94,20 @@ public class QuestionOfMaterialDao extends BasicDao implements
 		// TODO Auto-generated method stub
 		String hql = "select max(q.questionNumber) from Questionsofmaterial q where q.materialanalysis.id="
 				+ materiaAnalysisId;
-		Object object=this.uniqueQuery(hql, null);
-		if(object==null)
+		Object object = this.uniqueQuery(hql, null);
+		if (object == null)
 			return 0;
 		else
-		return (Integer)object;
+			return (Integer) object;
 	}
 
 	@Override
 	public List getQuestionOfMaterialByMaterialId(int materialId) {
 		// TODO Auto-generated method stub
 		String hql = "from Questionsofmaterial as q where q.materialanalysis.id="
-				+ materialId+" order by q.questionNumber";
+				+ materialId + " order by q.questionNumber";
 		return this.executeQuery(hql, null);
-				
+
 	}
-
-	
-	
-
-	
 
 }

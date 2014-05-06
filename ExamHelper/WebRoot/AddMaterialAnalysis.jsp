@@ -17,15 +17,14 @@
 	function save() {
 		if (document.getElementById("material").value.trim().length != 0) {
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=addMaterialAnalysis&imageUrl="+getValue();
-			alert(document.getElementById("fom").action)
 			document.getElementById("fom").submit();
 		} else
 			alert("请输入题干");
 
 	}
 	function back() {
-		var sectionName = document.getElementById("sectionName").value;
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=材料分析题&sectionName="
+	var sectionName = document.getElementById("sectionName").value;
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&typeName=材料分析题&sectionName="
 				+ sectionName+"&pageNow="+'${pageNow}';
 		document.getElementById("fom").submit();
 	}
@@ -126,6 +125,7 @@
 								<tr>
 									<td>章节名称:</td>
 									<td><select id="sectionName" name="sectionName">
+											
 														<c:forEach items="${sections}" var="section">
 															<c:choose>
 																<c:when test="${section.sectionName==sectionName}">
@@ -136,6 +136,7 @@
 																</c:otherwise>
 															</c:choose>
 														</c:forEach>
+													
 									</select></td>
 								</tr>
 							</table>
