@@ -4,9 +4,8 @@
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"+ request.getServerName() + ":" + request.getServerPort()+ path + "/";
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
 
 <title>单项选择题</title>
@@ -18,6 +17,7 @@
 	function save() {
 		if (document.getElementById("material").value.trim().length != 0) {
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=addMaterialAnalysis&imageUrl="+getValue();
+			alert(document.getElementById("fom").action)
 			document.getElementById("fom").submit();
 		} else
 			alert("请输入题干");
@@ -49,6 +49,7 @@
 	function addQuestionOfMaterial(){
 	if (document.getElementById("material").value.trim().length != 0) {
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=firstTimeAddQuestionOfMaterial&imageUrl="+getValue();
+			alert(document.getElementById("fom").action)
 			document.getElementById("fom").submit();
 		} else
 			alert("请先完成题干输入");

@@ -62,7 +62,7 @@ window.history.back(-1);
 									<tr>
 										<td>小题编号：</td>
 										<td><input type="text" id="questionNumber"
-											name="questionNumber" value="${questionNumber}"
+											name="questionNumber" value="${quesitonNumber}"
 											readonly="readonly" /><span class="red"> *</span></td>
 									</tr>
 									<tr>

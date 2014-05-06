@@ -168,15 +168,14 @@
 											</fieldset>
 										</c:forEach></td>
 								</tr>
-								<tr>
-									<td><a href="${pageContext.request.contextPath}/materialAnalysis.do?flag=addQuestionOfMaterialUI&materialAnalysisId=${materialAnalysis.id}" style="font-size: small;">添加小题</a></td>
-								</tr>
 							</table>
 
 						</fieldset></td>
 				</tr>
 
-
+				<TR>
+					<TD colspan="2" align="center" height="50px"> </TD>
+				</TR>
 			</TABLE>
 
 		</div>

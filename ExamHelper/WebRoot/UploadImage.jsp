@@ -63,7 +63,7 @@ $(function(){
 <body>
 	<table class="upTable">
 		<tr style="vertical-align: top;">
-			<td style="width: 20%;">
+			<td style="width: 30%;">
 				<form action='${pageContext.request.contextPath}/MaterImageUploadServlet' method='post' enctype='multipart/form-data'>
 					<div class="uploader white">
 						<input type="text" class="filename" readonly="readonly"/>

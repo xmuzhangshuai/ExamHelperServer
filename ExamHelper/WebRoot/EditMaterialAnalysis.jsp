@@ -37,7 +37,7 @@
 				.trim().length != 0) {
 
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=saveQuestionOfMaterial&questionOfMaterialId="
-					+ questionOfMaterialId+"&pageNow="+'${pageNow}';
+					+ questionOfMaterialId;
 
 			document.getElementById("fom").submit();
 		} else
@@ -50,10 +50,11 @@
 		document.getElementById("fom").submit();
 	}
 	function addQuestionOfMaterial(){
-	document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=addQuestionOfMaterialUI&materialAnalysisId="
-				+ '${materialAnalysis.id}';
-
-		document.getElementById("fom").submit();
+	if (document.getElementById("material").value.trim().length != 0) {
+			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=addQuestionOfMaterialUI&materialAnalysisId="+'${materialAnalysis.id}';
+			document.getElementById("fom").submit();
+		} else
+			alert("请先完成题干输入");
 	}
 	function back() {
 		var sectionName = document.getElementById("sectionName").value;
@@ -176,14 +177,13 @@
 							<legend>小题信息</legend>
 							<table>
 								<tr>
-									<td style="width: 1070px; "><c:forEach
-											items="${questionOfMaterials}" var="questionOfMaterial">
+									<td style="width: 1070px; ">
+									<c:forEach	items="${materialAnalysis.questionsofmaterials}" var="questionOfMaterial">
 											<fieldset>
 												<table style="width: 1031px; ">
 													<tr>
 														<td>
 															<table>
-
 																<tr>
 																	<td>小题编号：</td>
 																	<td><input type="text"
@@ -216,20 +216,21 @@
 																	<td><input type="text"
 																		id="score${questionOfMaterial.id}"
 																		name="score${questionOfMaterial.id}"
-																		value="${questionOfMaterial.score}" /></td>
+																		value="${questionOfMaterial.score}" />
+																	</td>
 																</tr>
-
-
 															</table>
 														</td>
-														<td><table>
+														<td>
+															<table>
 																<tr>
 																	<td><a
-																		href="${pageContext.request.contextPath}/materialAnalysis.do?flag=moveQuestionOfMaterial&type=decrease&questionOfMaterialId=${questionOfMaterial.id}&pageNow=${pageNow}">上移</a></td>
+																		href="${pageContext.request.contextPath}/materialAnalysis.do?flag=moveQuestionOfMaterial&type=decrease&questionOfMaterialId=${questionOfMaterial.id}">上移</a></td>
 																	<td><a
-																		href="${pageContext.request.contextPath}/materialAnalysis.do?flag=moveQuestionOfMaterial&type=increase&questionOfMaterialId=${questionOfMaterial.id}&pageNow=${pageNow}">下移</a></td>
+																		href="${pageContext.request.contextPath}/materialAnalysis.do?flag=moveQuestionOfMaterial&type=increase&questionOfMaterialId=${questionOfMaterial.id}">下移</a></td>
 																</tr>
-															</table></td>
+															</table>
+														</td>
 													</tr>
 													<TR>
 														<TD colspan="2" align="center" height="50px"
@@ -238,15 +239,16 @@
 															onclick="saveQuestionOfMaterial('${questionOfMaterial.id}');"
 															class="button" /><input type="button" value="删除"
 															onclick="deleteQuestionOfMaterial('${questionOfMaterial.id}');"
-															class="button" /></TD>
+															class="button" />
+														</TD>
 													</TR>
 												</table>
-
 											</fieldset>
-										</c:forEach></td>
+										</c:forEach>
+										</td>
 								</tr>
 								<tr>
-									<td><a href="${pageContext.request.contextPath}/materialAnalysis.do?flag=addQuestionOfMaterialUI&materialAnalysisId=${materialAnalysis.id}" style="font-size: small;">添加小题</a></td>
+									<td><input type="button"value="添加小题"  onclick="addQuestionOfMaterial();"class="button" style="margin-left: 12px;"/></td>
 								</tr>
 							</table>
 

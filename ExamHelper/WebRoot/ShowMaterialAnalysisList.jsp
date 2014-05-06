@@ -307,10 +307,10 @@ function selectOrUnSelect(){
 
 														</a></td>
 														<td><a
-															href="${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysis&materialAnalysisId=${materialAnalysis.id}&pageNow=${pageNow}">编辑|</a><a
+															href="${pageContext.request.contextPath}/materialAnalysis.do?flag=editMaterialAnalysis&materialAnalysisId=${materialAnalysis.id}&pageNow=${pageNow}">编辑|</a><a
 															href="${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysis&materialAnalysisId=${materialAnalysis.id}">查看|</a>
 															<a
-															href="${pageContext.request.contextPath}/materialAnalysis.do?flag=deleteMaterialAnalysis&materialAnalysisId=${materialAnalysis.id}">删除</a></td>
+															href="${pageContext.request.contextPath}/materialAnalysis.do?flag=deleteMaterialAnalysis&materialAnalysisId=${materialAnalysis.id}&pageNow=${pageNow}">删除</a></td>
 
 													</tr>
 												</c:forEach>

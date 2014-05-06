@@ -311,7 +311,7 @@ function selectOrUnSelect(){
 															href="${pageContext.request.contextPath}/multiChoice.do?flag=editMultiChoice&multiChoiceId=${multiChoice.id}&pageNow=${pageNow}">编辑|</a><a
 															href="${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoice&multiChoiceId=${multiChoice.id}">查看|</a>
 															<a
-															href="${pageContext.request.contextPath}/multiChoice.do?flag=deleteMultiChoice&multiChoiceId=${multiChoice.id}">删除</a></td>
+															href="${pageContext.request.contextPath}/multiChoice.do?flag=deleteMultiChoice&multiChoiceId=${multiChoice.id}&pageNow=${pageNow}">删除</a></td>
 
 													</tr>
 												</c:forEach>

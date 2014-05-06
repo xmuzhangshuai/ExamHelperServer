@@ -87,7 +87,11 @@ public class QuestionOfMaterialDao extends BasicDao implements
 		// TODO Auto-generated method stub
 		String hql = "select max(q.questionNumber) from Questionsofmaterial q where q.materialanalysis.id="
 				+ materiaAnalysisId;
-		return (Integer) this.uniqueQuery(hql, null);
+		Object object=this.uniqueQuery(hql, null);
+		if(object==null)
+			return 0;
+		else
+		return (Integer)object;
 	}
 
 	@Override

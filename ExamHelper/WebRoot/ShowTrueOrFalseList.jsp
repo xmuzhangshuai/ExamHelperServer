@@ -319,7 +319,7 @@ function loadSection() {
 															href="${pageContext.request.contextPath}/singleChoice.do?flag=editSingleChoice&singleChoiceId=${singleChoice.id}&pageNow=${pageNow}"><img alt="编辑" class="delete_img" src="./images/edit.png" style="height: 18px;" title="编辑"/>编辑</a><a
 															href="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalse&trueOrFalseId=${trueOrFalse.id}">查看|</a>
 															<a
-															href="${pageContext.request.contextPath}/trueOrFalse.do?flag=deleteTrueOrFalse&trueOrFalseId=${trueOrFalse.id}">删除</a></td>
+															href="${pageContext.request.contextPath}/trueOrFalse.do?flag=deleteTrueOrFalse&trueOrFalseId=${trueOrFalse.id}&pageNow=${pageNow}">删除</a></td>
 
 													</tr>
 												</c:forEach>

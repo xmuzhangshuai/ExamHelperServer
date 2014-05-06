@@ -423,7 +423,8 @@ public class QuestionService {
 	}
 
 	public int addMaterialAnalysisWithReturn(Materialanalysis materialanalysis) {
-		return (Integer)iMaterialAnalysisDao.addReturnId(materialanalysis);
+		int materiaAnalysisId= (Integer)iMaterialAnalysisDao.addReturnId(materialanalysis);
+		return materiaAnalysisId;
 	}
 
 	/**
