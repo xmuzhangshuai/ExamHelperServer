@@ -51,8 +51,9 @@
 	}
 	function loadSection() {
 	  var subjectId=document.getElementById("subjectChoose").value;
-	   if(subjectId!="null"){
-	   document.getElementById("fom").action="${pageContext.request.contextPath}/singleChoice.do?flag=loadSectionList&subjectId="+subjectId;
+	  var questionType=document.getElementById("questionTypeChoose").value
+	   if(subjectId!="null" ){
+	   document.getElementById("fom").action="${pageContext.request.contextPath}/singleChoice.do?flag=loadSectionList&subjectId="+subjectId+"&questionTypeName="+questionType;
 	  document.getElementById("fom").submit();
 	   }
 	}

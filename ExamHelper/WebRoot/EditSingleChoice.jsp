@@ -35,7 +35,7 @@
 
 <body class="ContentBody">
 	<form
-		action="${pageContext.request.contextPath}/singleChoice.do?flag=saveSingleChoice&singleChoiceId=${singleChoice.id}"
+		action="${pageContext.request.contextPath}/singleChoice.do?flag=saveSingleChoice&singleChoiceId=${singleChoice.id}&pageNow=${pageNow}"
 		method="post" enctype="multipart/form-data" name="fom" id="fom"
 		target="mainFrame">
 		<div class="MainDiv">

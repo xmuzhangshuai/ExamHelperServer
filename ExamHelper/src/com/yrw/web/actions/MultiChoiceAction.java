@@ -67,12 +67,18 @@ public class MultiChoiceAction extends DispatchAction {
 			HttpServletResponse response) {
 
 		String subjectString = request.getParameter("subjectId");
+		String questionTypeNameString=request.getParameter("questionTypeName");
 		int subjectId = 0;
 		if (subjectString != null)
 			if (subjectString.length() > 0) {
 				subjectId = Integer.parseInt(subjectString);
 				request.getSession().setAttribute("subjectId", subjectId);
 			}
+		if(questionTypeNameString!=null)
+			if(questionTypeNameString.length()>0&&!questionTypeNameString.equals("null"))
+				request.setAttribute("questionTypeName", questionTypeNameString);
+		
+		
 		List<Section> sections = sectionService.listSectionBySubject(subjectId);
 		request.setAttribute("sections", sections);
 
@@ -106,7 +112,7 @@ public class MultiChoiceAction extends DispatchAction {
 		Section existSection = sectionService
 				.getSectionBySectionName(sectionName);
 		String pageNowString = request.getParameter("pageNow");
-		
+
 		// 加载科目
 		int subjectId = existSection.getSubject().getId();
 		request.getSession().setAttribute("subjectId", subjectId);
@@ -118,17 +124,17 @@ public class MultiChoiceAction extends DispatchAction {
 		request.setAttribute("questionTypes", questiontypes);
 
 		// 为jsp中的section设置值
-				request.setAttribute("sectionName", sectionName);
-				request.setAttribute("sections",sectionService.listSectionBySubject(subjectId));
+		request.setAttribute("sectionName", sectionName);
+		request.setAttribute("sections",
+				sectionService.listSectionBySubject(subjectId));
 		// 加载章节下的题目
-
 		List collection = questionService.listQuestionBySection(
 				existSection.getId(), pageNowString, typeName);
 
 		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
 		request.setAttribute("pageCount", pageMap.get("pageCount"));
 		request.setAttribute("pageNow", pageMap.get("pageNow"));
-		
+
 		// 设置问题
 
 		if (typeName.equals(DefaultValue.MULTI_CHOICE))
@@ -152,35 +158,65 @@ public class MultiChoiceAction extends DispatchAction {
 			HttpServletResponse response) {
 		int multiChoiceId = Integer.parseInt(request
 				.getParameter("multiChoiceId"));
-		String isEdit = request.getParameter("edit");
 		Multichoice multichoice = (Multichoice) questionService.getQuestion(
 				multiChoiceId, DefaultValue.MULTI_CHOICE);
 		request.setAttribute("multiChoice", multichoice);
 
 		// 获得subject下拉菜单里的所有subject
+		request.setAttribute("subject", multichoice.getSection().getSubject()
+				.getSubName());
+		// 获得下拉菜单里的所有section
+		request.setAttribute("sectionName", multichoice.getSection()
+				.getSectionName());
+		return mapping.findForward("showMultiChoice");
+	}
+
+	/**
+	 * 编辑多项选择题
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward editMultiChoice(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		int multiChoiceId = Integer.parseInt(request
+				.getParameter("multiChoiceId"));
+		Multichoice multichoice = (Multichoice) questionService.getQuestion(
+				multiChoiceId, DefaultValue.MULTI_CHOICE);
+		request.setAttribute("multiChoice", multichoice);
+
+		String pageNowString = request.getParameter("pageNow");
+		if (pageNowString != null)
+			if (pageNowString.length() > 0)
+				request.setAttribute("pageNow", Integer.parseInt(pageNowString));
+
+		// 获得subject下拉菜单里的所有subject
 		int subjectId = (Integer) request.getSession()
 				.getAttribute("subjectId");
 		List<Subject> subjectList = subjectService.getSubjects();
-		request.setAttribute("subjects", subjectList);
+		if (subjectList != null) {
+			request.setAttribute("subjects", subjectList);
+		}
 
 		// 获得下拉菜单里的所有section
 
 		List<Section> sectionList = sectionService
 				.listSectionBySubject(subjectId);
-
 		if (sectionList != null) {
 			request.setAttribute("sectionName", multichoice.getSection()
 					.getSectionName());
 			request.setAttribute("sections", sectionList);
 		}
-		if (isEdit != null) {
-			return mapping.findForward("editMultiChoice");
-		} else
-			return mapping.findForward("showMultiChoice");
+
+		return mapping.findForward("editMultiChoice");
 	}
 
 	/**
-	 * 修该多项选择题
+	 * 保存多项选择题
 	 * 
 	 * @param mapping
 	 * @param form
@@ -189,10 +225,15 @@ public class MultiChoiceAction extends DispatchAction {
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	public ActionForward editMultiChoice(ActionMapping mapping,
+	public ActionForward saveMultiChoice(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws UnsupportedEncodingException {
-
+		// 设置返回页码
+		String pageNowString = request.getParameter("pageNow");
+		if (pageNowString != null)
+			if (pageNowString.length() > 0)
+				request.setAttribute("pageNow", pageNowString);
+		// 存储更改后的多项选择题
 		MultiChoiceForm multiChoiceForm = (MultiChoiceForm) form;
 		int multiChoiceId = Integer.parseInt(request
 				.getParameter("multiChoiceId"));
@@ -243,11 +284,37 @@ public class MultiChoiceAction extends DispatchAction {
 		}
 
 		questionService.updateMultiChoice(multichoice);
-		// 设置在showMultiChoice中要使用参数
+
+		// 获得subject下拉菜单里的所有subject
+		int subjectId = (Integer) request.getSession()
+				.getAttribute("subjectId");
+		List<Subject> subjectList = subjectService.getSubjects();
+		if (subjectList != null) {
+			request.setAttribute("subjects", subjectList);
+		}
+		// 设置section下拉菜单
 		request.setAttribute("sectionName", multichoice.getSection()
 				.getSectionName());
-		request.setAttribute("source", "editMultiChoice");
-		return showMultiChoiceList(mapping, multiChoiceForm, request, response);
+		List<Section> sections = sectionService.listSectionBySubject(subjectId);
+		request.setAttribute("sections", sections);
+		// 设置科目列表
+		request.setAttribute("subjects", subjectService.getSubjects());
+		// 设置题型
+		request.setAttribute("questionTypeName", DefaultValue.MULTI_CHOICE);
+		request.setAttribute("questionTypes",
+				questionService.showQuestiontypes());
+		// 设置题目及页码
+		List collection = questionService.listQuestionBySection(multichoice
+				.getSection().getId(), pageNowString,
+				DefaultValue.SINGLE_CHOICE);
+		// 设置页码
+		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
+		request.setAttribute("pageCount", pageMap.get("pageCount"));
+		request.setAttribute("pageNow", pageMap.get("pageNow"));
+		// 设置单项选择题
+		request.setAttribute("multiChoices",
+				(List<Multichoice>) collection.get(1));
+		return mapping.findForward("showSingleChoiceList");
 
 	}
 
@@ -263,9 +330,13 @@ public class MultiChoiceAction extends DispatchAction {
 	public ActionForward addMultiChoiceUI(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
+		String pageNowString = request.getParameter("pageNow");
+		if (pageNowString != null)
+			if (pageNowString.length() > 0)
+				request.setAttribute("pageNow", Integer.parseInt(pageNowString));
+	
 		int subjectId = (Integer) request.getSession()
 				.getAttribute("subjectId");
-		System.out.println("MultiChoiceAction addMultiChoiceUI " + subjectId);
 		List<Section> sectionList = sectionService
 				.listSectionBySubject(subjectId);
 		List<Subject> subjectList = subjectService.getSubjects();
@@ -327,19 +398,41 @@ public class MultiChoiceAction extends DispatchAction {
 		if (multiChoiceForm.getSectionName() != null) {
 			Section section = sectionService
 					.getSectionBySectionName(multiChoiceForm.getSectionName());
-
 			multichoice.setSection(section);
+			
+			request.getSession().setAttribute("subjectId",
+					section.getSubject().getId());
 		} else {
 			multichoice.setSection(null);
 
 		}
-
 		questionService.addMultiChoice(multichoice);
-		// 设置在showQuestioBySection中要使用参数
+		
+		// 设置subject下拉菜单
+		request.setAttribute("subjects", subjectService.getSubjects());
+		// 设置在section下拉列表
 		request.setAttribute("sectionName", multichoice.getSection()
 				.getSectionName());
-		request.setAttribute("source", "addMultiChoice");
-		return showMultiChoiceList(mapping, multiChoiceForm, request, response);
+		List<Section> sections = sectionService
+				.listSectionBySubject(multichoice.getSection().getSubject()
+						.getId());
+		request.setAttribute("sections", sections);
+		// 设置问题类型下拉菜单
+		request.setAttribute("questionTypeName", DefaultValue.SINGLE_CHOICE);
+		request.setAttribute("questionTypes",
+				questionService.showQuestiontypes());
+		// 设置题目及页码
+
+		List collection = questionService.listQuestionBySection(multichoice
+				.getSection().getId(), null, DefaultValue.SINGLE_CHOICE);
+		// 设置页码
+		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
+		request.setAttribute("pageCount", pageMap.get("pageCount"));
+		request.setAttribute("pageNow", pageMap.get("pageNow"));
+		// 设置单项选择题
+		request.setAttribute("multichoices",
+				(List<Multichoice>) collection.get(1));
+		return mapping.findForward("showMultiChoiceList");
 	}
 
 	/**
@@ -357,22 +450,40 @@ public class MultiChoiceAction extends DispatchAction {
 			HttpServletResponse response) throws UnsupportedEncodingException {
 		int multiChoiceId = Integer.parseInt(request
 				.getParameter("multiChoiceId"));
-
 		Multichoice multichoice = (Multichoice) questionService.getQuestion(
 				multiChoiceId, DefaultValue.MULTI_CHOICE);
-		if (multichoice != null) {
-			request.setAttribute("sectionName", multichoice.getSection()
-					.getSectionName());
-			System.out.println("deleteMultiChoice "
-					+ multichoice.getSection().getSectionName());
-			questionService.deleteQuestion(DefaultValue.MULTI_CHOICE,
-					multichoice);
+		// 设置section下拉框
+		request.setAttribute("sectionName", multichoice.getSection()
+				.getSectionName());
+		request.setAttribute(
+				"sections",
+				sectionService.listSectionBySubject(multichoice.getSection()
+						.getSubject().getId()));
+		// 设置subject下拉框
+		request.setAttribute("subjects", subjectService.getSubjects());
+		// 设置questionType下拉框
+		request.setAttribute("questionTypeName", DefaultValue.MULTI_CHOICE);
+		request.setAttribute("questionTypes",
+				questionService.showQuestiontypes());
 
-		}
+		// 删除该选择题
+		questionService
+				.deleteQuestion(DefaultValue.MULTI_CHOICE, multichoice);
 
-		request.setAttribute("source", "deleteMultiChoice");
+		// 设置页码及问题
+		String pageNowString = request.getParameter("pageNow");
+		List collection = questionService.listQuestionBySection(multichoice
+				.getSection().getId(), pageNowString,
+				DefaultValue.MULTI_CHOICE);
+		// 设置页码
+		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
+		request.setAttribute("pageCount", pageMap.get("pageCount"));
+		request.setAttribute("pageNow", pageMap.get("pageNow"));
+		// 设置单项选择题
+		request.setAttribute("multiChoices",
+				(List<Singlechoice>) collection.get(1));
 
-		return showMultiChoiceList(mapping, null, request, response);
+		return mapping.findForward("showMultiChoiceList");
 
 	}
 }

@@ -67,12 +67,17 @@ public class SingleChoiceAction extends DispatchAction {
 			HttpServletResponse response) {
 
 		String subjectString = request.getParameter("subjectId");
+		String questionTypeNameString=request.getParameter("questionTypeName");
 		int subjectId = 0;
 		if (subjectString != null)
 			if (subjectString.length() > 0) {
 				subjectId = Integer.parseInt(subjectString);
 				request.getSession().setAttribute("subjectId", subjectId);
 			}
+		if(questionTypeNameString!=null)
+			if(questionTypeNameString.length()>0&&!questionTypeNameString.equals("null"))
+				request.setAttribute("questionTypeName", questionTypeNameString);
+		
 		List<Section> sections = sectionService.listSectionBySubject(subjectId);
 		request.setAttribute("sections", sections);
 
@@ -430,10 +435,6 @@ public class SingleChoiceAction extends DispatchAction {
 		// 设置单项选择题
 		request.setAttribute("singleChoices",
 				(List<Singlechoice>) collection.get(1));
-
-		// 删除该选择题
-		questionService
-				.deleteQuestion(DefaultValue.SINGLE_CHOICE, singlechoice);
 
 		return mapping.findForward("showSingleChoiceList");
 

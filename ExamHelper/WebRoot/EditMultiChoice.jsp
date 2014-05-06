@@ -67,7 +67,7 @@
 
 <body class="ContentBody" onload="InitCheckBox();">
 	<form
-		action="${pageContext.request.contextPath}/multiChoice.do?flag=editMultiChoice&multiChoiceId=${multiChoice.id}"
+		action="${pageContext.request.contextPath}/multiChoice.do?flag=saveMultiChoice&multiChoiceId=${multiChoice.id}&pageNow=${pageNow}"
 		method="post" enctype="multipart/form-data" name="fom" id="fom"
 		target="mainFrame">
 		<div class="MainDiv">
