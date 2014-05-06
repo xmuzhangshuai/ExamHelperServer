@@ -20,13 +20,11 @@ import com.yrw.config.DefaultValue;
 import com.yrw.domains.Multichoice;
 import com.yrw.domains.Questiontype;
 import com.yrw.domains.Section;
-import com.yrw.domains.Singlechoice;
 import com.yrw.domains.Subject;
 import com.yrw.service.QuestionService;
 import com.yrw.service.SectionService;
 import com.yrw.service.SubjectService;
 import com.yrw.web.forms.MultiChoiceForm;
-import com.yrw.web.forms.SingleChoiceForm;
 
 /**
  * MyEclipse Struts Creation date: 04-17-2014
@@ -228,11 +226,7 @@ public class MultiChoiceAction extends DispatchAction {
 	public ActionForward saveMultiChoice(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws UnsupportedEncodingException {
-		// 设置返回页码
-		String pageNowString = request.getParameter("pageNow");
-		if (pageNowString != null)
-			if (pageNowString.length() > 0)
-				request.setAttribute("pageNow", pageNowString);
+
 		// 存储更改后的多项选择题
 		MultiChoiceForm multiChoiceForm = (MultiChoiceForm) form;
 		int multiChoiceId = Integer.parseInt(request
@@ -305,8 +299,8 @@ public class MultiChoiceAction extends DispatchAction {
 				questionService.showQuestiontypes());
 		// 设置题目及页码
 		List collection = questionService.listQuestionBySection(multichoice
-				.getSection().getId(), pageNowString,
-				DefaultValue.SINGLE_CHOICE);
+				.getSection().getId(), null,
+				DefaultValue.MULTI_CHOICE);
 		// 设置页码
 		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
 		request.setAttribute("pageCount", pageMap.get("pageCount"));
@@ -314,7 +308,7 @@ public class MultiChoiceAction extends DispatchAction {
 		// 设置单项选择题
 		request.setAttribute("multiChoices",
 				(List<Multichoice>) collection.get(1));
-		return mapping.findForward("showSingleChoiceList");
+		return mapping.findForward("showMultiChoiceList");
 
 	}
 
@@ -418,13 +412,13 @@ public class MultiChoiceAction extends DispatchAction {
 						.getId());
 		request.setAttribute("sections", sections);
 		// 设置问题类型下拉菜单
-		request.setAttribute("questionTypeName", DefaultValue.SINGLE_CHOICE);
+		request.setAttribute("questionTypeName", DefaultValue.MULTI_CHOICE);
 		request.setAttribute("questionTypes",
 				questionService.showQuestiontypes());
 		// 设置题目及页码
 
 		List collection = questionService.listQuestionBySection(multichoice
-				.getSection().getId(), null, DefaultValue.SINGLE_CHOICE);
+				.getSection().getId(), null, DefaultValue.MULTI_CHOICE);
 		// 设置页码
 		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
 		request.setAttribute("pageCount", pageMap.get("pageCount"));
@@ -481,7 +475,7 @@ public class MultiChoiceAction extends DispatchAction {
 		request.setAttribute("pageNow", pageMap.get("pageNow"));
 		// 设置单项选择题
 		request.setAttribute("multiChoices",
-				(List<Singlechoice>) collection.get(1));
+				(List<Multichoice>) collection.get(1));
 
 		return mapping.findForward("showMultiChoiceList");
 

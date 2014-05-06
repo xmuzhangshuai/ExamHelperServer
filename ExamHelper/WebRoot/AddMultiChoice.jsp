@@ -21,20 +21,7 @@
 		document.getElementById("aa").style.display = "";
 	}
 
-	function edit() {
-		var txtN = document.getElementsByTagName("input");
-		for (i = 0; i < txtN.length; i++) {
-			txtN[i].readOnly = false;
-		}
-
-		var txtArea = document.getElementsByTagName("textarea");
-		for (i = 0; i < txtArea.length; i++)
-			txtArea[i].readOnly = false;
-
-		var txtSelect = document.getElementsByTagName("select");
-		for (var i = 0; i < txtSelect.length; i++)
-			txtSelect[i].disabled = false;
-	}
+	
 	function save() {
 
 		if (document.getElementById("questionStem").value.trim().length != 0) {
@@ -61,13 +48,10 @@
 		<div class="MainDiv">
 			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="CContent">
 				<tr>
-					<td height="62" background="./images/nav04.gif"></td>
-				</tr>
-				<tr>
 					<th class="tablestyle_title">多项选择题</th>
 				</tr>
 				<tr>
-					<td><input type="button" value="返回单选题列表"onclick="back();"class="button" /></td>
+					<td><input type="button" value="返回多选题列表"onclick="back();"class="button" /></td>
 				</tr>
 
 				<TR>
@@ -174,30 +158,41 @@
 							<table>
 								<tr>
 									<td>科目名称：</td>
-									<td><select name="subjectName">
-											<c:forEach items="${subjects}" var="item">
-												<option>${item.subName}</option>
-											</c:forEach>
-									</select></td>
+									<td><select name="subjectName" id="subjectName"
+													style="width: 243px; ">
+														<c:forEach items="${subjects}" var="subject">
+															<c:choose>
+																<c:when test="${subject.id==subjectId}">
+																	<option value="${subject.subName}" selected="selected">${subject.subName}</option>
+																</c:when>
+																<c:otherwise>
+																	<option value="${subject.subName}">${subject.subName}</option>
+																</c:otherwise>
+															</c:choose>
+														</c:forEach>
+												</select></td>
 								</tr>
 								<tr>
 									<td>章节名称:</td>
 									<td><select id="sectionName" name="sectionName">
-											<c:forEach items="${sections}" var="item">
-												<option>${item.sectionName}</option>
-											</c:forEach>
+											<c:forEach items="${sections}" var="section">
+															<c:choose>
+																<c:when test="${section.sectionName==sectionName}">
+																	<option value="${section.sectionName}" selected="selected">${section.sectionName}</option>
+																</c:when>
+																<c:otherwise>
+																	<option value="${section.sectionName}">${section.sectionName}</option>
+																</c:otherwise>
+															</c:choose>
+														</c:forEach>
 									</select></td>
-									<td><input type="hidden" id="sectionId"
-										value="${section.id}" /></td>
 								</tr>
 							</table>
 						</fieldset></td>
 				</tr>
 				<TR>
-					<TD colspan="2" align="center" height="50px"><input
-						type="button" value="编辑" class="button" style="width: 83px; "
-						onclick="edit();" /> <input type="button" value="保存"
-						type="submit" style="width: 77px;" onclick="save();"
+					<TD colspan="2" align="center" height="50px"> <input type="button" value="保存"
+						type="submit" onclick="save();"
 						class="button" /></TD>
 				</TR>
 			</TABLE>

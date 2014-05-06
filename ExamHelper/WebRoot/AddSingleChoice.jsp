@@ -45,9 +45,6 @@
 			<table width="100%" border="0" cellpadding="0" cellspacing="0"
 				class="CContent">
 				<tr>
-					<td height="62" background="./images/nav04.gif"></td>
-				</tr>
-				<tr>
 					<th class="tablestyle_title">单选题</th>
 				</tr>
 				<tr>

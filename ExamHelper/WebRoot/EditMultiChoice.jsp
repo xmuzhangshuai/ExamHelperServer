@@ -188,23 +188,34 @@
 							<table>
 								<tr>
 									<td>科目名称：</td>
-									<td><select name="subjectName">
-											<option selected="selected">${subject.subName}</option>
-											<c:forEach items="${subjects}" var="item">
-												<option>${item.subName}</option>
-											</c:forEach>
-									</select></td>
+									<td><select name="subjectName" id="subjectName"
+													style="width: 243px; ">
+														<c:forEach items="${subjects}" var="subject">
+															<c:choose>
+																<c:when test="${subject.id==subjectId}">
+																	<option value="${subject.subName}" selected="selected">${subject.subName}</option>
+																</c:when>
+																<c:otherwise>
+																	<option value="${subject.subName}">${subject.subName}</option>
+																</c:otherwise>
+															</c:choose>
+														</c:forEach>
+												</select></td>
 								</tr>
 								<tr>
 									<td>章节名称:</td>
 									<td><select id="sectionName" name="sectionName">
-											<option selected="selected">${section.sectionName}</option>
-											<c:forEach items="${sections}" var="item">
-												<option>${item.sectionName}</option>
-											</c:forEach>
+											<c:forEach items="${sections}" var="section">
+															<c:choose>
+																<c:when test="${section.sectionName==sectionName}">
+																	<option value="${section.sectionName}" selected="selected">${section.sectionName}</option>
+																</c:when>
+																<c:otherwise>
+																	<option value="${section.sectionName}">${section.sectionName}</option>
+																</c:otherwise>
+															</c:choose>
+														</c:forEach>
 									</select></td>
-									<td><input type="hidden" id="sectionId"
-										value="${section.sectionName}" /></td>
 								</tr>
 							</table>
 						</fieldset></td>
