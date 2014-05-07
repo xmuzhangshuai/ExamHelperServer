@@ -421,7 +421,8 @@ public class ExamService {
 							.getExamquestions().iterator();
 					while (iterator.hasNext()) {
 						exq = (Examquestion) iterator.next();
-						iExamQuestionDao.updateQuestionNumber(exq.getId(), exq.getQuestionNumber()+1);
+						iExamQuestionDao.updateQuestionNumber(exq.getId(),
+								exq.getQuestionNumber() + 1);
 					}
 					iExamSectionDao.update(nextExamsections.get(i));
 				}
@@ -431,35 +432,45 @@ public class ExamService {
 			examquestions.add(examquestion);
 			examsection.setExamquestions(examquestions);
 			// 修改examsection中的题目数量
-			if(examsection.getQuestionNum()!=null)
-			examsection.setQuestionNum(examsection.getQuestionNum() + 1);
-			else 
+			if (examsection.getQuestionNum() != null)
+				examsection.setQuestionNum(examsection.getQuestionNum() + 1);
+			else
 				examsection.setQuestionNum(1);
-				
+
 			iExamSectionDao.update(examsection);
 		}
 	}
-	/**添加新的试题信息，并返回examination对象
+
+	/**
+	 * 添加新的试题信息，并返回examination对象
+	 * 
 	 * @param examinationForm
 	 */
-	public Examination addExaminationInfor(Examination examination){
-		int examinationId=(Integer)iExaminationDao.addReturnId(examination);
-		examination=iExaminationDao.showExam(examinationId);
+	public Examination addExaminationInfor(Examination examination) {
+		int examinationId = (Integer) iExaminationDao.addReturnId(examination);
+		examination = iExaminationDao.showExam(examinationId);
 		return examination;
 	}
-	/**添加examS
+
+	/**
+	 * 添加examS
+	 * 
 	 * @param examsection
 	 */
-	public void addExamSection(Examsection examsection){
+	public void addExamSection(Examsection examsection) {
 		iExamSectionDao.add(examsection);
 	}
-	/**删除试卷
+
+	/**
+	 * 删除试卷
+	 * 
 	 * @param examination
 	 */
-	public void deleteExamination(int examinationId){
+	public void deleteExamination(int examinationId) {
 		iExaminationDao.deletById(Examination.class, examinationId);
 	}
-	public void deleteExamSection(int examSectionId){
+
+	public void deleteExamSection(int examSectionId) {
 		iExamSectionDao.deletById(Examsection.class, examSectionId);
 	}
 }

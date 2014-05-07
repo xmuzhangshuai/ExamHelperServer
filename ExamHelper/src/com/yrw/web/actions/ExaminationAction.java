@@ -574,8 +574,7 @@ public class ExaminationAction extends DispatchAction {
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
 		int questionId = Integer.parseInt(request.getParameter("questionId"));
-		int examSectionId = (Integer) request.getSession().getAttribute(
-				"examSectionId");
+		int examSectionId = Integer.parseInt(request.getParameter("examSectionId"));
 		// »ñµÃexamSection
 		Examsection examsection = examService.getExamsection(examSectionId);
 		examService.removeExamQuestion(questionId, examSectionId, examsection);
