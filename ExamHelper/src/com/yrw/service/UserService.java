@@ -14,6 +14,24 @@ public class UserService {
 	}
 
 	/**
+	 * 根据邮箱返回用户列表
+	 * @return
+	 */
+	public List<User> getUserListByMail(String mail){
+		List<User> users = new ArrayList<User>();
+		users.add(iUserDao.getUserByMail(mail));
+		return users;
+	}
+	
+	/**
+	 * 根据昵称返回用户列表
+	 * @return
+	 */
+	public List<User> getUserListByNickName(String nickName){
+		return iUserDao.getUserListByName(nickName);
+	}
+	
+	/**
 	 * 用户登录确认
 	 * 
 	 * @param userMail
