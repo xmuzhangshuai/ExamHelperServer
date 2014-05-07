@@ -124,10 +124,8 @@ public class QueryAction extends DispatchAction {
 		List<Query> querieList = new ArrayList<Query>();
 
 		if (type != null) {
-			if (type.equals("按邮箱")) {
-				
-			} else if (type.equals("按昵称")) {
-				
+			if (type.equals("按用户昵称")) {
+				querieList = queryService.getQueryListByName(content);
 			}
 		}
 		request.setAttribute("queryList", querieList);
