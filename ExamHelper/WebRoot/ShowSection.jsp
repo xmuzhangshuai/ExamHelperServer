@@ -53,24 +53,24 @@ function selectOrUnSelect(){
     }
 }
 
-	function link() {
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=addSectionUI";
+	function addSection() {
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=addSectionUI&pageNow="+'${pageNow}';
 		document.getElementById("fom").submit();
 	}
 
 	function delSelected() {
 		var obj = document.fom.elements;
 		var name = /delid\d+/;
-		var list
+		var list="delid0"
 
 		for (var i = 0; i < obj.length; i++) {
 			if (name.test(obj[i].name) == true && obj[i].checked == true)
 				list = list + obj[i].name;
 
 		}
-		document.getElementById("paramsHidden").value = list;
-
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=delSubjectByList&pageNow=${pageNow}";
+		document.getElementById("sectionList").value = list;
+alert(list);
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=delSectionByList&pageNow=${pageNow}";
 		document.getElementById("fom").submit();
 	}
 	function changeSubject() {
@@ -97,7 +97,7 @@ function selectOrUnSelect(){
 
 function deleteSection(sectionId) {
 	scscms_alert("确定要删除该章节吗？","confirm",function(){
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=deleteSection&sectionId="+sectionId;
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=deleteSection&sectionId="+sectionId+"&pageNow="+'${pageNow}';
 		document.getElementById("fom").submit();
 		scscms_alert("删除成功！","ok");
 	},function(){});
@@ -180,9 +180,9 @@ function deleteSection(sectionId) {
 											</span>
 											<input name="Submit" type="button" class="right-button08"
 											value="删除所选章节" onclick="delSelected();" /> <input
-											type="hidden" name="paramsHidden" id="paramsHidden" /> <input
+											type="hidden" name="sectionList" id="sectionList" /> <input
 											name="Submit2" type="button" class="right-button08"
-											value="添加章节" onclick="link();" /></td>
+											value="添加章节" onclick="addSection();" /></td>
 									</tr>
 									<tr>
 										<td height="40" class="font42">

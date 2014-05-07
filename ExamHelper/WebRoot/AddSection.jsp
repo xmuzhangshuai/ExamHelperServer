@@ -16,32 +16,32 @@
 <link rel="stylesheet" rev="stylesheet" href="./css/style.css" type="text/css" media="all" />
 
 <script language="JavaScript" type="text/javascript">
-	function check() {
-		document.getElementById("aa").style.display = "";
+	function back() {
+	alert("back");
+		document.getElementById("fom").action="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId="+'${subjectId}'+"&pageNow="+'${pageNow}';
+		document.getElementById("fom").submit();
 	}
-	function toAddNewSubject() {
-
-		var sectionInfor = document.getElementById("sectionName").value + ","
-				+ ${section.id};
-		document.getElementById("addNewSubject").href = "${pageContext.request.contextPath}/subject.do?flag=addSubjectUI&sectionInfor="
-				+ sectionInfor;
-		alert(document.getElementById("addNewSubject").href)
-		var a = document.getElementById("addNewSubject");
-		a[0].click();
-
+	function save(){
+	alert("save");
+		if(document.getElementById("sectionName").value.trim().length != 0){
+			document.getElementById("fom").action="${pageContext.request.contextPath}/section.do?flag=addSection";
+			document.getElementById("fom").submit();
+		}else
+			alert("请输入章节名称");
 	}
+	
 </script>
 </head>
 
 <body class="ContentBody">
 	<form
-		action="${pageContext.request.contextPath}/section.do?flag=addSection"
-		method="post" enctype="multipart/form-data" name="form"
+		id="fom"
+		method="post" enctype="multipart/form-data" name="fom"
 		target="mainFrame">
 		<div class="MainDiv">
 			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="CContent">
 				<tr>
-					<td height="62" background="./images/nav04.gif"></td>
+					<td height="62"  style="background-image: url('./images/nav04.gif');" ></td>
 				</tr>
 				<tr>
 					<th class="tablestyle_title">增加章节</th>
@@ -64,7 +64,7 @@
 												<td nowrap align="right" width="11%">章节名称:</td>
 												<td width="27%"><input id="sectionName"
 													name="sectionName" type="text" class="text"
-													style="width:154px" value="${section.sectionName}" /></td>
+													style="width:154px" /></td>
 
 												<td align="right" width="25%">&nbsp;</td>
 												<td width="37%">&nbsp;</td>
@@ -77,17 +77,23 @@
 												<td colspan="3">
 													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select
 													name="subjectName">
-														<option selected="selected">${subject.subName}</option>
-														<c:forEach items="${subjects}" var="item">
-															<option>${item.subName}</option>
-														</c:forEach>
+														<c:forEach items="${subjects}" var="subject">
+																		<c:choose>
+																			<c:when test="${subject.id==subjectId}">
+																				<option value="${subject.id}"
+																					selected="selected">${subject.subName}</option>
+																			</c:when>
+																			<c:otherwise>
+																				<option value="${subject.id}">${subject.subName}</option>
+																			</c:otherwise>
+																		</c:choose>
+																	</c:forEach>
 												</select>
 												</td>
 
 											</tr>
 											<tr>
-												<td align="left"><a onclick="toAddNewSubject();"
-													id="addNewSubject">增添新科目</a></td>
+												<td><input type="button" value="添加新科目"  class="button" style="margin-left: 12px;"/></td>
 											</tr>
 										</table>
 
@@ -100,9 +106,9 @@
 
 				<TR>
 					<TD colspan="2" align="center" height="50px"><input
-						type="submit" name="Submit" value="发送" class="button"
-						style="width: 94px; " /> <input type="button" name="Submit2"
-						value="返回" class="button" onclick="window.history.go(-1);"
+						 name="Submit" value="保存" class="button"
+						style="width: 94px; " onclick="save();" /> <input type="button" name="Submit2"
+						value="返回" class="button" onclick="back();"
 						style="width: 94px; " /></TD>
 				</TR>
 			</table>

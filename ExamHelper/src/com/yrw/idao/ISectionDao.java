@@ -75,6 +75,10 @@ public interface ISectionDao extends IBasicDao {
 	 */
 	public void delSection(Section section);
 
+	/**删除多个section
+	 * @param params
+	 */
+	public void delSections(String params);
 	/**
 	 * 增加章节
 	 * 

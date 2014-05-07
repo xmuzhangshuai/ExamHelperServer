@@ -33,16 +33,16 @@ public class SectionService {
 		return iSectionDao.getSectoinByName(sectionName);
 	}
 
-	
-	
 	/**
 	 * @return
 	 */
-	public List<Section> listSectionBySubject(int subjectId){
-	 return	iSectionDao.getSectionListBySubject(subjectId);
+	public List<Section> listSectionBySubject(int subjectId) {
+		return iSectionDao.getSectionListBySubject(subjectId);
 	}
 
-	/**分页显示所有章节
+	/**
+	 * 分页显示所有章节
+	 * 
 	 * @param pageNow
 	 * @return
 	 */
@@ -68,6 +68,36 @@ public class SectionService {
 		return collection;
 	}
 
+	/**获得关于页面的参数
+	 * @param pageNowString
+	 * @param subjectId
+	 * @return
+	 */
+	public Map <String ,Integer> getPageMap(String pageNowString,int subjectId){
+		int pageNow = 1;
+		int pageCount = iSectionDao.getPageCountBySubject(subjectId);
+		if (pageNowString != null) {
+			pageNow = Integer.parseInt(pageNowString);
+			if (pageNow < 1)
+				pageNow = 1;
+			else if (pageNow > pageCount)
+				pageNow = pageCount;
+
+		}
+
+		Map<String, Integer> pageMap = new HashMap<String, Integer>();
+		pageMap.put("pageNow", pageNow);
+		pageMap.put("pageCount", pageCount);
+		return pageMap;
+	}
+	/**获得sectionList
+	 * @return
+	 */
+	public List<Section> getSectionsBySubject(int pageNow,int subjectId){
+		List<Section> sectionList = iSectionDao.getSectionListBySubject(
+				pageNow, subjectId);
+		return sectionList;
+	}
 	/**
 	 * 分页显示某个科目下的章节
 	 * 
@@ -90,7 +120,8 @@ public class SectionService {
 		Map<String, Integer> pageMap = new HashMap<String, Integer>();
 		pageMap.put("pageNow", pageNow);
 		pageMap.put("pageCount", pageCount);
-		List<Section> sectionList = iSectionDao.getSectionListBySubject(pageNow, subjectId);
+		List<Section> sectionList = iSectionDao.getSectionListBySubject(
+				pageNow, subjectId);
 
 		List collection = new ArrayList();
 		collection.add(pageMap);
@@ -116,7 +147,8 @@ public class SectionService {
 	 * @param newSubject
 	 * @param sectionId
 	 */
-	public void updateSection(String sectionNewName, String newSubject, int sectionId) {
+	public void updateSection(String sectionNewName, String newSubject,
+			int sectionId) {
 
 		Section section = iSectionDao.getSectionById(sectionId);
 		section.setSectionName(sectionNewName);
@@ -137,17 +169,15 @@ public class SectionService {
 	 * @param subjectName
 	 * @return boon
 	 */
-	public boolean addSection(String sectionName, String subjectName) {
-		int subjectId = iSubjectDao.getSubjectIdByName(subjectName);
-		Section existSection = iSectionDao.getSectionByNameAndSubId(sectionName, subjectId);
+	public boolean addSection(String sectionName, int  subjectId) {
+		Section existSection = iSectionDao.getSectionByNameAndSubId(
+				sectionName, subjectId);
 		if (existSection == null) {
 			Section section = new Section();
 			section.setSectionName(sectionName);
 			Subject subject = null;
-			subject = iSubjectDao.getSubjectByName(subjectName);
-			if (subject != null) {
+			subject = iSubjectDao.getSubjectById(subjectId);
 				section.setSubject(subject);
-			}
 
 			iSectionDao.add(section);
 			return true;
@@ -155,8 +185,25 @@ public class SectionService {
 			return false;
 	}
 
+	public void deletSectionByList(String idString) {
+		String[] ids = idString.split("delid");
+		String id=new String();
+
+		for (int i = 1; i < ids.length; i++) {
+
+			if (i == ids.length - 1)
+				id = id + ids[i];
+			else
+				id = id + ids[i] + ",";
+
+		}
+		System.out.println("id "+id);
+		iSectionDao.deletAll(id);
+	}
+
 	public void deleteSection(int sectionId) {
-		Section existSection = (Section) iSectionDao.findById(Section.class, sectionId);
+		Section existSection = (Section) iSectionDao.findById(Section.class,
+				sectionId);
 		if (existSection != null) {
 			System.out.println("SectionService:deleteSection" + "存在");
 			iSectionDao.delSection(existSection);

@@ -37,6 +37,7 @@ public class SectionAction extends DispatchAction {
 
 	private SectionService sectionService;
 	private SubjectService subjectService;
+	private Object List;
 
 	public void setSubjectService(SubjectService subjectService) {
 		this.subjectService = subjectService;
@@ -45,8 +46,6 @@ public class SectionAction extends DispatchAction {
 	public void setSectionService(SectionService sectionService) {
 		this.sectionService = sectionService;
 	}
-	
-	
 
 	/**
 	 * 为选择科目时显示所有section
@@ -71,7 +70,6 @@ public class SectionAction extends DispatchAction {
 		request.setAttribute("sections", sectionList);
 
 		request.getSession().removeAttribute("subjectId");
-		
 
 		return mapping.findForward("listSection");
 	}
@@ -89,11 +87,11 @@ public class SectionAction extends DispatchAction {
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
 		// TODO Auto-generated method stub
-		String subjectIdString=request.getParameter("subjectId");
-		int subjectId=1;
-		if(subjectIdString!=null)
-		 subjectId = Integer.parseInt(request.getParameter("subjectId"));
-		
+		String subjectIdString = request.getParameter("subjectId");
+		int subjectId = 0;
+		if (subjectIdString != null)
+			if (subjectIdString.length() > 0)
+				subjectId = Integer.parseInt(request.getParameter("subjectId"));
 
 		String pageNowString = request.getParameter("pageNow");
 		List collection = sectionService.listSectionBySubject(pageNowString,
@@ -107,6 +105,7 @@ public class SectionAction extends DispatchAction {
 		request.setAttribute("sections", sectionList);
 
 		request.getSession().setAttribute("subjectId", subjectId);
+		request.setAttribute("subjects", subjectService.getSubjects());
 
 		return mapping.findForward("listSection");
 	}
@@ -176,6 +175,7 @@ public class SectionAction extends DispatchAction {
 			HttpServletRequest request, HttpServletResponse response) {
 
 		List<Subject> subjectList = subjectService.getSubjects();
+		request.setAttribute("pageNow", request.getParameter("pageNow"));
 
 		request.setAttribute("subjects", subjectList);
 		return mapping.findForward("addSectionUI");
@@ -197,17 +197,62 @@ public class SectionAction extends DispatchAction {
 		SectionForm sectionForm = (SectionForm) form;
 		String sectionName = sectionForm.getSectionName();
 		String subjectName = sectionForm.getSubjectName();
-
-		if (sectionService.addSection(sectionName, subjectName)) {
-			int subjectId = subjectService
-					.getSubjectIdBySubjectName(subjectName);
+		//添加章节信息
+		int subjectId =(Integer) request.getSession().getAttribute("subjectId");
+		if (subjectName != null)
+			if (subjectName.length() > 0)
+				subjectId = Integer.parseInt(subjectName);
+		if (sectionService.addSection(sectionName, subjectId)) {
+			//设置subject下拉菜单
 			request.getSession().setAttribute("subjectId", subjectId);
-			return showSectionListBySubject(mapping, null, request, response);
+			request.setAttribute("subjects", subjectService.getSubjects());
+			//设置题目及页码信息
+			Map<String, Integer>pageMap=sectionService.getPageMap(null, subjectId);
+			request.setAttribute("pageNow", pageMap.get("pageNow"));
+			request.setAttribute("pageCount", pageMap.get("pageCount"));
+			request.setAttribute("sections", sectionService.getSectionsBySubject(pageMap.get("pageNow"), subjectId));
+			return mapping.findForward("listSection");
 		} else {
 
 			request.setAttribute("message", "该章节已存在，请重新创建");
 			return mapping.findForward("fail");
 		}
+	}
+
+	/**
+	 * 删除多个section
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ActionForward delSectionByList(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		String sectionList = request.getParameter("sectionList");
+		if (sectionList != null)
+			if (sectionList.length() > 0)
+				sectionService.deletSectionByList(sectionList);
+
+		String pageNowString = request.getParameter("pageNow");
+		int subjectId = (Integer) request.getSession()
+				.getAttribute("subjectId");
+		// 设置页码
+		Map<String, Integer> pageMap = sectionService.getPageMap(pageNowString,
+				subjectId);
+		request.setAttribute("pageNow", pageMap.get("pageNow"));
+		request.setAttribute("pageCount", pageMap.get("pageCount"));
+		// 设置sections
+		List<Section> sections = sectionService.getSectionsBySubject(
+				pageMap.get("pageNow"), subjectId);
+		request.setAttribute("sections", sections);
+		// 设置subject下拉菜单
+		request.setAttribute("subjects", subjectService.getSubjects());
+
+		return mapping.findForward("listSection");
 	}
 
 	/**
@@ -221,13 +266,27 @@ public class SectionAction extends DispatchAction {
 	 */
 	public ActionForward deleteSection(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
-	
-		System.out.println("删除");
+
 		int sectionId = Integer.parseInt(request.getParameter("sectionId"));
-		
+
 		sectionService.deleteSection(sectionId);
-		
-		return showSectionListBySubject(mapping, null, request, response);
+
+		String pageNowString = request.getParameter("pageNow");
+		int subjectId = (Integer) request.getSession()
+				.getAttribute("subjectId");
+		// 设置页码
+		Map<String, Integer> pageMap = sectionService.getPageMap(pageNowString,
+				subjectId);
+		request.setAttribute("pageNow", pageMap.get("pageNow"));
+		request.setAttribute("pageCount", pageMap.get("pageCount"));
+		// 设置sections
+		List<Section> sections = sectionService.getSectionsBySubject(
+				pageMap.get("pageNow"), subjectId);
+		request.setAttribute("sections", sections);
+		// 设置subject下拉菜单
+		request.setAttribute("subjects", subjectService.getSubjects());
+
+		return mapping.findForward("listSection");
 	}
 
 }

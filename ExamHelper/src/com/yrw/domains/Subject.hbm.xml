@@ -13,19 +13,19 @@
         <property name="subName" type="java.lang.String">
             <column name="sub_name" length="50" not-null="true" />
         </property>
-        <set name="examinations" inverse="true">
+        <set name="examinations" inverse="true" cascade="all-delete-orphan">
             <key>
                 <column name="subject_id" not-null="true" />
             </key>
             <one-to-many class="com.yrw.domains.Examination" />
         </set>
-        <set name="sections" inverse="true">
+        <set name="sections" inverse="true" cascade="all-delete-orphan">
             <key>
                 <column name="subject_id" not-null="true" />
             </key>
             <one-to-many class="com.yrw.domains.Section" />
         </set>
-        <set name="examguidetypes" inverse="true">
+        <set name="examguidetypes" inverse="true" cascade="all-delete-orphan">
             <key>
                 <column name="subject_id" not-null="true" />
             </key>

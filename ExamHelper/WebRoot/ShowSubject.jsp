@@ -116,9 +116,6 @@ function selectOrUnSelect(){
 
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=delSubjectByList&pageNow=${pageNow}";
 		document.getElementById("fom").submit();
-		alert("删除成功");
-		window.parent.frames["leftFrame"].location.reload();
-
 	}
 	function goByPage() {
 		int
