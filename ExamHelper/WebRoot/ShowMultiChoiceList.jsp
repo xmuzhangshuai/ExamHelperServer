@@ -87,16 +87,16 @@ function selectOrUnSelect(){
 	function delSelected() {
 		var obj = document.fom.elements;
 		var name = /delid\d+/;
-		var list
+		var list="delid0";
 
 		for (var i = 0; i < obj.length; i++) {
 			if (name.test(obj[i].name) == true && obj[i].checked == true)
 				list = list + obj[i].name;
 
 		}
-		document.getElementById("paramsHidden").value = list;
-
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=delSubjectByList&pageNow=${pageNow}";
+		document.getElementById("multiChoiceList").value = list;
+  		var sectionName=document.getElementById("sectionChoose").value;
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=delMultiChoiceByList&pageNow="+'${pageNow}'+"&sectionName="+sectionName;
 		document.getElementById("fom").submit();
 	}
 	function keywordSearch() {
@@ -271,7 +271,7 @@ function selectOrUnSelect(){
 											</span>
 											<input name="Submit" type="button" class="right-button08"
 											value="删除所选题目" onclick="delSelected();" /> <input
-											type="hidden" name="paramsHidden" id="paramsHidden" /> <input
+											type="hidden" name="multiChoiceList" id="multiChoiceList" /> <input
 											name="Submit2" type="button" class="right-button08"
 											value="添加多项选择题" onclick="addMultiChoice();" /></td>
 									</tr>

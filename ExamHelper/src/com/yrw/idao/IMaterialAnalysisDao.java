@@ -16,6 +16,10 @@ import com.yrw.domains.Questionsofmaterial;
  */
 public interface IMaterialAnalysisDao extends IBasicDao {
 
+	/**删除多题选择题
+	 * @param params
+	 */
+	public void delMaterialAnalysises(String params);
 	/**通过材料分析题题干得到材料分析题列表
 	 * @param pageNow
 	 * @param stem

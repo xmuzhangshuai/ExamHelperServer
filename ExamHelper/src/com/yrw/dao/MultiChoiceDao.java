@@ -95,6 +95,13 @@ public class MultiChoiceDao extends BasicDao implements IMultiChoiceDao {
 		this.update(multichoice);
 	}
 
+	@Override
+	public void delMultiChoices(String params) {
+		// TODO Auto-generated method stub
+		String hql = "delete from Multichoice where id in (" + params + ")";
+		this.deletAll(hql);
+	}
+
 	
 
 	

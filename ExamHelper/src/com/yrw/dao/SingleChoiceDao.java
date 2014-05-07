@@ -93,4 +93,11 @@ public class SingleChoiceDao extends BasicDao implements ISingleChoiceDao {
 		this.update(singlechoice);
 	}
 
+	@Override
+	public void delSingleChoices(String params) {
+		// TODO Auto-generated method stub
+		String hql = "delete from Singlechoice  where id in (" + params + ")";
+		this.deletAll(hql);
+	}
+
 }

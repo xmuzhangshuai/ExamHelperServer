@@ -118,8 +118,7 @@ function selectOrUnSelect(){
 		document.getElementById("fom").submit();
 	}
 	function goByPage() {
-		int
-		page = document.getElementById("page").value;
+		var page = document.getElementById("page").value;
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=listSubject&pageNow="
 				+ page;
 		document.getElementById("fom").submit();
