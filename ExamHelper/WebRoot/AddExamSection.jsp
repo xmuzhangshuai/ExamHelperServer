@@ -63,10 +63,10 @@
 							<legend>小题信息</legend>
 							<table style="width: 100%">
 								<tr>
-									<td><table id="table">
+									<td><table id="table" cellspacing="10px">
 											<tr>
-												<td>题型类型：</td>
-												<td><select id="questionType" name="questionType">
+												<td width="80px">题型类型：</td>
+												<td><select id="questionType" name="questionType"  style="width: 250px; height: 25px;">
 														<option value="null" selected="selected">请选择题目类型</option>
 														<c:forEach items="${questionTypes}" var="questionType">
 															<option value="${questionType.id}">${questionType.typeName}</option>
@@ -74,16 +74,15 @@
 												</select></td>
 											</tr>
 											<tr>
-												<td>题目要求：</td>
-												<td><textarea rows="" cols="" id="request"
-														name="request" style="width: 299px; height: 65px"></textarea>
-
+												<td width="80px">题目要求：</td>
+												<td><textarea rows="8" cols="80" id="request"
+														name="request"></textarea>
 												</td>
 
 											</tr>
 											<tr>
-												<td>题目分值：</td>
-												<td><input type="text" name="score" id="score" /></td>
+												<td width="80px">题目分值：</td>
+												<td><input type="text" name="score" id="score" style="width: 250px; height: 25px;"/></td>
 											</tr>
 											<tr>
 												<TD colspan="2" align="center" height="50px"><input
