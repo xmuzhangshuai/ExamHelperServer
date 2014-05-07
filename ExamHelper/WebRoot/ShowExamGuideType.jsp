@@ -221,7 +221,7 @@ function search() {
 								<td height="20" ><label>${examGuideType.typeName}</label></td>
 								<td height="20" align="center">
 									<a onclick="goExamGuideList(${examGuideType.id});">
-									<input type="image" src="./images/more.png" style="height: 25px;" title="查看"/>查看</a>
+									<input type="image" src="./images/more.png" style="height: 15px;" title="查看"/>查看</a>
 									<a  onclick="deleteExamType(${pageNow},${examGuideType.id});" style="margin-left: 20px;" id="">
 									<img alt="删除" class="delete_img" src="./images/delete.png" style="height: 15px;" title="删除"/>删除</a>
 								</td>
