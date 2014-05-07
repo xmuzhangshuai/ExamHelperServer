@@ -35,8 +35,8 @@
 	}
 	function back() {
 		var sectionName = document.getElementById("sectionName").value;
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/question.do?flag=showQuestionBySection&typeName=多项选择题&sectionName="
-				+ sectionName;
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=showMultiChoiceList&typeName=多项选择题&sectionName="
+				+ sectionName+"&pageNow="+'${pageNow}';
 		document.getElementById("fom").submit();
 	}
 </script>
