@@ -59,22 +59,17 @@
 
 
 											<tr>
-												<td nowrap align="right" width="11%">章节名称:</td>
-												<td width="27%"><input id="sectionName"
-													name="sectionName" type="text" class="text"
-													style="width:154px" /></td>
-
-												<td align="right" width="25%">&nbsp;</td>
-												<td width="37%">&nbsp;</td>
+												<td  align="center" width="80px">章节名称:</td>
+												<td><input id="sectionName" style="width: 250px; height: 25px;"
+													name="sectionName" type="text" class="text"/></td>
 											</tr>
 
 
 
 											<tr>
-												<td width="11%" align="right" nowrap>所属科目:</td>
-												<td colspan="3">
-													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select
-													name="subjectName">
+												<td width="80px" align="center">所属科目:</td>
+												<td>
+													<select name="subjectName" style="width: 250px; height: 25px;">
 														<c:forEach items="${subjects}" var="subject">
 																		<c:choose>
 																			<c:when test="${subject.id==subjectId}">

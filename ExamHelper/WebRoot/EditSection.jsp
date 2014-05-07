@@ -64,10 +64,10 @@
 
 
 											<tr>
-												<td nowrap align="right" width="11%">章节名称:</td>
-												<td width="27%"><input id="sectionName"
+												<td align="center" width="80px">章节名称:</td>
+												<td><input id="sectionName"
 													name="sectionName" type="text" class="text"
-													style="width:154px" value="${section.sectionName}" /></td>
+													style="width: 250px; height: 25px;" value="${section.sectionName}" /></td>
 
 												<td align="right" width="25%">&nbsp;</td>
 												<td width="37%">&nbsp;</td>
@@ -76,10 +76,9 @@
 
 
 											<tr>
-												<td width="11%" align="right" nowrap>所属科目:</td>
-												<td colspan="3">
-													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select
-													name="subjectName" id="subjectName">
+												<td width="80px" align="center">所属科目:</td>
+												<td>
+													<select name="subjectName" id="subjectName" style="width: 250px; height: 25px;">
 														<c:forEach items="${subjects}" var="subject">
 																		<c:choose>
 																			<c:when test="${subject.id==subjectId}">
