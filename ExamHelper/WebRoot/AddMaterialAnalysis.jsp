@@ -24,7 +24,8 @@
 	}
 	function back() {
 	var sectionName = document.getElementById("sectionName").value;
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&typeName=材料分析题&sectionName="
+	
+	document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&typeName=材料分析题&sectionName="
 				+ sectionName+"&pageNow="+'${pageNow}';
 		document.getElementById("fom").submit();
 	}
