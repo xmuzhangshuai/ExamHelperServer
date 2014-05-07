@@ -99,16 +99,16 @@ function selectOrUnSelect(){
 	function delSelected() {
 		var obj = document.fom.elements;
 		var name = /delid\d+/;
-		var list
+		var list="delid0";
 
 		for (var i = 0; i < obj.length; i++) {
 			if (name.test(obj[i].name) == true && obj[i].checked == true)
 				list = list + obj[i].name;
 
 		}
-		document.getElementById("paramsHidden").value = list;
-
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=delSubjectByList&pageNow=${pageNow}";
+		document.getElementById("materialAnalysisList").value = list;
+ 		var sectionName=document.getElementById("sectionChoose").value;
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=delMaterialAnalysisByList&pageNow="+'${pageNow}'+"&sectionName="+sectionName;
 		document.getElementById("fom").submit();
 	}
 
@@ -150,7 +150,6 @@ function selectOrUnSelect(){
 		var sectionName = document.getElementById("sectionChoose").value;
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysisList&pageNow="
 				+ pageCount + "&sectionName=" + sectionName;
-		alert(document.getElementById("fom").action);
 		document.getElementById("fom").submit();
 	}
 	
@@ -278,7 +277,7 @@ function deleteMater(materId,pageNow) {
 											</span>
 											<input name="Submit" type="button" class="right-button08"
 											value="删除所选题目" onclick="delSelected();" /> <input
-											type="hidden" name="paramsHidden" id="paramsHidden" /> <input
+											type="hidden" name="materialAnalysisList" id="materialAnalysisList" /> <input
 											name="Submit2" type="button" class="right-button08"
 											value="添加材料题" onclick="addMaterialAnalysis();" /></td>
 									</tr>

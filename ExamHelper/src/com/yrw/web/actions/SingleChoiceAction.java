@@ -470,7 +470,7 @@ public class SingleChoiceAction extends DispatchAction {
 		request.setAttribute("sectionName", sectionName);
 		request.setAttribute("sections", sectionService
 				.listSectionBySubject(sectionService.getSectionBySectionName(
-						sectionName).getId()));
+						sectionName).getSubject().getId()));
 		// 设置subject下拉框
 		request.setAttribute("subjects", subjectService.getSubjects());
 		// 设置questionType下拉框

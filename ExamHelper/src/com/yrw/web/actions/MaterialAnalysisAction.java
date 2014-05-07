@@ -733,4 +733,54 @@ public class MaterialAnalysisAction extends DispatchAction {
 		return mapping.findForward("showMaterialAnalysisList");
 
 	}
+	/**删除多道材料分析题
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws UnsupportedEncodingException 
+	 */
+	public ActionForward delMaterialAnalysisByList(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws UnsupportedEncodingException{
+		String idString = request.getParameter("materialAnalysisList");
+		if (idString != null)
+			if (idString.length() > 0)
+				questionService.deletQuestionByList(idString,
+						DefaultValue.MATERIAL_ANALYSIS);
+
+		// 设置section下拉框
+		String sectionName = request.getParameter("sectionName");
+		if (sectionName != null)
+			if (sectionName.length() > 0)
+				sectionName = new String(request.getParameter("sectionName")
+						.getBytes("ISO-8859-1"), "utf-8");
+		request.setAttribute("sectionName", sectionName);
+		request.setAttribute("sections", sectionService
+				.listSectionBySubject(sectionService.getSectionBySectionName(
+						sectionName).getSubject().getId()));
+		// 设置subject下拉框
+		request.setAttribute("subjects", subjectService.getSubjects());
+		// 设置questionType下拉框
+		request.setAttribute("questionTypeName", DefaultValue.MATERIAL_ANALYSIS);
+		request.setAttribute("questionTypes",
+				questionService.showQuestiontypes());
+
+		// 设置页码及问题
+		String pageNowString = request.getParameter("pageNow");
+
+		List collection = questionService.listQuestionBySection(sectionService
+				.getSectionBySectionName(sectionName).getId(), pageNowString,
+				DefaultValue.MATERIAL_ANALYSIS);
+		// 设置页码
+		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
+		request.setAttribute("pageCount", pageMap.get("pageCount"));
+		request.setAttribute("pageNow", pageMap.get("pageNow"));
+		// 设置单项选择题
+		request.setAttribute("materialAnalysises",
+				(List<Materialanalysis>) collection.get(1));
+
+		return mapping.findForward("showMaterialAnalysisList");
+	}
 }
