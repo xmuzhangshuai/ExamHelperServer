@@ -26,7 +26,7 @@
 </script>
 </head>
 
-<body class="ContentBody" >
+<body class="ContentBody" style="line-height: 150%">
 	<form method="post" enctype="multipart/form-data" name="fom" id="fom" target="mainFrame">
 		<div class="MainDiv">
 			<table width="99%" border="0" cellpadding="0" cellspacing="0"
@@ -38,18 +38,15 @@
 					<td><input type="button" value="返回多选题列表" onclick="back();" class="button" /></td>
 				</tr>
 
-
 				<TR>
 					<TD width="100%">
 						<fieldset style="height:100%;">
 							<legend>题干</legend>
 							<table>
 								<tr align="left">
-									<td align="left" width="13%">题干内容:</td>
-									<td style="width: 448px; ">
-									  <textarea rows="" cols=""
-											id="questionStem"  name="questionStem" readonly="readonly"
-											style="width: 376px; height: 100px">${multiChoice.questionStem}
+									<td align="left" width="80px">题干内容:</td>
+									<td>
+									  <textarea rows="8" cols="80" id="questionStem"  name="questionStem" readonly="readonly">${multiChoice.questionStem}
 										</textarea>
 									</td>
 								</tr>
@@ -62,55 +59,54 @@
 				<tr>
 					<td><fieldset>
 							<legend>选项</legend>
-
-							<table>
+							<table width="100%">
 								<tr>
-									<td>
+									<td  width="50%">
 										<table>
 											<tr>
 												<c:if test="${!empty multiChoice.optionA}">
-													<td align="right" width="13%" style="width: 41px; ">选项A:</td>
-													<td width="43%">
+													<td align="left" style="width: 80px; ">选项A:</td>
+													<td>
                                                 		<c:out value="${multiChoice.optionA}"/>
                                                 	</td>
                                                 </c:if>
 											</tr>
 											<tr>
 												<c:if test="${!empty multiChoice.optionB}">
-													<td align="right" width="13%" style="width: 41px; ">选项B:</td>
-													<td width="43%">
+													<td align="left" width="13%" style="width: 80px; ">选项B:</td>
+													<td>
                                                 		<c:out value="${multiChoice.optionB}"/>
                                                 	</td>
                                                 </c:if>
 											</tr>
 											<tr>
 												<c:if test="${!empty multiChoice.optionC}">
-													<td align="right" width="13%" style="width: 41px; ">选项C:</td>
-													<td width="43%">
+													<td align="left" width="13%" style="width: 80px; ">选项C:</td>
+													<td>
                                                 		<c:out value="${multiChoice.optionC}"/>
                                                 	</td>
                                                 </c:if>
 											</tr>
 											<tr>
 												<c:if test="${!empty multiChoice.optionD}">
-													<td align="right" width="13%" style="width: 41px; ">选项D:</td>
-													<td width="43%">
+													<td align="left" width="13%" style="width: 80px; ">选项D:</td>
+													<td>
                                                 		<c:out value="${multiChoice.optionD}"/>
                                                 	</td>
                                                 </c:if>
 											</tr>
 											<tr>
 												<c:if test="${!empty multiChoice.optionE}">
-													<td align="right" width="13%" style="width: 41px; ">选项E:</td>
-													<td width="43%">
+													<td align="left" width="13%" style="width: 80px; ">选项E:</td>
+													<td>
                                                 		<c:out value="${multiChoice.optionE}"/>
                                                 	</td>
                                                 </c:if>
 											</tr>
 											<tr>
 												<c:if test="${!empty multiChoice.optionF}">
-													<td align="right" width="13%" style="width: 41px; ">选项F:</td>
-													<td width="43%">
+													<td align="left" width="13%" style="width: 80px; ">选项F:</td>
+													<td>
                                                 		<c:out value="${multiChoice.optionF}"/>
                                                 	</td>
                                                 </c:if>
@@ -158,10 +154,8 @@
 							<legend>分析</legend>
 							<table>
 								<tr>
-									<td>题目分析</td>
-									<td><textarea id="analysis" cols="" rows=""
-											name="analysis" readonly="readonly"
-											style="height: 119px; width: 394px">${multiChoice.analysis}</textarea></td>
+									<td width="80px">题目分析:</td>
+									<td><textarea id="analysis" cols="80" rows="8" name="analysis" readonly="readonly">${multiChoice.analysis}</textarea></td>
 								</tr>
 							</table>
 						</fieldset>
@@ -174,11 +168,11 @@
 							<legend>所属科目、章节</legend>
 							<table>
 								<tr>
-									<td>科目名称：</td>
+									<td width="80px">科目名称：</td>
 									<td><c:out value="${subject}"/></td>
 								</tr>
 								<tr>
-									<td>章节名称:</td>
+									<td width="80px">章节名称:</td>
 									<td><c:out value="${sectionName}"/></td>
 								</tr>
 							</table>

@@ -28,7 +28,7 @@
 </script>
 </head>
 
-<body class="ContentBody" >
+<body class="ContentBody" style="line-height: 150%">
 	<form method="post" enctype="multipart/form-data" name="fom" id="fom"
 		target="mainFrame">
 		<div class="MainDiv">
@@ -45,17 +45,15 @@
 				<tr>
 					<td width="100%"><fieldset>
 							<legend> 大题信息</legend>
-							<table style="width: 1124px; ">
+							<table style="width: 100%; ">
 								<TR>
 									<TD width="100%">
 										<fieldset style="height:100%;">
 											<table>
 
 												<tr align="left">
-													<td align="left" width="13%" style="width: 58px; ">题干内容:</td>
-													<td style="width: 448px; "><textarea rows="" cols=""
-															id="material" name="material" readonly="readonly"
-															style="width: 729px; height: 100px">${materialAnalysis.material}</textarea><span
+													<td align="left" style="width: 80px; ">题干内容:</td>
+													<td><textarea rows="8" cols="120" id="material" name="material" readonly="readonly" >${materialAnalysis.material}</textarea><span
 														class="red"> *</span></td>
 
 												</tr>
@@ -70,7 +68,7 @@
 									<td><fieldset>
 											<table>
 												<tr>
-													<td>题目图片:</td>
+													<td width="80px">题目图片:</td>
 													<td><img src="${materialAnalysis.materialImage}" alt="" /></td>
 												</tr>
 											</table>
@@ -80,9 +78,8 @@
 									<td><fieldset>
 											<table>
 												<tr>
-													<td>备注内容：</td>
-													<td><textarea name="remark" id="remark" readonly="readonly"
-															style="width: 731px; height: 85px">${materialAnalysis.remark}</textarea></td>
+													<td  width="80px">备注内容：</td>
+													<td><textarea name="remark" id="remark" readonly="readonly" rows="8" cols="120">${materialAnalysis.remark}</textarea></td>
 												</tr>
 											</table>
 
@@ -92,11 +89,11 @@
 									<td><fieldset>
 											<table>
 								<tr>
-									<td>科目名称：</td>
+									<td  width="80px">科目名称：</td>
 									<td><c:out value="${subject}"/></td>
 								</tr>
 								<tr>
-									<td>章节名称:</td>
+									<td  width="80px">章节名称:</td>
 									<td><c:out value="${sectionName}"/></td>
 								</tr>
 							</table>
@@ -114,43 +111,43 @@
 							<legend>小题信息</legend>
 							<table>
 								<tr>
-									<td style="width: 1070px; "><c:forEach
+									<td style="width: 100%; "><c:forEach
 											items="${questionOfMaterials}" var="questionOfMaterial">
 											<fieldset>
-												<table style="width: 1031px; ">
+												<table style="width: 100%; ">
 													<tr>
 														<td>
 															<table>
 
 																<tr>
-																	<td>小题编号：</td>
+																	<td  width="80px">小题编号：</td>
 																	<td><input type="text"
 																		id="questionNumber${questionOfMaterial.id}"
 																		name="questionNumber${questionOfMaterial.id}"
 																		value="${questionOfMaterial.questionNumber}"  readonly="readonly"/></td>
 																</tr>
 																<tr>
-																	<td>小题题干:</td>
+																	<td  width="80px">小题题干:</td>
 																	<td><textarea readonly="readonly"
 																			id="questionStem${questionOfMaterial.id}"
 																			name="questionStem${questionOfMaterial.id}"
-																			style="width: 721px; height: 93px">${questionOfMaterial.questionStem}</textarea></td>
+																			rows="8" cols="120">${questionOfMaterial.questionStem}</textarea></td>
 																</tr>
 																<tr>
-																	<td>小题答案：</td>
+																	<td  width="80px">小题答案：</td>
 																	<td><textarea id="answer${questionOfMaterial.id}" readonly="readonly"
 																			name="answer${questionOfMaterial.id}"
-																			style="width: 723px; height: 98px">${questionOfMaterial.answer}</textarea></td>
+																			rows="8" cols="120">${questionOfMaterial.answer}</textarea></td>
 																</tr>
 																<tr>
-																	<td>小题分析：</td>
-																	<td style="height: 84px; "><textarea
+																	<td  width="80px">小题分析：</td>
+																	<td><textarea
 																			id="analysis${questionOfMaterial.id}" readonly="readonly"
 																			name="analysis${questionOfMaterial.id}"
-																			style="width: 720px; height: 89px">${questionOfMaterial.analysis}</textarea></td>
+																			rows="8" cols="120">${questionOfMaterial.analysis}</textarea></td>
 																</tr>
 																<tr>
-																	<td>小题分值：</td>
+																	<td  width="80px">小题分值：</td>
 																	<td><input type="text"
 																		id="score${questionOfMaterial.id}" readonly="readonly"
 																		name="score${questionOfMaterial.id}"

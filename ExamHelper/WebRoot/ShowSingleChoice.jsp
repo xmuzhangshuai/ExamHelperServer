@@ -40,12 +40,9 @@
 						<fieldset style="height:100%;">
 							<legend>题干</legend>
 							<table>
-
 								<tr align="left">
-									<td align="left" width="13%">题干内容:</td>
-									<td style="width: 448px; "><textarea rows="" cols=""
-											id="questionStem" readonly="readonly" name="questionStem"
-											style="width: 376px; height: 100px">${singleChoice.questionStem}</textarea></td>
+									<td align="left" width="80px">题干内容:</td>
+									<td><textarea rows="8" cols="80"id="questionStem" readonly="readonly" name="questionStem">${singleChoice.questionStem}</textarea></td>
 								</tr>
 							</table>
 							<br />
@@ -58,44 +55,44 @@
 							<legend>选项</legend>
 							<table width="100%">
 								<tr>
-									<td width="80%">
+									<td width="60%">
 										<table width="100%">
 											<tr>
 												<c:if test="${!empty singleChoice.optionA}">
-													<td align="right" width="30%">选项A:</td>
-													<td width="70%">
+													<td align="left" width="80px">选项A:</td>
+													<td>
                                                 		<c:out value="${singleChoice.optionA}"/>
                                                 	</td>
                                                 </c:if>
 											</tr>
 											<tr>
 												<c:if test="${!empty singleChoice.optionB}">
-													<td align="right" width="30%">选项B:</td>
-													<td width="70%">
+													<td align="left" width="80px">选项B:</td>
+													<td>
                                                 		<c:out value="${singleChoice.optionB}"/>
                                                 	</td>
                                                 </c:if>
 											</tr>
 											<tr>
 												<c:if test="${!empty singleChoice.optionC}">
-													<td align="right" width="30%">选项C:</td>
-											    	<td width="70%">
+													<td align="left" width="80px">选项C:</td>
+											    	<td>
                                                 		<c:out value="${singleChoice.optionC}"/>
                                                		 </td>
                                                 </c:if>
 											</tr>
 											<tr>
 												<c:if test="${!empty singleChoice.optionD}">
-													<td align="right" width="30%">选项D:</td>
-													<td width="70%">
+													<td align="left" width="80px">选项D:</td>
+													<td>
                                                 		<c:out value="${singleChoice.optionD}"/>
                                                		 </td>
                                                 </c:if>
 											</tr>
 											<tr>
 												<c:if test="${!empty singleChoice.optionE}">
-													<td align="right" width="30%">选项E:</td>
-													<td width="70%">
+													<td align="left" width="80px">选项E:</td>
+													<td>
                                                 		<c:out value="${singleChoice.optionE}"/>
                                                 	</td>
                                              	</c:if>
@@ -119,10 +116,8 @@
 							<legend>分析</legend>
 							<table>
 								<tr>
-									<td>题目分析</td>
-									<td><textarea id="analysis" cols="" rows=""
-											name="analysis" readonly="readonly"
-											style="height: 119px; width: 394px">${singleChoice.analysis}</textarea></td>
+									<td width="80px">题目分析:</td>
+									<td><textarea id="analysis" cols="80" rows="8" name="analysis" readonly="readonly">${singleChoice.analysis}</textarea></td>
 								</tr>
 							</table>
 						</fieldset></td>
@@ -132,10 +127,8 @@
 							<legend>备注</legend>
 							<table>
 								<tr>
-									<td>题目备注</td>
-									<td><textarea id="remark" cols="" rows=""
-											name="remark" readonly="readonly"
-											style="height: 119px; width: 394px">${singleChoice.remark}</textarea></td>
+									<td width="80px">题目备注:</td>
+									<td><textarea id="remark" cols="80" rows="8"name="remark" readonly="readonly">${singleChoice.remark}</textarea></td>
 								</tr>
 							</table>
 						</fieldset></td>
@@ -145,11 +138,11 @@
 							<legend>所属科目、章节</legend>
 							<table>
 								<tr>
-									<td>科目名称：</td>
+									<td width="80px">科目名称：</td>
 									<td><c:out value="${subject}"/></td>
 								</tr>
 								<tr>
-									<td>章节名称:</td>
+									<td width="80px">章节名称:</td>
 									<td><c:out value="${sectionName}"/></td>
 								</tr>
 							</table>
