@@ -407,11 +407,11 @@ public class MaterialAnalysisAction extends DispatchAction {
 	public ActionForward addMaterialAnalysisUI(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
-//		String pageNowString = request.getParameter("pageNow");
-//		if (pageNowString != null)
-//			if (pageNowString.length() > 0)
-//				request.getSession().setAttribute("pageNow",
-//						Integer.parseInt(pageNowString));
+		String pageNowString = request.getParameter("pageNow");
+		if (pageNowString != null)
+			if (pageNowString.length() > 0)
+				request.getSession().setAttribute("pageNow",
+						Integer.parseInt(pageNowString));
 
 		int subjectId = (Integer) request.getSession()
 				.getAttribute("subjectId");
