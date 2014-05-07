@@ -20,17 +20,6 @@
 	type="text/css" media="all" />
 
 <script language="JavaScript" type="text/javascript">
-	function tishi() {
-		var a = confirm('数据库中保存有该人员基本信息，您可以修改或保留该信息。');
-		if (a != true)
-			return false;
-		window
-				.open(
-						"冲突页.htm",
-						"",
-						"depended=0,alwaysRaised=1,width=800,height=400,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
-	}
-
 	function check() {
 		document.getElementById("aa").style.display = "";
 	}
@@ -70,29 +59,28 @@ window.history.back(-1);
 								<table>
 									
 									<tr>
-										<td>小题编号：</td>
+										<td align="center" width="80px">小题编号：</td>
 										<td><input type="text" id="questionNumber"
 											name="questionNumber" value="${questionOfMaterial.questionNumber}"
 											disabled="disabled" /><span class="red"> *</span></td>
 									</tr>
 									<tr>
-										<td>小题题干:</td>
-										<td><textarea id="questionStem" name="questionStem" 
-												style="width: 304px; height: 93px">${questionOfMaterial.questionStem}</textarea><span
-											class="red"> *</span></td>
+										<td align="center" width="80px">小题题干:</td>
+										<td><textarea cols="80" rows="4" id="questionStem" name="questionStem" >${questionOfMaterial.questionStem}</textarea>
+										<span class="red"> *</span></td>
 									</tr>
 									<tr>
-										<td>小题答案：</td>
+										<td align="center" width="80px">小题答案：</td>
 										<td><textarea name="answer" id="answer"
-												style="width: 302px; height: 98px">${questionOfMaterial.answer}</textarea></td>
+												cols="80" rows="12">${questionOfMaterial.answer}</textarea></td>
 									</tr>
 									<tr>
-										<td>小题分析：</td>
-										<td style="height: 84px; "><textarea id="analysis"
-												name="analysis" style="width: 305px; height: 89px">${questionOfMaterial.analysis}</textarea></td>
+										<td align="center" width="80px">小题分析：</td>
+										<td><textarea id="analysis"
+												name="analysis" cols="80" rows="4">${questionOfMaterial.analysis}</textarea></td>
 									</tr>
 									<tr>
-										<td>小题分值：</td>
+										<td align="center" width="80px">小题分值：</td>
 										<td><input type="text" id="score" name="score" value="${questionOfMaterial.score}" /></td>
 									</tr>
 								</table>

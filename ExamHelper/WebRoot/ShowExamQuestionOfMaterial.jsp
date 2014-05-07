@@ -47,7 +47,7 @@ window.history.back(-1);
 	<form method="post" enctype="multipart/form-data" name="fom" id="fom"
 		target="mainFrame">
 		<div class="MainDiv">
-			<table width="99%" border="0" cellpadding="0" cellspacing="0"
+			<table width="100%" border="0" cellpadding="0" cellspacing="0"
 				class="CContent">
 				<tr>
 					<th class="tablestyle_title">材料分析题小题</th>
@@ -56,7 +56,7 @@ window.history.back(-1);
 					<td><fieldset>
 							<legend>小题</legend>
 							<fieldset>
-								<table>
+								<table cellspacing="10px">
 									<tr>
 										<td width="80px">小题编号：</td>
 										<td><c:out value="${questionOfMaterial.questionNumber}"/><span class="red"> *</span></td>
