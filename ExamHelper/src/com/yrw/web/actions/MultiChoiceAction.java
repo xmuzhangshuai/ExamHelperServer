@@ -503,12 +503,14 @@ public class MultiChoiceAction extends DispatchAction {
 		String sectionName = request.getParameter("sectionName");
 		if (sectionName != null)
 			if (sectionName.length() > 0)
-				sectionName = new String(sectionName
-						.getBytes("ISO-8859-1"), "utf-8");
+				sectionName = new String(sectionName.getBytes("ISO-8859-1"),
+						"utf-8");
 		request.setAttribute("sectionName", sectionName);
-		request.setAttribute("sections", sectionService
-				.listSectionBySubject(sectionService.getSectionBySectionName(
-						sectionName).getId()));
+		request.setAttribute(
+				"sections",
+				sectionService.listSectionBySubject(sectionService
+						.getSectionBySectionName(sectionName).getSubject()
+						.getId()));
 		// 设置subject下拉框
 		request.setAttribute("subjects", subjectService.getSubjects());
 		// 设置questionType下拉框

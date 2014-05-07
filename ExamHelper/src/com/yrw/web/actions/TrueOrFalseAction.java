@@ -19,7 +19,6 @@ import org.apache.struts.actions.DispatchAction;
 import com.yrw.config.DefaultValue;
 import com.yrw.domains.Questiontype;
 import com.yrw.domains.Section;
-import com.yrw.domains.Singlechoice;
 import com.yrw.domains.Subject;
 import com.yrw.domains.Trueorfalse;
 import com.yrw.service.QuestionService;
@@ -250,7 +249,7 @@ public class TrueOrFalseAction extends DispatchAction {
 		request.setAttribute("pageNow", pageMap.get("pageNow"));
 		// 设置单项选择题
 		request.setAttribute("trueOrFalses",
-				(List<Singlechoice>) collection.get(1));
+				(List<Trueorfalse>) collection.get(1));
 		return mapping.findForward("showTrueOrFalseList");
 	}
 
@@ -366,7 +365,7 @@ public class TrueOrFalseAction extends DispatchAction {
 		request.setAttribute("pageNow", pageMap.get("pageNow"));
 		// 设置单项选择题
 		request.setAttribute("trueOrFalses",
-				(List<Singlechoice>) collection.get(1));
+				(List<Trueorfalse>) collection.get(1));
 		return mapping.findForward("showTrueOrFalseList");
 	}
 
@@ -417,8 +416,61 @@ public class TrueOrFalseAction extends DispatchAction {
 				request.setAttribute("pageNow", pageMap.get("pageNow"));
 				// 设置单项选择题
 				request.setAttribute("trueOrFalses",
-						(List<Singlechoice>) collection.get(1));
+						(List<Trueorfalse>) collection.get(1));
 
 				return mapping.findForward("showTrueOrFalseList");
 	}
+	/**
+	 * 删除多题判断题
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+	public ActionForward delTrueOrFalseByList(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws UnsupportedEncodingException {
+		String idString = request.getParameter("trueOrFalseList");
+		if (idString != null)
+			if (idString.length() > 0)
+				questionService.deletQuestionByList(idString,
+						DefaultValue.TRUE_OR_FALSE);
+
+		// 设置section下拉框
+		String sectionName = request.getParameter("sectionName");
+		if (sectionName != null)
+			if (sectionName.length() > 0)
+				sectionName = new String(request.getParameter("sectionName")
+						.getBytes("ISO-8859-1"), "utf-8");
+		request.setAttribute("sectionName", sectionName);
+		request.setAttribute("sections", sectionService
+				.listSectionBySubject(sectionService.getSectionBySectionName(
+						sectionName).getSubject().getId()));
+		// 设置subject下拉框
+		request.setAttribute("subjects", subjectService.getSubjects());
+		// 设置questionType下拉框
+		request.setAttribute("questionTypeName", DefaultValue.TRUE_OR_FALSE);
+		request.setAttribute("questionTypes",
+				questionService.showQuestiontypes());
+
+		// 设置页码及问题
+		String pageNowString = request.getParameter("pageNow");
+
+		List collection = questionService.listQuestionBySection(sectionService
+				.getSectionBySectionName(sectionName).getId(), pageNowString,
+				DefaultValue.TRUE_OR_FALSE);
+		// 设置页码
+		Map<String, Integer> pageMap = (Map<String, Integer>) collection.get(0);
+		request.setAttribute("pageCount", pageMap.get("pageCount"));
+		request.setAttribute("pageNow", pageMap.get("pageNow"));
+		// 设置单项选择题
+		request.setAttribute("trueOrFalses",
+				(List<Trueorfalse>) collection.get(1));
+
+		return mapping.findForward("showTrueOrFalseList");
+	}
+
 }
