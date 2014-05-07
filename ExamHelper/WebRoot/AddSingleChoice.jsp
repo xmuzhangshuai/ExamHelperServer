@@ -60,7 +60,7 @@
 
 								<tr align="left">
 									<td align="left" width="80px">题干内容:</td>
-									<td style="width: 448px; "><textarea rows="8" cols="80"
+									<td><textarea rows="8" cols="80"
 											id="questionStem" name="questionStem"></textarea><span
 										class="red"> *</span></td>
 

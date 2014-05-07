@@ -77,10 +77,8 @@
 							<table>
 
 								<tr align="left">
-									<td align="left" width="13%">题干内容:</td>
-									<td style="width: 448px; "><textarea rows="" cols=""
-											id="material" name="material"
-											style="width: 376px; height: 100px"></textarea><span
+									<td width="80px">题干内容:</td>
+									<td><textarea rows="10" cols="120" id="material" name="material"></textarea><span
 										class="red"> *</span></td>
 
 								</tr>
@@ -106,11 +104,11 @@
 				<tr>
 					<td><fieldset>
 							<legend>所属科目、章节</legend>
-							<table>
+							<table cellspacing="10px;">
 								<tr>
-									<td>科目名称：</td>
+									<td width="80px">科目名称：</td>
 									<td><select name="subjectName" id="subjectName"
-										style="width: 243px; " >
+										style="width: 250px; " >
 											<c:forEach items="${subjects}" var="subject">
 												<c:choose>
 													<c:when test="${subject.id==subjectId}">
@@ -124,8 +122,8 @@
 									</select></td>
 								</tr>
 								<tr>
-									<td>章节名称:</td>
-									<td><select id="sectionName" name="sectionName">
+									<td width="80px">章节名称:</td>
+									<td><select id="sectionName" name="sectionName" style="width: 250px; ">
 											
 														<c:forEach items="${sections}" var="section">
 															<c:choose>
@@ -151,28 +149,28 @@
 								<fieldset>
 									<table>
 										<tr>
-											<td>小题编号：</td>
+											<td width="80px">小题编号：</td>
 											<td><input type="text"
 												id="questionOfMaterial${questionOfMaterial.questionNumber}"
 												readonly="readonly" value="${questionOfMaterial.questionNumber}"" /></td>
 										</tr>
 										<tr>
-											<td>小题题干:</td>
-											<td><textarea
-													id="questionStem${questionOfMaterial.questionNumber}" style="width: 304px; height: 93px">${questionOfMaterial.questionStem}</textarea></td>
+											<td width="80px">小题题干:</td>
+											<td><textarea  rows="8" cols="80"
+													id="questionStem${questionOfMaterial.questionNumber}" >${questionOfMaterial.questionStem}</textarea></td>
 										</tr>
 										<tr>
-											<td>小题答案：</td>
-											<td><textarea
-													id="answer${questionOfMaterial.questionNumber}" style="width: 302px; height: 98px">${questionOfMaterial.answer}</textarea></td>
+											<td width="80px">小题答案：</td>
+											<td><textarea  rows="8" cols="80"
+													id="answer${questionOfMaterial.questionNumber}">${questionOfMaterial.answer}</textarea></td>
 										</tr>
 										<tr>
-										<td>小题分析：</td>
-											<td style="height: 84px; "><textarea
-													id="analysis${questionOfMaterial.questionNumber}" style="width: 305px; height: 89px">${questionOfMaterial.analysis}</textarea></td>
+										<td width="80px">小题分析：</td>
+											<td><textarea  rows="8" cols="80"
+													id="analysis${questionOfMaterial.questionNumber}">${questionOfMaterial.analysis}</textarea></td>
 										</tr>
 										<tr>
-										<td>小题分值：</td>
+										<td width="80px">小题分值：</td>
 											<td><input type="text"
 												id="score${questionOfMaterial.questionNumber}"
 												readonly="readonly" value="${questionOfMaterial.score}"/></td>

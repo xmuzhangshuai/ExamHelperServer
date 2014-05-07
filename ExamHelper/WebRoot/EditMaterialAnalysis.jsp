@@ -84,17 +84,16 @@
 				<tr>
 					<td width="100%"><fieldset>
 							<legend> 大题信息</legend>
-							<table style="width: 1124px; ">
+							<table style="width: 100%; ">
 								<TR>
 									<TD width="100%">
 										<fieldset style="height:100%;">
 											<table>
 
 												<tr align="left">
-													<td align="left" width="13%" style="width: 58px; ">题干内容:</td>
-													<td style="width: 448px; "><textarea rows="" cols=""
-															id="material" name="material"
-															style="width: 729px; height: 100px">${materialAnalysis.material}</textarea><span
+													<td align="left" width="80px">题干内容:</td>
+													<td><textarea rows="10" cols="120"
+															id="material" name="material">${materialAnalysis.material}</textarea><span
 														class="red"> *</span></td>
 
 												</tr>
@@ -109,7 +108,7 @@
 									<td><fieldset>
 											<table>
 												<tr>
-													<td>题目图片:</td>
+													<td width="80px">题目图片:</td>
 													<td><img src="${materialAnalysis.materialImage}" alt="" /></td>
 												</tr>
 											</table>
@@ -119,9 +118,8 @@
 									<td><fieldset>
 											<table>
 												<tr>
-													<td>备注内容：</td>
-													<td><textarea name="remark" id="remark"
-															style="width: 731px; height: 85px">${materialAnalysis.remark}</textarea></td>
+													<td width="80px">备注内容：</td>
+													<td><textarea name="remark" id="remark" rows="8" cols="120">${materialAnalysis.remark}</textarea></td>
 												</tr>
 											</table>
 
@@ -129,11 +127,11 @@
 								</tr>
 								<tr>
 									<td><fieldset>
-											<table>
+											<table cellspacing="10px">
 												<tr>
-													<td>科目名称：</td>
+													<td width="80px">科目名称：</td>
 													<td><select name="subjectName" id="subjectName"
-													style="width: 243px; ">
+													style="width: 250px; ">
 														<c:forEach items="${subjects}" var="subject">
 															<c:choose>
 																<c:when test="${subject.id==subjectId}">
@@ -147,8 +145,8 @@
 												</select></td>
 												</tr>
 												<tr>
-													<td>章节名称:</td>
-													<td><select id="sectionName" name="sectionName">
+													<td width="80px">章节名称:</td>
+													<td><select id="sectionName" name="sectionName" style="width: 250px; ">
 											<c:forEach items="${sections}" var="section">
 															<c:choose>
 																<c:when test="${section.sectionName==sectionName}">
@@ -175,44 +173,44 @@
 				<tr>
 					<td><fieldset>
 							<legend>小题信息</legend>
-							<table>
+							<table width="100%">
 								<tr>
-									<td style="width: 1070px; ">
+									<td style="width: 100%;">
 									<c:forEach	items="${materialAnalysis.questionsofmaterials}" var="questionOfMaterial">
 											<fieldset>
-												<table style="width: 1031px; ">
+												<table style="width: 100%; ">
 													<tr>
 														<td>
-															<table>
+															<table cellspacing="10px;">
 																<tr>
-																	<td>小题编号：</td>
+																	<td width="80px">小题编号：</td>
 																	<td><input type="text"
 																		id="questionNumber${questionOfMaterial.id}"
 																		name="questionNumber${questionOfMaterial.id}"
 																		value="${questionOfMaterial.questionNumber}" /></td>
 																</tr>
 																<tr>
-																	<td>小题题干:</td>
+																	<td width="80px">小题题干:</td>
 																	<td><textarea
 																			id="questionStem${questionOfMaterial.id}"
 																			name="questionStem${questionOfMaterial.id}"
-																			style="width: 721px; height: 93px">${questionOfMaterial.questionStem}</textarea></td>
+																			rows="8" cols="120">${questionOfMaterial.questionStem}</textarea></td>
 																</tr>
 																<tr>
-																	<td>小题答案：</td>
+																	<td width="80px">小题答案：</td>
 																	<td><textarea id="answer${questionOfMaterial.id}"
 																			name="answer${questionOfMaterial.id}"
-																			style="width: 723px; height: 98px">${questionOfMaterial.answer}</textarea></td>
+																			rows="8" cols="120">${questionOfMaterial.answer}</textarea></td>
 																</tr>
 																<tr>
-																	<td>小题分析：</td>
-																	<td style="height: 84px; "><textarea
+																	<td width="80px">小题分析：</td>
+																	<td ><textarea
 																			id="analysis${questionOfMaterial.id}"
 																			name="analysis${questionOfMaterial.id}"
-																			style="width: 720px; height: 89px">${questionOfMaterial.analysis}</textarea></td>
+																			rows="8" cols="120">${questionOfMaterial.analysis}</textarea></td>
 																</tr>
 																<tr>
-																	<td>小题分值：</td>
+																	<td width="80px">小题分值：</td>
 																	<td><input type="text"
 																		id="score${questionOfMaterial.id}"
 																		name="score${questionOfMaterial.id}"
@@ -222,7 +220,7 @@
 															</table>
 														</td>
 														<td>
-															<table>
+															<table cellspacing="10px;">
 																<tr>
 																	<td><a
 																		href="${pageContext.request.contextPath}/materialAnalysis.do?flag=moveQuestionOfMaterial&type=decrease&questionOfMaterialId=${questionOfMaterial.id}">上移</a></td>

@@ -59,7 +59,7 @@ document.getElementById("fom").action = "${pageContext.request.contextPath}/mate
 							<legend>小题</legend>
 
 							<fieldset>
-								<table>
+								<table cellspacing="10px;">
 									
 									<tr>
 										<td>小题编号：</td>
@@ -69,19 +69,16 @@ document.getElementById("fom").action = "${pageContext.request.contextPath}/mate
 									</tr>
 									<tr>
 										<td>小题题干:</td>
-										<td><textarea id="questionStem" name="questionStem"
-												style="width: 304px; height: 93px"></textarea><span
+										<td><textarea id="questionStem" name="questionStem"  rows="8" cols="80"></textarea><span
 											class="red"> *</span></td>
 									</tr>
 									<tr>
 										<td>小题答案：</td>
-										<td><textarea name="answer" id="answer"
-												style="width: 302px; height: 98px"></textarea></td>
+										<td><textarea name="answer" id="answer"  rows="8" cols="80"></textarea></td>
 									</tr>
 									<tr>
 										<td>小题分析：</td>
-										<td style="height: 84px; "><textarea id="analysis"
-												name="analysis" style="width: 305px; height: 89px"></textarea></td>
+										<td><textarea id="analysis" name="analysis"  rows="8" cols="80"></textarea></td>
 									</tr>
 									<tr>
 										<td>小题分值：</td>

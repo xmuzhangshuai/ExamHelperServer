@@ -508,7 +508,6 @@ public class MaterialAnalysisAction extends DispatchAction {
 		Materialanalysis materialanalysis = new Materialanalysis();
 		// 加载materialAnalysis中的属性
 		materialanalysis.setMaterial(materialAnalysisForm.getMaterial());
-		System.out.println(materialAnalysisForm.getMaterial()+" materiaAnalysis");
 		if (imageUrl != null)
 			if (imageUrl.length() > 0)
 				materialanalysis.setMaterialImage(imageUrl);

@@ -169,7 +169,7 @@
 		method="post" enctype="multipart/form-data" name="fom" id="fom"
 		target="mainFrame">
 		<div class="MainDiv">
-			<table width="99%" border="0" cellpadding="0" cellspacing="0"
+			<table width="100%" border="0" cellpadding="0" cellspacing="0"
 				class="CContent">
 				<tr>
 					<th class="tablestyle_title">试卷</th>
@@ -181,27 +181,24 @@
 					<TD width="100%">
 						<fieldset style="height:100%;">
 							<legend>试卷信息</legend>
-							<table>
+							<table >
 								<tr>
 									<td><img name="image" id="examImage"
 										src="./images/ico04.gif" width="8" height="11" /><a href="#"
 										onclick="showExamInfor();">试卷信息</a></td>
 								</tr>
 								<tr>
-									<td><table id="examInfor"
-											style="display: none;width: 100%;">
+									<td><table id="examInfor" cellspacing="10px" style="display: none;width: 100%;">
 											<tr>
 												<td>试卷名称：</td>
 												<td><input type="text" name="examName" id="examName"
 													readonly="readonly" value="${examination.examName}"
-													style="width: 244px; " /></td>
+													style="width: 400px;height: 22px; " /></td>
 											</tr>
 											<tr align="left">
 												<td>科目名称：</td>
 												<td><select name="subjectName" id="subjectName"
-													style="width: 243px; " disabled="disabled">
-
-
+													style="width: 405px;height: 22px;" disabled="disabled">
 														<c:forEach items="${subjects}" var="subject">
 															<c:choose>
 																<c:when test="${subject.id==subjectId}">
@@ -217,20 +214,20 @@
 											<tr>
 												<td>试卷类型：</td>
 												<td><input type="text" name="examType" id="examType"
-													value="${examination.examType}" style="width: 246px; "
+													value="${examination.examType}" style="width: 400px;height: 22px; "
 													readonly="readonly" /></td>
 											</tr>
 											<tr>
 												<td>考试时间：</td>
 												<td><input id="examTime" name="examTime" type="text"
 													readonly="readonly" value="${examination.examTime}"
-													style="width: 248px; " /></td>
+													style="width: 400px;height: 22px; " /></td>
 											</tr>
 											<tr>
 												<td>考试要求：</td>
-												<td style="height: 67px; width: 236px"><textarea
+												<td><textarea
 														id="examRequest" name="examRequest" readonly="readonly"
-														style="width: 245px; height: 56px">${examination.examRequest}</textarea></td>
+														cols="63" rows="4">${examination.examRequest}</textarea></td>
 											</tr>
 
 											<TR>
