@@ -217,12 +217,10 @@ function deleteSingle(singleChoiceId) {
 				<td height="30">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
 						<tr>
-							<td height="62"
-								style="background-image:url('./images/nav04.gif'); ">
-
-								<table width="98%" border="0" align="center" cellpadding="0"
-									cellspacing="0">
+							<td height="62" style="background-image:url('./images/nav04.gif'); ">
+								<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
 												<tr>
+												<td><table><tr>
 													<td width="38">科目：</td>
 													<td ><select
 														name="subjectChoose" id="subjectChoose"
@@ -249,8 +247,6 @@ function deleteSingle(singleChoiceId) {
 																</c:otherwise>
 															</c:choose>
 													</select></td>
-
-
 														<td style="width: 80px;text-align: right;">章节：</td>
 										<td><select id="sectionChoose">
 												<c:choose>
@@ -305,6 +301,7 @@ function deleteSingle(singleChoiceId) {
 												</tr>
 											</table>
 										</td>
+										</tr></table></td>
 						</tr>
 					</table>
 				</td>

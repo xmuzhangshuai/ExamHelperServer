@@ -189,9 +189,9 @@ function deleteMulti(multiId,pageNow) {
 							<td height="62"
 								style="background-image:url('./images/nav04.gif'); ">
 
-								<table width="98%" border="0" align="center" cellpadding="0"
-									cellspacing="0">
+								<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
 									<tr>
+										<td><table><tr>
 										<td width="38">科目：</td>
 										<td style="width: 119px; "><select
 														name="subjectChoose" id="subjectChoose"
@@ -273,6 +273,7 @@ function deleteMulti(multiId,pageNow) {
 									</tr>
 								</table>
 							</td>
+							</tr></table></td>
 						</tr>
 					</table>
 				</td>
