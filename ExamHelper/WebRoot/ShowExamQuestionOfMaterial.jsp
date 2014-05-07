@@ -43,7 +43,7 @@ window.history.back(-1);
 </script>
 </head>
 
-<body class="ContentBody">
+<body class="ContentBody" style="line-height: 150%">
 	<form method="post" enctype="multipart/form-data" name="fom" id="fom"
 		target="mainFrame">
 		<div class="MainDiv">
@@ -55,35 +55,31 @@ window.history.back(-1);
 				<tr>
 					<td><fieldset>
 							<legend>小题</legend>
-
 							<fieldset>
 								<table>
-									
 									<tr>
-										<td>小题编号：</td>
+										<td width="80px">小题编号：</td>
 										<td><c:out value="${questionOfMaterial.questionNumber}"/><span class="red"> *</span></td>
 									</tr>
 									<tr>
-										<td>小题题干:</td>
+										<td width="80px">小题题干:</td>
 										<td><c:out value="${questionOfMaterial.questionStem}"/><span
 											class="red"> *</span></td>
 									</tr>
 									<tr>
-										<td>小题答案：</td>
+										<td width="80px">小题答案：</td>
 										<td><c:out value="${questionOfMaterial.answer}"/></td>
 									</tr>
 									<tr>
-										<td>小题分析：</td>
-										<td style="height: 84px; "><c:out value="${questionOfMaterial.analysis}"/></td>
+										<td width="80px">小题分析：</td>
+										<td><c:out value="${questionOfMaterial.analysis}"/></td>
 									</tr>
 									<tr>
-										<td>小题分值：</td>
+										<td width="80px">小题分值：</td>
 										<td><c:out value="${questionOfMaterial.score}"/></td>
 									</tr>
 								</table>
 							</fieldset>
-
-
 						</fieldset></td>
 				</tr>
 			</TABLE>

@@ -12,26 +12,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
-
 <title>单项选择题</title>
 
-
-<link rel="stylesheet" rev="stylesheet" href="./css/style.css"
-	type="text/css" media="all" />
+<link rel="stylesheet" rev="stylesheet" href="./css/style.css" type="text/css" media="all" />
 <script language="JavaScript" type="text/javascript">
-
 	function back(){
 	window.history.back(-1);
 	}
-	
-	
 </script>
 </head>
 
 <body class="ContentBody" >
-	<form 
-		method="post" enctype="multipart/form-data" name="fom" id="fom"
-		target="mainFrame">
+	<form method="post" enctype="multipart/form-data" name="fom" id="fom" target="mainFrame">
 		<div class="MainDiv">
 			<table width="99%" border="0" cellpadding="0" cellspacing="0"
 				class="CContent" >
@@ -54,9 +46,7 @@
 									<td style="width: 448px; "><textarea rows="" cols=""
 											id="questionStem" readonly="readonly" name="questionStem"
 											style="width: 376px; height: 100px">${singleChoice.questionStem}</textarea></td>
-
 								</tr>
-
 							</table>
 							<br />
 						</fieldset>
@@ -64,56 +54,55 @@
 
 				</TR>
 				<tr>
-					<td><fieldset>
+					<td width="100%"><fieldset>
 							<legend>选项</legend>
-
-							<table>
+							<table width="100%">
 								<tr>
-									<td>
-										<table>
+									<td width="80%">
+										<table width="100%">
 											<tr>
 												<c:if test="${!empty singleChoice.optionA}">
-													<td align="right" width="13%" style="width: 41px; ">选项A:</td>
-													<td width="43%">
+													<td align="right" width="30%">选项A:</td>
+													<td width="70%">
                                                 		<c:out value="${singleChoice.optionA}"/>
                                                 	</td>
                                                 </c:if>
 											</tr>
 											<tr>
 												<c:if test="${!empty singleChoice.optionB}">
-													<td align="right" width="13%" style="width: 41px; ">选项B:</td>
-													<td width="43%">
+													<td align="right" width="30%">选项B:</td>
+													<td width="70%">
                                                 		<c:out value="${singleChoice.optionB}"/>
                                                 	</td>
                                                 </c:if>
 											</tr>
 											<tr>
 												<c:if test="${!empty singleChoice.optionC}">
-													<td align="right" width="13%" style="width: 41px; ">选项C:</td>
-											    	<td width="43%">
+													<td align="right" width="30%">选项C:</td>
+											    	<td width="70%">
                                                 		<c:out value="${singleChoice.optionC}"/>
                                                		 </td>
                                                 </c:if>
 											</tr>
 											<tr>
 												<c:if test="${!empty singleChoice.optionD}">
-													<td align="right" width="13%" style="width: 41px; ">选项D:</td>
-													<td width="43%">
+													<td align="right" width="30%">选项D:</td>
+													<td width="70%">
                                                 		<c:out value="${singleChoice.optionD}"/>
                                                		 </td>
                                                 </c:if>
 											</tr>
 											<tr>
 												<c:if test="${!empty singleChoice.optionE}">
-													<td align="right" width="13%" style="width: 41px; ">选项E:</td>
-													<td width="43%">
+													<td align="right" width="30%">选项E:</td>
+													<td width="70%">
                                                 		<c:out value="${singleChoice.optionE}"/>
                                                 	</td>
                                              	</c:if>
 											</tr>
 										</table>
 									</td>
-									<td><table>
+									<td width="20%"><table>
 											<tr>
 												<td>答案</td>
 												<td><c:out value="${singleChoice.answer}"/></td>

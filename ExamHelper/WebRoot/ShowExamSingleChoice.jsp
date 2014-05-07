@@ -30,18 +30,15 @@
 						"depended=0,alwaysRaised=1,width=800,height=400,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
 	}
 
-	
 	function back(){
 	window.history.back(-1);
 	}
 	
-	
 </script>
 </head>
 
-<body class="ContentBody" >
+<body class="ContentBody" style="line-height: 150%">
 	<form 
-		
 		method="post" enctype="multipart/form-data" name="fom" id="fom"
 		target="mainFrame">
 		<div class="MainDiv">
@@ -59,13 +56,10 @@
 						<fieldset style="height:100%;">
 							<legend>题干</legend>
 							<table>
-
 								<tr align="left">
-									<td align="left">题干内容:</td>
+									<td align="left" width="80px;">题干内容:</td>
 									<td ><c:out value="${singleChoice.questionStem}"/></td>
-
 								</tr>
-
 							</table>
 							<br />
 						</fieldset>
@@ -75,43 +69,41 @@
 				<tr>
 					<td><fieldset>
 							<legend>选项</legend>
-
-							<table>
+							<table width="100%">
 								<tr>
-									<td>
+									<td width="50%">
 										<table>
 											<tr>
-												<td align="left" width="13%" >选项A:</td>
-												<td width="43%"><c:out value="${singleChoice.optionA}"/></td>
+												<td align="left"  width="80px">选项A:</td>
+												<td><c:out value="${singleChoice.optionA}"/></td>
 											</tr>
 											<tr>
-												<td align="left" width="13%" >选项B:</td>
-												<td width="43%"><c:out value="${singleChoice.optionB}"/></td>
+												<td align="left" width="80px">选项B:</td>
+												<td><c:out value="${singleChoice.optionB}"/></td>
 											</tr>
 											<tr>
-												<td align="left" width="13%" >选项C:</td>
-												<td width="43%"><c:out value="${singleChoice.optionC}"/></td>
+												<td align="left" width="80px">选项C:</td>
+												<td><c:out value="${singleChoice.optionC}"/></td>
 											</tr>
 											<c:if test="${!empty singleChoice.optionD}">
 											<tr> 
-												<td align="left" width="13%" >选项D:</td>
-												<td width="43%"><c:out value="${singleChoice.optionD}" /></td>
+												<td align="left" width="80px">选项D:</td>
+												<td><c:out value="${singleChoice.optionD}" /></td>
 											</tr>
 											</c:if>
 											<c:if test="${!empty singleChoice.optionE}">
 											<tr>
-												<td align="right" width="13%" style="width: 41px; ">选项E:</td>
-												<td width="43%"><c:out value="${singleChoice.optionE}"/></td>
+												<td align="left" width="80px">选项E:</td>
+												<td><c:out value="${singleChoice.optionE}"/></td>
 											</tr>
 											</c:if>
 										</table>
 									</td>
 									<td><table>
 											<tr>
-												<td align="right" width="13%">答案</td>
+												<td align="right" width="13%">答案:</td>
 												<td width="43%"><c:out value="${singleChoice.answer}"/></td>
 											</tr>
-
 										</table></td>
 								</tr>
 							</table>
@@ -121,9 +113,9 @@
 				<tr>
 					<td><fieldset>
 							<legend>分析</legend>
-							<table>
+							<table width="100%">
 								<tr>
-									<td >题目分析</td>
+									<td width="80px;">题目分析</td>
 									<td><c:out value="${singleChoice.analysis}"/></td>
 								</tr>
 							</table>

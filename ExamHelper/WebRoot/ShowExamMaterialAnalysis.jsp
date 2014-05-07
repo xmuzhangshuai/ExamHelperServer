@@ -26,7 +26,7 @@
 </script>
 </head>
 
-<body class="ContentBody">
+<body class="ContentBody" style="line-height: 150%">
 	<form method="post" enctype="multipart/form-data" name="fom" id="fom"
 		target="mainFrame">
 		<div class="MainDiv">
@@ -44,7 +44,7 @@
 				<tr>
 					<td width="100%"><fieldset>
 							<legend> 大题信息</legend>
-							<table style="width: 1124px; ">
+							<table style="width: 100%">
 								<TR>
 									<TD width="100%">
 										<fieldset style="height:100%;">
@@ -53,12 +53,9 @@
 												<tr align="left">
 													<td align="left" width="13%" style="width: 58px; ">题干内容:</td>
 													<c:out value="${materialAnalysis.material}"></c:out>
-													<td style="width: 448px; "><span
-														class="red"> *</span></td>
+													<td><span class="red"> *</span></td>
 												</tr>
-
 											</table>
-
 										</fieldset>
 									</TD>
 
@@ -67,7 +64,7 @@
 									<td><fieldset>
 											<table>
 												<tr>
-													<td>题目图片:</td>
+													<td width="80px">题目图片:</td>
 													<td><img src="${materialAnalysis.materialImage}" alt="" /></td>
 												</tr>
 											</table>
@@ -77,9 +74,8 @@
 									<td><fieldset>
 											<table>
 												<tr>
-													<td>备注内容：</td>
-													<td><c:out value="${materialAnalysis.remark}" />
-														</td>
+													<td width="80px">备注内容：</td>
+													<td><c:out value="${materialAnalysis.remark}" /></td>
 												</tr>
 											</table>
 
@@ -89,11 +85,11 @@
 									<td><fieldset>
 											<table>
 												<tr>
-													<td>科目名称：</td>
+													<td width="80px">科目名称：</td>
 													<td><c:out value="${materialAnalysis.section.subject.subName}" /></td>
 												</tr>
 												<tr>
-													<td>章节名称:</td>
+													<td width="80px">章节名称:</td>
 													<td><c:out value="${materialAnalysis.section.sectionName}" /></td>
 
 												</tr>
@@ -109,37 +105,35 @@
 							<legend>小题信息</legend>
 							<table>
 								<tr>
-									<td style="width: 1070px; ">
+									<td style="width: 100%">
 									   <c:forEach
 											items="${materialAnalysis.questionsofmaterials}" var="questionOfMaterial">
 											<fieldset>
-												<table style="width: 1031px; ">
+												<table style="width: 100% ">
 													<tr>
 														<td>
 															<table>
 
 																<tr>
-																	<td>小题编号：</td>
-																	<td><c:out
-																			value="${questionOfMaterial.questionNumber}" /></td>
+																	<td width="80px">小题编号：</td>
+																	<td><c:out value="${questionOfMaterial.questionNumber}" /></td>
 																</tr>
 																
 																<tr>
-																	<td>小题题干:</td>
-																	<td><c:out
-																			value="${questionOfMaterial.questionStem}"></c:out></td>
+																	<td width="80px">小题题干:</td>
+																	<td><c:out value="${questionOfMaterial.questionStem}"></c:out></td>
 																</tr>
 																
 																<tr>
-																	<td>小题答案：</td>
+																	<td width="80px">小题答案：</td>
 																	<td><c:out value="${questionOfMaterial.answer}" /></td>
 																</tr>
 																<tr>
-																	<td>小题分析：</td>
-																	<td style="height: 84px; "><c:out value="${questionOfMaterial.analysis}" /></td>
+																	<td width="80px">小题分析：</td>
+																	<td><c:out value="${questionOfMaterial.analysis}" /></td>
 																</tr>
 																<tr>
-																	<td>小题分值：</td>
+																	<td width="80px">小题分值：</td>
 																	<td><c:out value="${questionOfMaterial.score}" /></td>
 																</tr>
 
