@@ -4,6 +4,7 @@
  */
 package com.yrw.web.actions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -81,6 +82,32 @@ public class UserAction extends DispatchAction {
 		}
 
 		List<User> userList = userService.getUserListByPage(pageNow);
+		request.setAttribute("userList", userList);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("pageNow", pageNow);
+		return mapping.findForward("userInfo");
+	}
+
+	/**
+	 * 查找用户
+	 */
+	public ActionForward searchUser(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		// TODO Auto-generated method stub
+		String type = new String(request.getParameter("type").getBytes("ISO-8859-1"), "utf-8");
+		String content = new String(request.getParameter("content").getBytes("ISO-8859-1"), "utf-8");
+		List<User> userList = new ArrayList<User>();
+		int pageNow = 1;
+		int pageCount = 1;
+
+		if (type != null) {
+			if (type.equals("按邮箱")) {
+				userList = userService.getUserListByMail(content);
+			} else if (type.equals("按昵称")) {
+				userList = userService.getUserListByNickName(content);
+			}
+		}
+
 		request.setAttribute("userList", userList);
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("pageNow", pageNow);

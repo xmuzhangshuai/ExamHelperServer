@@ -61,4 +61,11 @@ public class UserDao extends BasicDao implements IUserDao {
 		return this.executeQueryByPage(hql, null, pageNow);
 	}
 
+	@Override
+	public List<User> getUserListByName(String name) {
+		// TODO Auto-generated method stub
+		String hql = "from User where nickname like\'%" + name  + "%\'";
+		return this.executeQuery(hql, null);
+	}
+
 }

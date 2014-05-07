@@ -64,4 +64,11 @@ public interface IUserDao extends IBasicDao {
 	 * @return
 	 */
 	public User getUserById(int key);
+	
+	/**
+	 * 根据名称返回用户列表
+	 * @param name
+	 * @return
+	 */
+	public List<User> getUserListByName(String name);
 }

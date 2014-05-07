@@ -172,6 +172,17 @@ function freezeSelected(){
 		scscms_alert("冻结成功！","ok");
 	},function(){});
 }
+
+function search() {
+	if(document.getElementById('content').value==undefined || document.getElementById('content').value==null || document.getElementById('content').value=="")
+		scscms_alert("请填写要查询内容！","warn");
+	else {
+		var type = document.getElementById('typeSelect').value;
+		var content = document.getElementById('content').value;
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/user.do?flag=searchUser&type="+type+"&content="+content;
+		document.getElementById("fom").submit();
+	}
+}
 </script>
 </head>
   
@@ -187,16 +198,15 @@ function freezeSelected(){
 							<tr>
 								<td width="21"><img src="./images/ico07.gif" width="20" height="18" /></td>
 								<td width="80">
-									<select>
+									<select id="typeSelect">
 										<option>按邮箱</option>
 										<option>按昵称</option>
-										<option>按地区</option>
 									</select>
 								</td>
 								<td width="300" align="left">
-									<input name="textfield" id="textfield" type="text" size="20" /> 
+									<input name="content" id="content" type="text" size="20" /> 
 									<input name="Submit4" type="button" class="right-button02"
-									       value="查 询" onclick="keywordSearch();" />
+									       value="查 询" onclick="search();" />
 								</td>
 							</tr>
 						</table>

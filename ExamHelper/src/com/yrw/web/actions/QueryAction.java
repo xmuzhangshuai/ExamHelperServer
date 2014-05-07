@@ -4,6 +4,8 @@
  */
 package com.yrw.web.actions;
 
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -90,6 +92,44 @@ public class QueryAction extends DispatchAction {
 		}
 
 		List<Query> querieList = queryService.getJQueryListByPage(pageNow - 1);
+		request.setAttribute("queryList", querieList);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("pageNow", pageNow);
+		return mapping.findForward("querySquare");
+	}
+
+	/**
+	 * 查找疑问
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return ActionForward
+	 */
+	public ActionForward searchQuery(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		String type = null;
+		String content = null;
+		try {
+			content = new String(request.getParameter("content").getBytes("ISO-8859-1"), "utf-8");
+			type = new String(request.getParameter("type").getBytes("ISO-8859-1"), "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int pageNow = 1;
+		int pageCount = 1;
+		List<Query> querieList = new ArrayList<Query>();
+
+		if (type != null) {
+			if (type.equals("按邮箱")) {
+				
+			} else if (type.equals("按昵称")) {
+				
+			}
+		}
 		request.setAttribute("queryList", querieList);
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("pageNow", pageNow);
