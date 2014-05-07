@@ -92,6 +92,8 @@ public class ExaminationAction extends DispatchAction {
 		List<Examination> exmaList = (List<Examination>) collection.get(1);
 		request.setAttribute("examinations", exmaList);
 		request.getSession().removeAttribute("subjectId");
+		// 设置科目下拉菜单
+		request.setAttribute("subjects", subjectService.getSubjects());
 		return mapping.findForward("showExamList");
 	}
 
@@ -110,9 +112,12 @@ public class ExaminationAction extends DispatchAction {
 		String subjectIdString = request.getParameter("subjectId");
 		int subjectId = -1;
 		if (subjectIdString != null) {
-			subjectId = Integer.parseInt(request.getParameter("subjectId"));
+			if (subjectIdString.length() > 0)
+				subjectId = Integer.parseInt(request.getParameter("subjectId"));
+		} else if (request.getAttribute("subjectId") != null) {
+			if (request.getAttribute("subjectId").toString().length() > 0)
+				subjectId = (Integer) request.getAttribute("subjectId");
 		}
-
 		String pageNowString = null;
 		if (request.getParameter("pageNow") != null) {
 			if (request.getParameter("pageNow").length() > 0)
@@ -131,7 +136,9 @@ public class ExaminationAction extends DispatchAction {
 
 			List<Examination> exmaList = (List<Examination>) collection.get(1);
 			request.setAttribute("examinations", exmaList);
+			// 设置科目下拉菜单
 			request.getSession().setAttribute("subjectId", subjectId);
+			request.setAttribute("subjects", subjectService.getSubjects());
 		}
 
 		return mapping.findForward("showExamList");
@@ -168,7 +175,7 @@ public class ExaminationAction extends DispatchAction {
 		Examination examination = examService.getExamination(examinationId);
 		// 设置examination在jsp上的对象
 		request.setAttribute("examination", examination);
-		
+
 		// 设置examination中科目的下拉框
 		List<Subject> subjectList = subjectService.getSubjects();
 		if (subjectList != null && examination != null) {
@@ -591,17 +598,19 @@ public class ExaminationAction extends DispatchAction {
 			HttpServletResponse response) {
 		int examinationId = Integer.parseInt(request
 				.getParameter("examinationId"));
+		Examination examination = examService.getExamination(examinationId);
+		int subjectId = examination.getSubject().getId();
+
 		examService.deleteExamination(examinationId);
 
 		// 设置跳转页面的当前页面
 		String pageNowString = request.getParameter("pageNow");
-		request.setAttribute("pageNow", pageNowString);
+		if (pageNowString != null)
+			if (pageNowString.length() > 0)
+				request.setAttribute("pageNow", pageNowString);
 
-		if (request.getSession().getAttribute("subjectId") == null)
-			return showAllExamList(mapping, form, request, response);
-		else
-			return showExamListBySubject(mapping, form, request, response);
-
+		request.setAttribute("subjectId", subjectId);
+		return showExamListBySubject(mapping, form, request, response);
 	}
 
 	/**

@@ -398,7 +398,6 @@ public class ExamService {
 				break;
 			}
 		}
-		System.out.println(exist);
 		if (!exist) {
 			// 建立examQuestion
 			Examquestion examquestion = new Examquestion();
@@ -432,7 +431,11 @@ public class ExamService {
 			examquestions.add(examquestion);
 			examsection.setExamquestions(examquestions);
 			// 修改examsection中的题目数量
+			if(examsection.getQuestionNum()!=null)
 			examsection.setQuestionNum(examsection.getQuestionNum() + 1);
+			else 
+				examsection.setQuestionNum(1);
+				
 			iExamSectionDao.update(examsection);
 		}
 	}

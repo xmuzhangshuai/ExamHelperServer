@@ -48,7 +48,11 @@ public class ExamQuestionDao extends BasicDao implements IExamQuestionDao {
 		// TODO Auto-generated method stub
 		String hql = "select max(e.questionNumber) from Examquestion as e where e.examsection.id="
 				+ examSectionId;
-		return (Integer) this.uniqueQuery(hql, null);
+		 Object object= this.uniqueQuery(hql, null);
+		 if (object == null)
+				return 0;
+			else
+				return (Integer) object;
 	}
 
 	@Override
