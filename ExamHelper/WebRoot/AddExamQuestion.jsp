@@ -19,14 +19,6 @@
 <link href="./css/css.css" rel="stylesheet" type="text/css" />
 <link href="./css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" language="javascript">
-	function sousuo() {
-		window
-				.open(
-						"gaojisousuo.htm",
-						"",
-						"depended=0,alwaysRaised=1,width=800,height=510,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
-	}
-
 	function search() {
 		var sectionName = document.getElementById("sectionChoose").value;
 		var questionTypeName = '${questionTypeName}';
@@ -59,6 +51,14 @@
 			}
 		}
 	}
+	
+	function selectOrUnSelect(){
+	if(document.getElementById("selectOrNot").checked){
+    	 selectAll();
+    }else{
+    	unselectAll();
+    }
+}
 	function addExistQuestion() {
 		var obj = document.fom.elements;
 		var name = /delid\d+/;
@@ -177,19 +177,17 @@
 
 </head>
 
-<body>
+<body style="line-height: 130%;">
 	<form name="fom" id="fom" method="post" action="" target="mainFrame">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
 				<td height="30">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
 						<tr>
-							<td height="62"
-								style="background-image:url('./images/nav04.gif'); ">
-
-								<table width="98%" border="0" align="center" cellpadding="0"
-									cellspacing="0">
+							<td height="62" style="background-image:url('./images/nav04.gif'); ">
+								<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
 									<tr>
+										<td><table><tr>
 										<td width="38">科目：</td>
 										<td style="width: 119px; "><select name="subjectChoose"
 											id="subjectChoose" onchange="loadSection();"
@@ -198,7 +196,7 @@
 										</select></td>
 
 
-										<td>章节：</td>
+										<td width="80px" align="right">章节：</td>
 										<td><select id="sectionChoose" onchange="search();">
 												<c:choose>
 													<c:when test="${empty sectionName}">
@@ -223,8 +221,7 @@
 												</c:choose>
 										</select></td>
 
-
-										<td>题型：</td>
+										<td width="80px" align="right">题型：</td>
 										<td><select id="questionTypeChoose">
 												<option value="${questionTypeName}" selected="selected">${questionTypeName}</option>
 										</select></td>
@@ -232,6 +229,7 @@
 									</tr>
 								</table>
 							</td>
+							</tr></table></td>
 						</tr>
 					</table>
 				</td>
@@ -240,13 +238,12 @@
 				<td><table id="subtree1" style="DISPLAY: " width="100%"
 						border="0" cellspacing="0" cellpadding="0">
 						<tr>
-							<td><table width="95%" border="0" align="center"
-									cellpadding="0" cellspacing="0">
+							<td><table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
 									<tr>
-
-										<td height="20"><span class="newfont07">选择：<a
-												href="#" class="right-font08" onclick="selectAll();">全选</a>-<a
-												href="#" class="right-font08" onclick="unselectAll();">反选</a></span>
+										<td height="20" style="padding-bottom: 5px;">
+											<span class="newfont07">全选：
+												<input type="checkbox" id="selectOrNot" onchange="selectOrUnSelect()"/>
+											</span>
 											<input name="Submit" type="button" class="right-button08"
 											value="添加所选${questionTypeName}" onclick="addExistQuestion();" /></td>
 									</tr>
@@ -258,22 +255,22 @@
 													<td height="22" colspan="7" align="center"
 														style="font-size:16px">${questionTypeName}列表</td>
 												</tr>
-												<tr bgcolor="#EEEEEE">
-													<td width="4%" align="center" height="30">选择</td>
-													<td width="10%">题目名</td>
-													<td width="12%">操作</td>
+												<tr bgcolor="#EEEEEE" style="font-weight: bold;">
+													<td width="15%" align="center" height="30">选择</td>
+													<td width="65%" align="center">题目名</td>
+													<td width="20%" align="center">操作</td>
 												</tr>
 												<c:forEach items="${questions}" var="question">
 													<tr bgcolor="#FFFFFF">
-														<td height="20"><input type="checkbox"
+														<td height="20" align="center"><input type="checkbox"
 															name="delid${question.id}" value="${question.id}" /></td>
 
 														<c:if test="${questionTypeName=='材料分析题'}">
 															<td><a
 																href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${question.id}&questionTypeName=${questionTypeName}">
 																	<c:set var="testStr" value="${question.material}" /> <c:choose>
-																		<c:when test="${fn:length(testStr) > 50}">
-																			<c:out value="${fn:substring(testStr, 0, 50)}......" />
+																		<c:when test="${fn:length(testStr) > 80}">
+																			<c:out value="${fn:substring(testStr, 0, 80)}......" />
 																		</c:when>
 																		<c:otherwise>
 																			<c:out value="${testStr}" />
@@ -288,8 +285,8 @@
 																href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${question.id}&questionTypeName=${questionTypeName}">
 																	<c:set var="testStr" value="${question.questionStem}" />
 																	<c:choose>
-																		<c:when test="${fn:length(testStr) > 50}">
-																			<c:out value="${fn:substring(testStr, 0, 50)}......" />
+																		<c:when test="${fn:length(testStr) > 80}">
+																			<c:out value="${fn:substring(testStr, 0, 80)}......" />
 																		</c:when>
 																		<c:otherwise>
 																			<c:out value="${testStr}" />
@@ -299,10 +296,11 @@
 
 															</a></td>
 														</c:if>
-														<td><a
-															href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${question.id}&questionTypeName=${questionTypeName}">查看|</a>
-															<a
-															href="${pageContext.request.contextPath}/examination.do?flag=addExamQuestion&questionId=${question.id},">添加</a>
+														<td align="center">
+															<a href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${question.id}&questionTypeName=${questionTypeName}" style="margin-left: 10px;">
+																<img alt="查看" class="delete_img" src="./images/more.png" style="height: 15px;" title="查看"/>查看</a>
+															<a href="${pageContext.request.contextPath}/examination.do?flag=addExamQuestion&questionId=${question.id}" style="margin-left: 10px;">
+																<img alt="添加" class="delete_img" src="./images/add.png" style="height: 15px;" title="添加"/>添加</a>
 														</td>
 
 													</tr>

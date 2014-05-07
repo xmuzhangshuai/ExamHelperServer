@@ -51,19 +51,16 @@
 					<TD width="100%">
 						<fieldset style="height:100%;">
 							<legend>增加科目</legend>
-							<table border="0" cellpadding="2" cellspacing="1"
-								style="width:100%">
-
+							<table border="0" cellpadding="2" cellspacing="1" style="width:100%" >
 								<tr>
-									<td align="right" width="13%">科目名称:</td>
-									<td width="43%"><input name="subName" class="text" id="subName"
-										style="width:250px" type="text" size="40" /> <span
+									<td align="center" width="80px">科目名称:</td>
+									<td><input name="subName" class="text" id="subName"
+										style="width: 250px; height: 25px;" type="text" size="40" /> <span
 										class="red"> *</span></td>
-
 								</tr>
 								<tr>
 									<td><input type="hidden" name="paramsHidden"
-										id="paramsHidden" value=${section }/></td>
+										id="paramsHidden" value="${section}"/></td>
 								</tr>
 							</table>
 							<br />

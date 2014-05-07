@@ -190,13 +190,13 @@
 								<tr>
 									<td><table id="examInfor" cellspacing="10px" style="display: none;width: 100%;">
 											<tr>
-												<td>试卷名称：</td>
+												<td width="60px">试卷名称：</td>
 												<td><input type="text" name="examName" id="examName"
 													readonly="readonly" value="${examination.examName}"
 													style="width: 400px;height: 22px; " /></td>
 											</tr>
 											<tr align="left">
-												<td>科目名称：</td>
+												<td width="60px">科目名称：</td>
 												<td><select name="subjectName" id="subjectName"
 													style="width: 405px;height: 22px;" disabled="disabled">
 														<c:forEach items="${subjects}" var="subject">
@@ -212,19 +212,19 @@
 												</select></td>
 											</tr>
 											<tr>
-												<td>试卷类型：</td>
+												<td width="60px">试卷类型：</td>
 												<td><input type="text" name="examType" id="examType"
 													value="${examination.examType}" style="width: 400px;height: 22px; "
 													readonly="readonly" /></td>
 											</tr>
 											<tr>
-												<td>考试时间：</td>
+												<td width="60px">考试时间：</td>
 												<td><input id="examTime" name="examTime" type="text"
 													readonly="readonly" value="${examination.examTime}"
 													style="width: 400px;height: 22px; " /></td>
 											</tr>
 											<tr>
-												<td>考试要求：</td>
+												<td width="60px">考试要求：</td>
 												<td><textarea
 														id="examRequest" name="examRequest" readonly="readonly"
 														cols="63" rows="4">${examination.examRequest}</textarea></td>
@@ -264,20 +264,16 @@
 									<tr>
 										<td><c:choose>
 												<c:when test="${examSection.questiontype.typeName=='单项选择题'}">
-													<input type="hidden" id="singleChoiceSection"
-														value="${examSection.id}" />
+													<input type="hidden" id="singleChoiceSection" value="${examSection.id}" />
 												</c:when>
 												<c:when test="${examSection.questiontype.typeName=='多项选择题'}">
-													<input type="hidden" id="multiChoiceSection"
-														value="${examSection.id}" />
+													<input type="hidden" id="multiChoiceSection" value="${examSection.id}" />
 												</c:when>
 												<c:when test="${examSection.questiontype.typeName=='判断题'}">
-													<input type="hidden" id="trueOrFalseSection"
-														value="${examSection.id}" />
+													<input type="hidden" id="trueOrFalseSection" value="${examSection.id}" />
 												</c:when>
 												<c:when test="${examSection.questiontype.typeName=='材料分析题'}">
-													<input type="hidden" id="materialAnalysisSection"
-														value="${examSection.id}" />
+													<input type="hidden" id="materialAnalysisSection" value="${examSection.id}" />
 												</c:when>
 											</c:choose></td>
 									</tr>
@@ -285,20 +281,15 @@
 										<td><table id="table${examSection.id}"
 												style="display:none;">
 												<tr>
-													<td>题目要求：</td>
-													<td><textarea rows="" cols=""
-															id="request${examSection.id}"
-															name="request${examSection.id}"
-															style="width: 299px; height: 65px" readonly="readonly">${examSection.request}</textarea>
-
+													<td width="60px">题目要求:</td>
+													<td><textarea cols="63" rows="4" id="request${examSection.id}"
+															name="request${examSection.id}" readonly="readonly">${examSection.request}</textarea>
 													</td>
-
 												</tr>
 												<tr>
-													<td>题目分值：</td>
-													<td><input type="text"
-														value="${examSection.questionScore}"
-														name="score${examSection.id}" id="score${examSection.id}"
+													<td width="60px">题目分值:</td>
+													<td><input type="text" style="width: 400px;height: 22px; " 
+														value="${examSection.questionScore}" name="score${examSection.id}" id="score${examSection.id}"
 														readonly="readonly" /></td>
 												</tr>
 												<tr>
@@ -375,9 +366,6 @@
 										</fieldset>
 									</td>
 								</tr>
-
-
-
 
 								<tr>
 									<td>

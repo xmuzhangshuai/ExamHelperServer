@@ -44,18 +44,16 @@
 					<th class="tablestyle_title">科目修改页面</th>
 				</tr>
 
-
 				<TR>
 					<TD width="100%">
 						<fieldset style="height:100%;">
 							<legend>修改科目</legend>
 							<table border="0" cellpadding="2" cellspacing="1"
 								style="width:100%">
-
 								<tr>
-									<td align="right" width="13%">科目名称:</td>
-									<td width="43%"><input  name="subName" class="text" id="subName"
-										style="width:250px" type="text" size="40" value="${subject.subName}"/> <span
+									<td  align="center" width="80px">科目名称:</td>
+									<td><input  name="subName" class="text" id="subName"
+										style="width: 250px; height: 25px;" type="text" size="40" value="${subject.subName}"/> <span
 										class="red"> *</span></td>
 
 								</tr>
