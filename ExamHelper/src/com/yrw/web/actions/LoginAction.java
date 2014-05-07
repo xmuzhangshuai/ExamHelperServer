@@ -70,8 +70,7 @@ public class LoginAction extends DispatchAction {
 	public ActionForward loadLeft(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		
-		List list = loginService.loadSubjectName();
-		request.getSession().setAttribute("subjects", list);
+		
 		Manager manager=(Manager) request.getSession().getAttribute("managerInfor");
 		request.getSession().setAttribute("managerInfor", manager);
 		return mapping.findForward("loadLeft");

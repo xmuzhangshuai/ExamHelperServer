@@ -14,7 +14,10 @@ import com.yrw.domains.Multichoice;
  */
 public interface IMultiChoiceDao extends IBasicDao {
 	
-	
+	/**删除多题选择题
+	 * @param params
+	 */
+	public void delMultiChoices(String params);
 	/**根据章节得到题目列表
 	 * @param pageNow
 	 * @param sectionId

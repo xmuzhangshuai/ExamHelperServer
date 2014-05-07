@@ -348,6 +348,32 @@ public class QuestionService {
 
 	}
 
+	/**删除多道题目
+	 * @param idString
+	 */
+	public void deletQuestionByList(String idString,String typeName) {
+		String[] ids = idString.split("delid");
+		String id=new String();
+
+		for (int i = 2; i < ids.length; i++) {
+
+			if (i == ids.length - 1)
+				id = id + ids[i];
+			else
+				id = id + ids[i] + ",";
+
+		}
+		if (typeName.equals(DefaultValue.SINGLE_CHOICE))
+			iSingleChoiceDao.delSingleChoices(id);
+
+		else if (typeName.equals(DefaultValue.MULTI_CHOICE))
+			iMultiChoiceDao.delMultiChoices(id);
+
+		else if (typeName.equals(DefaultValue.TRUE_OR_FALSE))
+			iTrueOrFalseDao.delTrueOrFalses(id);
+		else if (typeName.equals(DefaultValue.MATERIAL_ANALYSIS))
+			iMaterialAnalysisDao.delMaterialAnalysises(id);
+	}
 	/**
 	 * 显示问题类型列表，单选题、多选题
 	 * 

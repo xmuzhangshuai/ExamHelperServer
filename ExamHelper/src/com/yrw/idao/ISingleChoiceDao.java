@@ -81,4 +81,9 @@ public interface ISingleChoiceDao extends IBasicDao {
 	 * @param singlechoice
 	 */
 	public void updateSinglechoice(Singlechoice singlechoice);
+	
+	/**删除多题选择题
+	 * @param params
+	 */
+	public void delSingleChoices(String params);
 }

@@ -104,6 +104,7 @@ public class SubjectService {
 				id = id + ids[i] + ",";
 
 		}
+		System.out.println(id+"  ids");
 		iSubjectDao.delSubjects(id);
 	}
 

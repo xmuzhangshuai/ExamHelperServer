@@ -16,7 +16,10 @@ import com.yrw.domains.Trueorfalse;
 public interface ITrueOrFalseDao extends IBasicDao {
 
 
-
+	/**删除多题选择题
+	 * @param params
+	 */
+	public void delTrueOrFalses(String params);
 	
 	/**通过章节得到对于判断题
 	 * @param pageNow

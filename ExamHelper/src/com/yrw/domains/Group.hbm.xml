@@ -28,7 +28,7 @@
         <property name="groupName" type="java.lang.String">
             <column name="group_name" length="64" />
         </property>
-        <set name="groupquestions" inverse="true">
+        <set name="groupquestions" inverse="true" cascade="all-delete-orphan">
             <key>
                 <column name="group_id" not-null="true" />
             </key>

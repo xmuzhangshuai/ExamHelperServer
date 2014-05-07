@@ -128,6 +128,13 @@ public class MaterialAnalysisDao extends BasicDao implements
 		return (Integer) this.uniqueQuery(hql, null);
 	}
 
+	@Override
+	public void delMaterialAnalysises(String params) {
+		// TODO Auto-generated method stub
+		String hql = "delete from Materialanalysis where id in (" + params + ")";
+		this.deletAll(hql);
+	}
+
 	
 
 }

@@ -92,6 +92,13 @@ public class TrueOrFalseDao extends BasicDao implements ITrueOrFalseDao {
 	return (Trueorfalse)this.findById(Trueorfalse.class, trueOrFalseId);
 	}
 
+	@Override
+	public void delTrueOrFalses(String params) {
+		// TODO Auto-generated method stub
+		String hql = "delete from Trueorfalse where id in (" + params + ")";
+		this.deletAll(hql);
+	}
+
 	
 
 	
