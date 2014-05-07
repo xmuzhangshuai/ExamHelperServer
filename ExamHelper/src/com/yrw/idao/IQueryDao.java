@@ -117,4 +117,10 @@ public interface IQueryDao extends IBasicDao {
 	 * @return
 	 */
 	public Query showQuery(int queryId);
+	
+	/**
+	 * 根据用户昵称返回疑问列表
+	 * @return
+	 */
+	public List<Query> getQueryListByName(String name);
 }

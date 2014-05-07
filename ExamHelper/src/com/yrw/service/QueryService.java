@@ -386,4 +386,13 @@ public class QueryService {
 	public void deleteQueryAnswer(int answerId){
 		iAnswerQueryDao.delAnswerQuery(answerId);
 	}
+	
+	/**
+	 * 根据用户昵称查找疑问列表
+	 * @param name
+	 * @return
+	 */
+	public List<Query> getQueryListByName(String name){
+		return iQueryDao.getQueryListByName(name);
+	}
 }

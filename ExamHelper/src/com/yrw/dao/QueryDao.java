@@ -1,6 +1,5 @@
 package com.yrw.dao;
 
-import java.util.Date;
 import java.util.List;
 
 import com.yrw.domains.Query;
@@ -129,5 +128,13 @@ public class QueryDao extends BasicDao implements IQueryDao {
 	 */ 
 	public void modifyQuery(Query query) {
 		this.update(query);
+	}
+
+	@Override
+	public List<Query> getQueryListByName(String name) {
+		// TODO Auto-generated method stub
+		String hql = "from Query where user.nickname like '%" + name
+				+ "%' order by queryTime desc";
+		return this.executeQuery(hql, null);
 	}
 }
