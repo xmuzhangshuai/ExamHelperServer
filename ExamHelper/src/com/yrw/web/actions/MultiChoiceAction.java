@@ -357,6 +357,7 @@ public class MultiChoiceAction extends DispatchAction {
 		MultiChoiceForm multiChoiceForm = (MultiChoiceForm) form;
 		Multichoice multichoice = new Multichoice();
 		multichoice.setQuestionStem(multiChoiceForm.getQuestionStem());
+		multichoice.setAnalysis(multiChoiceForm.getAnalysis());
 		multichoice.setOptionA(multiChoiceForm.getOptionA());
 		multichoice.setOptionB(multiChoiceForm.getOptionB());
 		multichoice.setOptionC(multiChoiceForm.getOptionC());
