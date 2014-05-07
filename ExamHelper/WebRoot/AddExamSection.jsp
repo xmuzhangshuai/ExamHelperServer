@@ -18,7 +18,7 @@
 	type="text/css" media="all" />
 <script language="JavaScript" type="text/javascript">
 	function back() {
-		var examinationId = '${examinatioId}'
+		var examinationId = '${examinationId}'
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=showExamination&examinationId="
 				+ examinationId;
 		document.getElementById("fom").submit();
