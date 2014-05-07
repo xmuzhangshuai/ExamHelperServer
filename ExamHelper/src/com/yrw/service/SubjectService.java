@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.yrw.domains.Section;
 import com.yrw.domains.Subject;
 import com.yrw.idao.ISubjectDao;
 
@@ -58,13 +59,52 @@ public class SubjectService {
 
 		return collection;
 	}
+	/**获得关于页面的参数
+	 * @param pageNowString
+	 * @param subjectId
+	 * @return
+	 */
+	public Map <String ,Integer> getPageMap(String pageNowString){
+		int pageNow = 1;
+		int pageCount = iSubjectDao.getPageCount();
+		if (pageNowString != null) {
+			pageNow = Integer.parseInt(pageNowString);
+			if (pageNow < 1)
+				pageNow = 1;
+			else if (pageNow > pageCount)
+				pageNow = pageCount;
 
+		}
+
+		Map<String, Integer> pageMap = new HashMap<String, Integer>();
+		pageMap.put("pageNow", pageNow);
+		pageMap.put("pageCount", pageCount);
+		return pageMap;
+	}
+	/**获得sectionList
+	 * @return
+	 */
+	public List<Subject> getSubjects(int pageNow){
+		List<Subject> subjectList = iSubjectDao.getSubject(pageNow);
+		return subjectList;
+	}
 	public void deleteSubject(int id) {
 		iSubjectDao.delSubject(id);
 	}
 
-	public void delSubjectByList(String params) {
-		iSubjectDao.delSubjects(params);
+	public void delSubjectByList(String idString) {
+		String[] ids = idString.split("delid");
+		String id=new String();
+
+		for (int i = 2; i < ids.length; i++) {
+
+			if (i == ids.length - 1)
+				id = id + ids[i];
+			else
+				id = id + ids[i] + ",";
+
+		}
+		iSubjectDao.delSubjects(id);
 	}
 
 	

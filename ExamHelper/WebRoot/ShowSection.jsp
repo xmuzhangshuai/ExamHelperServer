@@ -69,7 +69,7 @@ function selectOrUnSelect(){
 
 		}
 		document.getElementById("sectionList").value = list;
-alert(list);
+
 		document.getElementById("fom").action = "${pageContext.request.contextPath}/section.do?flag=delSectionByList&pageNow=${pageNow}";
 		document.getElementById("fom").submit();
 	}
@@ -205,7 +205,7 @@ function deleteSection(sectionId) {
 															<a href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&sectionName=${section.sectionName}">${section.sectionName}</a>
 														</td>
 														<td align="center">
-															<a href="${pageContext.request.contextPath}/section.do?flag=updateSectionUI&sectionId=${section.id}">
+															<a href="${pageContext.request.contextPath}/section.do?flag=updateSectionUI&sectionId=${section.id}&pageNow=${pageNow}">
 																<img alt="编辑" class="delete_img" src="./images/edit.png" style="height: 18px;" title="编辑"/>编辑</a>
 															<a href="${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&sectionName=${section.sectionName}">
 																<img alt="查看" class="delete_img" src="./images/more.png" style="height: 15px;" title="查看"/>查看</a>

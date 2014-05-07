@@ -189,7 +189,7 @@ public class SectionService {
 		String[] ids = idString.split("delid");
 		String id=new String();
 
-		for (int i = 1; i < ids.length; i++) {
+		for (int i = 2; i < ids.length; i++) {
 
 			if (i == ids.length - 1)
 				id = id + ids[i];
@@ -197,16 +197,11 @@ public class SectionService {
 				id = id + ids[i] + ",";
 
 		}
-		System.out.println("id "+id);
-		iSectionDao.deletAll(id);
+		iSectionDao.delSections(id);
 	}
 
 	public void deleteSection(int sectionId) {
-		Section existSection = (Section) iSectionDao.findById(Section.class,
-				sectionId);
-		if (existSection != null) {
-			System.out.println("SectionService:deleteSection" + "´æÔÚ");
-			iSectionDao.delSection(existSection);
-		}
+		
+			iSectionDao.delSection(sectionId);
 	}
 }

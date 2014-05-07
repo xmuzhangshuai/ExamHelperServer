@@ -20,42 +20,32 @@
 
 
 <script language="JavaScript" type="text/javascript">
-	function tishi() {
-		var a = confirm('数据库中保存有该人员基本信息，您可以修改或保留该信息。');
-		if (a != true)
-			return false;
-		window
-				.open(
-						"冲突页.htm",
-						"",
-						"depended=0,alwaysRaised=1,width=800,height=400,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
+	function back(){
+	var subjectId=document.getElementById("subjectName").value;
+		document.getElementById("fom").action="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId="+subjectId+"&pageNow="+'${pageNow}';
+		document.getElementById("fom").submit();
 	}
-
-	function check() {
-		document.getElementById("aa").style.display = "";
-	}
-	function toAddNewSubject() {
-
-		var
-		sectionInfor = document.getElementById("sectionName").value + ","
-				+ ${section.id};
-		document.getElementById("addNewSubject").href = "${pageContext.request.contextPath}/subject.do?flag=addSubjectUI&sectionInfor="+sectionInfor;
-		alert(document.getElementById("addNewSubject").href)
-		var a = document.getElementById("addNewSubject");
-		a[0].click();
-
+	function save(){
+	if(document.getElementById("sectionName").value.trim().length != 0){
+			document.getElementById("fom").action="${pageContext.request.contextPath}/section.do?flag=addSection";
+			document.getElementById("fom").submit();
+		}else
+			alert("请输入章节名称");
 	}
 </script>
 </head>
 
 <body class="ContentBody">
 	<form
-		action="${pageContext.request.contextPath}/section.do?flag=updateSection&sectionId=${section.id}"
-		method="post" enctype="multipart/form-data" name="form"
+		id="fom"
+		method="post" enctype="multipart/form-data" name="fom"
 		target="mainFrame">
 		<div class="MainDiv">
 			<table width="99%" border="0" cellpadding="0" cellspacing="0"
 				class="CContent">
+				<tr>
+					<td height="62" style="background-image: url('./images/nav04.gif');"></td>
+				</tr>
 				<tr>
 					<th class="tablestyle_title">修改章节信息</th>
 				</tr>
@@ -89,19 +79,23 @@
 												<td width="11%" align="right" nowrap>所属科目:</td>
 												<td colspan="3">
 													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select
-													name="subjectName">
-														<option selected="selected">${subject.subName}</option>
-														<c:forEach items="${subjects}" var="item">
-															<option>${item.subName}</option>
-														</c:forEach>
+													name="subjectName" id="subjectName">
+														<c:forEach items="${subjects}" var="subject">
+																		<c:choose>
+																			<c:when test="${subject.id==subjectId}">
+																				<option value="${subject.id}"
+																					selected="selected">${subject.subName}</option>
+																			</c:when>
+																			<c:otherwise>
+																				<option value="${subject.id}">${subject.subName}</option>
+																			</c:otherwise>
+																		</c:choose>
+																	</c:forEach>
 												</select>
 												</td>
 
 											</tr>
-											<tr>
-												<td align="left"><a onclick="toAddNewSubject();"
-													id="addNewSubject">增添新科目</a></td>
-											</tr>
+											
 										</table>
 
 									</fieldset>
@@ -113,8 +107,8 @@
 
 				<TR>
 					<TD colspan="2" align="center" height="50px">
-						<input type="submit" name="Submit" value="发送" class="button"/> 
-						<input type="button" name="Submit2" value="返回" class="button" onclick="window.history.go(-1);"/>
+						<input type="button" name="Submit" value="保存" class="button" onclick="save();"/> 
+						<input type="button" name="Submit2" value="返回" class="button" onclick="back();"/>
 					</TD>
 				</TR>
 			</TABLE>

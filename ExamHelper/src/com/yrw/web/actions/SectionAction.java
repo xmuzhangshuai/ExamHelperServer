@@ -94,14 +94,12 @@ public class SectionAction extends DispatchAction {
 				subjectId = Integer.parseInt(request.getParameter("subjectId"));
 
 		String pageNowString = request.getParameter("pageNow");
-		List collection = sectionService.listSectionBySubject(pageNowString,
-				subjectId);
+		
+		Map<String, Integer> pageMap = sectionService.getPageMap(pageNowString, subjectId);
+		request.setAttribute("pageNow", pageMap.get("pageNow"));
+		request.setAttribute("pageCount", pageMap.get("pageCount"));
 
-		Map<String, Integer> map = (Map<String, Integer>) collection.get(0);
-		request.setAttribute("pageNow", map.get("pageNow"));
-		request.setAttribute("pageCount", map.get("pageCount"));
-
-		List<Section> sectionList = (List<Section>) collection.get(1);
+		List<Section> sectionList =sectionService.getSectionsBySubject(pageMap.get("pageNow"), subjectId);
 		request.setAttribute("sections", sectionList);
 
 		request.getSession().setAttribute("subjectId", subjectId);
@@ -127,6 +125,7 @@ public class SectionAction extends DispatchAction {
 		Section section = sectionService.showSection(sectionId);
 		List<Subject> subjectList = subjectService.getSubjects();
 
+		request.setAttribute("pageNow", request.getParameter("pageNow"));
 		request.setAttribute("section", section);
 		request.setAttribute("subjects", subjectList);
 		return mapping.findForward("updateSectionUI");
@@ -151,15 +150,19 @@ public class SectionAction extends DispatchAction {
 		String sectionName = sectionForm.getSectionName();
 		String subjectName = sectionForm.getSubjectName();
 
-		System.out.println("ListQuestionAction updateSection " + sectionName
-				+ " " + subjectName);
-
 		sectionService.updateSection(sectionName, subjectName, sectionId);
 
+		
+		//设置subject下拉菜单
 		int subjectId = subjectService.getSubjectIdBySubjectName(subjectName);
-		System.out.println("Action:updateSection" + subjectId);
 		request.getSession().setAttribute("subjectId", subjectId);
-		return showSectionListBySubject(mapping, null, request, response);
+		request.setAttribute("subjects", subjectService.getSubjects());
+		//设置题目及页码信息
+		Map<String, Integer>pageMap=sectionService.getPageMap(request.getParameter("pageNow"), subjectId);
+		request.setAttribute("pageNow", pageMap.get("pageNow"));
+		request.setAttribute("pageCount", pageMap.get("pageCount"));
+		request.setAttribute("sections", sectionService.getSectionsBySubject(pageMap.get("pageNow"), subjectId));
+		return mapping.findForward("listSection");
 	}
 
 	/**
@@ -198,7 +201,7 @@ public class SectionAction extends DispatchAction {
 		String sectionName = sectionForm.getSectionName();
 		String subjectName = sectionForm.getSubjectName();
 		//添加章节信息
-		int subjectId =(Integer) request.getSession().getAttribute("subjectId");
+		int subjectId=0;
 		if (subjectName != null)
 			if (subjectName.length() > 0)
 				subjectId = Integer.parseInt(subjectName);

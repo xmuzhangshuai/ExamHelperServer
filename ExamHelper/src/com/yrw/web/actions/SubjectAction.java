@@ -79,16 +79,22 @@ public class SubjectAction extends DispatchAction {
 			HttpServletRequest request, HttpServletResponse response) {
 
 		String subjectIdString = request.getParameter("subjectId");
-		System.out.println("deleteSubjcet");
 		try {
 			subjectService.deleteSubject(Integer.parseInt(subjectIdString));
 		} catch (Exception e) {
 			// TODO: handle exception
 			mapping.findForward("fail");
 		}
+		// 设置页码
+		String pageNowString = request.getParameter("pageNow");
+		Map<String, Integer> pageMap = subjectService.getPageMap(pageNowString);
+		request.setAttribute("pageNow", pageMap.get("pageNow"));
+		request.setAttribute("pageCount", pageMap.get("pageCount"));
+		// 设置subjects
+		List<Subject> subjects = subjectService.getSubjects(pageMap.get("pageNow"));
+		request.setAttribute("subjects", subjects);
 
-		return listSubject(mapping, form, request, response);
-
+		return mapping.findForward("listSubject");
 	}
 
 	/**
@@ -104,22 +110,22 @@ public class SubjectAction extends DispatchAction {
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
 
-		String idString = (String) request.getParameter("paramsHidden");
+		String idString = (String) request.getParameter("subjectList");
 
-		String[] ids = idString.substring(9).split("delid");
-		String id = "*";
+		if (idString != null)
+			if (idString.length() > 0)
+				subjectService.delSubjectByList(idString);
 
-		for (int i = 1; i < ids.length; i++) {
+		// 设置页码
+		String pageNowString = request.getParameter("pageNow");
+		Map<String, Integer> pageMap = subjectService.getPageMap(pageNowString);
+		request.setAttribute("pageNow", pageMap.get("pageNow"));
+		request.setAttribute("pageCount", pageMap.get("pageCount"));
+		// 设置subjects
+		List<Subject> subjects = subjectService.getSubjects(pageMap.get("pageNow"));
+		request.setAttribute("subjects", subjects);
 
-			if (i == ids.length - 1)
-				id = id + ids[i];
-			else
-				id = id + ids[i] + ",";
-
-		}
-		subjectService.delSubjectByList(id.substring(1));
-		request.setAttribute("pageNow", request.getParameter("pageNow"));
-		return listSubject(mapping, null, request, response);
+		return mapping.findForward("listSubject");
 
 	}
 
@@ -131,20 +137,13 @@ public class SubjectAction extends DispatchAction {
 	 * @param request
 	 * @param response
 	 * @return ActionForward
-	 * @throws UnsupportedEncodingException 
+	 * @throws UnsupportedEncodingException
 	 */
 	public ActionForward addSubjectUI(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-		
-		if(request.getParameter("sectionInfor")!=null){
-			String section =new String(request.getParameter("sectionInfor").getBytes(
-					"ISO-8859-1"), "utf-8");
-			request.setAttribute("section", section);
-		}
-		
-		
-		
-	
+			HttpServletRequest request, HttpServletResponse response)
+			throws UnsupportedEncodingException {
+
+		request.setAttribute("pageNow", request.getParameter("pageNow"));
 		return mapping.findForward("addSubject");
 	}
 
@@ -162,34 +161,24 @@ public class SubjectAction extends DispatchAction {
 		SubjectForm subjectForm = (SubjectForm) form;
 		Subject subject = new Subject();
 		subject.setSubName(subjectForm.getSubName());
-	
-		if(subjectService.addSubject(subject)){
 
-		String sectionString = (String) request.getParameter("paramsHidden");
-		System.out.println(sectionString);
-		//判断添加科目的请求来自于更新section的页面还是showSubje页面
-		if (sectionString != null&& !sectionString.equals("/")) {
+		if(subjectService.addSubject(subject))
+		{
+			// 设置页码
+			String pageNowString = request.getParameter("pageNow");
+			Map<String, Integer> pageMap = subjectService.getPageMap(pageNowString);
+			request.setAttribute("pageNow", pageMap.get("pageNow"));
+			request.setAttribute("pageCount", pageMap.get("pageCount"));
+			// 设置subjects
+			List<Subject> subjects = subjectService.getSubjects(pageMap.get("pageNow"));
+			request.setAttribute("subjects", subjects);
+
+			return mapping.findForward("listSubject");
 			
-			String sectionInfor[]=sectionString.split(",|/");
-			int sectionId= Integer.parseInt(sectionInfor[1]);
-			String sectionName=sectionInfor[0];
-			Section existsection=sectionService.showSection(sectionId);
-			existsection.setSectionName(sectionName);
-	
-			List<Subject> subjectList=subjectService.getSubjects();
-			
-			request.setAttribute("section", existsection);
-			request.setAttribute("subjects", subjectList);
-			return mapping.findForward("updateSectionUI");
-			}
-		else
-			return listSubject(mapping, form, request, response);
-		}else 
-			 {
-			request.setAttribute("message", "该科目已存在请重新输入新科目！");
+		}else {
 			return mapping.findForward("fail");
 		}
-			
+
 	}
 
 	/**
@@ -206,6 +195,7 @@ public class SubjectAction extends DispatchAction {
 			HttpServletResponse response) {
 		int subjectId = Integer.parseInt(request.getParameter("subjectId"));
 		Subject subject = subjectService.getSubjectById(subjectId);
+		request.setAttribute("pageNow", request.getParameter("pageNow"));
 		request.setAttribute("subject", subject);
 		return mapping.findForward("updateSubject");
 	}
@@ -226,7 +216,17 @@ public class SubjectAction extends DispatchAction {
 		Subject subject = subjectService.getSubjectById(subjectId);
 		subject.setSubName(subjectForm.getSubName());
 		subjectService.updateSubject(subject);
-		return listSubject(mapping, form, request, response);
+
+		// 设置页码
+		String pageNowString = request.getParameter("pageNow");
+		Map<String, Integer> pageMap = subjectService.getPageMap(pageNowString);
+		request.setAttribute("pageNow", pageMap.get("pageNow"));
+		request.setAttribute("pageCount", pageMap.get("pageCount"));
+		// 设置subjects
+		List<Subject> subjects = subjectService.getSubjects(pageMap.get("pageNow"));
+		request.setAttribute("subjects", subjects);
+
+		return mapping.findForward("listSubject");
 	}
 
 	/**

@@ -73,7 +73,7 @@ public interface ISectionDao extends IBasicDao {
 	 * @param JSection
 	 * @return void
 	 */
-	public void delSection(Section section);
+	public void delSection(int  sectionId);
 
 	/**É¾³ý¶à¸ösection
 	 * @param params

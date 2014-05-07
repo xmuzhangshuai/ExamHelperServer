@@ -18,25 +18,15 @@
 <link rel="stylesheet" rev="stylesheet" href="./css/style.css"
 	type="text/css" media="all" />
 <script language="JavaScript" type="text/javascript">
-	function tishi() {
-		var a = confirm('数据库中保存有该人员基本信息，您可以修改或保留该信息。');
-		if (a != true)
-			return false;
-		window
-				.open(
-						"冲突页.htm",
-						"",
-						"depended=0,alwaysRaised=1,width=800,height=400,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
+	function save(subjectId) {
+	if(document.getElementById("subName").value.trim().length != 0){
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=updateSubject&subjectId="+subjectId+"&pageNow="+'${pageNow}';
+		document.getElementById("fom").submit();
+		}else
+		alert("请填写科目名称")
 	}
-
-	function check() {
-		document.getElementById("aa").style.display = "";
-	}
-
-	function link() {
-		alert('保存成功！');
-			
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=updateSubject&subjectId=${subject.id}";
+	function back(){
+	document.getElementById("fom").action="${pageContext.request.contextPath}/subject.do?flag=listSubject&pageNow="+'${pageNow}';
 		document.getElementById("fom").submit();
 	}
 </script>
@@ -48,7 +38,7 @@
 		<div class="MainDiv">
 			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="CContent">
 				<tr>
-					<td height="62" background="./images/nav04.gif"></td>
+					<td height="62" style="background-image: url('./images/nav04.gif');" ></td>
 				</tr>
 				<tr>
 					<th class="tablestyle_title">科目修改页面</th>
@@ -64,7 +54,7 @@
 
 								<tr>
 									<td align="right" width="13%">科目名称:</td>
-									<td width="43%"><input  name="subName" class="text"
+									<td width="43%"><input  name="subName" class="text" id="subName"
 										style="width:250px" type="text" size="40" value="${subject.subName}"/> <span
 										class="red"> *</span></td>
 
@@ -78,8 +68,8 @@
 				<TR>
 					<TD colspan="2" align="center" height="50px"><input
 						type="button" name="Submit" value="保存" class="button"
-						onclick="link();" /> <input type="button" name="Submit2"
-						value="返回" class="button" onclick="window.history.go(-1);" /></TD>
+						onclick="save('${subject.id}');" /> <input type="button" name="Submit2"
+						value="返回" class="button" onclick="back();" /></TD>
 				</TR>
 			</TABLE>
 

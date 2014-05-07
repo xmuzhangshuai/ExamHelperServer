@@ -17,12 +17,10 @@
 
 <script language="JavaScript" type="text/javascript">
 	function back() {
-	alert("back");
 		document.getElementById("fom").action="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId="+'${subjectId}'+"&pageNow="+'${pageNow}';
 		document.getElementById("fom").submit();
 	}
 	function save(){
-	alert("save");
 		if(document.getElementById("sectionName").value.trim().length != 0){
 			document.getElementById("fom").action="${pageContext.request.contextPath}/section.do?flag=addSection";
 			document.getElementById("fom").submit();
@@ -92,9 +90,7 @@
 												</td>
 
 											</tr>
-											<tr>
-												<td><input type="button" value="添加新科目"  class="button" style="margin-left: 12px;"/></td>
-											</tr>
+											
 										</table>
 
 									</fieldset>
@@ -106,10 +102,10 @@
 
 				<TR>
 					<TD colspan="2" align="center" height="50px"><input
-						 name="Submit" value="保存" class="button"
-						style="width: 94px; " onclick="save();" /> <input type="button" name="Submit2"
+						 name="Submit" value="保存" class="button" type="button"
+						onclick="save();" /> <input type="button" name="Submit2"
 						value="返回" class="button" onclick="back();"
-						style="width: 94px; " /></TD>
+						/></TD>
 				</TR>
 			</table>
 

@@ -96,25 +96,25 @@ function selectOrUnSelect(){
     	unselectAll();
     }
 }
-	function link() {
+	function addSubject() {
 
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=addSubjectUI";
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=addSubjectUI&pageNow="+'${pageNow}';
 		document.getElementById("fom").submit();
 	}
 
 	function delSelected() {
 		var obj = document.fom.elements;
 		var name = /delid\d+/;
-		var list
+		var list="delid0"
 
 		for (var i = 0; i < obj.length; i++) {
 			if (name.test(obj[i].name) == true && obj[i].checked == true)
 				list = list + obj[i].name;
 
 		}
-		document.getElementById("paramsHidden").value = list;
+		document.getElementById("subjectList").value = list;
 
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=delSubjectByList&pageNow=${pageNow}";
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=delSubjectByList&pageNow="+'${pageNow}';
 		document.getElementById("fom").submit();
 	}
 	function goByPage() {
@@ -154,7 +154,7 @@ function selectOrUnSelect(){
 
 function deleteSubject(subjectId) {
 	scscms_alert("确定要删除该科目吗？","confirm",function(){
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=deleteSubject&subjectId="+subjectId;
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=deleteSubject&subjectId="+subjectId+"&pageNow="+'${pageNow}';
 		document.getElementById("fom").submit();
 		scscms_alert("删除成功！","ok");
 	},function(){});
@@ -199,9 +199,9 @@ function deleteSubject(subjectId) {
 											</span>
 											<input name="Submit" type="button" class="right-button08"
 											value="删除所选科目" onclick="delSelected();" /> <input
-											type="hidden" name="paramsHidden" id="paramsHidden" /> <input
+											type="hidden" name="subjectList" id="subjectList" /> <input
 											name="Submit2" type="button" class="right-button08"
-											value="添加科目" onclick="link();" /></td>
+											value="添加科目" onclick="addSubject();" /></td>
 									</tr>
 									<tr>
 										<td height="40" class="font42">
@@ -224,7 +224,7 @@ function deleteSubject(subjectId) {
 															href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subject.id}"
 															onclick="" target="mainFrame">${subject.subName}</a></td>
 														<td align="center">
-															<a href="${pageContext.request.contextPath}/subject.do?flag=updateSubjectUI&subjectId=${subject.id}">
+															<a href="${pageContext.request.contextPath}/subject.do?flag=updateSubjectUI&subjectId=${subject.id}&pageNow=${pageNow}">
 																<img alt="编辑" class="delete_img" src="./images/edit.png" style="height: 18px;" title="编辑"/>编辑</a>
 															<a href="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId=${subject.id}" style="margin-left: 10px;">
 																<img alt="查看" class="delete_img" src="./images/more.png" style="height: 15px;" title="查看"/>查看</a>

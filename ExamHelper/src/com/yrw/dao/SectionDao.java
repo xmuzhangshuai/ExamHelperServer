@@ -33,10 +33,10 @@ public class SectionDao extends BasicDao implements ISectionDao {
 	}
 
 	@Override
-	public void delSection(Section section) {
+	public void delSection(int sectionId) {
 		// TODO Auto-generated method stub
 
-		this.deletById(Section.class, section.getId());
+		this.deletById(Section.class, sectionId);
 	}
 
 	@Override

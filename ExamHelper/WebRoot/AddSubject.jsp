@@ -19,15 +19,17 @@
 <link rel="stylesheet" rev="stylesheet" href="./css/style.css"
 	type="text/css" media="all" />
 <script language="JavaScript" type="text/javascript">
-	function check() {
-		document.getElementById("aa").style.display = "";
+	function back(){
+	document.getElementById("fom").action="${pageContext.request.contextPath}/subject.do?flag=listSubject&pageNow="+'${pageNow}';
+		document.getElementById("fom").submit();
 	}
 
-	function link() {
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=addSubject";
+	function save() {
+	if(document.getElementById("subName").value.trim().length != 0){
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/subject.do?flag=addSubject&pageNow="+'${pageNow}';
 		document.getElementById("fom").submit();
-		alert('保存成功！');
-		window.parent.frames["leftFrame"].location.reload();
+		}else
+		alert("请填写科目名称")
 	}
 </script>
 </head>
@@ -38,7 +40,7 @@
 		<div class="MainDiv">
 			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="CContent">
 				<tr>
-					<td height="62" background="./images/nav04.gif"></td>
+					<td height="62" style="background-image: url('./images/nav04.gif');"></td>
 				</tr>
 				<tr>
 					<th class="tablestyle_title">科目增加页面</th>
@@ -54,7 +56,7 @@
 
 								<tr>
 									<td align="right" width="13%">科目名称:</td>
-									<td width="43%"><input name="subName" class="text"
+									<td width="43%"><input name="subName" class="text" id="subName"
 										style="width:250px" type="text" size="40" /> <span
 										class="red"> *</span></td>
 
@@ -71,8 +73,8 @@
 				<TR>
 					<TD colspan="2" align="center" height="50px"><input
 						type="button" name="Submit" value="保存" class="button"
-						onclick="link();" /> <input type="button" name="Submit2"
-						value="返回" class="button" onclick="window.history.go(-1);" /></TD>
+						onclick="save();" /> <input type="button" name="Submit2"
+						value="返回" class="button" onclick="back();" /></TD>
 				</TR>
 			</TABLE>
 
