@@ -405,11 +405,13 @@ public class ExamService {
 			examquestion.setQuestionId(questionId);
 			int questionNumber = iExamQuestionDao
 					.getMaxQuestionNumberByExamSection(examSectionId);
-			if (questionNumber != 0)
+			if (questionNumber != 0){
+				
 				examquestion.setQuestionNumber(questionNumber + 1);
+			}
 			else
 				examquestion.setQuestionNumber(1);
-			iExamQuestionDao.add(examquestion);
+			iExamQuestionDao.addReturnId(examquestion);
 			// 修改后续章节的examquestionNumber
 			List<Examsection> nextExamsections = iExamSectionDao
 					.getExamsectionsByExamIdAndExamSectionId(examsection
