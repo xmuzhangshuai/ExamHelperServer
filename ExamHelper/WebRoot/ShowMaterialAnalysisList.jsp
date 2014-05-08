@@ -180,9 +180,9 @@ function deleteMater(materId,pageNow) {
 									<tr>
 									<td><table><tr>
 										<td width="38">科目：</td>
-										<td style="width: 119px; "><select
+										<td><select
 														name="subjectChoose" id="subjectChoose"
-														onchange="loadSection();" style="width: 101px; ">
+														onchange="loadSection();">
 															<c:choose>
 																<c:when test="${empty subjectId}">
 																	<option value="null" selected="selected">请选择科目</option>
