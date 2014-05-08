@@ -191,9 +191,7 @@
 									<tr>
 										<td><table><tr>
 										<td width="38">科目：</td>
-										<td style="width: 119px; "><select name="subjectChoose"
-											id="subjectChoose" onchange="loadSection();"
-											style="width: 101px; ">
+										<td><select name="subjectChoose"id="subjectChoose" onchange="loadSection();">
 												<option selected="selected">${subject.subName}</option>
 										</select></td>
 
