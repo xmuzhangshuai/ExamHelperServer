@@ -93,7 +93,8 @@ function loadSection() {
 	   }
 	}
 	function addTrueOrFalse() {
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=addTrueOrFalseUI&pageNow="+'${pageNow}';;
+	var sectionName = document.getElementById("sectionChoose").value;
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=addTrueOrFalseUI&pageNow="+'${pageNow}'+"&sectionName="+sectionName;
 		document.getElementById("fom").submit();
 	}
 

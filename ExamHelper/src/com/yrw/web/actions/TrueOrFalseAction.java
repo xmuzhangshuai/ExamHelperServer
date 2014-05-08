@@ -173,10 +173,11 @@ public class TrueOrFalseAction extends DispatchAction {
 	 * @param request
 	 * @param response
 	 * @return ActionForward
+	 * @throws UnsupportedEncodingException 
 	 */
 	public ActionForward addTrueOrFalseUI(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response) throws UnsupportedEncodingException {
 		String pageNowString = request.getParameter("pageNow");
 		if (pageNowString != null)
 			if (pageNowString.length() > 0)
@@ -189,6 +190,11 @@ public class TrueOrFalseAction extends DispatchAction {
 				.listSectionBySubject(subjectId);
 		List<Subject> subjectList = subjectService.getSubjects();
 		request.setAttribute("subjects", subjectList);
+		if (request.getParameter("sectionName") != null)
+			if (request.getParameter("sectionName").length() > 0)
+				request.setAttribute("sectionName",
+						new String(request.getParameter("sectionName")
+								.getBytes("ISO-8859-1"), "utf-8"));
 		request.setAttribute("sections", sectionList);
 		return mapping.findForward("addTrueOrFalse");
 	}
