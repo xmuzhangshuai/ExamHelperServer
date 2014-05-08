@@ -445,9 +445,11 @@
 																</tr>
 															</table>
 														</td>
-														<td style="width: 12%" align="center"> 
-															<a href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${trueOrFalse.id}&questionTypeName=判断题">查看|</a>
-															<a href="#" onclick="removeExamQuestion('${trueOrFalse.id}','判断题');">删除</a>
+														<td style="width: 12%" align="center">
+															<a href="${pageContext.request.contextPath}/examination.do?flag=showExamQuestionDetail&questionId=${trueOrFalse.id}&questionTypeName=判断题">
+																<img alt="查看" class="delete_img" src="./images/more.png" style="height: 15px;" title="查看"/>查看</a>
+															<a onclick="removeExamQuestion('${trueOrFalse.id}','判断题');" id="" style="cursor: pointer;margin-left: 10px;">
+																<img alt="删除" class="delete_img" src="./images/delete.png" style="height: 15px;" title="删除"/>删除</a>
 														</td>
 													</tr>
 												</c:forEach>

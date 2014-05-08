@@ -90,16 +90,15 @@
 							<table>
 								<tr>
 
-									<td><table style="width: 341px; ">
-
+									<td><table>
 											<tr>
 												<td align="left" width="80px">答案：</td>
-												<td width="43%"><input id="answer" name="answer"
+												<td><input id="answer" name="answer"
 													value="true" disabled="disabled" class="text"
 													style="width: 24px" type="radio" size="40" /></td>
 												<td><img src="./images/image_right.png"
 													style="width: 43px; " /></td>
-												<td width="43%"><input id="answer" name="answer"
+												<td><input id="answer" name="answer"
 													value="false" class="text" style="width: 24px;margin-left: 20px;" type="radio"
 													size="40" disabled="disabled" /></td>
 												<td><img src="./images/image_wrong.png" /></td>

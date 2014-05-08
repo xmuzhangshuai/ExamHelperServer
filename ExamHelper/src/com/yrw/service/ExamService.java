@@ -339,9 +339,10 @@ public class ExamService {
 		for (int i = 0; i < examquestionList.size(); i++) {
 			if (flag) {
 				if (questionId == examquestionList.get(i).getQuestionId()) {
-					examquestionList.remove(i);
+					
 					iExamQuestionDao.deletById(Examquestion.class,
 							examquestionList.get(i).getId());
+					examquestionList.remove(i);
 					flag = false;
 
 				}
