@@ -334,22 +334,23 @@ public class ExamService {
 		Set<Examquestion> examquestions = examsection.getExamquestions();
 		List<Examquestion> examquestionList = new ArrayList<Examquestion>(
 				examquestions);
-		int targetExamQuestionId = 0;
+		// int targetExamQuestionId = 0;
 		boolean flag = true;
 		for (int i = 0; i < examquestionList.size(); i++) {
-			System.out.println("test questionNumber "+examquestionList.get(i).getQuestionNumber());
 			if (flag) {
 				if (questionId == examquestionList.get(i).getQuestionId()) {
-					targetExamQuestionId = examquestionList.get(i).getId();
 					examquestionList.remove(i);
-					flag=false;
+					iExamQuestionDao.deletById(Examquestion.class,
+							examquestionList.get(i).getId());
+					flag = false;
 
 				}
-			}else
-				examquestionList.get(i).setQuestionNumber(examquestionList.get(i).getQuestionNumber()-1);
-			
+			} else
+				iExamQuestionDao.updateQuestionNumber(examquestionList.get(i)
+						.getId(),
+						examquestionList.get(i).getQuestionNumber() - 1);
 		}
-		iExamQuestionDao.deletById(Examquestion.class, targetExamQuestionId);
+
 		examquestions = new HashSet<Examquestion>(examquestionList);
 		examsection.setExamquestions(examquestions);
 
@@ -365,7 +366,8 @@ public class ExamService {
 						.getExamquestions().iterator();
 				while (iterator.hasNext()) {
 					exq = (Examquestion) iterator.next();
-					iExamQuestionDao.updateQuestionNumber(exq.getId(), exq.getQuestionNumber() - 1);
+					iExamQuestionDao.updateQuestionNumber(exq.getId(),
+							exq.getQuestionNumber() - 1);
 				}
 				iExamSectionDao.update(nextExamsections.get(i));
 			}
@@ -395,14 +397,17 @@ public class ExamService {
 			examquestion.setQuestionId(questionId);
 			int questionNumber = iExamQuestionDao
 					.getMaxQuestionNumberByExamSection(examSectionId);
-			if (questionNumber != 0){
-				
+			System.out.println("MaxQuestionNumber  "+questionNumber);
+			if (questionNumber != 0) {
 				examquestion.setQuestionNumber(questionNumber + 1);
-			}
-			else
+			} else
 				examquestion.setQuestionNumber(1);
-			int examQuestionId= iExamQuestionDao.addQuestionNumberWithReturn(examquestion);
+			int examQuestionId = iExamQuestionDao
+					.addQuestionNumberWithReturn(examquestion);
 			examquestion.setId(examQuestionId);
+			// 添加入examSection中的examQuestion集合
+			examquestions.add(examquestion);
+			examsection.setExamquestions(examquestions);
 			// 修改后续章节的examquestionNumber
 			List<Examsection> nextExamsections = iExamSectionDao
 					.getExamsectionsByExamIdAndExamSectionId(examsection
@@ -414,16 +419,15 @@ public class ExamService {
 							.getExamquestions().iterator();
 					while (iterator.hasNext()) {
 						exq = (Examquestion) iterator.next();
+						System.out.println("quesiontNumber "+exq.getQuestionNumber());
 						iExamQuestionDao.updateQuestionNumber(exq.getId(),
 								exq.getQuestionNumber() + 1);
+						exq.setQuestionNumber(exq.getQuestionNumber()+1);
 					}
 					iExamSectionDao.update(nextExamsections.get(i));
 				}
 			}
 
-			// 添加入examSection中的examQuestion集合
-			examquestions.add(examquestion);
-			examsection.setExamquestions(examquestions);
 			// 修改examsection中的题目数量
 			if (examsection.getQuestionNum() != null)
 				examsection.setQuestionNum(examsection.getQuestionNum() + 1);
