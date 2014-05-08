@@ -15,7 +15,9 @@
 
 
 <title>科目管理</title>
-
+<link type="text/css" rel="stylesheet" href="./css/plug.css"/>
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/dialog.js" charset="utf-8"></script>
 <link href="./css/css.css" rel="stylesheet" type="text/css" />
 <link href="./css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" language="javascript">
@@ -23,7 +25,7 @@
 		var sectionName = document.getElementById("sectionChoose").value;
 		var questionTypeName = '${questionTypeName}';
 		if (sectionName == "null")
-			alert("请选择章节");
+			scscms_alert("请选择章节","warn");
 		else {
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamQuestionUI&sectionName="
 					+ sectionName + "&questionTypeName=" + questionTypeName;
@@ -87,7 +89,7 @@
 		var questionTypeName = document.getElementById("questionTypeChoose").value;
 
 		if (sectionName == "null")
-			alert("请选择章节");
+			scscms_alert("请选择章节","warn");
 		else {
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamQuestionUI&sectionName="
 					+ sectionName
@@ -101,7 +103,7 @@
 		var sectionName = document.getElementById("sectionChoose").value;
 
 		if (sectionName == "null")
-			alert("请选择章节");
+			scscms_alert("请选择章节","warn");
 		else {
 			if (pageNow == 1)
 				alert("当前页为第一页")
@@ -123,10 +125,10 @@
 		pageNow = parseInt(pageNow) + 1;
 		var sectionName = document.getElementById("sectionChoose").value;
 		if (sectionName == "null")
-			alert("请选择章节");
+			scscms_alert("请选择章节","warn");
 		else {
 			if (pageNow > pageCount)
-				alert(当前为最后一页);
+				alert("当前为最后一页");
 			else {
 
 				var questionTypeName = document
@@ -144,7 +146,7 @@
 	function firstPage() {
 		var sectionName = document.getElementById("sectionChoose").value;
 		if (sectionName == "null")
-			alert("请选择章节");
+			scscms_alert("请选择章节","warn");
 		else {
 			var questionTypeName = document
 					.getElementById("questionTypeChoose").value;
@@ -160,7 +162,7 @@
 
 		var sectionName = document.getElementById("sectionChoose").value;
 		if (sectionName == "null")
-			alert("请选择章节");
+			scscms_alert("请选择章节","warn");
 		else {
 			var questionTypeName = document
 					.getElementById("questionTypeChoose").value;
@@ -244,7 +246,7 @@
 											<span class="newfont07">全选：
 												<input type="checkbox" id="selectOrNot" onchange="selectOrUnSelect()"/>
 											</span>
-											<input name="Submit" type="button" class="right-button08"
+											<input name="Submit" type="button" class="right-button03"
 											value="添加所选${questionTypeName}" onclick="addExistQuestion();" /></td>
 									</tr>
 									<tr>

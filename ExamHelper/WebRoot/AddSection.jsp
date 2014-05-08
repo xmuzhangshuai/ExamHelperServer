@@ -14,7 +14,9 @@
 <title>增加章节</title>
 
 <link rel="stylesheet" rev="stylesheet" href="./css/style.css" type="text/css" media="all" />
-
+<link type="text/css" rel="stylesheet" href="./css/plug.css"/>
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/dialog.js" charset="utf-8"></script>
 <script language="JavaScript" type="text/javascript">
 	function back() {
 		document.getElementById("fom").action="${pageContext.request.contextPath}/section.do?flag=showSectionListBySubject&subjectId="+'${subjectId}'+"&pageNow="+'${pageNow}';
@@ -25,7 +27,7 @@
 			document.getElementById("fom").action="${pageContext.request.contextPath}/section.do?flag=addSection";
 			document.getElementById("fom").submit();
 		}else
-			alert("请输入章节名称");
+			scscms_alert("请输入章节名称","warn");
 	}
 	
 </script>
