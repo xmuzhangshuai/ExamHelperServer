@@ -34,41 +34,57 @@ public class ExamRankingServlet extends BaseServlet {
 
 		// 获取类型
 		String type = request.getParameter("type");
-
+		String subjectIdString = "";
+		subjectIdString = request.getParameter("currentSubject");
+		int subjectId = -1;
 		if (type != null) {
 
 			// 如果是返回收藏列表
 			if (type.equals("getScollection")) {
+				if (subjectIdString.length() > 0) {
+					subjectId = Integer.parseInt(subjectIdString);
+				}
 				// 获取页数
 				int pageNow = Integer.parseInt(request.getParameter("pageNow").trim());
-				List<JScollection> jScollections = new ArrayList<JScollection>();
-				List<Scollection> scollections = collectionService.getSCollectionListByPageNow(pageNow + 1);
-				if (scollections != null) {
-					for (Scollection scollection : scollections) {
-						JScollection jScollection = new JScollection(scollection.getId(), scollection.getQuestiontype()
-								.getId(), scollection.getSection().getId(), scollection.getQuestionId(),
-								scollection.getCollectionNum());
-						jScollections.add(jScollection);
+				if (subjectId > -1) {
+					List<JScollection> jScollections = new ArrayList<JScollection>();
+					List<Scollection> scollections = collectionService.getSCollectionListBySubject(subjectId,
+							pageNow + 1);
+					if (scollections != null) {
+						for (Scollection scollection : scollections) {
+							JScollection jScollection = new JScollection(scollection.getId(), scollection
+									.getQuestiontype().getId(), scollection.getSection().getId(),
+									scollection.getQuestionId(), scollection.getCollectionNum());
+							jScollections.add(jScollection);
+						}
+						msg = FastJsonTools.createJsonString(jScollections);
 					}
-					msg = FastJsonTools.createJsonString(jScollections);
 				}
+
 			}
 
 			// 如果是返回错题列表
 			if (type.equals("getSerrors")) {
+				if (subjectIdString.length() > 0) {
+					subjectId = Integer.parseInt(subjectIdString);
+				}
 				// 获取页数
 				int pageNow = Integer.parseInt(request.getParameter("pageNow").trim());
-				List<JSerrorQuestion> jSerrorQuestionList = new ArrayList<JSerrorQuestion>();
-				List<Serrorquestions> serrorquestionList = errorQuestionService.getSErrorQuestionListByPageNow(pageNow);
-				if (serrorquestionList != null) {
-					for (Serrorquestions serrorquestion : serrorquestionList) {
-						JSerrorQuestion jSerrorQuestion = new JSerrorQuestion(serrorquestion.getId(), serrorquestion
-								.getQuestiontype().getId(), serrorquestion.getSection().getId(),
-								serrorquestion.getQuestionId(), serrorquestion.getErrorNum());
-						jSerrorQuestionList.add(jSerrorQuestion);
+				if (subjectId > -1) {
+					List<JSerrorQuestion> jSerrorQuestionList = new ArrayList<JSerrorQuestion>();
+					List<Serrorquestions> serrorquestionList = errorQuestionService.getSErrorQuestionListBySubject(
+							subjectId, pageNow);
+					if (serrorquestionList != null) {
+						for (Serrorquestions serrorquestion : serrorquestionList) {
+							JSerrorQuestion jSerrorQuestion = new JSerrorQuestion(serrorquestion.getId(),
+									serrorquestion.getQuestiontype().getId(), serrorquestion.getSection().getId(),
+									serrorquestion.getQuestionId(), serrorquestion.getErrorNum());
+							jSerrorQuestionList.add(jSerrorQuestion);
+						}
+						msg = FastJsonTools.createJsonString(jSerrorQuestionList);
 					}
-					msg = FastJsonTools.createJsonString(jSerrorQuestionList);
 				}
+
 			}
 
 		}
