@@ -70,6 +70,7 @@ public class SectionAction extends DispatchAction {
 		request.setAttribute("sections", sectionList);
 
 		request.getSession().removeAttribute("subjectId");
+		request.setAttribute("subjects", subjectService.getSubjects());
 
 		return mapping.findForward("listSection");
 	}
