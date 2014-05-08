@@ -147,14 +147,14 @@ public class SectionService {
 	 * @param newSubject
 	 * @param sectionId
 	 */
-	public void updateSection(String sectionNewName, String newSubject,
+	public void updateSection(String sectionNewName, String newSubjectId,
 			int sectionId) {
 
 		Section section = iSectionDao.getSectionById(sectionId);
 		section.setSectionName(sectionNewName);
 
 		Subject subject = null;
-		subject = iSubjectDao.getSubjectByName(newSubject);
+		subject = iSubjectDao.getSubjectById(Integer.parseInt(newSubjectId));
 		if (subject != null) {
 			section.setSubject(subject);
 		}

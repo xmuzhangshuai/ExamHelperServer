@@ -149,20 +149,18 @@ public class SectionAction extends DispatchAction {
 
 		SectionForm sectionForm = (SectionForm) form;
 		String sectionName = sectionForm.getSectionName();
-		String subjectName = sectionForm.getSubjectName();
-
-		sectionService.updateSection(sectionName, subjectName, sectionId);
+		String subjectId = sectionForm.getSubjectName();
+		sectionService.updateSection(sectionName, subjectId, sectionId);
 
 		
 		//设置subject下拉菜单
-		int subjectId = subjectService.getSubjectIdBySubjectName(subjectName);
 		request.getSession().setAttribute("subjectId", subjectId);
 		request.setAttribute("subjects", subjectService.getSubjects());
 		//设置题目及页码信息
-		Map<String, Integer>pageMap=sectionService.getPageMap(request.getParameter("pageNow"), subjectId);
+		Map<String, Integer>pageMap=sectionService.getPageMap(request.getParameter("pageNow"), Integer.parseInt(subjectId));
 		request.setAttribute("pageNow", pageMap.get("pageNow"));
 		request.setAttribute("pageCount", pageMap.get("pageCount"));
-		request.setAttribute("sections", sectionService.getSectionsBySubject(pageMap.get("pageNow"), subjectId));
+		request.setAttribute("sections", sectionService.getSectionsBySubject(pageMap.get("pageNow"), Integer.parseInt(subjectId)));
 		return mapping.findForward("listSection");
 	}
 

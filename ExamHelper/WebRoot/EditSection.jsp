@@ -27,7 +27,7 @@
 	}
 	function save(){
 	if(document.getElementById("sectionName").value.trim().length != 0){
-			document.getElementById("fom").action="${pageContext.request.contextPath}/section.do?flag=addSection";
+			document.getElementById("fom").action="${pageContext.request.contextPath}/section.do?flag=updateSection&sectionId="+'${section.id}';
 			document.getElementById("fom").submit();
 		}else
 			alert("请输入章节名称");
