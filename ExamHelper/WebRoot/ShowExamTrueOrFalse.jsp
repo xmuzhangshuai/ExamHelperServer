@@ -72,7 +72,7 @@
 							<table>
 
 								<tr align="left">
-									<td align="left" width="13%">题干内容:</td>
+									<td align="left" width="80px">题干内容:</td>
 									<td style="width: 448px; "><c:out value="${trueOrFalse.questionStem}"/></td>
 
 								</tr>
@@ -93,15 +93,14 @@
 									<td><table style="width: 341px; ">
 
 											<tr>
-												<td align="left" width="13%"
-													style="height: 42px; width: 40px">答案：</td>
+												<td align="left" width="80px">答案：</td>
 												<td width="43%"><input id="answer" name="answer"
 													value="true" disabled="disabled" class="text"
 													style="width: 24px" type="radio" size="40" /></td>
 												<td><img src="./images/image_right.png"
 													style="width: 43px; " /></td>
 												<td width="43%"><input id="answer" name="answer"
-													value="false" class="text" style="width: 24px" type="radio"
+													value="false" class="text" style="width: 24px;margin-left: 20px;" type="radio"
 													size="40" disabled="disabled" /></td>
 												<td><img src="./images/image_wrong.png" /></td>
 											</tr>
@@ -116,7 +115,7 @@
 							<legend>分析</legend>
 							<table>
 								<tr>
-									<td>题目分析</td>
+									<td width="80px">题目分析:</td>
 									<td><c:out value="${trueOrFalse.analysis}"/></td>
 								</tr>
 							</table>
@@ -125,13 +124,13 @@
 				<tr>
 					<td><fieldset>
 							<legend>所属科目、章节</legend>
-							<table>
+							<table cellspacing="10px">
 								<tr>
-									<td>科目名称：</td>
+									<td width="80px">科目名称：</td>
 									<td><c:out value="${trueOrFalse.section.subject.subName}"/></td>
 								</tr>
 								<tr>
-									<td>章节名称:</td>
+									<td width="80px">章节名称:</td>
 									<td><c:out value="${trueOrFalse.section.sectionName}"></c:out></td>
 									
 								</tr>

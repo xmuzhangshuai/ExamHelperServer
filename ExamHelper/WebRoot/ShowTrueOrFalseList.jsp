@@ -178,13 +178,12 @@ function loadSection() {
 							<td height="62"
 								style="background-image:url('./images/nav04.gif'); ">
 
-								<table width="98%" border="0" align="center" cellpadding="0"
-									cellspacing="0">
+								<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
 												<tr>
+												<td><table><tr>
 													<td width="38">科目：</td>
-													<td style="width: 119px; "><select
-														name="subjectChoose" id="subjectChoose"
-														onchange="loadSection();" style="width: 101px; ">
+													<td><select name="subjectChoose" id="subjectChoose"
+														onchange="loadSection();">
 															<c:choose>
 																<c:when test="${empty subjectId}">
 																	<option value="null" selected="selected">请选择科目</option>
@@ -209,7 +208,7 @@ function loadSection() {
 													</select></td>
 
 
-														<td>章节：</td>
+														<td style="width: 80px;text-align: right;">章节：</td>
 										<td><select id="sectionChoose">
 												<c:choose>
 													<c:when test="${empty sectionName}">
@@ -233,8 +232,7 @@ function loadSection() {
 												</c:choose>
 										</select></td>
 
-
-													<td>题型：</td>
+													<td style="width: 80px;text-align: right;">题型：</td>
 													<td><select id="questionTypeChoose">
 															<c:choose>
 																<c:when test="${empty questionTypeName}">
@@ -263,6 +261,7 @@ function loadSection() {
 												</tr>
 											</table>
 										</td>
+										</tr></table></td>
 						</tr>
 					</table>
 				</td>

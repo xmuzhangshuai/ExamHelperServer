@@ -81,10 +81,9 @@
 							<table>
 
 								<tr align="left">
-									<td align="left" width="13%">题干内容:</td>
-									<td style="width: 448px; "><textarea rows="" cols=""
-											id="questionStem" name="questionStem"
-											style="width: 376px; height: 100px">${trueOrFalse.questionStem}</textarea></td>
+									<td align="left" width="80px">题干内容:</td>
+									<td><textarea rows="8" cols="80"
+											id="questionStem" name="questionStem">${trueOrFalse.questionStem}</textarea></td>
 
 								</tr>
 
@@ -104,15 +103,14 @@
 									<td><table style="width: 341px; ">
 
 											<tr>
-												<td align="left" width="13%"
-													style="height: 42px; width: 40px">答案：</td>
-												<td width="43%"><input id="answer" name="answer"
+												<td align="left" width="80px">答案：</td>
+												<td><input id="answer" name="answer"
 													value="true" class="text" style="width: 24px" type="radio"
 													size="40" /></td>
 												<td><img src="./images/image_right.png"
 													style="width: 43px; " /></td>
-												<td width="43%"><input id="answer" name="answer"
-													value="false" class="text" style="width: 24px" type="radio"
+												<td><input id="answer" name="answer"
+													value="false" class="text" style="width: 24px;margin-left: 20px;" type="radio"
 													size="40" /></td>
 												<td><img src="./images/image_wrong.png" /></td>
 											</tr>
@@ -127,9 +125,9 @@
 							<legend>分析</legend>
 							<table>
 								<tr>
-									<td>题目分析</td>
-									<td><textarea id="analysis" cols="" rows=""
-											name="analysis" style="height: 119px; width: 394px">${trueOrFalse.analysis}</textarea></td>
+									<td width="80px">题目分析:</td>
+									<td><textarea id="analysis" cols="80" rows="8"
+											name="analysis">${trueOrFalse.analysis}</textarea></td>
 								</tr>
 							</table>
 						</fieldset></td>
@@ -137,11 +135,11 @@
 				<tr>
 					<td><fieldset>
 							<legend>所属科目、章节</legend>
-							<table>
+							<table cellspacing="10px">
 								<tr>
-									<td>科目名称：</td>
+									<td width="80px">科目名称：</td>
 									<td><select name="subjectName" id="subjectName"
-													style="width: 243px; ">
+													style="width: 250px;height: 23px; ">
 														<c:forEach items="${subjects}" var="subject">
 															<c:choose>
 																<c:when test="${subject.id==subjectId}">
@@ -155,8 +153,8 @@
 												</select></td>
 								</tr>
 								<tr>
-									<td>章节名称:</td>
-									<td><select id="sectionName" name="sectionName">
+									<td width="80px">章节名称:</td>
+									<td><select id="sectionName" name="sectionName" style="width: 250px;height: 23px; ">
 											<c:forEach items="${sections}" var="section">
 															<c:choose>
 																<c:when test="${section.sectionName==sectionName}">
