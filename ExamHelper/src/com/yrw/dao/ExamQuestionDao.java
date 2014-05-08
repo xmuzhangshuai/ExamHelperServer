@@ -62,4 +62,10 @@ public class ExamQuestionDao extends BasicDao implements IExamQuestionDao {
 		this.executeUpdate(hql, null);
 	}
 
+	@Override
+	public int addQuestionNumberWithReturn(Examquestion examquestion) {
+		// TODO Auto-generated method stub
+	return	(Integer)this.addReturnId(examquestion);
+	}
+
 }

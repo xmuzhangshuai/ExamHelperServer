@@ -232,7 +232,6 @@ public class ExamService {
 		Examquestion targetExamquestion = null;
 		Iterator<Examsection> examSectionIterator = examination
 				.getExamsections().iterator();
-		System.out.println("进入moveSingleChoice service" + " " + singleChoiceId);
 		while (examSectionIterator.hasNext()) {
 			examsection = examSectionIterator.next();
 			if (examsection.getQuestiontype().getTypeName()
@@ -246,9 +245,6 @@ public class ExamService {
 						if (type.equals("decrease")) {
 
 							targetExamquestion = examquestionList.get(j - 1);
-							System.out.println("decrease: "
-									+ examquestion.getQuestionNumber() + " "
-									+ targetExamquestion.getQuestionNumber());
 
 							targetExamquestion.setQuestionNumber(examquestion
 									.getQuestionNumber());
@@ -262,12 +258,6 @@ public class ExamService {
 						else {
 
 							targetExamquestion = examquestionList.get(j + 1);
-							System.out.println("increase moveSingleChoice "
-									+ examquestion.getQuestionNumber() + "  "
-									+ targetExamquestion.getQuestionNumber());
-							System.out.println("increase "
-									+ examquestion.getQuestionId() + " "
-									+ targetExamquestion.getQuestionId());
 							targetExamquestion.setQuestionNumber(examquestion
 									.getQuestionNumber());
 							examquestion.setQuestionNumber(examquestion
@@ -347,11 +337,11 @@ public class ExamService {
 		int targetExamQuestionId = 0;
 		boolean flag = true;
 		for (int i = 0; i < examquestionList.size(); i++) {
+			System.out.println("test questionNumber "+examquestionList.get(i).getQuestionNumber());
 			if (flag) {
 				if (questionId == examquestionList.get(i).getQuestionId()) {
 					targetExamQuestionId = examquestionList.get(i).getId();
 					examquestionList.remove(i);
-					System.out.println(targetExamQuestionId);
 					flag=false;
 
 				}
@@ -411,7 +401,8 @@ public class ExamService {
 			}
 			else
 				examquestion.setQuestionNumber(1);
-			iExamQuestionDao.addReturnId(examquestion);
+			int examQuestionId= iExamQuestionDao.addQuestionNumberWithReturn(examquestion);
+			examquestion.setId(examQuestionId);
 			// 修改后续章节的examquestionNumber
 			List<Examsection> nextExamsections = iExamSectionDao
 					.getExamsectionsByExamIdAndExamSectionId(examsection

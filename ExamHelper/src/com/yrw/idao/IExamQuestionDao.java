@@ -73,4 +73,9 @@ public interface IExamQuestionDao extends IBasicDao {
 	 * @param examQuestionId
 	 */
 	public void updateQuestionNumber(int examQuestionId,int questionNumber);
+	/**
+	 * @param examquestion
+	 * @return
+	 */
+	public int addQuestionNumberWithReturn(Examquestion examquestion);
 }
