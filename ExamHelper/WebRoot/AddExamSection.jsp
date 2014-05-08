@@ -84,7 +84,7 @@
 											</tr>
 											<tr>
 												<td width="80px">题目分值：</td>
-												<td><input type="text" name="score" id="score" style="width: 250px; height: 25px;"/></td>
+												<td><input type="number" name="score" id="score" style="width: 250px; height: 25px;"/></td>
 											</tr>
 											<tr>
 												<TD colspan="2" align="center" height="50px"><input

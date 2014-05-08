@@ -81,7 +81,7 @@ window.history.back(-1);
 									</tr>
 									<tr>
 										<td align="center" width="80px">小题分值：</td>
-										<td><input type="text" id="score" name="score" value="${questionOfMaterial.score}" /></td>
+										<td><input type="number" id="score" name="score" value="${questionOfMaterial.score}" /></td>
 									</tr>
 								</table>
 							</fieldset>

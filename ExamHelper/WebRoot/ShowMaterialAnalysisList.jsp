@@ -354,7 +354,7 @@ function deleteMater(materId,pageNow) {
 															cellspacing="0" cellpadding="0">
 															<tr>
 																<td width="1%"><input id="page" name="textfield3"
-																	type="text" class="right-textfield03" size="1" /></td>
+																	type="number" class="right-textfield03" size="1" /></td>
 																<td width="87%"><input name="Submit23222"
 																	type="submit" class="right-button06" value=" "
 																	onclick="goByPage();" /></td>
