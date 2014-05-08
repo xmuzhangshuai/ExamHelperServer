@@ -256,7 +256,7 @@ function loadSection() {
 																</c:otherwise>
 															</c:choose>
 													</select></td>
-													<td>
+													<td style="width: 80px;text-align: right;">
 													<input type="button" value="查询"
 											class="right-button02" onclick="search();" /></td>
 												</tr>
