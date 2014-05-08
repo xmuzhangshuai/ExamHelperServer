@@ -224,7 +224,7 @@ function deleteSingle(singleChoiceId) {
 													<td width="38">科目：</td>
 													<td ><select
 														name="subjectChoose" id="subjectChoose"
-														onchange="loadSection();" style="width: 101px; ">
+														onchange="loadSection();">
 															<c:choose>
 																<c:when test="${empty subjectId}">
 																	<option value="null" selected="selected">请选择科目</option>
