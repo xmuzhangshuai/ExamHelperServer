@@ -164,6 +164,13 @@ function loadSection() {
 			document.getElementById("fom").submit();
 		
 	}
+function deleteTureOrFalse(tureOrFalseId,pageNow) {
+	scscms_alert("确定要删除该判断题吗？","confirm",function(){
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/trueOrFalse.do?flag=deleteTrueOrFalse&trueOrFalseId="+tureOrFalseId+"&pageNow="+pageNow;
+		document.getElementById("fom").submit();
+		scscms_alert("删除成功！","ok");
+	},function(){});
+}
 </script>
 
 </head>
@@ -292,14 +299,14 @@ function loadSection() {
 													<td height="22" colspan="7" align="center"
 														style="font-size:16px">判断题列表</td>
 												</tr>
-												<tr bgcolor="#EEEEEE">
-													<td width="4%" align="center" height="30">选择</td>
-													<td width="10%">题目名</td>
-													<td width="12%">操作</td>
+												<tr bgcolor="#EEEEEE" style="font-weight: bold;">
+													<td width="15%" align="center" height="30">选择</td>
+													<td width="60%"  align="center">题目名</td>
+													<td width="25%"  align="center">操作</td>
 												</tr>
 												<c:forEach items="${trueOrFalses}" var="trueOrFalse">
 													<tr bgcolor="#FFFFFF">
-														<td height="20"><input type="checkbox"
+														<td height="20"  align="center"><input type="checkbox"
 															name="delid${trueOrFalse.id}" /></td>
 														<td><a
 															href="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalse&trueOrFalseId=${trueOrFalse.id}">
@@ -315,12 +322,12 @@ function loadSection() {
 
 
 														</a></td>
-														<td><a
-															href="${pageContext.request.contextPath}/singleChoice.do?flag=editSingleChoice&singleChoiceId=${singleChoice.id}&pageNow=${pageNow}"><img alt="编辑" class="delete_img" src="./images/edit.png" style="height: 18px;" title="编辑"/>编辑</a><a
-															href="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalse&trueOrFalseId=${trueOrFalse.id}">查看|</a>
-															<a
-															href="${pageContext.request.contextPath}/trueOrFalse.do?flag=deleteTrueOrFalse&trueOrFalseId=${trueOrFalse.id}&pageNow=${pageNow}">删除</a></td>
-
+														<td align="center">
+															<a href="${pageContext.request.contextPath}/trueOrFalse.do?flag=showTrueOrFalse&trueOrFalseId=${trueOrFalse.id}">
+																<img alt="查看" class="delete_img" src="./images/more.png" style="height: 18px;" title="查看"/>查看</a>
+															<a onclick="deleteTureOrFalse(${trueOrFalse.id},${pageNow});" style="cursor: pointer;margin-left: 10px;">
+																<img alt="删除" class="delete_img" src="./images/delete.png" style="height: 15px;" title="删除"/>删除</a>
+														</td>
 													</tr>
 												</c:forEach>
 											</table>
