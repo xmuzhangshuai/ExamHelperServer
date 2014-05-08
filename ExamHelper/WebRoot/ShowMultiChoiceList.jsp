@@ -90,7 +90,8 @@ function selectOrUnSelect(){
     }
 }
 	function addMultiChoice() {
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=addMultiChoiceUI&pageNow="+'${pageNow}';
+		var sectionName = document.getElementById("sectionChoose").value;
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/multiChoice.do?flag=addMultiChoiceUI&pageNow="+'${pageNow}'+"&sectionName="+sectionName;
 		document.getElementById("fom").submit();
 	}
 	

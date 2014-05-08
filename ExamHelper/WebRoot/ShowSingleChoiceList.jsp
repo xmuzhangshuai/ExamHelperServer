@@ -92,7 +92,8 @@ function selectOrUnSelect(){
 }
 
 	function addSingleChoice() {
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=addSingleChoiceUI&pageNow="+'${pageNow}';
+		var sectionName = document.getElementById("sectionChoose").value;
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=addSingleChoiceUI&pageNow="+'${pageNow}'+"&sectionName="+sectionName;
 		document.getElementById("fom").submit();
 	}
 
