@@ -291,7 +291,7 @@ function search() {
 								<td width="1%">
 									<table width="20" border="0" cellspacing="0" cellpadding="0">
 										<tr>
-											<td width="1%"><input id="page" name="textfield3" type="text" class="right-textfield03" size="1" /></td>
+											<td width="1%"><input id="page" name="textfield3" type="number" class="right-textfield03" size="1" /></td>
 											<td width="87%"><input name="Submit23222" type="submit" class="right-button06" value=" " onclick="goByPage();" /></td>
 										</tr>
 									</table>

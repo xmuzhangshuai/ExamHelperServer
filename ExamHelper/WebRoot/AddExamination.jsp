@@ -24,21 +24,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		document.getElementById("contact_form").submit();
 	}
-/*
-	function saveExamInfor(examId) {
-		var subjectName = document.getElementById("subjectName").value;
-		if (subjectName == "null") {
-			alert("请选择科目");
-		} else {
-			if (examId != null && examId != undefined)
-				document.getElementById("contact_form").action = "${pageContext.request.contextPath}/examination.do?flag=addExamination&examinationId="
-						+ examId;
-			else
-				document.getElementById("contact_form").action = "${pageContext.request.contextPath}/examination.do?flag=addExamination";
-				document.getElementById("contact_form").submit();
-		}
-	}
-	*/
 </script>
 </head>
   

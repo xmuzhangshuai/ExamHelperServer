@@ -172,7 +172,7 @@
 										</tr>
 										<tr>
 										<td width="80px">小题分值：</td>
-											<td><input type="text"
+											<td><input type="number"
 												id="score${questionOfMaterial.questionNumber}"
 												readonly="readonly" value="${questionOfMaterial.score}"/></td>
 										</tr>
