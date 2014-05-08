@@ -13,7 +13,9 @@
 <head>
 
 <title>单项选择题</title>
-
+<link type="text/css" rel="stylesheet" href="./css/plug.css"/>
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/dialog.js" charset="utf-8"></script>
 <link rel="stylesheet" rev="stylesheet" href="./css/style.css"
 	type="text/css" media="all" />
 
@@ -37,7 +39,7 @@ document.getElementById("fom").action = "${pageContext.request.contextPath}/mate
 
 			document.getElementById("fom").submit();
 		} else
-			alert("请输入题干");
+			scscms_alert("请先输入题干","warn");
 
 	}
 </script>

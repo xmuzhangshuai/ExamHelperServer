@@ -403,6 +403,10 @@ a.right-font08:hover {
 	border-bottom-width: 0px;
 	border-left-width: 0px;
 }
+.right-button02:HOVER {
+	cursor: pointer;
+	background-image: url("../images/button04_hover.gif");
+}
 .right-button03 {
 	font-family: "ËÎÌו";
 	font-size: 12px;
@@ -475,6 +479,15 @@ a.right-font08:hover {
 	border-bottom-width: 0px;
 	border-left-width: 0px;
 	margin-left: 15px;
+}
+
+.right-button08:FOCUS {
+	background-image: url("../images/button10_pressed.gif");
+}
+
+.right-button08:HOVER {
+	background-image: url("../images/button10_hover.gif");
+	cursor: pointer;
 }
 .login-text01 {
 	font-family: "ËÎÌו";
@@ -731,6 +744,23 @@ a.newfont03:hover {
 	color: #004A80;
 	text-align: center;
 	background-image: url("../images/dhbutton01.gif");
+	height: 30px;
+	width: 128px;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+}
+.dhbutton01:ACTIVE {
+	font-family: "ËÎÌו";
+	font-size: 16px;
+	color: #004A80;
+	text-align: center;
+	background-image: url("../images/dhbutton02.gif");
 	height: 30px;
 	width: 128px;
 	border-top-width: 0px;

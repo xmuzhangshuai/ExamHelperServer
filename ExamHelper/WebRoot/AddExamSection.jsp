@@ -13,7 +13,9 @@
 <head>
 
 <title>试卷</title>
-
+<link type="text/css" rel="stylesheet" href="./css/plug.css"/>
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/dialog.js" charset="utf-8"></script>
 <link rel="stylesheet" rev="stylesheet" href="./css/style.css"
 	type="text/css" media="all" />
 <script language="JavaScript" type="text/javascript">
@@ -28,7 +30,7 @@
 		var questionType = document.getElementById("questionType").value;
 		var examinationId='${examinationId}'
 		if (questionType == "null")
-			alert("请选择题目类型")
+			scscms_alert("请选择题目类型","warn");
 		else {
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/examination.do?flag=addExamSectionInfor"
 					+ "&examinationId=" + examinationId;

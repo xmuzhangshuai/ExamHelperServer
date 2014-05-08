@@ -27,6 +27,9 @@ body {
 }
 html { overflow-x: ; overflow-y: ; border:0;} 
 </style>
+<link type="text/css" rel="stylesheet" href="./css/plug.css"/>
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/dialog.js" charset="utf-8"></script>
 <link href="./css/css.css" rel="stylesheet" type="text/css" />
 <link href="./css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" language="javascript">
@@ -42,7 +45,7 @@ html { overflow-x: ; overflow-y: ; border:0;}
 		var questionType = document.getElementById("questionTypeChoose").value;
 		if (subjectId == "null" || sectionName == "null"
 				|| questionType == "null")
-			alert("请完整选择科目、章节、题型");
+				scscms_alert("请完整选择科目、章节、题型","warn");
 		else {
 			if (questionType == singleChoice)
 				document.getElementById("fom").action = "${pageContext.request.contextPath}/singleChoice.do?flag=showSingleChoiceList&sectionName="

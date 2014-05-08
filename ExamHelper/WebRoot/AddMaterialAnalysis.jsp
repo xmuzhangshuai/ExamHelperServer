@@ -10,7 +10,8 @@
 
 <title>单项选择题</title>
 
-
+<link type="text/css" rel="stylesheet" href="./css/plug.css"/>
+<script type="text/javascript" src="js/dialog.js" charset="utf-8"></script>
 <link rel="stylesheet" rev="stylesheet" href="./css/style.css" type="text/css" media="all" />
 <script id="jquery_172" type="text/javascript" class="library" src="js/jquery-1.7.1.min.js"></script>
 <script language="JavaScript" type="text/javascript">
@@ -19,7 +20,7 @@
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=addMaterialAnalysis&imageUrl="+getValue();
 			document.getElementById("fom").submit();
 		} else
-			alert("请输入题干");
+			scscms_alert("请先输入题干","warn");
 
 	}
 	function back() {
@@ -53,7 +54,7 @@
 			document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=firstTimeAddQuestionOfMaterial&imageUrl="+getValue();
 			document.getElementById("fom").submit();
 		} else
-			alert("请先完成题干输入");
+			scscms_alert("请先输入题干","warn");
 	}
 </script>
 </head>
