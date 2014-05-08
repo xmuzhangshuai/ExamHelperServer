@@ -92,7 +92,8 @@ function selectOrUnSelect(){
     }
 }
 	function addMaterialAnalysis() {
-		document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=addMaterialAnalysisUI&pageNow="+'${pageNow}';
+			var sectionName = document.getElementById("sectionChoose").value;
+		document.getElementById("fom").action = "${pageContext.request.contextPath}/materialAnalysis.do?flag=addMaterialAnalysisUI&pageNow="+'${pageNow}'+"&sectionName="+sectionName;
 		document.getElementById("fom").submit();
 	}
 
@@ -232,7 +233,7 @@ function deleteMater(materId,pageNow) {
 
 
 										<td>题型：</td>
-										<td><select id="questionTypeChoose">
+										<td><select id="questionTypeChoose"  name="questionTypeChoose" >
 															<c:choose>
 																<c:when test="${empty questionTypeName}">
 																	<option value="null" selected="selected">请选择题型</option>
