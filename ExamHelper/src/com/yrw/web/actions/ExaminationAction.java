@@ -549,7 +549,6 @@ public class ExaminationAction extends DispatchAction {
 		if (questionIdString != null && !questionIdString.equals("undefined")) {
 			for (int i = 0; i < questionIdStrings.length; i++) {
 				int questionId = Integer.parseInt(questionIdStrings[i]);
-				System.out.println("Question "+questionId);
 				examService.addExamQuestion(questionId, examSectionId,
 						examsection);
 			}

@@ -397,7 +397,6 @@ public class ExamService {
 			examquestion.setQuestionId(questionId);
 			int questionNumber = iExamQuestionDao
 					.getMaxQuestionNumberByExamSection(examSectionId);
-			System.out.println("MaxQuestionNumber  "+questionNumber);
 			if (questionNumber != 0) {
 				examquestion.setQuestionNumber(questionNumber + 1);
 			} else
@@ -419,7 +418,6 @@ public class ExamService {
 							.getExamquestions().iterator();
 					while (iterator.hasNext()) {
 						exq = (Examquestion) iterator.next();
-						System.out.println("quesiontNumber "+exq.getQuestionNumber());
 						iExamQuestionDao.updateQuestionNumber(exq.getId(),
 								exq.getQuestionNumber() + 1);
 						exq.setQuestionNumber(exq.getQuestionNumber()+1);
