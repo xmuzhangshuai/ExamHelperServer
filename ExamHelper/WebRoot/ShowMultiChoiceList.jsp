@@ -221,7 +221,7 @@ function deleteMulti(multiId,pageNow) {
 													</select></td>
 
 
-										<td>章节：</td>
+										<td style="width: 80px;text-align: right;">章节：</td>
 										<td><select id="sectionChoose">
 												<c:choose>
 													<c:when test="${empty sectionName}">
@@ -246,7 +246,7 @@ function deleteMulti(multiId,pageNow) {
 										</select></td>
 
 
-										<td>题型：</td>
+										<td style="width: 80px;text-align: right;">题型：</td>
 										<td><select id="questionTypeChoose">
 															<c:choose>
 																<c:when test="${empty questionTypeName}">
@@ -269,7 +269,7 @@ function deleteMulti(multiId,pageNow) {
 																</c:otherwise>
 															</c:choose>
 													</select></td>
-										<td><input type="button" value="查询"
+										<td style="width: 80px;text-align: right;"><input type="button" value="查询"
 											class="right-button02" onclick="search();" /></td>
 									</tr>
 								</table>
