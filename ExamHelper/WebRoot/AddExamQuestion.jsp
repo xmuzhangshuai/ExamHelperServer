@@ -255,7 +255,7 @@
 												cellspacing="1" bgcolor="#464646" class="newfont03">
 												<tr class="CTitle">
 													<td height="22" colspan="7" align="center"
-														style="font-size:16px">${questionTypeName}列表</td>
+														style="font-size:16px">${questionTypeName}</td>
 												</tr>
 												<tr bgcolor="#EEEEEE" style="font-weight: bold;">
 													<td width="15%" align="center" height="30">选择</td>
