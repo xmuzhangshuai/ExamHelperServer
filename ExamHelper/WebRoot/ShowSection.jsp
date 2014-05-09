@@ -179,7 +179,7 @@ function deleteSection(sectionId) {
 												<input type="checkbox" id="selectOrNot" onchange="selectOrUnSelect()"/>
 											</span>
 											<input name="Submit" type="button" class="right-button08"
-											value="删除所选章节" onclick="delSelected();" /> <input
+											value="删除所选" onclick="delSelected();" /> <input
 											type="hidden" name="sectionList" id="sectionList" /> <input
 											name="Submit2" type="button" class="right-button08"
 											value="添加章节" onclick="addSection();" /></td>
@@ -190,7 +190,7 @@ function deleteSection(sectionId) {
 												cellspacing="1" bgcolor="#464646" class="newfont03">
 												<tr class="CTitle">
 													<td height="22" colspan="7" align="center"
-														style="font-size:16px">章节列表</td>
+														style="font-size:16px">章节</td>
 												</tr>
 												<tr bgcolor="#EEEEEE" style="font-weight: bold;">
 													<td width="15%" align="center" height="30">选择</td>

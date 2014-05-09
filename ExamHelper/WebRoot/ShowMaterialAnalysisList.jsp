@@ -277,7 +277,7 @@ function deleteMater(materId,pageNow) {
 												<input type="checkbox" id="selectOrNot" onchange="selectOrUnSelect()"/>
 											</span>
 											<input name="Submit" type="button" class="right-button08"
-											value="删除所选题目" onclick="delSelected();" /> <input
+											value="删除所选" onclick="delSelected();" /> <input
 											type="hidden" name="materialAnalysisList" id="materialAnalysisList" /> <input
 											name="Submit2" type="button" class="right-button08"
 											value="添加材料题" onclick="addMaterialAnalysis();" /></td>
@@ -288,7 +288,7 @@ function deleteMater(materId,pageNow) {
 												cellspacing="1" bgcolor="#464646" class="newfont03">
 												<tr class="CTitle">
 													<td height="22" colspan="7" align="center"
-														style="font-size:16px">材料题列表</td>
+														style="font-size:16px">材料题</td>
 												</tr>
 												<tr bgcolor="#EEEEEE" style="font-weight: bold;">
 													<td width="15%" align="center" height="30">选择</td>

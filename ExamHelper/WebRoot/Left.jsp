@@ -188,6 +188,9 @@ body {
 							target="mainFrame" class="left-font03" onclick="tupian('4');">添加文档</a></td>
 					</tr>
 				</table> <!--  管理文档系统结束    --> 
+				
+				
+				
 				<!--  发布信息系统开始    -->
 				<table width="100%" border="0" cellpadding="0" cellspacing="0"
 					class="left-table03">
@@ -255,25 +258,7 @@ body {
 							class="left-font03" onclick="tupian('8');">用户行为分析</a></td>
 					</tr>
 					
-					<tr>
-						<td width="9%" height="20"><img id="xiaotu10"
-							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="${pageContext.request.contextPath}/collection.do?flag=showCollectionList"
-							target="mainFrame" class="left-font03" onclick="tupian('10');">收藏统计
-						</a></td>
-					</tr>
-					<tr>
-						<td width="9%" height="20"><img id="xiaotu11"
-							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="${pageContext.request.contextPath}/note.do?flag=showNoteList" target="mainFrame"
-							class="left-font03" onclick="tupian('11');">笔记统计 </a></td>
-					</tr>
-					<tr>
-						<td width="9%" height="20"><img id="xiaotu12"
-							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="${pageContext.request.contextPath}/error.do?flag=showErrorList" target="mainFrame"
-							class="left-font03" onclick="tupian('12');">错题统计 </a></td>
-					</tr>
+					
 				</table> <!--  统计分析系统结束    -->
 				
 				
@@ -374,7 +359,48 @@ body {
 						<td width="91%"><a href="softwareIntroduce.html" target="mainFrame"
 							class="left-font03" onclick="tupian('18');">软件介绍</a></td>
 					</tr>
-				</table> <!--  终端系统开始    -->
+				</table> <!--  终端系统结速    -->
+				
+				<!--待定系统开始 -->
+				<table width="100%" border="0" cellpadding="0" cellspacing="0"
+					class="left-table03">
+					<tr>
+						<td height="29">
+							<table width="85%" border="0" align="center" cellpadding="0"
+								cellspacing="0">
+								<tr>
+									<td width="8%"><img name="img8" id="img8"
+										src="./images/ico04.gif" width="8" height="11" /></td>
+									<td width="92%"><a href="javascript:" target="mainFrame"
+										class="left-font03" onclick="list('7');">待定模块</a></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+				<table id="subtree8" style="DISPLAY: none" width="80%" border="0"
+					align="center" cellpadding="0" cellspacing="0" class="left-table02">
+				<tr>
+						<td width="9%" height="20"><img id="xiaotu10"
+							src="./images/ico06.gif" width="8" height="12" /></td>
+						<td width="91%"><a href="${pageContext.request.contextPath}/collection.do?flag=showCollectionList"
+							target="mainFrame" class="left-font03" onclick="tupian('10');">收藏统计
+						</a></td>
+					</tr>
+					<tr>
+						<td width="9%" height="20"><img id="xiaotu11"
+							src="./images/ico06.gif" width="8" height="12" /></td>
+						<td width="91%"><a href="${pageContext.request.contextPath}/note.do?flag=showNoteList" target="mainFrame"
+							class="left-font03" onclick="tupian('11');">笔记统计 </a></td>
+					</tr>
+					<tr>
+						<td width="9%" height="20"><img id="xiaotu12"
+							src="./images/ico06.gif" width="8" height="12" /></td>
+						<td width="91%"><a href="${pageContext.request.contextPath}/error.do?flag=showErrorList" target="mainFrame"
+							class="left-font03" onclick="tupian('12');">错题统计 </a></td>
+					</tr>
+				</table> <!--  待定系统开始    -->
+				
 			</td>
 		</tr>
 	</table>

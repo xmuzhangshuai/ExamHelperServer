@@ -147,7 +147,7 @@ function deleteExam(examId,pageNow) {
 											<span class="newfont07">全选：
 												<input type="checkbox" id="selectOrNot" onchange="selectOrUnSelect()"/>
 											</span>
-											<input name="Submit" type="button" class="right-button08" value="删除所选试卷" onclick="delSelected();" /> 
+											<input name="Submit" type="button" class="right-button08" value="删除所选" onclick="delSelected();" /> 
 											<input type="hidden" name="paramsHidden" id="paramsHidden" /> 
 											<input name="Submit2" type="button" class="right-button08" value="添加试卷" onclick="addExamination();" />
 										</td>
@@ -158,7 +158,7 @@ function deleteExam(examId,pageNow) {
 												cellspacing="1" bgcolor="#464646" class="newfont03">
 												<tr class="CTitle">
 													<td height="22" colspan="7" align="center"
-														style="font-size:16px">试卷列表</td>
+														style="font-size:16px">试卷</td>
 												</tr>
 												<tr bgcolor="#EEEEEE" style="font-weight: bold;">
 													<td width="10%" align="center" height="30">选择</td>

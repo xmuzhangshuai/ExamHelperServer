@@ -245,7 +245,7 @@
 												<input type="checkbox" id="selectOrNot" onchange="selectOrUnSelect()"/>
 											</span>
 											<input name="Submit" type="button" class="right-button03"
-											value="添加所选${questionTypeName}" onclick="addExistQuestion();" /></td>
+											value="添加所选" onclick="addExistQuestion();" /></td>
 									</tr>
 									<tr>
 										<td height="40" class="font42">

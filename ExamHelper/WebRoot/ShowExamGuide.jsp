@@ -184,7 +184,7 @@ function delSelected(){
 						<span class="newfont07">全选：
 							<input type="checkbox" id="selectOrNot" onchange="selectOrUnSelect()"/>
 						</span>
-						<input name="Submit" type="button" class="right-button08" value="删除所选文章" onclick="delSelected();" /> 
+						<input name="Submit" type="button" class="right-button08" value="删除所选" onclick="delSelected();" /> 
 						<input type="hidden" name="paramsHidden" id="paramsHidden" /> 
 					</td>
 				</tr>
@@ -193,7 +193,7 @@ function delSelected(){
 				<td height="40" class="font42">
 					<table width="100%" border="0" cellpadding="4" cellspacing="1" bgcolor="#464646" class="newfont03">
 						<tr class="CTitle">
-							<td height="22" colspan="13" align="center" style="font-size:16px">考试指南列表</td>
+							<td height="22" colspan="13" align="center" style="font-size:16px">考试指南</td>
 						</tr>
 						<tr bgcolor="#EEEEEE">
 							<td width="6%" align="center" height="30">选择</td>
