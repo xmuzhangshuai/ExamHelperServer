@@ -217,19 +217,18 @@ body {
 							class="left-font03" onclick="tupian('5');">发布客户端系统信息</a></td>
 					</tr>
 					<tr>
-						<td width="9%" height="20"><img id="xiaotu6"
-							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="${pageContext.request.contextPath}/squareAd.do?flag=showNowAd"
-							target="mainFrame" class="left-font03" onclick="tupian('6');">发布答疑广场公告</a></td>
-					</tr>
-					<tr>
 						<td width="9%" height="20"><img id="xiaotu7"
 							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="http://message.umeng.com/5338ea7b56240b05920f9713/dashboard"
 							target="mainFrame" class="left-font03" onclick="tupian('7');">发布用户通知
 						</a></td>
 					</tr>
-
+					<tr>
+						<td width="9%" height="20"><img id="xiaotu6"
+							src="./images/ico06.gif" width="8" height="12" /></td>
+						<td width="91%"><a href="${pageContext.request.contextPath}/squareAd.do?flag=showNowAd"
+							target="mainFrame" class="left-font03" onclick="tupian('6');">发布答疑广场公告</a></td>
+					</tr>
 				</table> <!--  发布信息系统结束    -->
 				
 				 <!--  统计分析系统开始    -->
