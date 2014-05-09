@@ -384,20 +384,20 @@ body {
 						<td width="9%" height="20"><img id="xiaotu10"
 							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="${pageContext.request.contextPath}/collection.do?flag=showCollectionList"
-							target="mainFrame" class="left-font03" onclick="tupian('10');">收藏统计
+							target="mainFrame" class="left-font03" onclick="tupian('10');">用户收藏
 						</a></td>
 					</tr>
 					<tr>
 						<td width="9%" height="20"><img id="xiaotu11"
 							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="${pageContext.request.contextPath}/note.do?flag=showNoteList" target="mainFrame"
-							class="left-font03" onclick="tupian('11');">笔记统计 </a></td>
+							class="left-font03" onclick="tupian('11');">用户笔记 </a></td>
 					</tr>
 					<tr>
 						<td width="9%" height="20"><img id="xiaotu12"
 							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="${pageContext.request.contextPath}/error.do?flag=showErrorList" target="mainFrame"
-							class="left-font03" onclick="tupian('12');">错题统计 </a></td>
+							class="left-font03" onclick="tupian('12');">用户错题 </a></td>
 					</tr>
 				</table> <!--  待定系统开始    -->
 				
