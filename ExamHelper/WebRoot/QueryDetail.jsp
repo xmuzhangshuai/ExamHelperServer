@@ -211,19 +211,17 @@ function delSelected(){
 		<thead>
 			<tr>
 				<th width="6%" align="center" height="30">选择</th>
-				<th width="8%" align="center" height="30">唯一编号</th>
 				<th width="10%" align="center" height="30">用户头像</th>
 				<th width="10%" align="center" height="30">用户昵称</th>
 				<th width="46%" align="center" height="30">回答内容</th>
-				<th width="10%" align="center" height="30">回答时间</th>
-				<th width="10%" align="center" height="30">操作</th>
+				<th width="14%" align="center" height="30">回答时间</th>
+				<th width="14%" align="center" height="30">操作</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach items="${answerqueryList}" var="answer">
 				<tr id="listbg">
 					<td height="20" align="center" ><input  type="checkbox" name="delid${answer.id}" /></td>
-					<td height="20" align="center" ><label>${answer.id}</label></td>
 					<td height="30" align="center" ><img id ="headImage" height="60px" src="${answer.user.avatar}" alt="${answer.user.nickname}" /></td>
 					<td height="20" ><label>${answer.user.nickname}</label></td>
 					<td height="20" ><label>${answer.answerContent}</label></td>

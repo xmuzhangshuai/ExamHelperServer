@@ -264,23 +264,21 @@ function delSelected(){
 						</tr>
 						<tr bgcolor="#EEEEEE">
 							<td width="6%" align="center" height="30">选择</td>
-							<td width="8%" align="center" height="30">唯一编号</td>
 							<td width="10%" align="center" height="30">科目</td>
-							<td width="14%" align="center" height="30">章节</td>
+							<td width="18%" align="center" height="30">章节</td>
 							<td width="10%" align="center" height="30">题型</td>
-							<td width="34%" align="center" height="30">题目内容</td>
+							<td width="38%" align="center" height="30">题目内容</td>
 							<td width="8%" align="center" height="30">收藏热度</td>
 							<td width="10%" align="center" height="30">操作</td>
 						</tr>
 						<c:forEach items="${scollectionList}" var="scollection" varStatus="loop">
 							<tr id="listbg" onclick="goCollectionDetail(${scollection.id});" >
 								<td height="20" align="center" ><input  type="checkbox" name="delid${scollection.id}" /></td>
-								<td height="20" align="center" ><label>${scollection.id}</label></td>
 								<td height="30" align="center" ><a>${scollection.section.subject.subName}</a></td>
 								<td height="20" ><a>${scollection.section.sectionName}</a></td>
 								<td height="20" ><a>${scollection.questiontype.typeName}</a></td>
 								<td style="padding: 5px;"><a>${questionStemList[loop.count-1]}</a></td>
-								<td height="20" align="center" ><label>${scollection.collectionNum}</label></td>
+								<td height="20" align="center" ><label style="font-weight: bold;">${scollection.collectionNum}</label></td>
 								<td height="20" align="center">
 									<a  onclick="deleteCollect(${pageNow});" id="">
 									<img alt="删除" class="delete_img" src="./images/delete.png" style="height: 15px;" title="删除">删除</a>

@@ -207,16 +207,14 @@ function search() {
 							<td height="22" colspan="13" align="center" style="font-size:16px">考试指南目录</td>
 						</tr>
 						<tr bgcolor="#EEEEEE">
-							<td width="10%" align="center" height="30">选择</td>
-							<td width="10%" align="center" height="30">唯一编号</td>
-							<td width="10%" align="center" height="30">科目</td>
+							<td width="15%" align="center" height="30">选择</td>
+							<td width="15%" align="center" height="30">科目</td>
 							<td width="40%" align="center" height="30">类型名称</td>
 							<td width="30%" align="center" height="30">操作</td>
 						</tr>
 						<c:forEach items="${examguidetypeList}" var="examGuideType">
 							<tr id="listbg" >
 								<td height="20" align="center" ><input  type="checkbox" name="delid${examGuideType.id}" /></td>
-								<td height="20" align="center" ><label>${examGuideType.id}</label></td>
 								<td height="30" ><label>${examGuideType.subject.subName}</label></td>
 								<td height="20" ><label>${examGuideType.typeName}</label></td>
 								<td height="20" align="center">

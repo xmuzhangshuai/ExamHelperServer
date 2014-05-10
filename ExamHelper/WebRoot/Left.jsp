@@ -110,7 +110,7 @@ body {
 										src="./images/ico04.gif" width="8" height="11" /></td>
 									<td width="92%"><a 
 										href="#"
-										class="left-font03" onclick="list('6');">管理题库</a></td>
+										class="left-font03" onclick="list('6');">题库管理</a></td>
 								</tr>
 							</table>
 						</td>
@@ -122,25 +122,25 @@ body {
 						<td width="9%" height="20"><img id="xiaotu18"
 							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="${pageContext.request.contextPath}/subject.do?flag=listSubject" target="mainFrame"
-							class="left-font03" onclick="tupian('18');">科目管理</a></td>
+							class="left-font03" onclick="tupian('18');">科目</a></td>
 					</tr>
 					<tr>
 						<td width="9%" height="20"><img id="xiaotu19"
 							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="${pageContext.request.contextPath}/section.do?flag=showAllSectionList" target="mainFrame"
-							class="left-font03" onclick="tupian('19');">章节管理</a></td>
+							class="left-font03" onclick="tupian('19');">章节</a></td>
 					</tr>
 					<tr>
 						<td width="9%" height="20"><img id="xiaotu20"
 							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="${pageContext.request.contextPath}/examination.do?flag=showAllExamList" target="mainFrame"
-							class="left-font03" onclick="tupian('20');">试卷管理</a></td>
+							class="left-font03" onclick="tupian('20');">试卷</a></td>
 					</tr>
 					<tr>
 						<td width="9%" height="20"><img id="xiaotu21"
 							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="${pageContext.request.contextPath}/question.do?flag=showQuestionList" target="mainFrame"
-							class="left-font03" onclick="tupian('21');">题目管理</a></td>
+							class="left-font03" onclick="tupian('21');">题目</a></td>
 					</tr>
 				</table> <!--  管理题库系统结束    -->
 				
@@ -189,78 +189,6 @@ body {
 					</tr>
 				</table> <!--  管理文档系统结束    --> 
 				
-				
-				
-				<!--  发布信息系统开始    -->
-				<table width="100%" border="0" cellpadding="0" cellspacing="0"
-					class="left-table03">
-					<tr>
-						<td height="29">
-							<table width="85%" border="0" align="center" cellpadding="0"
-								cellspacing="0">
-								<tr>
-									<td width="8%"><img name="img2" id="img2"
-										src="./images/ico04.gif" width="8" height="11" /></td>
-									<td width="92%"><a href="javascript:" target="mainFrame"
-										class="left-font03" onclick="list('2');">发布信息</a></td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-				</table>
-				<table id="subtree2" style="DISPLAY: none" width="80%" border="0"
-					align="center" cellpadding="0" cellspacing="0" class="left-table02">
-					<tr>
-						<td width="9%" height="20"><img id="xiaotu5"
-							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="${pageContext.request.contextPath}/systemNotice.do?flag=showNoticeList" target="mainFrame"
-							class="left-font03" onclick="tupian('5');">发布客户端系统信息</a></td>
-					</tr>
-					<tr>
-						<td width="9%" height="20"><img id="xiaotu7"
-							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="http://message.umeng.com/5338ea7b56240b05920f9713/dashboard"
-							target="mainFrame" class="left-font03" onclick="tupian('7');">发布用户通知
-						</a></td>
-					</tr>
-					<tr>
-						<td width="9%" height="20"><img id="xiaotu6"
-							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="${pageContext.request.contextPath}/squareAd.do?flag=showNowAd"
-							target="mainFrame" class="left-font03" onclick="tupian('6');">发布答疑广场公告</a></td>
-					</tr>
-				</table> <!--  发布信息系统结束    -->
-				
-				 <!--  统计分析系统开始    -->
-				<table width="100%" border="0" cellpadding="0" cellspacing="0"
-					class="left-table03">
-					<tr>
-						<td height="29">
-							<table width="85%" border="0" align="center" cellpadding="0"
-								cellspacing="0">
-								<tr>
-									<td width="8%"><img name="img3" id="img3"
-										src="./images/ico04.gif" width="8" height="11" /></td>
-									<td width="92%"><a href="javascript:" target="mainFrame"
-										class="left-font03" onclick="list('3');">统计分析</a></td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-				</table>
-				<table id="subtree3" style="DISPLAY: none" width="80%" border="0"
-					align="center" cellpadding="0" cellspacing="0" class="left-table02">
-					<tr>
-						<td width="9%" height="20"><img id="xiaotu8"
-							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="http://www.umeng.com/apps" target="mainFrame"
-							class="left-font03" onclick="tupian('8');">用户行为分析</a></td>
-					</tr>
-					
-					
-				</table> <!--  统计分析系统结束    -->
-				
-				
 				 <!--  用户留言系统开始    -->
 				<table width="100%" border="0" cellpadding="0" cellspacing="0"
 					class="left-table03">
@@ -294,6 +222,68 @@ body {
 					</tr>
 				</table> <!--  用户留言系统结束    -->
 				
+				<!--用户数据开始 -->
+				<table width="100%" border="0" cellpadding="0" cellspacing="0"
+					class="left-table03">
+					<tr>
+						<td height="29">
+							<table width="85%" border="0" align="center" cellpadding="0"
+								cellspacing="0">
+								<tr>
+									<td width="8%"><img name="img8" id="img8"
+										src="./images/ico04.gif" width="8" height="11" /></td>
+									<td width="92%"><a href="javascript:" target="mainFrame"
+										class="left-font03" onclick="list('8');">用户数据</a></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+				<table id="subtree8" style="DISPLAY: none" width="80%" border="0"
+					align="center" cellpadding="0" cellspacing="0" class="left-table02">
+				<tr>
+						<td width="9%" height="20"><img id="xiaotu10"
+							src="./images/ico06.gif" width="8" height="12" /></td>
+						<td width="91%"><a href="${pageContext.request.contextPath}/collection.do?flag=showCollectionList"
+							target="mainFrame" class="left-font03" onclick="tupian('10');">用户收藏
+						</a></td>
+					</tr>
+					<tr>
+						<td width="9%" height="20"><img id="xiaotu11"
+							src="./images/ico06.gif" width="8" height="12" /></td>
+						<td width="91%"><a href="${pageContext.request.contextPath}/note.do?flag=showNoteList" target="mainFrame"
+							class="left-font03" onclick="tupian('11');">用户笔记 </a></td>
+					</tr>
+					<tr>
+						<td width="9%" height="20"><img id="xiaotu12"
+							src="./images/ico06.gif" width="8" height="12" /></td>
+						<td width="91%"><a href="${pageContext.request.contextPath}/error.do?flag=showErrorList" target="mainFrame"
+							class="left-font03" onclick="tupian('12');">用户错题 </a></td>
+					</tr>
+				</table> <!--  用户数据结束    -->
+				
+				 <!--  统计分析系统开始    -->
+				<table width="100%" border="0" cellpadding="0" cellspacing="0"
+					class="left-table03">
+					<tr>
+						<td height="29">
+							<table width="85%" border="0" align="center" cellpadding="0"
+								cellspacing="0">
+								<tr>
+									<td width="8%"><img name="img3" id="img3"
+										src="./images/ico04.gif" width="8" height="11" /></td>
+									<td width="92%"><a href="http://www.umeng.com/apps" target="mainFrame"
+										class="left-font03" onclick="list('3');">用户分析</a></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+				<table id="subtree3" style="DISPLAY: none" hidden  width="80%" border="0"
+					align="center" cellpadding="0" cellspacing="0" class="left-table02"/>
+				<!--  统计分析系统结束    -->
+				
+				
 				 <!--  答疑广场系统开始    -->
 				<table width="100%" border="0" cellpadding="0" cellspacing="0"
 					class="left-table03">
@@ -304,22 +294,64 @@ body {
 								<tr>
 									<td width="8%"><img name="img5" id="img5"
 										src="./images/ico04.gif" width="8" height="11" /></td>
-									<td width="92%"><a href="javascript:" target="mainFrame"
+									<td width="92%"><a href="${pageContext.request.contextPath}/query.do?flag=showQueryList" target="mainFrame"
 										class="left-font03" onclick="list('5');">答疑广场</a></td>
 								</tr>
 							</table>
 						</td>
 					</tr>
 				</table>
-				<table id="subtree5" style="DISPLAY: none" width="80%" border="0"
+				<table id="subtree5" style="DISPLAY: none" hidden  width="80%" border="0"
+					align="center" cellpadding="0" cellspacing="0" class="left-table02"/>
+				 <!--  答疑广场系统结束    -->
+				
+				
+				<!--  发布信息系统开始    -->
+				<table width="100%" border="0" cellpadding="0" cellspacing="0"
+					class="left-table03">
+					<tr>
+						<td height="29">
+							<table width="85%" border="0" align="center" cellpadding="0"
+								cellspacing="0">
+								<tr>
+									<td width="8%"><img name="img2" id="img2"
+										src="./images/ico04.gif" width="8" height="11" /></td>
+									<td width="92%"><a href="javascript:" target="mainFrame"
+										class="left-font03" onclick="list('2');">发布信息</a></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+				<table id="subtree2" style="DISPLAY: none" width="80%" border="0"
 					align="center" cellpadding="0" cellspacing="0" class="left-table02">
 					<tr>
-						<td width="9%" height="20"><img id="xiaotu15"
+						<td width="9%" height="20"><img id="xiaotu5"
 							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="${pageContext.request.contextPath}/query.do?flag=showQueryList" target="mainFrame"
-							class="left-font03" onclick="tupian('15');">答疑问题列表</a></td>
+						<td width="91%"><a href="${pageContext.request.contextPath}/systemNotice.do?flag=showNoticeList" target="mainFrame"
+							class="left-font03" onclick="tupian('5');">客户端系统信息</a></td>
 					</tr>
-				</table> <!--  答疑广场系统结束    -->
+					<tr>
+						<td width="9%" height="20"><img id="xiaotu7"
+							src="./images/ico06.gif" width="8" height="12" /></td>
+						<td width="91%"><a href="http://message.umeng.com/5338ea7b56240b05920f9713/dashboard"
+							target="mainFrame" class="left-font03" onclick="tupian('7');">用户通知
+						</a></td>
+					</tr>
+					<tr>
+						<td width="9%" height="20"><img id="xiaotu6"
+							src="./images/ico06.gif" width="8" height="12" /></td>
+						<td width="91%"><a href="${pageContext.request.contextPath}/squareAd.do?flag=showNowAd"
+							target="mainFrame" class="left-font03" onclick="tupian('6');">答疑广场广告</a></td>
+					</tr>
+				</table> <!--  发布信息系统结束    -->
+				
+				
+				
+				
+				
+				
+				
 				
 				 <!--  终端系统开始    -->
 				<table width="100%" border="0" cellpadding="0" cellspacing="0"
@@ -347,58 +379,20 @@ body {
 							class="left-font03" onclick="tupian('16');">自动更新</a></td>
 					</tr>
 					<tr>
+						<td width="9%" height="20"><img id="xiaotu22"
+							src="./images/ico06.gif" width="8" height="12" /></td>
+						<td width="91%"><a href="softwareIntroduce.html" target="mainFrame"
+							class="left-font03" onclick="tupian('22');">软件介绍</a></td>
+					</tr>
+					<tr>
 						<td width="9%" height="20"><img id="xiaotu17"
 							src="./images/ico06.gif" width="8" height="12" /></td>
 						<td width="91%"><a href="http://www.umeng.com/" target="_blank"
 							class="left-font03" onclick="tupian('17');">友盟平台登录</a></td>
 					</tr>
-					<tr>
-						<td width="9%" height="20"><img id="xiaotu18"
-							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="softwareIntroduce.html" target="mainFrame"
-							class="left-font03" onclick="tupian('18');">软件介绍</a></td>
-					</tr>
 				</table> <!--  终端系统结速    -->
 				
-				<!--待定系统开始 -->
-				<table width="100%" border="0" cellpadding="0" cellspacing="0"
-					class="left-table03">
-					<tr>
-						<td height="29">
-							<table width="85%" border="0" align="center" cellpadding="0"
-								cellspacing="0">
-								<tr>
-									<td width="8%"><img name="img8" id="img8"
-										src="./images/ico04.gif" width="8" height="11" /></td>
-									<td width="92%"><a href="javascript:" target="mainFrame"
-										class="left-font03" onclick="list('7');">待定模块</a></td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-				</table>
-				<table id="subtree8" style="DISPLAY: none" width="80%" border="0"
-					align="center" cellpadding="0" cellspacing="0" class="left-table02">
-				<tr>
-						<td width="9%" height="20"><img id="xiaotu10"
-							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="${pageContext.request.contextPath}/collection.do?flag=showCollectionList"
-							target="mainFrame" class="left-font03" onclick="tupian('10');">用户收藏
-						</a></td>
-					</tr>
-					<tr>
-						<td width="9%" height="20"><img id="xiaotu11"
-							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="${pageContext.request.contextPath}/note.do?flag=showNoteList" target="mainFrame"
-							class="left-font03" onclick="tupian('11');">用户笔记 </a></td>
-					</tr>
-					<tr>
-						<td width="9%" height="20"><img id="xiaotu12"
-							src="./images/ico06.gif" width="8" height="12" /></td>
-						<td width="91%"><a href="${pageContext.request.contextPath}/error.do?flag=showErrorList" target="mainFrame"
-							class="left-font03" onclick="tupian('12');">用户错题 </a></td>
-					</tr>
-				</table> <!--  待定系统开始    -->
+				
 				
 			</td>
 		</tr>

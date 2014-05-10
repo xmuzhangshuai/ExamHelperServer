@@ -237,19 +237,18 @@ function search() {
 						</tr>
 						<tr bgcolor="#EEEEEE">
 							<td width="4%" align="center" height="30">选择</td>
-							<td width="6%" align="center" height="30">唯一编号</td>
 							<td width="8%" align="center" height="30">用户头像</td>
 							<td width="8%" align="center" height="30">用户昵称</td>
 							<td width="8%" align="center" height="30">疑问题型</td>
-							<td width="38%" align="center" height="30">疑问内容</td>
-							<td width="8%" align="center" height="30">疑问时间</td>
+							<td width="34%" align="center" height="30">疑问内容</td>
+							<td width="10%" align="center" height="30">疑问时间</td>
 							<td width="12%" align="center" height="30">疑问图片</td>
-							<td width="8%" align="center" height="30">操作</td>
+							<td width="6%" align="center" height="30">回答数量</td>
+							<td width="10%" align="center" height="30">操作</td>
 						</tr>
 						<c:forEach items="${queryList}" var="query">
 							<tr id="listbg" >
 								<td height="20" align="center" ><input  type="checkbox" name="delid${query.id}" /></td>
-								<td height="20" align="center" ><label>${query.id}</label></td>
 								<td height="30" align="center" ><a href="${query.user.avatar}" title="${query.user.nickname}">
 												<img id ="headImage" height="80px" src="${query.user.avatar}" alt="" /></a></td>
 								<td height="20" ><label>${query.user.nickname}</label></td>
@@ -258,6 +257,7 @@ function search() {
 								<td height="20" align="center" ><label>${query.queryTime}</label></td>
 								<td height="20" align="center"><a href="${query.queryImage}" title="${query.queryStem}">
 												<img id ="headImage" height="100px" src="${query.queryImage}" alt="" /></a></td>
+								<td height="20" align="center" ><label style="font-weight: bold;">${query.answerqueries.size()}</label></td>
 								<td height="20" >
 									<input type="image" src="./images/more.png" onclick="goQueryDetail('${query.id}','${pageNow}');" style="height: 15px;" title="查看"/>查看
 									<img src="./images/delete.png" style="height: 15px;" alt="删除" onclick="deleteQuery(${query.id},${pageNow});" title="删除"/>删除

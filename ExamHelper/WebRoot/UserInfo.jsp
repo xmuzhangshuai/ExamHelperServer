@@ -228,9 +228,9 @@ function search() {
 						<span class="newfont07">全选：
 							<input type="checkbox" id="selectOrNot" onchange="selectOrUnSelect()"/>
 						</span>
-						<input name="Submit" type="button" class="right-button08" value="删除所选用户" onclick="delSelected();" /> 
+						<input name="Submit" type="button" class="right-button08" value="删除所选" onclick="delSelected();" /> 
 						<input type="hidden" name="paramsHidden" id="paramsHidden" /> 
-						<input name="Submit2" type="button" class="right-button08" value="冻结所选用户" onclick="freezeSelected();" />
+						<input name="Submit2" type="button" class="right-button08" value="冻结所选" onclick="freezeSelected();" />
 					</td>
 				</tr>
 				
@@ -238,27 +238,25 @@ function search() {
 				<td height="40" class="font42">
 					<table width="100%" border="0" cellpadding="4" cellspacing="1" bgcolor="#464646" class="newfont03">
 						<tr class="CTitle">
-							<td height="22" colspan="13" align="center" style="font-size:16px">用户列表</td>
+							<td height="22" colspan="13" align="center" style="font-size:16px">用户</td>
 						</tr>
 						<tr bgcolor="#EEEEEE">
 							<td width="4%" align="center" height="30">选择</td>
-							<td width="6%" align="center" height="30">唯一编号</td>
 							<td width="10%" align="center" height="30">头像</td>
-							<td width="10%" align="center" height="30">邮箱</td>
-							<td width="6%" align="center" height="30">昵称</td>
+							<td width="12%" align="center" height="30">邮箱</td>
+							<td width="10%" align="center" height="30">昵称</td>
 							<td width="6%" align="center" height="30">真实姓名</td>
-							<td width="4%" align="center" height="30">年龄</td>
-							<td width="8%" align="center" height="30">手机</td>
+							<td width="6%" align="center" height="30">年龄</td>
+							<td width="10%" align="center" height="30">手机</td>
 							<td width="8%" align="center" height="30">职业</td>
-							<td width="10%" align="center" height="30">区域</td>
+							<td width="12%" align="center" height="30">区域</td>
 							<td width="6%" align="center" height="30">积分</td>
-							<td width="12%" align="center" height="30">个性签名</td>
+							<td width="6%" align="center" height="30">个性签名</td>
 							<td width="10%" align="center" height="30">操作</td>
 						</tr>
 						<c:forEach items="${userList}" var="user">
 							<tr id="listbg">
 								<td height="20" align="center" ><input type="checkbox" name="delid${user.id}"/></td>
-								<td height="20" align="center" ><label>${user.id}</label></td>
 								<td height="30" align="center" ><a href="${user.avatar}" title="${user.nickname}"><img id ="headImage" height="80px" src="${user.avatar}" alt="" /></a></td>
 								<td height="20" ><label>${user.mail}</label></td>
 								<td height="20" ><label>${user.nickname}</label></td>

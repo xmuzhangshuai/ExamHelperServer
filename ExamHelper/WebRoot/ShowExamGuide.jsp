@@ -193,22 +193,20 @@ function delSelected(){
 				<td height="40" class="font42">
 					<table width="100%" border="0" cellpadding="4" cellspacing="1" bgcolor="#464646" class="newfont03">
 						<tr class="CTitle">
-							<td height="22" colspan="13" align="center" style="font-size:16px">考试指南</td>
+							<td height="22" colspan="13" align="center" style="font-size:16px">考试指南文档</td>
 						</tr>
 						<tr bgcolor="#EEEEEE">
 							<td width="6%" align="center" height="30">选择</td>
-							<td width="8%" align="center" height="30">唯一编号</td>
 							<td width="10%" align="center" height="30">科目</td>
 							<td width="10%" align="center" height="30">类型</td>
-							<td width="24%" align="center" height="30">题目</td>
-							<td width="24%" align="center" height="30">链接</td>
+							<td width="28%" align="center" height="30">题目</td>
+							<td width="28%" align="center" height="30">链接</td>
 							<td width="10%" align="center" height="30">时间</td>
 							<td width="10%" align="center" height="30">操作</td>
 						</tr>
 						<c:forEach items="${examGuideList}" var="examGuide">
 							<tr id="listbg">
 								<td height="20" align="center" ><input  type="checkbox" name="delid${examGuide.id}" /></td>
-								<td height="20" align="center" ><label>${examGuide.id}</label></td>
 								<td height="30" ><label>${examGuide.examguidetype.subject.subName}</label></td>
 								<td height="20" ><label>${examGuide.examguidetype.typeName}</label></td>
 								<td height="20" ><label>${examGuide.title}</label></td>

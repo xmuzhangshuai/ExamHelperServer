@@ -269,19 +269,17 @@ function delSelected(){
 						</tr>
 						<tr bgcolor="#EEEEEE">
 							<td width="6%" align="center" height="30">选择</td>
-							<td width="8%" align="center" height="30">唯一编号</td>
 							<td width="10%" align="center" height="30">题型</td>
-							<td width="34%" align="center" height="30">题目内容</td>
+							<td width="42%" align="center" height="30">题目内容</td>
 							<td width="8%" align="center" height="30">添加笔记条数</td>
 							<td width="10%" align="center" height="30">操作</td>
 						</tr>
 						<c:forEach items="${snoteList}" var="snote" varStatus="loop">
 							<tr id="listbg" onclick="goNoteDetail(${snote.id});" >
 								<td height="20" align="center" ><input  type="checkbox" name="delid${snote.id}" /></td>
-								<td height="20" align="center" ><label>${snote.id}</label></td>
 								<td height="20" ><a>${snote.questiontype.typeName}</a></td>
 								<td style="padding: 5px;"><a>${questionStemList[loop.count-1]}</a></td>
-								<td height="20" align="center" ><label>${snote.noteNum}</label></td>
+								<td height="20" align="center" ><label style="font-weight: bold;">${snote.noteNum}</label></td>
 								<td height="20" align="center">
 									<a  onclick="deleteNote(${pageNow});" id="">
 									<img alt="删除" class="delete_img" src="./images/delete.png" style="height: 15px;" title="删除">删除</a>
