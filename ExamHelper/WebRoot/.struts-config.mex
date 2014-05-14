@@ -48,6 +48,7 @@
   <StrutsActivity path="/ShowExamination.jsp" location="2150,1950" dimension="158,53" />
   <StrutsActivity path="/ShowExamTrueOrFalse.jsp" location="2450,2350" dimension="189,53" />
   <StrutsActivity path="/ShowExamSingleChoice.jsp" location="1250,2450" dimension="193,53" />
+  <StrutsActivity path="/AddExamSection.jsp" location="2750,650" dimension="154,53" />
   <StrutsActivity path="/AddExamination.jsp" location="2750,450" dimension="151,53" />
   <StrutsActivity path="/AddExamQuestion.jsp" location="2150,2350" dimension="164,53" />
   <StrutsActivity path="/ShowExamList.jsp" location="1550,1250" dimension="138,53" />
@@ -100,7 +101,6 @@
   <StrutsActivity path="./Success.jsp" location="650,1150" dimension="105,53" />
   <StrutsActivity path="./Fail.jsp" location="950,1150" dimension="79,53" />
   <StrutsActivity path="/EditQuestionOfMaterial.jsp" location="2150,1150" dimension="193,53" />
-  <StrutsActivity path="/AddExamSection.jsp" />
   <StrutsTransition id="/question.do,showMaterialAnalysisList,/ShowMaterialAnalysisList.jsp,1" routingType="0">
     <AutomaticBendpoints>
       <AbsolutePoint location="631,104" />

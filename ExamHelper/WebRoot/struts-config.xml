@@ -11,12 +11,6 @@
 		<form-bean name="trueOrFalseForm" type="com.yrw.web.forms.TrueOrFalseForm" />
 		<form-bean name="materialAnalysisForm" type="com.yrw.web.forms.MaterialAnalysisForm" />
 		<form-bean name="examinationForm" type="com.yrw.web.forms.ExaminationForm" />
-
-
-
-
-
-
 	</form-beans>
 	<global-exceptions />
 	<global-forwards>

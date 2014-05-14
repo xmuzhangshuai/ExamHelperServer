@@ -60,7 +60,7 @@ public class LoginAction extends DispatchAction {
 			return mapping.findForward("loginSuccess");
 		} else{
 			request.setAttribute("message", "用户名或密码错误，请重新输入");
-			return mapping.findForward("fail");
+			return mapping.findForward("goLoginUI");
 			}
 	}
 

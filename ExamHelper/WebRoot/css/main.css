@@ -7,6 +7,7 @@ div,p{word-wrap: break-word;}
 img{border: none;}
 input,button,select,textarea{outline:none}
 
+.tip{color: red;text-align: center;padding: 5px;}
 /*login*/
 .login{padding:1px 0 0 0;background:url(../images/login-bg.jpg) center top no-repeat #FFF;padding:150px 0 0 0;}
 .login input.submit{border:none;font-weight:bold;color:#FFF;margin:25px 0 0 150px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;-webkit-box-shadow: #CCC 0px 0px 5px;-moz-box-shadow: #CCC 0px 0px 5px;box-shadow: #CCC 0px 0px 5px;background: #31b6e7;cursor: pointer;}

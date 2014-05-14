@@ -50,7 +50,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input type="submit" class="submit" tabindex="3" onclick="isRightCode()" value="登录">
 					<div class="check"></div>
 				</div>
-				<div class="tip"></div>
+				<div class="tip">
+				<c:if test="${!empty message}">
+				${message}
+				</c:if>
+				</div>
 			</div>
 		</div>
 		</form>
