@@ -305,8 +305,7 @@ function deleteMater(materId,pageNow) {
 																<c:set var="testStr"
 																	value="${materialAnalysis.material}" /> <c:choose>
 																	<c:when test="${fn:length(testStr) > 50}">
-																		<c:out value="${fn:substring(testStr, 0, 50)}......"
-																			escapeXml="${pageContext.request.contextPath}/materialAnalysis.do?flag=showMaterialAnalysis&materialAnalysisId=${materialAnalysis.id}" />
+																		<c:out value="${fn:substring(testStr, 0, 50)}......"			 />
 																	</c:when>
 																	<c:otherwise>
 																		<c:out value="${testStr}" />
